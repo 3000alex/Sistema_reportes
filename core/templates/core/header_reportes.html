@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {% load static %} {# Archivos #}
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{% static 'core/media/logo.png'%}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'core/css/estilosSeccionesReportes.css' %}">
+    <script src="{% static 'core/js/cargaArchivos.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'core/css/cargaArchivos.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <style>
+    @media only screen and (max-width: 768px) {
+        .secciones{
+            padding-top: 350px;
+        }
+    }
+    @media only screen and (min-width: 768px){
+        .secciones{
+            padding-top: 300px;
+        }
+    }
+    </style>
+    <title>Sistema de Reportes</title>
+</head>
+
+<body>
+    <header class="container-fluid sticky-top bg-light" style="opacity: 0.95;">
+        
+        <div class="row">
+            <div class="col-12">
+                <nav class="navbar">
+
+                    <div class="justify-content-start"><img src="{% static 'core/media/logo.png' %}" width="70px;" class="img-responsive"
+                            alt="Logo"></div>
+        
+                    <div class="justify-content-center text-center">
+                        <p>Coordinación de Astrofísica<br>Sistema de Reportes</p>
+                    </div>
+        
+                    <div class="justify-content-end"><img src="{% static 'core/media/conacyt.png' %}" width="70px"
+                            class="float-right img-responsive" alt=""></div>
+                </nav>
+            </div>
+        </div>
+
+    </header>
+
+    <section class="sticky-top bg-light mb-4 " style="opacity: 0.95;" >
+        <div class="row">
+            <div class="col-12">
+
+                <main class="navbar">
+        
+                    <div class="navbar-light justify-content-start">
+                        <a class="navbar-brand" href="{% url 'investigadores:home'  %}">
+                            <i class="fas fa-home">&nbsp; Inicio</i></a>   
+                    </div>
+                    
+                    <div class="navbar-light justify-content-end">
+                        <a data-toggle="modal" data-target="#logout" class="nav-link text-secondary" href="#">
+                            <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar Sesión</a>        
+                            
+                        <a class="nav-link text-secondary" href="javascript:history.back()">
+                            <i  class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a> 
+                    </div>
+        
+                </main>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-6 col-md-6">
+                    <h5>Bienvenido <br>{{ user.first_name}} {{user.last_name}}</h5>
+                </div>
+
+                <div class="col-6 col-md-6 d-flex text-center justify-content-end">
+                    <p>Periodo:<br><strong>{{periodoActual}}</strong></p>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-12 col-md-6">   
+                    <div class="d-flex justify-content-start text-white">
+                        <a href="{% url 'biblioteca:biblioteca_personal' %}" class="btn btn-primary mr-2 btn-sm">Biblioteca personal</a>
+                        <a href="{% url 'biblioteca:busqueda_biblioteca' %}" class="btn btn-primary mr-2 btn-sm">Busqueda biblioteca</a>
+                        <a href="{% url 'investigadores:investigacion_cientifica' %}" class="btn btn-primary btn-sm disabled">Reportes de productividad</a>
+                    </div>
+                </div>
+                
+                <div class="col-12 col-md-6">
+                    <div class="d-flex justify-content-center justify-content-sm-end mt-2 mb-2">
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-success btn-sm" href="{% url 'investigadores:generarReporte' %}">Vista Previa</a>
+                            <a class="btn btn-info btn-sm" href="{% url 'investigadores:reportesEnviados' %}">Historico</a>
+                            <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#FinReporte" href="#">Finalizar Reporte </a>
+                            
+                        </div>
+                    </div>     
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Secciones de la documentación-->
+    <section  class="container mb-4">
+
+        <nav class="nav nav-tabs d-flex justify-content-between text-center">
+
+            <a class="{% if request.path == '/reportes/investigacion-cientifica/' %}nav-item nav-link active{% else %}nav-item nav-link{% endif %}"
+                 href="{% url 'investigadores:investigacion_cientifica' %}">
+                 I. Investigación<br> Cientifica.</a>
+
+            <a class="{% if request.path == '/reportes/formacion-RH/' %}nav-item nav-link active{% else %}nav-item nav-link{% endif %}" href="{% url 'investigadores:formacion_RH' %}">
+                    II. Formación de<br>  RRHH.</a>
+
+            <a class="{% if request.path == '/reportes/desarrollo-tec-inovacion/' %}nav-item nav-link active{% else %}nav-item nav-link{% endif %}" href="{% url 'investigadores:DTI' %}">
+                III. Desarrollo<br> Tec. e innov.</a>
+
+            <a class="{% if request.path == '/reportes/apoyo-institucional/' %}nav-item nav-link active{% else %}nav-item nav-link{% endif %}" href="{% url 'investigadores:apoyo_institucional' %}"> 
+                IV. Apoyo<br> Institucional</a>
+            
+            <a class="{% if request.path == '/reportes/informacion-adicional/' %}nav-item nav-link active{% else %}nav-item nav-link{% endif %}" href="{% url 'investigadores:informacion_adicional' %}">
+                V. Información <br>Adicional.</a>
+          
+            </nav>
+    </section>
+
+    {%block contenido%}
+    {% endblock %}
+
+    <div class="modals">
+        <!-- Modal Finalizar reporte -->
+        <div class="modal fade" id="FinReporte" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Finalizar Reporte</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Está seguro(a) de finalizar su reporte correspondiente<br>
+                        al periodo 2019B: ene-dic?<br>
+                        Al dar click en Aceptar se enviará oficialmente a la <br>Coordinación.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <a href="{% url 'investigadores:enviar-Reporte' %}" class="btn btn-success">Aceptar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  FINModal -->
+
+        <!-- Modal cerrar sesion -->
+        <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Finalizar sesión</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Realmente quiere finalizar su sesión?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <a href="{% url 'logout' %}" class="btn btn-success">Aceptar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  FINModal -->
+    </div>
+
+    <div class="">
+        <ul class="pagination  nav-pills justify-content-center">
+            {% if request.path == '/reportes/investigacion-cientifica/' %}
+            <li class="page-item disabled"><a class="page-link" tabindex="-1" href="#">Anterior</a></li>
+            <li class="page-item active"><a class="page-link "
+                    href="{% url 'investigadores:investigacion_cientifica' %}">1</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'investigadores:formacion_RH' %}">2</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'investigadores:DTI' %}">3</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'investigadores:apoyo_institucional' %}">4</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'investigadores:informacion_adicional' %}">5</a>
+            </li>
+            <li class="page-item"><a class="page-link" tabindex="-1"
+                    href="{% url 'investigadores:formacion_RH' %}">Siguiente</a></li>
+            {% endif %}
+
+            {% if request.path == '/reportes/formacion-RH/' %}
+            <li class="page-item"><a class="page-link" tabindex="-1"
+                    href="{% url 'investigadores:investigacion_cientifica' %}">Anterior</a></li>
+            <li class="page-item"><a class="page-link " href="{% url 'investigadores:investigacion_cientifica' %}">1</a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="{% url 'investigadores:formacion_RH' %}">2</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'investigadores:DTI' %}">3</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'investigadores:apoyo_institucional' %}">4</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'investigadores:informacion_adicional' %}">5</a>
+            </li>
+            <li class="page-item"><a class="page-link" tabindex="-1" href="{% url 'investigadores:DTI' %}">Siguiente</a>
+            </li>
+            {% endif %}
+
+            {% if request.path == '/reportes/desarrollo-tec-inovacion/' %}
+            <li class="page-item "><a class="page-link" tabindex="-1"
+                    href="{% url 'investigadores:formacion_RH' %}">Anterior</a></li>
+            <li class="page-item"><a class="page-link " href="{% url 'investigadores:investigacion_cientifica' %}">1</a>
+            </li>
+            <li class="page-item "><a class="page-link" href="{% url 'investigadores:formacion_RH' %}">2</a></li>
+            <li class="page-item active"><a class="page-link" href="{% url 'investigadores:DTI' %}">3</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'investigadores:apoyo_institucional' %}">4</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'investigadores:informacion_adicional' %}">5</a>
+            </li>
+            <li class="page-item "><a class="page-link" tabindex="-1"
+                    href="{% url 'investigadores:apoyo_institucional' %}">Siguiente</a></li>
+            {% endif %}
+
+            {% if request.path == '/reportes/apoyo-institucional/' %}
+            <li class="page-item"><a class="page-link" tabindex="-1" href="{% url 'investigadores:DTI' %}">Anterior</a>
+            </li>
+            <li class="page-item"><a class="page-link " href="{% url 'investigadores:investigacion_cientifica' %}">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="{% url 'investigadores:formacion_RH' %}">2</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'investigadores:DTI' %}">3</a></li>
+            <li class="page-item active"><a class="page-link"
+                    href="{% url 'investigadores:apoyo_institucional' %}">4</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'investigadores:informacion_adicional' %}">5</a>
+            </li>
+            <li class="page-item"><a class="page-link" tabindex="-1"
+                    href="{% url 'investigadores:informacion_adicional' %}">Siguiente</a></li>
+            {% endif %}
+
+            {% if request.path == '/reportes/informacion-adicional/' %}
+            <li class="page-item"><a class="page-link" tabindex="-1"
+                    href="{% url 'investigadores:apoyo_institucional' %}">Anterior</a></li>
+            <li class="page-item"><a class="page-link " href="{% url 'investigadores:investigacion_cientifica' %}">1</a>
+            </li>
+            <li class="page-item "><a class="page-link" href="{% url 'investigadores:formacion_RH' %}">2</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'investigadores:DTI' %}">3</a></li>
+            <li class="page-item "><a class="page-link" href="{% url 'investigadores:apoyo_institucional' %}">4</a></li>
+            <li class="page-item active"><a class="page-link"
+                    href="{% url 'investigadores:informacion_adicional' %}">5</a></li>
+            <li class="page-item disabled"><a class="page-link" tabindex="-1"
+                    href="{% url 'investigadores:apoyo_institucional' %}">Siguiente</a></li>
+            {% endif %}
+
+
+        </ul>
+    </div>
+
+    <footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+
+        <script src="{% static 'core/js/activarCampos.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'core/css/toastr.min.css' %}">
+        <script src="{% static 'core/js/toastr.min.js' %}" ></script>
+        <script src="{% static 'core/js/toastConfig.js' %}" ></script>
+        <script>
+            //Control de sesion
+            $(document).ready(function () {
+                setInterval(function () {
+                    $("#accionModal").text("Sesión por caducar");
+                    $("#textoModal").html(`Su sesión expira en 60 seg. <br> ¿Desea ampliarla?`);
+                    $("#icono").addClass('far fa-clock text-danger')
+                    $("#footer").html('<button type="button" onclick="AmpliarSesion()" class="btn btn-primary">Aceptar</button> <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button> ')
+                    $("#modalDinamico").modal('show');
+                }, 540000);
+            })
+        
+            function AmpliarSesion() {
+                $.ajax({
+                    type: "GET",
+                    url: '{% url "investigadores:Ampliar-sesion" %}',
+                    data: {
+        
+                    },
+                    dataType: "Json",
+                    success: function (data) {
+                        momentoActual = new Date()
+                        hora = momentoActual.getHours()
+                        minuto = momentoActual.getMinutes() + 10
+                        $("#modalDinamico").modal('hide');
+                        toastr.info('Sesion ampliada a las ' + hora + ':' + minuto, 'Operación exitosa')
+                    },
+                    error: function (error, tipoError) {
+                        toastr.error('Sesión terminada redireccionando', 'Error en la operación')
+                        window.location.href = '{% url "logout" %}'
+                    }
+                });
+            }
+        </script>
+    </footer>
+    {% block JsCode %}
+    {% endblock %}
+
+</body>
+
+</html>

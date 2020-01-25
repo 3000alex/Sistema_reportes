@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {% load static %} {# Archivos #}
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{% static 'core/media/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'core/css/toastr.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/estilosSeccionesReportes.css' %}">
+    <script src="{% static 'core/js/cargaArchivos.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'core/css/cargaArchivos.css' %}">
+    <title>Sistema de reportes</title>
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+    <header class="container-fluid mb-4 fixed-top bg-light">
+
+        <div class="row">
+            <div class="col-12">
+                <nav class="navbar">
+
+                    <div class="justify-content-start"><img src="{% static 'core/media/logo.png' %}" width="70px;"
+                            class="img-responsive" alt="Logo"></div>
+
+                    <div class="justify-content-center text-center">
+                        <p>Coordinación de Astrofísica<br>Sistema de Reportes</p>
+                    </div>
+
+                    <div class="justify-content-end"><img src="{% static 'core/media/conacyt.png' %}" width="70px"
+                            class="float-right img-responsive" alt=""></div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <main class="navbar">
+
+                    <div class="navbar-light justify-content-start">
+                        <a class="navbar-brand" href="{% url 'administradores:home-adm'  %}">
+                            <i class="fas fa-home">&nbsp; Inicio</i></a>
+                    </div>
+
+                    <div class="navbar-light justify-content-end">
+                        <a data-toggle="modal" data-target="#logout" class="nav-link text-secondary" href="#">
+                            <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar Sesión</a>
+
+                        <a class="nav-link text-secondary" href="javascript:history.back()">
+                            <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
+                    </div>
+
+                </main>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-6 col-md-6">
+                    <h5>Bienvenido <br>Administrador</h5>
+                </div>
+
+                <div class="col-6 col-md-6">
+                    <div class="d-flex justify-content-end text-white">
+                        <a href="{% url 'administradores:perfil_adm' %}"
+                            class="btn btn-primary btn-sm mr-2 {% if request.path == '/reportes/administrador/perfil_adm' %}disabled{% endif %}">Administrador</a>
+
+                        <a href="{% url 'administradores:investigadores' %}"
+                            class="btn btn-primary mr-2 btn-sm {% if request.path == '/reportes/administrador/investigadores' %}disabled{% endif %}">Usuarios
+                            </a>
+                        <a href="{% url 'administradores:reportes_adm' %}"
+                            class="btn btn-primary btn-sm {% if request.path == '/reportes/administrador/reportes-adm/' %}disabled{% endif %}">
+                            Reportes</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </header>
+    {% else %}
+    <header class="container-fluid mb-4 fixed-top bg-light">
+
+        <div class="row">
+            <div class="col-12">
+                <nav class="navbar">
+
+                    <div class="justify-content-start"><img src="{% static 'core/media/logo.png' %}" width="70px;"
+                            class="img-responsive" alt="Logo"></div>
+
+                    <div class="justify-content-center text-center">
+                        <p>Coordinación de Astrofísica<br>Sistema de Reportes</p>
+                    </div>
+
+                    <div class="justify-content-end"><img src="{% static 'core/media/conacyt.png' %}" width="70px"
+                            class="float-right img-responsive" alt=""></div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    {% endif %}
+
+    {% block home %}
+    {% endblock %}
+
+    <!--Reporte-->
+    {% block reporte %}
+    {% endblock %}
+    <!--End reporte-->
+
+    <!--Admin usuarios-->
+    {% block usuarios %}
+    {% endblock %}
+    <!--End usuarios-->
+
+    <!--Admin perfil-->
+    {% block perfil-adm %}
+    {% endblock %}
+    <!--Fin perfil-->
+
+    {% block reportes_usuarios %}
+    {% endblock %}
+
+    <div class="modals">
+        <!-- Modal cerrar sesion -->
+        <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Finalizar sesión</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Realmente quiere finalizar su sesión?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <a href="{% url 'logout' %}" class="btn btn-success">Aceptar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  FINModal -->
+
+        <!--Modal Multiple.-->
+        <div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="accionModal"></h5>
+
+                    </div>
+
+                    <div class="modal-body">
+                        <h5 id="textoModal" class="text-center"></h5>
+                        <h5 id="textoModal2" class="text-center"></h5><br>
+                        <div class="d-flex justify-content-center">
+                            <i id="icono" style="font-size: 100px;" class=""></i>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer" id="footer">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--Fin para Modal Multiple-->
+    </div>
+
+    <footer>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+        <script src="{% static 'core/js/editar_perfil.js'%}"></script>
+        <!--Data table -->
+        <script src="{% static 'core/js/DataTables/datatables.min.js'%}"></script>
+        <link rel="stylesheet" href="{% static 'core/js/DataTables/datatables.min.css'%}">
+        <script src="{% static 'core/js/DataTablesStyle.js'%}"></script>
+        <!--Fin Data tables-->
+
+        <link rel="stylesheet" href="{% static 'core/css/stacktable.css'%}">
+
+        <script src="{% static 'core/js/stacktable.js'%}"></script>
+        <script src="{% static 'core/js/toastr.min.js' %}"></script>
+        <script src="{% static 'core/js/toastConfig.js' %}"></script>
+        <script src="{% static 'core/js/editar_perfil.js' %}"></script>
+
+    </footer>
+
+    {% block JsCode %}
+    {% endblock %}
+
+    {% if request.user.is_authenticated %}
+    <script>
+        //Control de sesion
+        $(document).ready(function () {
+            setInterval(function () {
+                $("#accionModal").text("Sesión por caducar");
+                $("#textoModal").html(`Su sesión expira en 60 seg. <br> ¿Desea ampliarla?`);
+                $("#icono").addClass('far fa-clock text-danger')
+                $("#footer").html('<button type="button" onclick="AmpliarSesion()" class="btn btn-primary">Aceptar</button> <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button> ')
+                $("#modalDinamico").modal('show');
+
+            }, 540000);
+        })
+
+        function AmpliarSesion() {
+            $.ajax({
+                type: "GET",
+                url: '{% url "investigadores:Ampliar-sesion" %}',
+                data: {
+
+                },
+                dataType: "Json",
+                success: function (data) {
+                    momentoActual = new Date()
+                    hora = momentoActual.getHours()
+                    minuto = momentoActual.getMinutes() + 10
+                    $("#modalDinamico").modal('hide');
+                    toastr.info('Sesion ampliada a las ' + hora + ':' + minuto, 'Operación exitosa')
+                },
+                error: function (error, tipoError) {
+                    toastr.error('Sesión terminada redireccionando', 'Error en la operación')
+                    window.location.href = '{% url "logout" %}'
+                }
+            });
+        }
+    </script>
+    {% endif %}
+</body>
+
+</html>
