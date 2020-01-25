@@ -25,7 +25,7 @@ SECRET_KEY = '0pzh4!ao%k5)hi3xx9j=-op=(+_0g4pok0s6g#07#xxcyuyq8z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*','califa.inaoep.mx']
 
 
 # Application definition
@@ -75,8 +75,16 @@ WSGI_APPLICATION = 'sistema_reportes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sistema_reportes',
+        'USER': 'root',
+        'PASSWORD':'',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'TIME_ZONE':'America/Mexico_City',
+        'OPTIONS': {
+            'charset': 'utf8mb4'  # This is the important line
+        }
     }
 }
 
@@ -103,9 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Mexico_City'
 
 USE_I18N = True
 
@@ -117,4 +125,32 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+#login
+LOGIN_REDIRECT_URL = '/reportes/home'
+LOGIN_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'core/static/core')
+]
+
+#Media ruta
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+#Email configuration
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'calmecac.inaoep.mx'
+EMAIL_HOST_USER = 'reportes-astro'
+EMAIL_HOST_PASSWORD = 'Th3.4astr0.r3ports'
+EMAIL_PORT = 25
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+#variables de Sesion
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 600  # 0r 5 * 60, same thing
+SESSION_SAVE_EVERY_REQUEST = True   
