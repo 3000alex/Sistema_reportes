@@ -1,0 +1,31 @@
+{% extends 'core/header_adm.html' %}
+
+{% block perfil-adm %}
+
+<section class="container" style="padding-top: 300px;">
+        <div class="row">
+            <form action="" class="col-12" method="post">
+              {% csrf_token %}
+              <h4 class="text-center"><strong><p>Todos los reportes se enviarán a: <span class="text-secondary">astrofi@inaoep.mx</span> </p></strong></h4>
+        
+
+              <fieldset>
+                <legend>Campos de perfil:</legend>
+                <div class="form-group">
+                   {{ form }}
+                   <br>Si deseas cambiar la contraseña haz click <a href="{% url 'password_change' %}">aquí.</a></p>
+                </div>
+              </fieldset>
+              
+ 
+              <div class="form-group">
+                <button id="guardar" type="submit" class="btn ml-2 float-right btn-success"><i class="fas fa-save"> &nbsp; Guardar Cambios</i></button>
+                <button type="button" class="btn btn-primary" id="editarPerfilAdm"><i class="fas fa-edit">&nbsp;Editar</i></button>
+              </div>
+
+            </form>
+        </div>
+        <div class="w-100 pb-2"></div>
+
+    </section>
+{% endblock %}

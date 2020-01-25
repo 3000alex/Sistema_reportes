@@ -1,0 +1,68 @@
+{% extends 'core/header_adm.html' %}
+
+{% block reportes_usuarios %}
+<div class="container mb-4" style="padding-top: 250px; ">
+    <div class="reporte-maestro">
+        <a href="{%  url 'administradores:reporteMaestro' %}" class="btn btn-success">Reporte Maestro</a>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-start justify-content-sm-end" >
+            <form action="">
+                <label for="periodos">
+                    <strong>Periodos</strong>
+                </label>
+                <select class="form-control" name="" id="periodo" onchange="cambioPeriodo()">
+                    <option value="{{ultimoPeriodo.id}}">{{ultimoPeriodo}}</option>
+                    {% for periodo in periodo %}
+                    <option value="{{periodo.id}}">{{ periodo }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+    </div>
+</div>
+
+<section class="container">
+
+    {% csrf_token %}
+    <table id="reportes" class="table table-bordered table-striped text-center">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Apellido(s)</th>
+                <th>Nombre(s)</th>
+                <th>PDF</th>
+                <th>Anexos</th>
+            </tr>
+        </thead>
+        <tbody >
+            <div class="reportes">
+                {% for reportUser in reportes %}
+                <tr>
+                    <td>{{reportUser.fechaCreacion|date:"d-M-Y"}}</td>
+                    {% for usuario in usuarios  %}
+                    {% if usuario.id == reportUser.usuario_id %}
+                    <td>{{usuario.last_name}}</td>
+                    <td> {{usuario.first_name}}</td>
+                    {% endif %}
+                    {% endfor %}
+                    <td><a href="{{reportUser.reporte.url}}"><i style="font-size:35px; color:red;"
+                                class="far fa-file-pdf"></i></a></td>
+                    <td><a href="{{reportUser.anexo.url}}"><i style="font-size:35px;" class="far fa-file-archive"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </div>
+           
+        </tbody>
+    </table>
+
+</section>
+
+
+{% endblock %}
+
+{% block JsCode %}
+<script>
+</script>
+{% endblock %}

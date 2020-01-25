@@ -1,0 +1,27 @@
+{% extends 'core/header_adm.html' %}
+
+{% block home %}
+{% load static %}  {# Archivos #}
+    <section class="container" style="padding-top: 300px;">
+        <div class="row text-center d-flex justify-content-center">
+
+            <div class="col-11 col-sm-2">
+               <a href="{% url 'administradores:perfil_adm' %}"><img id="perfilAdmin" class="perfil" src="{% static 'core/media/perfil.png'%}" alt=""><br></a>
+                <strong><p class="text-dark">Administrador</p></strong>
+            </div>
+
+            <div class="col-11 col-sm-2">
+                <a href="{% url 'administradores:investigadores' %}"><img class="biblioteca" src="{% static 'core/media/usuarios.png'%}" alt=""><br></a>
+                <strong><p class="text-dark">Usuarios</p></strong>
+            </div>
+
+            <div class="col-11 col-sm-2">
+                <a href="{% url 'administradores:reportes_adm' %}"><img class="biblioteca" src="{% static 'core/media/reporte.png'%}" alt=""><br></a>
+                <strong><p class="text-dark">Reportes</p></strong>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
+
+    

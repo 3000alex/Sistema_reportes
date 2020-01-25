@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reporte Maestro</title>
+</head>
+<body>
+    
+    {% for numeral in datosEnumeral %}
+        {{numeral}}
+        {% if numeral.orden == 1 %}
+        <br>
+            {% for usuario in datosInvestigador %}
+                {% if usuario.is_superuser == 0 %}
+                <br>
+                {{usuario.nombreCorto}}:<br>
+                Autor(es):<br>
+                Titulo:<br>
+                Revista o Publicación:<br>
+                URL:<br>
+                DOI:<br>
+                BibCode:<br>
+                Fecha:<br>
+                Estudiantes:<br>
+                {% endif %}
+            {% endfor %}
+        <br>
+
+        {% endif %}
+        {% if numeral.orden == 2 %}
+        <br>
+            {% for usuario in datosInvestigador %}
+                {% if usuario.is_superuser == 0 %}
+                <br>
+                {{usuario.nombreCorto}}:<br>
+                Autor(es):<br>
+                Titulo:<br>
+                Revista o Publicación:<br>
+                URL:<br>
+                DOI:<br>
+                BibCode:<br>
+                Fecha:<br>
+                Estudiantes:<br>
+                {% endif %}
+            {% endfor %}
+        <br>
+
+        {% endif %}
+        {% if numeral.orden == 3 %}
+        <br>
+            {% for usuario in datosInvestigador %}
+                {% if usuario.is_superuser == 0 %}
+                <br>
+                {{usuario.nombreCorto}}:<br>
+                Autor(es):<br>
+                Titulo:<br>
+                Revista o Publicación:<br>
+                URL:<br>
+                DOI:<br>
+                BibCode:<br>
+                Fecha:<br>
+                Estudiantes:<br>
+                {% endif %}
+            {% endfor %}
+        <br>
+
+        {% endif %}
+        <br>
+    {% endfor %}
+
+        
+    
+    
+</body>
+</html>
+
