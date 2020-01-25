@@ -107,13 +107,36 @@ class UsuariosEliminar(StaffRequiredMixin, View):
 
 class correoBienvenida(StaffRequiredMixin, View):
     def post(self, request):
-        #id1 = request.GET.get('id',None)
-        #User.objects.get(id=id1)
+        id1 = request.POST.get('id',None)
+        obj = User.objects.get(id=id1)
+        password = get_random_string(length=20)
+        obj.set_password(password)
+        obj.save()
+        print()
+        
+        body = render_to_string(
+            'administradores/templateBienvenida.html', {
+                'nombre': obj.first_name,
+                'apellido': obj.last_name,
+                'password': password,
+                'correo': obj.email,
+            },
+        )
+
+        email_message = EmailMessage(
+            subject='Bienvenido(a) al Sistema de Reportes de Astrofísica',
+            body=body,
+            from_email='reportes-astro@inaoep.mx',
+            to=[obj.email],
+        )
+        email_message.content_subtype = 'html'
+        email_message.send()
 
         data = {
-            'id':id1,
-            'password':'Hola',
+            'nombre':obj.first_name,
+            'apellido':obj.last_name,
         }
+
         return JsonResponse(data)
 
 

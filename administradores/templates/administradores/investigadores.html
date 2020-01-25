@@ -3,7 +3,7 @@
 {% block usuarios %}
 
 <div class="container" style="padding-top: 255px;">
-
+    {% csrf_token %}
     <div class="row justify-content-end">
         <button class="btn btn-primary mb-3 mt-2 mr-4" data-toggle="modal" data-target="#modal-add"><i
                 class="fas fa-user-plus" title="Agregar investigador"></i>&nbspAgregar</button>
@@ -414,26 +414,31 @@
         $("#textoModal").html(`¿Desea enviar nuevamente el mensaje de bienvenida a ${nombre} ${apellidos} ? <br> NOTA: Se restablecerá su contraseña.`)
         $("#icono").addClass('far fa-question-circle text-danger')
         $("#footer").html(`<button type="button" onclick="mensajeBienvenidaConfirm('${id}','${nombre}', '${apellidos}')" class="btn btn-primary">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
-        $("#modalDinamico").modal('show');
-        /*
+        $("#modalDinamico").modal('show');  
+    }
+
+    function mensajeBienvenidaConfirm(id, nombre, apellidos) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $("#modalDinamico").modal('hide');
+        
         $.ajax({
             url: '{% url "administradores:correoBienvenida" %}',
             type:'POST',
             data: {
                 'id':id,
+                'nombre':nombre,
+                'apellidos':apellidos,
+                'csrfmiddlewaretoken':csrfmiddlewaretoken,
             },
             dataType: 'json',
             success: function(data){
-                toastr('Operacion Exitosa','Correo de bienvenida enviado exitosamente')
+                
+                toastr.success('Operacion Exitosa', 'Correo de bienvenida enviado exitosamente a ' + nombre + " " + apellidos)
+                
             }
         });
-        */
         
-    }
-
-    function mensajeBienvenidaConfirm(id, nombre, apellidos) {
-        toastr.success('Operacion Exitosa', 'Correo de bienvenida enviado exitosamente a ' + nombre + " " + apellidos)
-        $("#modalDinamico").modal('hide');
+        
     }
 
 </script>
