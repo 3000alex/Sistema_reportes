@@ -161,6 +161,8 @@ EMAIL_HOST_PASSWORD = 'Th3.4astr0.r3ports'
 EMAIL_PORT = 25
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+DEFAULT_FROM_EMAIL = 'reportes-astro' #Email que permite reenviar la contraseña si es olvidada
+
 #variables de Sesion
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 600  # 0r 5 * 60, same thing
