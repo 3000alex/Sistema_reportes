@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Numeral, Citas, ReporteEnviado, Modelo1, Modelo2, Modelo3, Modelo4, Modelo5, Modelo6, Modelo7, Modelo8, Modelo9, Modelo10, Glosario
 from .models import Modelo11, Modelo12, Modelo13, Modelo14, Modelo15, Periodo
 from registration.models import User
-#from biblioteca.models import Biblioteca
+from biblioteca.models import Biblioteca
 from .models import ReporteEnviado
 from datetime import date
 from datetime import datetime
