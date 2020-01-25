@@ -1,0 +1,1783 @@
+{% extends 'core/header_reportes.html' %}
+<!--Encabezado - nav - title name-->
+{%block contenido%}
+<!-- Contenedor -->
+<ul id="accordion" class="container accordion mt-2">
+    {% for numeral in numeral %}
+    <li class="card-header">
+        <div class="link col-10">{{numeral}}<i class="fa fa-chevron-down"></i></div>
+        <ul class="submenu">
+
+            <!--Numeral 47 Modelo15-->
+            {% if numeral.orden == 47 %}
+            <li>
+                {% for modelo15 in modelo15 %}
+
+                {% if modelo15.numeral_id == numeral.id %}
+                <form id="modelo15{{modelo15.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="">Descripción</label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo15{{modelo15.id}}" cols="30"
+                                rows="5"> {% if modelo15.descripcion %}{{modelo15.descripcion}}{% endif %} </textarea>
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo15{{modelo15.id}}">
+
+                            {%if modelo15.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo15.anexoPdf.url}}">{{modelo15.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo15Actualizar('{{modelo15.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo15Editar('{{modelo15.id}}')" id="{{modelo15.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo15Eliminar('{{modelo15.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                onclick="modelo15Crear({{modelo15.id}},{{modelo15.enumeral_id}},'{{modelo15.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo15.periodo_id}})"
+                type="button" id="modelo15Crear{{modelo15.id}}" class="btn btn-danger"><i
+                    class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin numeral 47 Modelo15 -->
+
+            <!--Numeral 48 Modelo9 -->
+            {% if numeral.orden == 48 %}
+            <li>
+                {% for modelo9 in modelo9 %}
+
+                {% if modelo9.numeral_id == numeral.id %}
+                <form id="modelo9{{modelo9.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Título: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="titulo"
+                                        id="tituloModelo9{{modelo9.id}}"
+                                        value="{% if modelo9.titulo %}{{modelo9.titulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Autor(es): </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="autores"
+                                        id="autoresModelo9{{modelo9.id}}"
+                                        value="{% if modelo9.autores %}{{modelo9.autores}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">No. Reporte/ID: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="Nreportes"
+                                        id="NreporteModelo9{{modelo9.id}}"
+                                        value="{% if modelo9.numeroReportes %}{{modelo9.numeroReportes}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo9{{modelo9.id}}"
+                                        value=" {% if modelo9.fecha %}{{modelo9.fecha }}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Url: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url"
+                                        id="urlModelo9{{modelo9.id}}"
+                                        value="{% if modelo9.url %}{{modelo9.url}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Revista o publicación: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="revistaPublicacion"
+                                        id="revistaPublicacionModelo9{{modelo9.id}}"
+                                        value="{% if modelo9.revistaPublicacion %}{{modelo9.revistaPublicacion}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo9{{modelo9.id}}">
+
+                            {%if modelo9.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo9.anexoPdf.url}}">{{modelo9.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo9Actualizar('{{modelo9.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo9Editar('{{modelo9.id}}')" id="{{modelo9.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo9Eliminar('{{modelo9.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <button
+                onclick="modelo9Crear({{modelo9.id}},{{modelo9.enumeral_id}},'{{modelo9.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo9.periodo_id}})"
+                type="button" id="modelo9Crear{{modelo9.id}}" class="btn btn-danger"><i
+                    class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 48 Modelo9-->
+
+            <!--Numeral 49-52  Modelo10-->
+            {% if numeral.orden > 48 and numeral.orden < 52.1 %}
+            <li>
+
+                {% for modelo10 in modelo10 %}
+
+                {% if modelo10.numeral_id == numeral.id %}
+                <form id="modelo10{{modelo10.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo10{{modelo10.id}}"
+                                        value="{% if modelo10.fecha %}{{modelo10.fecha}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Url: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url"
+                                        id="urlModelo10{{modelo10.id}}"
+                                        value="{% if modelo10.url %}{{modelo10.url}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo10{{modelo10.id}}" cols="30"
+                                rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo10{{modelo10.id}}">
+
+                            {%if modelo10.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo10.anexoPdf.url}}">{{modelo10.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo10Actualizar('{{modelo10.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                onclick="modelo10Crear({{modelo10.id}},{{modelo10.enumeral_id}},'{{modelo10.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo10.periodo_id}})"
+                type="button" id="modelo10Crear{{modelo10.id}}" class="btn btn-danger"><i
+                    class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 49-52 49a,49b, 52a  Modelo10-->
+
+            <!--Numeral 52a Modelo10 -->
+            {% if numeral.orden == 52.1 %}
+            <li>
+                {% for modelo10 in modelo10 %}
+
+                {% if modelo10.numeral_id == numeral.id %}
+                <form id="modelo10{{modelo10.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="form-group row">
+                                <label for="">Periodo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="periodo"
+                                        id="periodoModelo10{{modelo10.id}}"
+                                        value="{% if modelo10.periodoNumeral %}{{modelo10.periodoNumeral}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <label for="">Descripcion: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo10{{modelo10.id}}" cols="30"
+                                rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+
+
+                            <input class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo10{{modelo10.id}}">
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo10Actualizar('{{modelo10.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                onclick="modelo10Crear({{modelo10.id}},{{modelo10.enumeral_id}},'{{modelo10.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo10.periodo_id}})"
+                type="button" id="modelo10Crear{{modelo10.id}}" class="btn btn-danger"><i
+                    class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 52a Modelo10 -->
+
+
+            <!--Numeral 53 modelo 11-->
+            {% if numeral.orden == 53 %}
+            <li>
+                {% for modelo11 in modelo11 %}
+
+                {% if modelo11.numeral_id == numeral.id %}
+                <form id="modelo11{{modelo11.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Nombre del estudiante: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="nombreEstudiante"
+                                        id="nombreEstudianteModelo11{{modelo11.id}}"
+                                        value="{% if modelo11.nombreEstudiante %}{{modelo11.nombreEstudiante}}{%endif%}">
+                                </div>
+                            </div>
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo11{{modelo11.id}}" cols="30"
+                                rows="5">{% if modelo11.descripcion %}{{modelo11.descripcion}}{%endif%}</textarea>
+
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo11{{modelo11.id}}">
+
+                            {%if modelo11.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo11.anexoPdf.url}}">{{modelo11.anexoPdf.name}}</a>
+                            {% endif %}
+
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo11Actualizar('{{modelo11.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo11Editar('{{modelo11.id}}')" id="{{modelo11.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo11Eliminar('{{modelo11.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                onclick="modelo11Crear({{modelo11.id}},{{modelo11.enumeral_id}},'{{modelo11.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo11.periodo_id}})"
+                type="button" id="modelo11Crear{{modelo11.id}}" class="btn btn-danger"><i
+                    class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 53 modelo 11 -->
+
+            <!--Numeral 54 Modelo 11-->
+            {% if numeral.orden == 54 %}
+            <li>
+                {% for modelo11 in modelo11 %}
+
+                {% if modelo11.numeral_id == numeral.id %}
+                <form id="modelo11{{modelo11.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Nombre del estudiante: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="nombreEstudiante"
+                                        id="nombreEstudianteModelo11{{modelo11.id}}"
+                                        value="{% if modelo11.nombreEstudiante %}{{modelo11.nombreEstudiante}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo11{{modelo11.id}}"
+                                        value="{% if modelo11.fecha %}{{modelo11.fecha}}{% endif %}">
+                                </div>
+                            </div>
+
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo11{{modelo11.id}}" cols="30"
+                                rows="5">{% if modelo11.descripcion %}{{modelo11.descripcion}}{% endif %}</textarea>
+
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo11{{modelo11.id}}">
+
+                            {%if modelo11.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo11.anexoPdf.url}}">{{modelo11.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo11Actualizar('{{modelo11.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo11Editar('{{modelo11.id}}')" id="{{modelo11.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo11Eliminar('{{modelo11.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                onclick="modelo11Crear({{modelo11.id}},{{modelo11.enumeral_id}},'{{modelo11.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo11.periodo_id}})"
+                type="button" id="modelo11Crear{{modelo11.id}}" class="btn btn-danger"><i
+                    class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 54 modelo 11 -->
+
+            <!--Numeral 55-56 Modelo 11-->
+            {% if numeral.orden == 55 or numeral.orden == 56 %}
+            <li>
+                {% for modelo11 in modelo11 %}
+
+                {% if modelo11.numeral_id == numeral.id %}
+                <form id="modelo11{{modelo11.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha o periodo: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fechaPeriodo"
+                                        id="fechaPeriodoModelo11{{modelo11.id}}"
+                                        value="{% if modelo11.fechaPeriodo %}{{modelo11.fechaPeriodo}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo11{{modelo11.id}}" cols="30"
+                                rows="5">{% if modelo11.descripcion %}{{modelo11.descripcion}}{%endif%}</textarea>
+
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo11{{modelo11.id}}">
+
+                            {%if modelo11.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo11.anexoPdf.url}}">{{modelo11.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo11Actualizar('{{modelo11.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo11Editar('{{modelo11.id}}')" id="{{modelo11.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo11Eliminar('{{modelo11.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                onclick="modelo11Crear({{modelo11.id}},{{modelo11.enumeral_id}},'{{modelo11.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo11.periodo_id}})"
+                type="button" id="modelo11Crear{{modelo11.id}}" class="btn btn-danger"><i
+                    class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 55-56 modelo 11 -->
+
+            <!--Numeral 57 Modelo15-->
+            {% if numeral.orden == 57 %}
+            <li>
+                {% for modelo15 in modelo15 %}
+
+                {% if modelo15.numeral_id == numeral.id %}
+                <form id="modelo15{{modelo15.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo15{{modelo15.id}}" cols="30"
+                                rows="5">{% if modelo15.descripcion %}{{modelo15.descripcion}}{% endif %}</textarea>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo15{{modelo15.id}}">
+
+                            {%if modelo15.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo15.anexoPdf.url}}">{{modelo15.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo15Actualizar('{{modelo15.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo15Editar('{{modelo15.id}}')" id="{{modelo15.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo15Eliminar('{{modelo15.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                onclick="modelo15Crear({{modelo15.id}},{{modelo15.enumeral_id}},'{{modelo15.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo15.periodo_id}})"
+                type="button" id="modelo15Crear{{modelo15.id}}" class="btn btn-danger"><i
+                    class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Numeral 57 Modelo15-->
+
+            <!--modelo 12 numeral 58 -->
+            {% if numeral.orden == 58 %}
+            <li>
+                {% for modelo12 in modelo12 %}
+
+                {% if modelo12.numeral_id == numeral.id %}
+                <form id="modelo12{{modelo12.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <div class="form-group row">
+                                <label for="">Laboratorio o taller: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="laboratorioTaller"
+                                        id="laboratorioTallerModelo12{{modelo12.id}}"
+                                        value="{% if modelo12.laboratorioTaller %}{{modelo12.laboratorioTaller}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo12{{modelo12.id}}">
+
+                            {%if modelo12.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo12.anexoPdf.url}}">{{modelo12.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo12Actualizar('{{modelo12.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo12Editar('{{modelo12.id}}')" id="{{modelo12.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo12Eliminar('{{modelo12.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                onclick="modelo12Crear({{modelo12.id}},{{modelo12.enumeral_id}},'{{modelo12.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo12.periodo_id}})"
+                type="button" id="modelo12Crear{{modelo12.id}}" class="btn btn-danger"><i
+                    class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 58 Modelo12-->
+
+            <!--modelo 13 numeral 59 -->
+            {% if numeral.orden == 59 %}
+            <li>
+                {% for modelo13 in modelo13 %}
+
+                {% if modelo13.numeral_id == numeral.id %}
+                <form id="modelo13{{modelo13.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Agencia(s) financiadora(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="agenciasFinancieras"
+                                        id="agenciaFinanciadoraModelo13{{modelo13.id}}"
+                                        value="{% if modelo13.agenciasFinancieras %}{{modelo13.agenciasFinancieras}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo13{{modelo13.id}}" cols="30"
+                                rows="5">{% if modelo13.descripcion %}{{modelo13.descripcion}}{% endif %}</textarea>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo13{{modelo13.id}}">
+
+                            {%if modelo13.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo13.anexoPdf.url}}">{{modelo13.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo13Actualizar('{{modelo13.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo13Editar('{{modelo13.id}}')" id="{{modelo13.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo13Eliminar('{{modelo13.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                onclick="modelo13Crear({{modelo13.id}},{{modelo13.enumeral_id}},'{{modelo13.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo13.periodo_id}})"
+                type="button" id="modelo13Crear{{modelo13.id}}" class="btn btn-danger"><i
+                    class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 59 Modelo13-->
+
+            <!--modelo 15 numeral 60-->
+            {% if numeral.orden == 60 %}
+            <li>
+                {% for modelo15 in modelo15 %}
+
+                {% if modelo15.numeral_id == numeral.id %}
+                <form id="modelo15{{modelo15.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo15{{modelo15.id}}" cols="30"
+                                rows="5">{% if modelo15.descripcion %}{{modelo15.descripcion}}{% endif %}</textarea>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo15{{modelo15.id}}">
+
+                            {%if modelo15.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo15.anexoPdf.url}}">{{modelo15.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo15Actualizar('{{modelo15.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo15Editar('{{modelo15.id}}')" id="{{modelo15.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo15Eliminar('{{modelo15.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                onclick="modelo15Crear({{modelo15.id}},{{modelo15.enumeral_id}},'{{modelo15.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo15.periodo_id}})"
+                type="button" id="modelo15Crear{{modelo15.id}}" class="btn btn-danger"><i
+                    class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 60 Modelo15-->
+
+        </ul>
+        <div class="col-12 d-flex justify-content-end" style="cursor: pointer;">
+            <i data-toggle="modal" data-target="#glosario" style="font-size: 20px;"
+                class="fas fa-question-circle text-dark "></i>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+<!--Modal Multiple.-->
+<div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="accionModal"></h5>
+
+            </div>
+
+            <div class="modal-body">
+                <h5 id="textoModal" class="text-center"></h5><br>
+                <div class="d-flex justify-content-center">
+                    <i id="icono" style="font-size: 100px;" class=""></i>
+                </div>
+            </div>
+
+            <div class="modal-footer" id="footer">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Fin para Modal Multiple-->
+
+<!-- Modal glosario -->
+<div class="modal fade" id="glosario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Glosario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center" colspan="2">IV. APOYO INSTITUCIONAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for glosario in glosario %}
+                        <tr>
+                            <td width=50%>{{ glosario.numerales|safe }}</td>
+                            <td width=50%>{{ glosario.explicacion|safe }}</td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Modal glosario-->
+<br><br>
+
+{% endblock %}
+
+{% block JsCode %}
+<script>
+
+    //Modelo 9
+    function modelo9Editar(id) {
+        $("#tituloModelo9" + id).prop("disabled", false);
+        $("#autoresModelo9" + id).prop("disabled", false);
+        $("#NreporteModelo9" + id).prop("disabled", false);
+        $("#fechaModelo9" + id).prop("disabled", false);
+        $("#urlModelo9" + id).prop("disabled", false);
+        $("#revistaPublicacionModelo9" + id).prop("disabled", false);
+        $("#anexoModelo9" + id).prop("disabled", false);
+    }
+    function desactivarCamposModelo9(id) {
+        $("#tituloModelo9" + id).prop("disabled", true);
+        $("#autoresModelo9" + id).prop("disabled", true);
+        $("#NreporteModelo9" + id).prop("disabled", true);
+        $("#fechaModelo9" + id).prop("disabled", true);
+        $("#urlModelo9" + id).prop("disabled", true);
+        $("#revistaPublicacionModelo9" + id).prop("disabled", true);
+        $("#anexoModelo9" + id).prop("disabled", true);
+    }
+    function modelo9Actualizar(id) {
+        var formData = new FormData(document.getElementById("modelo9" + id))
+        formData.append("id", id);
+
+        $.ajax({
+            url: '{% url "investigadores:actualizar-modelo9" %}',
+            type: "post",
+            data: formData,
+            enctype: "multipart/form-data",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'html',
+
+            success: function (data) {
+                toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+                desactivarCamposModelo9(id)
+            }
+        });
+
+        return false;
+    }
+    function modelo9Crear(posicion, enumeral, seccion, orden, periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: '{% url "investigadores:crear-modelo9" %}',
+            data: {
+                "posicion": posicion,
+                "enumeral": enumeral,
+                "seccion": seccion,
+                "orden": orden,
+                "periodo": periodo,
+            },
+            dataType: "Json",
+            success: function (response) {
+                toastr.success('Entrada creada', 'Operacion exitosa')
+                dibujarmodelo9(response)
+            }
+        });
+    }
+    function modelo9Eliminar(id) {
+        $("#accionModal").text("Eliminar Item");
+        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
+        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo9EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
+    function modelo9EliminarConfirm(id) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            url: '{% url "investigadores:eliminar-modelo9" %}',
+            type: "POST",
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.deleted) {
+                    $("#modelo9" + id).remove();
+                    $("#modelo9Crear" + id).remove();
+                    toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                }
+            }
+        });
+
+        $('#ItemEliminar-id').trigger("reset");
+        $('#modalDinamico').modal('hide');//cierra modal
+        return false;
+    }
+    function dibujarmodelo9(response) {
+        $("#modelo9" + `${response.posicion}`).after(
+            `
+            <form id="modelo9${response.id}" enctype="multipart/form-data">
+                <div class="card-body">
+    
+                    <div class="form-group">
+                            {% csrf_token %}
+                        <div class="form-group row">
+                            <label for=""  class="col-sm-2">Título: </label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-4" type="text" name="titulo"
+                                    id="tituloModelo9${response.id}" value="">
+                            </div>
+                        </div>
+    
+                        <div class="form-group row">
+                            <label for=""  class="col-sm-2">Autor(es): </label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-4" type="text" name="autores"
+                                    id="autoresModelo9${response.id}" value="">
+                            </div>
+                        </div>
+    
+                        <div class="form-group row">
+                            <label for=""  class="col-sm-2">No. Reportes/ID: </label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-4" type="text" name="Nreportes"
+                                    id="NreporteModelo9${response.id}" value="">
+
+                            </div>
+                        </div>
+    
+                        <div class="form-group row">
+                            <label for="" class="col-sm-2">Fecha: </label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-4" type="text" name="fecha"  id="fechaModelo9${response.id}" value="">
+                            </div>
+                        </div>
+    
+                        <div class="form-group row">
+                            <label for=""  class="col-sm-2">Url: </label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-4" type="text" name="url"
+                                    id="urlModelo9${response.id}" value="">
+            
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-2">Revista o publicación: </label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-4" type="text" name="revistaPublicacion"
+                                    id="revistaPublicacionModelo9${response.id}"
+                                    value="">
+                            </div>
+                        </div>
+    
+                        <input disabled class="form-control mb-4" type="file" name="anexo"
+                            id="anexoModelo9${response.id}">
+                                
+                        {%if Modelo9.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{Modelo9.anexoPdf.url}}">{{Modelo9.anexoPdf.name}}</a>
+                        {% endif %}
+    
+    
+                        <div class="justify-content-end d-flex">
+                            <button onclick="modelo9Actualizar(${response.id})" type="button"
+                                class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                    Guardar</i></button>
+                            <button type="button" class="btn btn-primary p-2 mr-2"
+                                onclick="modelo9Editar(${response.id})" id="${response.id}"
+                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                            <button type="button" class="btn btn-danger  p-2 mr-2"
+                                onclick="modelo9Eliminar(${response.id})" title="Eliminar entrada"><i
+                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                        </div>
+
+                    </div>
+    
+                </div>
+            </form>
+            <hr>
+            `)
+    }
+    //Fin modelo9
+
+    //Modelo 10
+    function modelo10Editar(id) {
+        $("#descripcionModelo10" + id).prop("disabled", false);
+        $("#fechaModelo10" + id).prop("disabled", false);
+        $("#urlModelo10" + id).prop("disabled", false);
+        $("#periodoModelo10" + id).prop("disabled", false);
+        $("#anexoModelo10" + id).prop("disabled", false);
+    }
+    function desactivarCamposModelo10(id) {
+        $("#descripcionModelo10" + id).prop("disabled", true);
+        $("#fechaModelo10" + id).prop("disabled", true);
+        $("#urlModelo10" + id).prop("disabled", true);
+        $("#periodoModelo10" + id).prop("disabled", true);
+        $("#anexoModelo10" + id).prop("disabled", true);
+    }
+    function modelo10Actualizar(id) {
+        var formData = new FormData(document.getElementById("modelo10" + id))
+        formData.append("id", id);
+
+        $.ajax({
+            url: '{% url "investigadores:actualizar-modelo10" %}',
+            type: "post",
+            data: formData,
+            enctype: "multipart/form-data",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'html',
+
+            success: function (data) {
+                toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+                desactivarCamposModelo10(id)
+            }
+        });
+
+        return false;
+    }
+    function modelo10Crear(posicion, enumeral, seccion, orden, periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: '{% url "investigadores:crear-modelo10" %}',
+            data: {
+                "posicion": posicion,
+                "enumeral": enumeral,
+                "seccion": seccion,
+                "orden": orden,
+                "periodo": periodo,
+            },
+            dataType: "Json",
+            success: function (response) {
+                toastr.success('Entrada creada', 'Operacion exitosa')
+                dibujarmodelo10(response)
+            }
+        });
+    }
+    function modelo10Eliminar(id) {
+        $("#accionModal").text("Eliminar Item");
+        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
+        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo10EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
+    function modelo10EliminarConfirm(id) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            url: '{% url "investigadores:eliminar-modelo10" %}',
+            type: "POST",
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.deleted) {
+                    $("#modelo10" + id).remove();
+                    $("#modelo10Crear" + id).remove();
+                    toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                }
+            }
+        });
+
+        $('#ItemEliminar-id').trigger("reset");
+        $('#modalDinamico').modal('hide');//cierra modal
+        return false;
+    }
+    function dibujarmodelo10(response) {
+
+        if (response.orden == '49,0' || response.orden == '49,1' || response.orden == '49,2' || response.orden == '50,0' || response.orden == '51,0' || response.orden == '52,0') {
+
+            $("#modelo10" + `${response.posicion}`).after(
+                `
+                <form id="modelo10${response.id}" enctype="multipart/form-data">
+                    <div class="card-body">
+    
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo10${response.id}" value="">
+                                </div>
+                            </div>
+    
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Url: </label>
+                                <div class="col-sm-10">
+                                     <input disabled class="form-control mb-4" type="url" name="url"
+                                        id="urlModelo10${response.id}" value="">
+                                </div>
+                            </div>
+                                
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo10${response.id}" cols="30"
+                                rows="5">{{Modelo10.descripcion}}</textarea>
+
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo10${response.id}">
+    
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo10Actualizar(${response.id})" type="button"
+                                class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                    Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo10Editar(${response.id})" id="${response.id}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo10Eliminar(${response.id})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+    
+                    </div>
+                </form>
+                <hr>
+                `)
+        }
+        else {
+
+            $("#modelo10" + `${response.posicion}`).after(
+                `
+                <form id="modelo10${response.id}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="form-group row">
+                                <label for="">Periodo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="periodo"
+                                        id="periodoModelo10${response.id}" value="">
+                                </div>
+                            </div>
+
+                            <label for="">Descripcion: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo10${response.id}" cols="30"
+                                rows="5">{{Modelo10.descripcion}}</textarea>
+
+                            
+                            <input class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo10${response.id}">
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo10Actualizar(${response.id})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo10Editar(${response.id})" id="${response.id}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo10Eliminar(${response.id})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <hr>
+                `);
+        }
+    }
+    //Fin modelo10
+
+    //Modelo 11
+    function modelo11Editar(id) {
+        $("#nombreEstudianteModelo11" + id).prop("disabled", false);
+        $("#descripcionModelo11" + id).prop("disabled", false);
+        $("#anexoModelo11" + id).prop("disabled", false);
+        $("#fechaModelo11" + id).prop("disabled", false);
+        $("#fechaPeriodoModelo11" + id).prop("disabled", false);
+
+    }
+    function desactivarCamposModelo11(id) {
+        $("#nombreEstudianteModelo11" + id).prop("disabled", true);
+        $("#descripcionModelo11" + id).prop("disabled", true);
+        $("#anexoModelo11" + id).prop("disabled", true);
+        $("#fechaModelo11" + id).prop("disabled", true);
+        $("#fechaPeriodoModelo11" + id).prop("disabled", true);
+
+    }
+    function modelo11Actualizar(id) {
+        var formData = new FormData(document.getElementById("modelo11" + id))
+        formData.append("id", id);
+
+        $.ajax({
+            url: '{% url "investigadores:actualizar-modelo11" %}',
+            type: "post",
+            data: formData,
+            enctype: "multipart/form-data",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'html',
+
+            success: function (data) {
+                toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+                desactivarCamposModelo11(id)
+            }
+        });
+
+        return false;
+    }
+    function modelo11Crear(posicion, enumeral, seccion, orden, periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: '{% url "investigadores:crear-modelo11" %}',
+            data: {
+                "posicion": posicion,
+                "enumeral": enumeral,
+                "seccion": seccion,
+                "orden": orden,
+                "periodo": periodo,
+            },
+            dataType: "Json",
+            success: function (response) {
+                toastr.success('Entrada creada', 'Operacion exitosa')
+                dibujarmodelo11(response)
+            }
+        });
+    }
+    function modelo11Eliminar(id) {
+        $("#accionModal").text("Eliminar Item");
+        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
+        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo11EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
+    function modelo11EliminarConfirm(id) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            url: '{% url "investigadores:eliminar-modelo11" %}',
+            type: "POST",
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.deleted) {
+                    $("#modelo11" + id).remove();
+                    $("#modelo11Crear" + id).remove();
+                    toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                }
+            }
+        });
+
+        $('#ItemEliminar-id').trigger("reset");
+        $('#modalDinamico').modal('hide');//cierra modal
+        return false;
+    }
+    function dibujarmodelo11(response) {
+        if (response.orden == '53,0') {
+            $("#modelo11" + `${response.posicion}`).after(
+                `
+                <form id="modelo11${response.id}" enctype="multipart/form-data">
+                    <div class="card-body">
+    
+                        <div class="form-group">
+                                {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Nombre del estudiante: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="nombreEstudiante"
+                                        id="nombreEstudianteModelo11${response.id}" value="">
+                                </div>
+                            </div>
+                    
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo11${response.id}" cols="30"
+                                rows="5">{{Modelo11.descripcion}}</textarea>
+    
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo11${response.id}">
+                                
+                            {%if Modelo11.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{Modelo11.anexoPdf.url}}">{{Modelo11.anexoPdf.name}}</a>
+                            {% endif %}
+    
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo11Actualizar(${response.id})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo11Editar(${response.id})" id="${response.id}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo11Eliminar(${response.id})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+    
+                    </div>
+                </form>
+                <hr>
+                `);
+        }
+        else if (response.orden == '54,0') {
+            $("#modelo11" + `${response.posicion}`).after(
+                `
+                <form id="modelo11${response.id}" enctype="multipart/form-data">
+                    <div class="card-body">
+                            {% csrf_token %}
+                        <div class="form-group">
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Nombre del estudiante: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="nombreEstudiante"
+                                        id="nombreEstudianteModelo11${response.id}" value="">
+        
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo11${response.id}" value="">
+                                </div>  
+                            </div>
+                            
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo11${response.id}" cols="30"
+                                rows="5">{{Modelo11.descripcion}}</textarea>
+
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo11${response.id}">
+                            
+                            {%if Modelo11.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{Modelo11.anexoPdf.url}}">{{Modelo11.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo11Actualizar(${response.id})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo11Editar(${response.id})" id="${response.id}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo11Eliminar(${response.id})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <hr>
+                `);
+        }
+        else if (response.orden == '55,0' || response.orden == '56,0') {
+            $("#modelo11" + `${response.posicion}`).after(
+                `
+                <form id="modelo11${response.id}" enctype="multipart/form-data">
+                    <div class="card-body">
+                            {% csrf_token %}
+                        <div class="form-group">
+    
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha o periodo: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fechaPeriodo"
+                                        id="fechaPeriodoModelo11${response.id}" value="">
+                                </div>
+                            </div>
+    
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo11${response.id}" cols="30"
+                                rows="5">{{Modelo11.descripcion}}</textarea>
+    
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo11${response.id}">
+                                
+                            {%if Modelo11.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{Modelo11.anexoPdf.url}}">{{Modelo11.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo11Actualizar(${response.id})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo11Editar(${response.id})" id="{{subModelo11.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo11Eliminar(${response.id})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+    
+                    </div>
+                </form>
+                <hr>
+                `);
+
+        }
+    }
+    //Fin modelo11
+
+    //Modelo 12
+    function modelo12Editar(id) {
+        $("#laboratorioTallerModelo12" + id).prop("disabled", false);
+        $("#anexoModelo12" + id).prop("disabled", false);
+    }
+    function desactivarCamposModelo12(id) {
+        $("#laboratorioTallerModelo12" + id).prop("disabled", true);
+        $("#anexoModelo12" + id).prop("disabled", true);
+    }
+    function modelo12Actualizar(id) {
+        var formData = new FormData(document.getElementById("modelo12" + id))
+        formData.append("id", id);
+
+        $.ajax({
+            url: '{% url "investigadores:actualizar-modelo12" %}',
+            type: "post",
+            data: formData,
+            enctype: "multipart/form-data",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'html',
+
+            success: function (data) {
+                toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+                desactivarCamposModelo12(id)
+            }
+        });
+
+        return false;
+    }
+    function modelo12Crear(posicion, enumeral, seccion, orden, periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: '{% url "investigadores:crear-modelo12" %}',
+            data: {
+                "posicion": posicion,
+                "enumeral": enumeral,
+                "seccion": seccion,
+                "orden": orden,
+                "periodo": periodo,
+            },
+            dataType: "Json",
+            success: function (response) {
+                toastr.success('Entrada creada', 'Operacion exitosa')
+                dibujarmodelo12(response)
+            }
+        });
+    }
+    function modelo12Eliminar(id) {
+        $("#accionModal").text("Eliminar Item");
+        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
+        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo12EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
+    function modelo12EliminarConfirm(id) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            url: '{% url "investigadores:eliminar-modelo12" %}',
+            type: "POST",
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.deleted) {
+                    $("#modelo12" + id).remove();
+                    $("#modelo12Crear" + id).remove();
+                    toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                }
+            }
+        });
+
+        $('#ItemEliminar-id').trigger("reset");
+        $('#modalDinamico').modal('hide');//cierra modal
+        return false;
+    }
+    function dibujarmodelo12(response) {
+        $("#modelo12" + `${response.posicion}`).after(
+            `
+            <form id="modelo12${response.id}" enctype="multipart/form-data">
+                <div class="card-body">
+    
+                    <div class="form-group">
+                            {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="">Laboratorio o taller: </label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-4" type="text" name="laboratorioTaller"
+                                    id="laboratorioTallerModelo12${response.id}" value="">
+                            </div>
+                        </div>
+    
+                        <input disabled class="form-control mb-4" type="file" name="anexo"
+                            id="anexoModelo12${response.id}">
+                                
+                        {%if subModelo12.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{Modelo12.anexoPdf.url}}">{{Modelo12.anexoPdf.name}}</a>
+                        {% endif %}
+    
+                        <div class="justify-content-end d-flex">
+                            <button onclick="modelo12Actualizar(${response.id})" type="button"
+                                class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                    Guardar</i></button>
+                            <button type="button" class="btn btn-primary p-2 mr-2"
+                                onclick="modelo12Editar(${response.id})" id="${response.id}"
+                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                            <button type="button" class="btn btn-danger  p-2 mr-2"
+                                onclick="modelo12Eliminar(${response.id})" title="Eliminar entrada"><i
+                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                        </div>
+                    </div>
+    
+                </div>
+            </form>
+            <hr>
+            `);
+    }
+    //Fin modelo12
+
+    //Modelo 13
+    function modelo13Editar(id) {
+        $("#descripcionModelo13" + id).prop("disabled", false);
+        $("#agenciaFinanciadoraModelo13" + id).prop("disabled", false);
+        $("#anexoModelo13" + id).prop("disabled", false);
+
+    }
+    function desactivarCamposModelo13(id) {
+        $("#descripcionModelo13" + id).prop("disabled", true);
+        $("#agenciaFinanciadoraModelo13" + id).prop("disabled", true);
+        $("#anexoModelo13" + id).prop("disabled", true);
+
+    }
+    function modelo13Actualizar(id) {
+        var formData = new FormData(document.getElementById("modelo13" + id))
+        formData.append("id", id);
+
+        $.ajax({
+            url: '{% url "investigadores:actualizar-modelo13" %}',
+            type: "post",
+            data: formData,
+            enctype: "multipart/form-data",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'html',
+
+            success: function (data) {
+                toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+                desactivarCamposModelo13(id)
+            }
+        });
+
+        return false;
+    }
+    function modelo13Crear(posicion, enumeral, seccion, orden, periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: '{% url "investigadores:crear-modelo13" %}',
+            data: {
+                "posicion": posicion,
+                "enumeral": enumeral,
+                "seccion": seccion,
+                "orden": orden,
+                "periodo": periodo,
+            },
+            dataType: "Json",
+            success: function (response) {
+                toastr.success('Entrada creada', 'Operacion exitosa')
+                dibujarmodelo13(response)
+            }
+        });
+    }
+    function modelo13Eliminar(id) {
+        $("#accionModal").text("Eliminar Item");
+        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
+        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo13EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
+    function modelo13EliminarConfirm(id) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            url: '{% url "investigadores:eliminar-modelo13" %}',
+            type: "POST",
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.deleted) {
+                    $("#modelo13" + id).remove();
+                    $("#modelo13Crear" + id).remove();
+                    toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                }
+            }
+        });
+
+        $('#ItemEliminar-id').trigger("reset");
+        $('#modalDinamico').modal('hide');//cierra modal
+        return false;
+    }
+    function dibujarmodelo13(response) {
+        $("#modelo13" + `${response.posicion}`).after(
+            `
+            <form id="modelo13${response.id}" enctype="multipart/form-data">
+                <div class="card-body">
+    
+                    <div class="form-group">
+                            {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="" class="col-sm-2">Agencia(s) financiadora(s):</label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-4" type="text" name="agenciasFinancieras"
+                                    id="agenciaFinanciadoraModelo13${response.id}"
+                                    value="{{Modelo13.agenciasFinancieras}}">
+                            </div>
+                        </div>
+    
+                        <label for="">Descripción: </label>
+                        <textarea disabled class="form-control mb-4" name="descripcion"
+                            id="descripcionModelo13${response.id}" cols="30"
+                            rows="5">{{Modelo13.descripcion}}</textarea>
+    
+                        <input disabled class="form-control mb-4" type="file" name="anexo"
+                            id="anexoModelo13${response.id}">
+                                
+                        {%if Modelo13.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{Modelo13.anexoPdf.url}}">{{Modelo13.anexoPdf.name}}</a>
+                        {% endif %}
+                                
+    
+                        <div class="justify-content-end d-flex">
+                            <button onclick="modelo13Actualizar(${response.id})" type="button"
+                                class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                    Guardar</i></button>
+                            <button type="button" class="btn btn-primary p-2 mr-2"
+                                onclick="modelo13Editar(${response.id})" id="${response.id}"
+                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                            <button type="button" class="btn btn-danger  p-2 mr-2"
+                                onclick="modelo13Eliminar(${response.id})" title="Eliminar entrada"><i
+                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                        </div>
+                    </div>
+    
+                </div>
+            </form>
+            <hr>
+            `);
+    }
+    //Fin modelo13
+
+    //Modelo 15
+    function modelo15Editar(id) {
+        //Formacion RHH
+        $("#descripcionModelo15" + id).prop("disabled", false);
+        //Apoyo institucional
+        $("#anexoModelo15" + id).prop("disabled", false);
+    }
+    function desactivarCamposModelo15(id) {
+        //Formacion RHH
+        $("#descripcionModelo15" + id).prop("disabled", true);
+        //Apoyo institucional
+        $("#anexoModelo15" + id).prop("disabled", true);
+    }
+    function modelo15Actualizar(id) {
+        var formData = new FormData(document.getElementById("modelo15" + id))
+        formData.append("id", id);
+
+        $.ajax({
+            url: '{% url "investigadores:actualizar-modelo15" %}',
+            type: 'POST',
+            data: formData,
+            enctype: "multipart/form-data",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'html',
+            success: function (data) {
+                toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+                desactivarCamposModelo15(id)
+            }
+        });
+
+        return false;
+    }
+    function modelo15Crear(posicion, enumeral, seccion, orden, periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: '{% url "investigadores:crear-modelo15" %}',
+            data: {
+                "posicion": posicion,
+                "enumeral": enumeral,
+                "seccion": seccion,
+                "orden": orden,
+                "periodo": periodo,
+            },
+            dataType: "Json",
+            success: function (response) {
+                toastr.success('Entrada creada', 'Operacion exitosa')
+                dibujarmodelo15(response)
+            }
+        });
+    }
+    function modelo15Eliminar(id) {
+        $("#accionModal").text("Eliminar Item");
+        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
+        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo15EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
+    function modelo15EliminarConfirm(id) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            url: '{% url "investigadores:eliminar-modelo15" %}',
+            type: "POST",
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.deleted) {
+                    $("#modelo15" + id).remove();
+                    $("#modelo15Crear" + id).remove();
+                    toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                }
+            }
+        });
+
+        $('#ItemEliminar-id').trigger("reset");
+        $('#modalDinamico').modal('hide');//cierra modal
+        return false;
+    }
+    function dibujarmodelo15(response) {
+
+
+        $("#modelo15" + `${response.posicion}`).after(
+            `
+            <form id="modelo15${response.id}" enctype="multipart/form-data">
+                <div class="card-body">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="">Descripcion:</label>
+                        <textarea disabled class="form-control mb-4" name="descripcion"
+                            id="descripcionModelo15${response.id}" cols="30"
+                            rows="5">{{Modelo15.descripcion}}</textarea>
+    
+                        <input disabled class="form-control mb-4" type="file" name="anexo"
+                            id="anexoModelo15${response.id}">
+                                
+                        {%if Modelo15.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{Modelo15.anexoPdf.url}}">{{Modelo15.anexoPdf.name}}</a>
+                        {% endif %}
+    
+                        <div class="justify-content-end d-flex">
+                            <button onclick="modelo15Actualizar(${response.id})" type="button"
+                                class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                    Guardar</i></button>
+                            <button type="button" class="btn btn-primary p-2 mr-2"
+                                onclick="modelo15Editar(${response.id})" id="${response.id}"
+                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                            <button type="button" class="btn btn-danger  p-2 mr-2"
+                                onclick="modelo15Eliminar(${response.id})" title="Eliminar entrada"><i
+                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                        </div>
+                    </div>
+    
+                </div>
+            </form>
+            <hr>
+            `);
+    }
+
+</script>
+{% endblock %}

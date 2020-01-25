@@ -1,0 +1,3472 @@
+{% extends 'core/header_reportes.html' %}
+<!--Encabezado - nav - title name-->
+{%block contenido%}
+
+<ul id="accordion" class="container accordion mt-2">
+    <small class="form-text text-muted mb-2">NOTA: Los numerales 1, 2, 3, 4, 5, 7, 9, 11, 12, 13, 14 y 14a son generados
+        automáticamente con base en su
+        biblioteca, favor de actualizarla.</small>
+    {% for numeral in numeral %}
+    <li class="card-header">
+        <div class="link col-10">{{numeral}}<i class="fa fa-chevron-down"></i></div>
+        <ul class="submenu">
+
+            <!-- Numeral 1 - Q1 Biblioteca-->
+            {% if numeral.orden == 1 %}
+            <li>
+                {% for biblioteca in primerCuartil %}
+                <form id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autores{{biblioteca.id}}"
+                                        name="autores" type="text"
+                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="titulo{{biblioteca.id}}" name="titulo"
+                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacion{{biblioteca.id}}"
+                                        name="revista"
+                                        value="{% if biblioteca.revista_Publicacion %}{{biblioteca.revista_Publicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="url{{biblioteca.id}}" name="url"
+                                        type="url" value="{{biblioteca.url}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.doi %}{{biblioteca.doi}}{% endif %}" name="doi"
+                                        id="doi{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
+                                        name="bibcode" id="bibcode{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                        name="fecha" id="fecha{{biblioteca.id}}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantes{{biblioteca.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexo{{biblioteca.id}}">
+
+                            {%if biblioteca.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexoPdf.url}}">{{biblioteca.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar('{{biblioteca.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="bibliotecaEditar('{{biblioteca.id}}')" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="bibliotecaEliminar('{{biblioteca.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <button id="bibliotecaCrear{{biblioteca.id}}" onclick="BibliotecaCrearNumeral({{biblioteca.id}}, {{biblioteca.numeral_id}})" type="button"
+                    class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 1 - Q1 Biblioteca-->
+
+            <!-- Numeral 2 - Q2 y Q3 Biblioteca-->
+            {% if numeral.orden == 2 %}
+            <li>
+                {% for biblioteca in segundoYTercerCuartil %}
+                <form id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autores{{biblioteca.id}}"
+                                        name="autores" type="text"
+                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="titulo{{biblioteca.id}}" name="titulo"
+                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacion{{biblioteca.id}}"
+                                        name="revista"
+                                        value="{% if biblioteca.revista_Publicacion %}{{biblioteca.revista_Publicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="url{{biblioteca.id}}" name="url"
+                                        type="url" value="{{biblioteca.url}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
+                                        name="bibcode" id="bibcode{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                        id="doi{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                        name="fecha" id="fecha{{biblioteca.id}}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantes{{biblioteca.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexo{{biblioteca.id}}">
+
+                            {%if biblioteca.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexoPdf.url}}">{{biblioteca.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar('{{biblioteca.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="bibliotecaEditar('{{biblioteca.id}}')" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="bibliotecaEliminar('{{biblioteca.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </form>
+                <button id="bibliotecaCrear{{biblioteca.id}}" onclick="BibliotecaCrearNumeral({{biblioteca.id}}, {{biblioteca.numeral_id}})" type="button"
+                    class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% empty %}
+                <div class="alert alert-danger m-4" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!-- Numeral 2 - Fin Q2 y Q3 Biblioteca-->
+            
+            <!-- Numeral 3 - Q4 Biblioteca-->
+            {% if numeral.orden == 3 %}
+            <li>
+                {% for biblioteca in cuartoCuartil %}
+                <form id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autores{{biblioteca.id}}"
+                                        name="autores" type="text"
+                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="titulo{{biblioteca.id}}" name="titulo"
+                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacion{{biblioteca.id}}"
+                                        name="revista"
+                                        value="{% if biblioteca.revista_Publicacion %}{{biblioteca.revista_Publicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="url{{biblioteca.id}}" name="url"
+                                        type="url" value="{{biblioteca.url}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
+                                        name="bibcode" id="bibcode{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.doi %}{{biblioteca.doi}}{% endif %}" name="doi"
+                                        id="doi{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                        name="fecha" id="fecha{{biblioteca.id}}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantes{{biblioteca.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexo{{biblioteca.id}}">
+
+                            {%if biblioteca.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexoPdf.url}}">{{biblioteca.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar('{{biblioteca.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="bibliotecaEditar('{{biblioteca.id}}')" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="bibliotecaEliminar('{{biblioteca.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <button id="bibliotecaCrear{{biblioteca.id}}" onclick="BibliotecaCrearNumeral({{biblioteca.id}}, {{biblioteca.numeral_id}})" type="button"
+                    class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% empty %}
+                <div class="alert alert-danger m-4" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 3 - Q4 Biblioteca-->
+
+            <!-- Numeral 4 - Biblioteca-->
+            {% if numeral.orden == 4 %}
+            <li>
+                {% for biblioteca in bibliotecaNum4 %}
+
+                <form id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autores{{biblioteca.id}}"
+                                        name="autores" type="text"
+                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="titulo{{biblioteca.id}}" name="titulo"
+                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacion{{biblioteca.id}}"
+                                        name="revista"
+                                        value="{% if biblioteca.revista_Publicacion %}{{biblioteca.revista_Publicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="url{{biblioteca.id}}" name="url"
+                                        type="url" value="{{biblioteca.url}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
+                                        name="bibcode" id="bibcode{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.doi %}{{biblioteca.doi}}{% endif %}" name="doi"
+                                        id="doi{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                        name="fecha" id="fecha{{biblioteca.id}}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantes{{biblioteca.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexo{{biblioteca.id}}">
+
+                            {%if biblioteca.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexoPdf.url}}">{{biblioteca.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar({{biblioteca.id}})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="bibliotecaEditar({{biblioteca.id}})" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="bibliotecaEliminar({{biblioteca.id}})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <button id="bibliotecaCrear{{biblioteca.id}}" onclick="BibliotecaCrearNumeral({{biblioteca.id}}, {{biblioteca.numeral_id}})" type="button"
+                    class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+
+                {% empty %}
+                <div class="alert alert-danger m-4" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 4 - -->
+
+            <!--Numeral 5to desde biblioteca-->
+            {% if numeral.orden == 5 %}
+            <li>
+                {% for biblioteca in bibliotecaNum5 %}
+
+                <form id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autores{{biblioteca.id}}"
+                                        name="autores" type="text"
+                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="titulo{{biblioteca.id}}" name="titulo"
+                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacion{{biblioteca.id}}"
+                                        name="revista"
+                                        value="{% if biblioteca.revista_Publicacion %}{{biblioteca.revista_Publicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="url{{biblioteca.id}}" name="url"
+                                        type="url" value="{{biblioteca.url}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
+                                        name="bibcode" id="bibcode{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                        id="doi{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                        name="fecha" id="fecha{{biblioteca.id}}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantes{{biblioteca.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexo{{biblioteca.id}}">
+
+                            {%if biblioteca.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexoPdf.url}}">{{biblioteca.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar('{{biblioteca.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="bibliotecaEditar({{biblioteca.id}})" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="bibliotecaEliminar('{{biblioteca.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button id="bibliotecaCrear{{biblioteca.id}}" onclick="BibliotecaCrearNumeral({{biblioteca.id}}, {{biblioteca.numeral_id}})" type="button"
+                    class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% empty %}
+                <div class="alert alert-danger m-4" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Numeral 5to fin-->
+
+            <!--Numeral 6 Modelo1 -->
+            {% if numeral.orden == 6 %}
+            <li>
+                {% for modelo1 in modelo1 %}
+                {% if modelo1.numeral_id == numeral.id %}
+                <form id="modelo1{{modelo1.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autoresModelo1{{modelo1.id}}"
+                                        name="autores" type="text"
+                                        value="{% if modelo1.autores %}{{modelo1.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="tituloModelo1{{modelo1.id}}"
+                                        name="titulo" type="text"
+                                        value="{% if modelo1.titulo %}{{modelo1.titulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control"
+                                        id="revistaPublicacionModelo1{{modelo1.id}}" name="revista"
+                                        value="{% if modelo1.revistaPublicacion %}{{modelo1.revistaPublicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="urlModelo1{{modelo1.id}}" name="url"
+                                        type="url" value="{% if modelo1.url %}{{modelo1.url}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="DOI/ISBN" class="col-sm-2 col-form-label">DOI/ISBN: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control"
+                                        value="{% if modelo1.doi %}{{modelo1.doi}}{% endif %}" type="text" name="doi"
+                                        id="doiModelo1{{modelo1.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2 col-form-label">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantesModelo1{{modelo1.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if modelo1.estudiantesEnArticulo %}{{modelo1.estudiantesEnArticulo}} {% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo1{{modelo1.id}}">
+
+                            {%if modelo1.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo1.anexoPdf.url}}">{{modelo1.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo1Actualizar({{modelo1.id}})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo1Editar({{modelo1.id}})" id="{{modelo1.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo1Eliminar({{modelo1.id}})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <button
+                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}},'{{modelo1.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo1.periodo_id}})"
+                    type="button" id="modelo1Crear{{modelo1.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+
+            </li>
+            {% endif %}
+            <!-- Fin Numeral 6 Modelo1 -->
+
+            <!--Numeral 7 desde biblioteca-->
+            {% if numeral.orden == 7 %}
+            <li>
+                {% for biblioteca in bibliotecaNum7 %}
+
+                <form id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autores{{biblioteca.id}}"
+                                        name="autores" type="text"
+                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="titulo{{biblioteca.id}}" name="titulo"
+                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacion{{biblioteca.id}}"
+                                        name="revista"
+                                        value="{% if biblioteca.revista_Publicacion %}{{biblioteca.revista_Publicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="url{{biblioteca.id}}" name="url"
+                                        type="url" value="{{biblioteca.url}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
+                                        name="bibcode" id="bibcode{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.doi %}{{biblioteca.doi}}{% endif %}" name="doi"
+                                        id="doi{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                        name="fecha" id="fecha{{biblioteca.id}}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantes{{biblioteca.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexo{{biblioteca.id}}">
+
+                            {%if biblioteca.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexoPdf.url}}">{{biblioteca.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar('{{biblioteca.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="bibliotecaEditar('{{biblioteca.id}}')" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="bibliotecaEliminar('{{biblioteca.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button id="bibliotecaCrear{{biblioteca.id}}" onclick="BibliotecaCrearNumeral({{biblioteca.id}}, {{biblioteca.numeral_id}})" type="button"
+                    class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+
+                {% empty %}
+                <div class="alert alert-danger m-4" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Numeral 7 fin-->
+
+            <!--Numeral 8 Modelo1 -->
+            {% if numeral.orden == 8 %}
+            <li>
+                {% for modelo1 in modelo1 %}
+
+                {% if modelo1.numeral_id == numeral.id %}
+                <form id="modelo1{{modelo1.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autoresModelo1{{modelo1.id}}"
+                                        name="autores" type="text"
+                                        value="{% if modelo1.autores %}{{modelo1.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="tituloModelo1{{modelo1.id}}"
+                                        name="titulo" type="text"
+                                        value="{% if modelo1.titulo %}{{modelo1.titulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control"
+                                        id="revistaPublicacionModelo1{{modelo1.id}}" name="revista"
+                                        value="{% if modelo1.revistaPublicacion %}{{modelo1.revistaPublicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="urlModelo1{{modelo1.id}}" name="url"
+                                        type="url" value="{% if modelo1.url %}{{modelo1.url}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="DOI/ISBN" class="col-sm-2 col-form-label">DOI/ISBN: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control"
+                                        value="{% if modelo1.doi %}{{modelo1.doi}}{% endif %}" type="text" name="doi"
+                                        id="doiModelo1{{modelo1.id}}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo1{{modelo1.id}}">
+
+                            {%if modelo1.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo1.anexoPdf.url}}">{{modelo1.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo1Actualizar({{modelo1.id}})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo1Editar({{modelo1.id}})" id="{{modelo1.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo1Eliminar({{modelo1.id}})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+
+                <button
+                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}},'{{modelo1.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo1.periodo_id}})"
+                    type="button" id="" class="btn btn-danger"><i class="fas fa-plus-circle"></i>Agregar
+                    entrada</button>
+                <hr>
+
+                {% endif %}
+
+                {% endfor %}
+
+            </li>
+            {% endif %}
+            <!-- Fin Numeral 8 Modelo1 -->
+
+            <!--Numeral 9 desde biblioteca-->
+            {% if numeral.orden == 9 %}
+            <li>
+                {% for biblioteca in bibliotecaNum9 %}
+
+                <form id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autores{{biblioteca.id}}"
+                                        name="autores" type="text"
+                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="titulo{{biblioteca.id}}" name="titulo"
+                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacion{{biblioteca.id}}"
+                                        name="revista"
+                                        value="{% if biblioteca.revista_Publicacion %}{{biblioteca.revista_Publicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="url{{biblioteca.id}}" name="url"
+                                        type="url" value="{{biblioteca.url}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
+                                        name="bibcode" id="bibcode{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                        id="doi{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                        name="fecha" id="fecha{{biblioteca.id}}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantes{{biblioteca.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexo{{biblioteca.id}}">
+
+                            {%if biblioteca.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexoPdf.url}}">{{biblioteca.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar('{{biblioteca.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="bibliotecaEditar('{{biblioteca.id}}')" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="bibliotecaEliminar('{{biblioteca.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button id="bibliotecaCrear{{biblioteca.id}}" onclick="BibliotecaCrearNumeral({{biblioteca.id}}, {{biblioteca.numeral_id}})" type="button"
+                    class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+
+                {% empty %}
+                <div class="alert alert-danger m-4" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Numeral 9 fin-->
+
+            <!--Numeral 10 Modelo1 -->
+            {% if numeral.orden == 10 %}
+            <li>
+                {% for modelo1 in modelo1 %}
+                {% if modelo1.numeral_id == numeral.id %}
+                <form id="modelo1{{modelo1.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autoresModelo1{{modelo1.id}}" name="autores"
+                                        type="text" value="{% if modelo1.autores %}{{modelo1.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="tituloModelo1{{modelo1.id}}" name="titulo"
+                                        type="text" value=" {% if modelo1.titulo %}{{modelo1.titulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacionModelo1{{modelo1.id}}"
+                                        name="revista"
+                                        value="{% if modelo1.revistaPublicacion %}{{modelo1.revistaPublicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="urlModelo1{{modelo1.id}}" name="url"
+                                        type="url" value="{% if modelo1.url %}{{modelo1.url}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="DOI/ISBN" class="col-sm-2 col-form-label">DOI/ISBN: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control"
+                                        value="{% if modelo1.doi %}{{modelo1.doi}}{% endif %}" type="text" name="doi"
+                                        id="doiModelo1{{modelo1.id}}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo1{{modelo1.id}}">
+
+                            {%if modelo1.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo1.anexoPdf.url}}">{{modelo1.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo1Actualizar({{modelo1.id}})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo1Editar({{modelo1.id}})" id="{{modelo1.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo1Eliminar({{modelo1.id}})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}},'{{modelo1.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo1.periodo_id}})"
+                    type="button" id="" class="btn btn-danger"><i class="fas fa-plus-circle"></i>Agregar
+                    entrada</button>
+                <hr>
+                {% endif %}
+                {% endfor %}
+
+            </li>
+            {% endif %}
+            <!-- Fin Numeral 10 Modelo1 -->
+
+            <!--Numeral 11 desde biblioteca-->
+            {% if numeral.orden == 11 %}
+            <li>
+                {% for biblioteca in bibliotecaNum11 %}
+
+                <form id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autores{{biblioteca.id}}"
+                                        name="autores" type="text"
+                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="titulo{{biblioteca.id}}" name="titulo"
+                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacion{{biblioteca.id}}"
+                                        name="revista"
+                                        value="{% if biblioteca.revista_Publicacion %}{{biblioteca.revista_Publicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="url{{biblioteca.id}}" name="url"
+                                        type="url" value="{{biblioteca.url}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
+                                        name="bibcode" id="bibcode{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                        id="doi{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                        name="fecha" id="fecha{{biblioteca.id}}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantes{{biblioteca.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexo{{biblioteca.id}}">
+
+                            {%if biblioteca.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexoPdf.url}}">{{biblioteca.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar('{{biblioteca.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="bibliotecaEditar('{{biblioteca.id}}')" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="bibliotecaEliminar('{{biblioteca.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button id="bibliotecaCrear{{biblioteca.id}}" onclick="BibliotecaCrearNumeral({{biblioteca.id}}, {{biblioteca.numeral_id}})" type="button"
+                    class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+
+                {% empty %}
+                <div class="alert alert-danger m-4" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Numeral 11 fin-->
+
+            <!--Numeral 12 desde biblioteca-->
+            {% if numeral.orden == 12 %}
+            <li>
+                {% for biblioteca in bibliotecaNum12 %}
+
+                <form id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autores{{biblioteca.id}}"
+                                        name="autores" type="text"
+                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="titulo{{biblioteca.id}}" name="titulo"
+                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacion{{biblioteca.id}}"
+                                        name="revista"
+                                        value="{% if biblioteca.revista_Publicacion %}{{biblioteca.revista_Publicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="url{{biblioteca.id}}" name="url"
+                                        type="url" value="{{biblioteca.url}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
+                                        name="bibcode" id="bibcode{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                        id="doi{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                        name="fecha" id="fecha{{biblioteca.id}}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantes{{biblioteca.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexo{{biblioteca.id}}">
+
+                            {%if biblioteca.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexoPdf.url}}">{{biblioteca.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar('{{biblioteca.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="bibliotecaEditar('{{biblioteca.id}}')" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="bibliotecaEliminar('{{biblioteca.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button id="bibliotecaCrear{{biblioteca.id}}" onclick="BibliotecaCrearNumeral({{biblioteca.id}}, {{biblioteca.numeral_id}})" type="button"
+                    class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+
+                {% empty %}
+                <div class="alert alert-danger m-4" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Numeral 12 fin-->
+
+            <!--Numeral 13 desde biblioteca-->
+            {% if numeral.orden == 13 %}
+            <li>
+                {% for biblioteca in bibliotecaNum13 %}
+
+                <form id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autores{{biblioteca.id}}"
+                                        name="autores" type="text"
+                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="titulo{{biblioteca.id}}" name="titulo"
+                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacion{{biblioteca.id}}"
+                                        name="revista"
+                                        value="{% if biblioteca.revista_Publicacion %}{{biblioteca.revista_Publicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="url{{biblioteca.id}}" name="url"
+                                        type="url" value="{{biblioteca.url}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
+                                        name="bibcode" id="bibcode{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                        id="doi{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                        name="fecha" id="fecha{{biblioteca.id}}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantes{{biblioteca.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexo{{biblioteca.id}}">
+
+                            {%if biblioteca.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexoPdf.url}}">{{biblioteca.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar('{{biblioteca.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="bibliotecaEditar('{{biblioteca.id}}')" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="bibliotecaEliminar('{{biblioteca.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+
+                <button id="bibliotecaCrear{{biblioteca.id}}" onclick="BibliotecaCrearNumeral({{biblioteca.id}}, {{biblioteca.numeral_id}})" type="button"
+                    class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+
+                {% empty %}
+                <div class="alert alert-danger m-4" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Numeral 13 fin-->
+
+            <!--Numeral 14 desde biblioteca-->
+            {% if numeral.orden == 14 %}
+            <li>
+                {% for biblioteca in bibliotecaNum14 %}
+
+                <form id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autores{{biblioteca.id}}"
+                                        name="autores" type="text"
+                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="titulo{{biblioteca.id}}" name="titulo"
+                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacion{{biblioteca.id}}"
+                                        name="revista"
+                                        value="{% if biblioteca.revista_Publicacion %}{{biblioteca.revista_Publicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="url{{biblioteca.id}}" name="url"
+                                        type="url" value="{{biblioteca.url}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
+                                        name="bibcode" id="bibcode{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                        id="doi{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                        name="fecha" id="fecha{{biblioteca.id}}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantes{{biblioteca.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexo{{biblioteca.id}}">
+
+                            {%if biblioteca.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexoPdf.url}}">{{biblioteca.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar('{{biblioteca.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="bibliotecaEditar('{{biblioteca.id}}')" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="bibliotecaEliminar('{{biblioteca.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button id="bibliotecaCrear{{biblioteca.id}}" onclick="BibliotecaCrearNumeral({{biblioteca.id}}, {{biblioteca.numeral_id}})" type="button"
+                    class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+
+                {% empty %}
+                <div class="alert alert-danger m-4" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Numeral 14 fin-->
+
+            <!--Numeral 14a desde biblioteca-->
+            {% if numeral.orden == 14.1 %}
+            <li>
+                {% for biblioteca in bibliotecaNum14a %}
+
+                <form id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autores{{biblioteca.id}}"
+                                        name="autores" type="text"
+                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="titulo{{biblioteca.id}}" name="titulo"
+                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacion{{biblioteca.id}}"
+                                        name="revista"
+                                        value="{% if biblioteca.revista_Publicacion %}{{biblioteca.revista_Publicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="url{{biblioteca.id}}" name="url"
+                                        type="url" value="{{biblioteca.url}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
+                                        name="bibcode" id="bibcode{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                        id="doi{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-4" type="text"
+                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                        name="fecha" id="fecha{{biblioteca.id}}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantes{{biblioteca.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexo{{biblioteca.id}}">
+
+                            {%if biblioteca.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexoPdf.url}}">{{biblioteca.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar('{{biblioteca.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="bibliotecaEditar('{{biblioteca.id}}')" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="bibliotecaEliminar('{{biblioteca.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button id="bibliotecaCrear{{biblioteca.id}}" onclick="BibliotecaCrearNumeral({{biblioteca.id}}, {{biblioteca.numeral_id}})" type="button"
+                    class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+
+                {% empty %}
+                <div class="alert alert-danger m-4" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Numeral 14a fin-->
+
+            <!--Numeral 15,16,17 Modelo1 -->
+            {% if numeral.orden == 15 or numeral.orden == 16 or numeral.orden == 17 %}
+            <li>
+                {% for modelo1 in modelo1 %}
+                {% if modelo1.numeral_id == numeral.id %}
+                <form id="modelo1{{modelo1.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autoresModelo1{{modelo1.id}}"
+                                        name="autores" type="text"
+                                        value="{% if modelo1.autores %}{{modelo1.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="tituloModelo1{{modelo1.id}}"
+                                        name="titulo" type="text"
+                                        value=" {% if modelo1.titulo %}{{modelo1.titulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control"
+                                        id="revistaPublicacionModelo1{{modelo1.id}}" name="revista"
+                                        value="{% if modelo1.revistaPublicacion %}{{modelo1.revistaPublicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="urlModelo1{{modelo1.id}}" name="url"
+                                        type="url" value="{% if modelo1.url %}{{modelo1.url}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="DOI/ISBN" class="col-sm-2 col-form-label">DOI/ISBN: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control"
+                                        value="{% if modelo1.doi %}{{modelo1.doi}}{% endif %}" type="text" name="doi"
+                                        id="doiModelo1{{modelo1.id}}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo1{{modelo1.id}}">
+
+                            {%if modelo1.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo1.anexoPdf.url}}">{{modelo1.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo1Actualizar('{{modelo1.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo1Editar('{{modelo1.id}}')" id="{{modelo1.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo1Eliminar('{{modelo1.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}},'{{modelo1.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo1.periodo_id}})"
+                    type="button" id="modelo1Crear{{modelo1.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+                {% endfor %}
+
+            </li>
+            {% endif %}
+            <!-- Fin Numeral 15,16,17 Modelo1 -->
+
+            <!--Numerales 18-22 Modelo2 -->
+            {% if numeral.orden == 18 or numeral.orden == 19 or numeral.orden == 20 or numeral.orden == 21 or numeral.orden == 22 %}
+            <li>
+                {% for modelo2 in modelo2 %}
+                {% if modelo2.numeral_id == numeral.id %}
+                <form id="modelo2{{modelo2.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <div class="form-group row">
+                                <label for="NombreProyecto" class="col-sm-2">Nombre del proyecto:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="nombreProyecto"
+                                        id="NombreProyectoModelo2{{modelo2.id}}"
+                                        value="{% if modelo2.nombreProyecto %}{{modelo2.nombreProyecto}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="Participantes" class="col-sm-2">Participantes:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="participantes"
+                                        id="participantesModelo2{{modelo2.id}}"
+                                        value="{% if modelo2.participantes %}{{modelo2.participantes}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="Estudiantes" class="col-sm-2">Estudiantes:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="estudiantes"
+                                        id="estudiantesModelo2{{modelo2.id}}"
+                                        value="{% if modelo2.estudiantes %}{{modelo2.estudiantes}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="ResponsableTecParticipante" class="col-sm-3">Responsable técnico o
+                                    Participante:</label>
+                                <div class="col-sm-9">
+                                    <select disabled class="form-control mb-4" name="responsable"
+                                        id="responsableModelo2{{modelo2.id}}">
+                                        <option selected
+                                            value="{% if modelo2.responsableTecParticipante %}{{modelo2.responsableTecParticipante}}{% endif %}">
+                                            {% if modelo2.responsableTecParticipante == "" or modelo2.responsableTecParticipante == None  %}
+                                            --------------------
+                                            {% else %}
+                                            {{modelo2.responsableTecParticipante}}
+                                            {% endif %}
+                                        </option>
+                                        <option value="Responsable">Responsable</option>
+                                        <option value="Técnico">Técnico</option>
+                                        <option value="Participante">Participante</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <label for="Descripcion">Descripcion</label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo2{{modelo2.id}}" cols="30"
+                                rows="5">{% if modelo2.descripcion %}{{modelo2.descripcion}}{% endif %}</textarea>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo2{{modelo2.id}}">
+
+                            {%if modelo2.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo2.anexoPdf.url}}">{{modelo2.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo2Actualizar({{modelo2.id}})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo2Editar({{modelo2.id}})" id="{{modelo2.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo2Eliminar({{modelo2.id}})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                    onclick="modelo2Crear({{modelo2.id}},{{modelo2.numeral_id}},'{{modelo2.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo2.periodo_id}})"
+                    type="button" id="modelo2Crear{{modelo2.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+                {% endfor %}
+
+            </li>
+            {% endif %}
+            <!--Fin Numerales 18-22 Modelo2 -->
+
+            <!-- Numeral 23 Modelo1-->
+            {% if numeral.orden == 23 %}
+            <li>
+                {% for modelo1 in modelo1 %}
+                {% if modelo1.numeral_id == numeral.id %}
+                <form id="modelo1{{modelo1.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autoresModelo1{{modelo1.id}}"
+                                        name="autores" type="text"
+                                        value="{% if modelo1.autores %}{{modelo1.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="tituloModelo1{{modelo1.id}}"
+                                        name="titulo" type="text"
+                                        value="{% if modelo1.titulo %}{{modelo1.titulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control"
+                                        id="revistaPublicacionModelo1{{modelo1.id}}" name="revista"
+                                        value="{% if modelo1.revistaPublicacion %}{{modelo1.revistaPublicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="urlModelo1{{modelo1.id}}" name="url"
+                                        type="url" value="{% if modelo1.url %}{{modelo1.url}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2 col-form-label">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantesModelo1{{modelo1.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if modelo1.estudiantesEnArticulo %} {{modelo1.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="DOI/ISBN" class="col-sm-2 col-form-label">DOI/ISBN: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control"
+                                        value="{% if modelo1.doi %}{{modelo1.doi}}{% endif %}" type="text" name="doi"
+                                        id="doiModelo1{{modelo1.id}}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo1{{modelo1.id}}">
+
+                            {%if modelo1.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo1.anexoPdf.url}}">{{modelo1.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo1Actualizar({{modelo1.id}})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo1Editar({{modelo1.id}})" id="{{modelo1.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo1Eliminar({{modelo1.id}})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}},'{{modelo1.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo1.periodo_id}})"
+                    type="button" id="modelo1Crear{{modelo1.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+                {% endfor %}
+
+            </li>
+            {% endif %}
+            <!-- Fin Numeral 23 Modelo1 -->
+
+            <!--Numeral 24,25,28,29 Modelo3-->
+            {% if numeral.orden == 24 or numeral.orden == 25 or numeral.orden == 28 or numeral.orden == 29 %}
+            <li>
+                {% for modelo3 in modelo3 %}
+                {% if modelo3.numeral_id == numeral.id %}
+                <form id="modelo3{{modelo3.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Título de la presentación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="tituloPresentacion"
+                                        id="tituloPresentacionModelo3{{modelo3.id}}"
+                                        value="{% if modelo3.tituloPresentacion %}{{modelo3.tituloPresentacion}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Autores:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="autores"
+                                        id="autoresModelo3{{modelo3.id}}"
+                                        value="{% if modelo3.autores %}{{modelo3.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Nombre conferencia:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="nombreConferencia"
+                                        id="nombreConferenciaModelo3{{modelo3.id}}"
+                                        value="{% if modelo3.nombreConferencia %}{{modelo3.nombreConferencia}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo3{{modelo3.id}}"
+                                        value=" {% if modelo3.fecha %}{{modelo3.fecha}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Tipo de presentación:</label>
+                                <div class="col-sm-10">
+                                    <select disabled class="form-control mb-4" name="presentacionPoster"
+                                        id="presentacionPosterModelo3{{modelo3.id}}">
+                                        <option selected
+                                            value="{% if modelo3.presentacionPoster %}{{modelo3.presentacionPoster}}{% endif %}">
+                                            {% if modelo3.presentacionPoster == None or modelo3.presentacionPoster == "" %}
+                                            --------------------
+                                            {% else %}
+                                            {{modelo3.presentacionPoster}}
+                                            {% endif %}
+                                        </option>
+                                        <option value="Presentación Oral">Presentación Oral</option>
+                                        <option value="Poster">Poster</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Estudiantes:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="estudiantes"
+                                        id="estudiantesModelo3{{modelo3.id}}"
+                                        value="{% if modelo3.estudiantes %}{{modelo3.estudiantes}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI/ISBN:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="doi"
+                                        id="doiModelo3{{modelo3.id}}"
+                                        value="{% if modelo3.doi %}DOI/ISBN:{{modelo3.doi}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Url:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url"
+                                        id="urlModelo3{{modelo3.id}}"
+                                        value="{% if modelo3.url %}{{modelo3.url}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo3{{modelo3.id}}">
+
+                            {%if modelo3.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo3.anexoPdf.url}}">{{modelo3.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo3Actualizar({{modelo3.id}})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo3Editar({{modelo3.id}})" id="{{modelo3.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo3Eliminar({{modelo3.id}})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                    onclick="modelo3Crear({{modelo3.id}},{{modelo3.numeral_id}},'{{modelo3.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo3.periodo_id}})"
+                    type="button" id="modelo3Crear{{modelo3.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+                {% endfor %}
+
+            </li>
+            {% endif %}
+            <!--Fin Numeral 24,25,28,29 Modelo3-->
+
+            <!-- Numeral 26 y 27 Modelo3-->
+            {% if numeral.orden == 26 or numeral.orden == 27 %}
+            <li>
+                {% for modelo3 in modelo3 %}
+                {% if modelo3.numeral_id == numeral.id %}
+                <form id="modelo3{{modelo3.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Título de la presentación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="tituloPresentacion"
+                                        id="tituloPresentacionModelo3{{modelo3.id}}"
+                                        value="{% if modelo3.tituloPresentacion %}{{modelo3.tituloPresentacion}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Autores:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="autores"
+                                        id="autoresModelo3{{modelo3.id}}"
+                                        value="{% if modelo3.autores %}{{modelo3.autores}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Nombre conferencia:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="nombreConferencia"
+                                        id="nombreConferenciaModelo3{{modelo3.id}}"
+                                        value="{% if modelo3.nombreConferencia %}{{modelo3.nombreConferencia}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo3{{modelo3.id}}"
+                                        value="{% if modelo3.fecha %}{{modelo3.fecha}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Estudiantes:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="estudiantes"
+                                        id="estudiantesModelo3{{modelo3.id}}"
+                                        value="{% if modelo3.estudiantes %}{{modelo3.estudiantes}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI/ISBN:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="doi"
+                                        id="doiModelo3{{modelo3.id}}"
+                                        value="{% if modelo3.doi %}{{modelo3.doi}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Url:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url"
+                                        id="urlModelo3{{modelo3.id}}"
+                                        value="{% if modelo3.url %}{{modelo3.url}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo3{{modelo3.id}}">
+                            {%if modelo3.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo3.anexoPdf.url}}">{{modelo3.anexoPdf.name}}</a>
+                            {% endif %}
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo3Actualizar({{modelo3.id}})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo3Editar({{modelo3.id}})" id="{{modelo3.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo3Eliminar({{modelo3.id}})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <button
+                    onclick="modelo3Crear({{modelo3.id}},{{modelo3.numeral_id}},'{{modelo3.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo3.periodo_id}})"
+                    type="button" id="modelo3Crear{{modelo3.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+                {% endfor %}
+
+            </li>
+            {% endif %}
+            <!--Fin Numeral 26 y 27 Modelo3-->
+
+            {% if numeral.orden == 30 %}
+            <li>
+                {% for campo in citas %}
+                <form id="campo{{campo.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <label for="">Citas totales:</label>
+                            <input disabled class="form-control mb-2" type="number"
+                                value="{% if campo.citas %}{{campo.citas}}{% endif %}" name="citas"
+                                id="citas{{campo.id}}">
+
+                            <label for="">Citas obtenidas durante el periodo del reporte</label>
+                            <input disabled class="form-control mb-2" type="number"
+                                value="{% if campo.citasObtenidasEnPeriodo %}{{campo.citasObtenidasEnPeriodo}}{% endif %}"
+                                name="citasPeriodo" id="citasPeriodo{{campo.id}}">
+
+                        </div>
+
+                        <div class="form-group">
+                            <p>30a. índice H:</p>
+                            <input disabled class="form-control mb-4"
+                                value="{% if campo.indiceH %}{{campo.indiceH}}{% endif %}" type="number" name="indiceH"
+                                id="indiceH{{campo.id}}">
+                        </div>
+
+                        <input disabled class="form-control mb-4" type="file" name="anexo" id="anexoCitas{{campo.id}}">
+                        {%if campo.anexoPdf %}
+                        <strong>Actualmente: </strong><a href="{{campo.anexoPdf.url}}">{{campo.anexoPdf.name}}</a>
+                        {% endif %}
+
+                        <div class="justify-content-end d-flex">
+                            <button type="button" class="btn btn-primary p-2 mr-2" onclick="citasEditar('{{campo.id}}')"
+                                id="" title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                            <button onclick="citasActualizar('{{campo.id}}')" type="button" class="btn btn-success p-2"
+                                title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                    Guardar</i></button>
+                        </div>
+
+                    </div>
+                </form>
+                {% endfor %}
+
+            </li>
+            {% endif %}
+
+        </ul>
+
+        <div class="col-12 d-flex justify-content-end" style="cursor: pointer;">
+            <i data-toggle="modal" data-target="#glosario" style="font-size: 20px;"
+                class="fas fa-question-circle text-dark "></i>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+<!-- Modal glosario -->
+<div class="modal fade" id="glosario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Glosario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center" colspan="2">Investigación Cientifica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for glosario in glosario %}
+                        <tr>
+                            <td width=50%>{{ glosario.numerales|safe }}</td>
+                            <td width=50%>{{ glosario.explicacion|safe }}</td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Modal glosario-->
+
+<!--Modal Multiple.-->
+<div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="accionModal"></h5>
+
+            </div>
+
+            <div class="modal-body">
+                <h5 id="textoModal" class="text-center"></h5>
+                <h5 id="textoModal2" class="text-center"></h5><br>
+                <div class="d-flex justify-content-center">
+                    <i id="icono" style="font-size: 100px;" class=""></i>
+                </div>
+            </div>
+
+            <div class="modal-footer" id="footer">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Fin para Modal Multiple-->
+
+{% endblock %}
+
+{% block JsCode %}
+<script>
+
+    //Inicio Biblioteca
+
+    //Crear entradas biblioteca Numerales 
+    function BibliotecaCrearNumeral(id, numeral) {
+
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            type: "POST",
+            url: '{% url "investigadores:BibliotecaCrearNumeral" %}',
+            data: {
+                "id": id,
+                "numeral": numeral,
+                "csrfmiddlewaretoken": csrfmiddlewaretoken,
+            },
+            dataType: "Json",
+            success: function (response) {
+                toastr.success('Entrada creada', 'Operacion exitosa')
+                dibujarCamposBiblioteca(response)
+            }
+        });
+    }
+    
+    function dibujarCamposBiblioteca(response){
+        $("#biblioteca" + `${response.posicion}`).after(
+            `<form id="biblioteca${response.id}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="autores${response.id}"
+                                        name="autores" type="text"
+                                        value="">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="titulo${response.id}" name="titulo"
+                                        type="text" value="">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="revistaPublicacion${response.id}"
+                                        name="revista"
+                                        value=""
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="url${response.id}" name="url"
+                                        type="url" value="">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value=""
+                                        name="bibcode" id="bibcode${response.id}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text"
+                                        value="" name="doi"
+                                        id="doi${response.id}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-4" type="text"
+                                        value=""
+                                        name="fecha" id="fecha${response.id}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-4 form-control" id="estudiantes${response.id}"
+                                        name="estudiantes" type="text"
+                                        value="">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexo${response.id}">
+
+                            {%if biblioteca.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexoPdf.url}}">{{biblioteca.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar(${response.id})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="bibliotecaEditar(${response.id})" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="bibliotecaEliminar(${response.id})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>`
+        )
+    }
+    function bibliotecaEditar(id) {
+        $("#autores" + id).prop("disabled", false);
+        $("#titulo" + id).prop("disabled", false);
+        $("#revistaPublicacion" + id).prop("disabled", false);
+        $("#url" + id).prop("disabled", false);
+        $("#estudiantes" + id).prop("disabled", false);
+        $("#doi" + id).prop("disabled", false);
+        $("#fecha" + id).prop("disabled", false);
+        $("#bibcode" + id).prop("disabled", false);
+        $("#anexo" + id).prop("disabled", false);
+    }
+    function desactivarCamposBiblioteca(id) {
+        $("#autores" + id).prop("disabled", true);
+        $("#titulo" + id).prop("disabled", true);
+        $("#revistaPublicacion" + id).prop("disabled", true);
+        $("#url" + id).prop("disabled", true);
+        $("#estudiantes" + id).prop("disabled", true);
+        $("#doi" + id).prop("disabled", true);
+        $("#fecha" + id).prop("disabled", true);
+        $("#bibcode" + id).prop("disabled", true);
+        $("#anexo" + id).prop("disabled", true);
+    }
+    function bibliotecaActualizar(id) {
+
+        var formData = new FormData(document.getElementById("biblioteca" + id))
+        formData.append("id", id);
+        expresion = /[1-2][0][1-9][1-9][/][0-1][0-9]/;
+        fecha = $("#fecha" + id).val().trim()
+        if (expresion.test(fecha)) {
+            $.ajax({
+                url: '{% url "investigadores:actualizar-Biblioteca" %}',
+                type: 'POST',
+                data: formData,
+                enctype: "multipart/form-data",
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: 'html',
+                success: function (data) {
+                    toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+                    desactivarCamposBiblioteca(id)
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastr.error('Code error: ' + jqXHR.status + " " + errorThrown, 'Imposible Proceder')
+                }
+            });
+        }
+        else {
+            $("#accionModal").text("Fecha Incorrecta o faltante");
+            $("#textoModal").text("Debe introducir una fecha valida")
+            $("#icono").addClass('fas fa-exclamation text-danger')
+            $("#footer").html('<button type="button" class="btn btn-primary btn-block " data-dismiss="modal">Aceptar</button>')
+            $("#modalDinamico").modal('show');
+        }
+        return false;
+    }
+    function bibliotecaEliminar(id) {
+        $("#accionModal").text("Eliminar Item");
+        $("#textoModal").text("¿Desea eliminar este Item de su biblioteca?") //¿Desea eliminar este Item?
+        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#footer").html(`<button class="btn btn-primary" onclick="bibliotecaEliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
+    function bibliotecaEliminarConfirm(id) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            url: '{% url "biblioteca:eliminar-biblioteca" %}',
+            type: "POST",
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.deleted) {
+                    $("#biblioteca" + id).remove();
+                    $("#bibliotecaCrear"+id).remove();
+                    toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                }
+            }
+        });
+
+        $('#modalDinamico').modal('hide');//cierra modal
+        return false;
+    };
+    //Fin Actualizar Biblioteca
+
+    //FIN BIBLIOTECA
+
+    //Modelo 1
+    //Activar - desactivar campos
+    function modelo1Editar(id) {
+        $("#autoresModelo1" + id).prop("disabled", false);
+        $("#tituloModelo1" + id).prop("disabled", false);
+        $("#revistaPublicacionModelo1" + id).prop("disabled", false);
+        $("#urlModelo1" + id).prop("disabled", false);
+        $("#doiModelo1" + id).prop("disabled", false);
+        $("#estudiantesModelo1" + id).prop("disabled", false);
+        $("#anexoModelo1" + id).prop("disabled", false);
+    }
+    function desactivarCamposModelo1(id) {
+        $("#autoresModelo1" + id).prop("disabled", true);
+        $("#tituloModelo1" + id).prop("disabled", true);
+        $("#revistaPublicacionModelo1" + id).prop("disabled", true);
+        $("#urlModelo1" + id).prop("disabled", true);
+        $("#doiModelo1" + id).prop("disabled", true);
+        $("#estudiantesModelo1" + id).prop("disabled", true);
+        $("#anexoModelo1" + id).prop("disabled", true);
+    }
+    //Fin Activar - Desactivar campos
+
+    //Eliminar Modelo1
+    function modelo1Eliminar(id) {
+        $("#accionModal").text("Eliminar Item");
+        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
+        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo1EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
+    function modelo1EliminarConfirm(id) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            url: '{% url "investigadores:eliminar-modelo1" %}',
+            type: "POST",
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.deleted) {
+                    $("#modelo1" + id).remove();
+                    $("#modelo1Crear" + id).remove();
+                    toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                }
+            }
+        });
+
+        $('#ItemEliminar-id').trigger("reset");
+        $('#modalDinamico').modal('hide');//cierra modal
+        return false;
+    }
+
+    //Fin Eliminar Modelo1
+    function modelo1Actualizar(id) {
+        var formData = new FormData(document.getElementById("modelo1" + id))
+        formData.append("id", id);
+
+        $.ajax({
+            url: '{% url "investigadores:actualizar-modelo1" %}',
+            type: 'POST',
+            data: formData,
+            enctype: "multipart/form-data",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'html',
+            success: function (data) {
+                desactivarCamposModelo1(id)
+                toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+            }
+        });
+
+        return false;
+
+    }
+    function modelo1Crear(posicion, numeral, seccion, orden, periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: '{% url "investigadores:crear-modelo1" %}',
+            data: {
+                "posicion": posicion,
+                "numeral": numeral,
+                "seccion": seccion,
+                "orden": orden,
+                "periodo": periodo,
+            },
+            dataType: "Json",
+            success: function (response) {
+
+                toastr.success('Entrada creada', 'Operacion exitosa')
+                dibujarmodelo1(response)
+            }
+        });
+
+    }
+    function dibujarmodelo1(response) {
+        if (response.orden == '15,0' || response.orden == '16,0' || response.orden == '17,0') {
+
+            $("#modelo1Crear" + `${response.posicion}`).after(
+                `
+                <form id="modelo1${response.id}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                                <div class="form-group row">
+                                    <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="mb-4 form-control" id="autoresModelo1${response.id}"
+                                            name="autores" type="text" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="mb-4 form-control" id="tituloModelo1${response.id}"
+                                            name="titulo" type="text" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="mb-4 form-control"
+                                            id="revistaPublicacionModelo1${response.id}" name="revista"
+                                            value="" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="mb-4 form-control" id="urlModelo1${response.id}"
+                                            name="url" type="url" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="DOI/ISBN" class="col-sm-2 col-form-label">DOI/ISBN: </label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="mb-4 form-control" value="" type="text"
+                                            name="doi" id="doiModelo1${response.id}">
+                                    </div>
+                                </div>
+
+                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                    id="anexoModelo1${response.id}">
+
+                                <div class="justify-content-end d-flex">
+                                    <button onclick="modelo1Actualizar('${response.id}')" type="button"
+                                        class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                            Guardar</i></button>
+                                    <button type="button" class="btn btn-primary p-2 mr-2"
+                                        onclick="modelo1Editar('${response.id}')" id="${response.id}"
+                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-danger  p-2 mr-2"
+                                        onclick="modelo1Eliminar('${response.id}')" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </form>
+                    <hr>
+                `);
+        }
+        else {
+            $("#modelo1" + `${response.posicion}`).after(
+                `
+            <form id="modelo1${response.id}" enctype="multipart/form-data">
+                <div class="card-body">
+
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                            <div class="col-sm-10">
+                                <input disabled class="mb-4 form-control" id="autoresModelo1${response.id}"
+                                    name="autores" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                            <div class="col-sm-10">
+                                <input disabled class="mb-4 form-control" id="tituloModelo1${response.id}"
+                                    name="titulo" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                            <div class="col-sm-10">
+                                <input disabled class="mb-4 form-control"
+                                    id="revistaPublicacionModelo1${response.id}" name="revista"
+                                    value="" type="text">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                            <div class="col-sm-10">
+                                <input disabled class="mb-4 form-control" id="urlModelo1${response.id}"
+                                    name="url" type="url" value="">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="DOI/ISBN" class="col-sm-2 col-form-label">DOI/ISBN: </label>
+                            <div class="col-sm-10">
+                                <input disabled class="mb-4 form-control" value="" type="text"
+                                    name="doi" id="doiModelo1${response.id}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="estudiantes" class="col-sm-2 col-form-label">Estudiante(s):</label>
+                            <div class="col-sm-10">
+                                <input disabled class="mb-4 form-control"
+                                    id="estudiantesModelo1${response.id}" name="estudiantes" type="text"
+                                    value="">
+                            </div>
+                        </div>
+
+                        <input disabled class="form-control mb-4" type="file" name="anexo"
+                            id="anexoModelo1${response.id}">
+
+
+                        <div class="justify-content-end d-flex">
+                            <button onclick="modelo1Actualizar('${response.id}')" type="button"
+                                class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                    class="fas fa-save">&nbsp;
+                                    Guardar</i></button>
+                            <button type="button" class="btn btn-primary p-2 mr-2"
+                                onclick="modelo1Editar('${response.id}')" id="${response.id}"
+                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                            <button type="button" class="btn btn-danger  p-2 mr-2"
+                                onclick="modelo1Eliminar('${response.id}')" title="Eliminar entrada"><i
+                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <hr>
+            `);
+        }
+    }
+    //Fin modelo1
+
+    //Modelo 2
+    function modelo2Editar(id) {
+        $("#NombreProyectoModelo2" + id).prop("disabled", false);
+        $("#descripcionModelo2" + id).prop("disabled", false);
+        $("#participantesModelo2" + id).prop("disabled", false);
+        $("#responsableModelo2" + id).prop("disabled", false);
+        $("#estudiantesModelo2" + id).prop("disabled", false);
+        $("#anexoModelo2" + id).prop("disabled", false)
+    }
+    function desactivarCamposModelo2(id) {
+        $("#NombreProyectoModelo2" + id).prop("disabled", true);
+        $("#descripcionModelo2" + id).prop("disabled", true);
+        $("#participantesModelo2" + id).prop("disabled", true);
+        $("#responsableModelo2" + id).prop("disabled", true);
+        $("#estudiantesModelo2" + id).prop("disabled", true);
+        $("#anexoModelo2" + id).prop("disabled", true)
+    }
+    function modelo2Actualizar(id) {
+        var formData = new FormData(document.getElementById("modelo2" + id))
+        formData.append("id", id);
+
+        $.ajax({
+            url: '{% url "investigadores:actualizar-modelo2" %}',
+            type: 'POST',
+            data: formData,
+            enctype: "multipart/form-data",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'html',
+            success: function (data) {
+                toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+                desactivarCamposModelo2(id);
+            }
+        });
+
+        return false;
+
+    }
+    function modelo2Crear(posicion, numeral, seccion, orden, periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: '{% url "investigadores:crear-modelo2" %}',
+            data: {
+                "posicion": posicion,
+                "numeral": numeral,
+                "seccion": seccion,
+                "orden": orden,
+                "periodo": periodo,
+            },
+            dataType: "Json",
+            success: function (response) {
+                toastr.success('Entrada creada', 'Operacion exitosa')
+                dibujarmodelo2(response)
+            }
+        });
+
+    }
+    function dibujarmodelo2(response) {
+        $("#modelo2" + `${response.posicion}`).after(
+            `
+        <form id="modelo2${response.id}" enctype="multipart/form-data">
+                <div class="card-body">
+
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="NombreProyecto" class="col-sm-2">Nombre del proyecto:</label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-4" type="text" name="nombreProyecto"
+                                    id="NombreProyectoModelo2${response.id}"
+                                    value="{{Modelo2.nombreProyecto}}">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Participantes" class="col-sm-2">Participantes:</label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-4" type="text" name="participantes"
+                                    id="participantesModelo2${response.id}"
+                                    value="{{Modelo2.participantes}}">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Estudiantes" class="col-sm-2">Estudiantes:</label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-4" type="text" name="estudiantes"
+                                    id="estudiantesModelo2${response.id}" value="{{Modelo2.estudiantes}}">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="ResponsableTecParticipante" class="col-sm-3">Responsable técnico o
+                                Participante:</label>
+                            <div class="col-sm-9">
+                                <select disabled class="form-control mb-4" name="responsable"
+                                    id="responsableModelo2${response.id}">
+                                    <option selected value="{{Modelo2.responsableTecParticipante}}">
+                                        {% if Modelo2.responsableTecParticipante %} 
+                                        {{Modelo2.responsableTecParticipante}}
+                                        {% else %}
+                                        -----------------------------------------
+                                        {% endif %}
+                                    </option>
+                                    <option value="Responsable">Responsable</option>
+                                    <option value="Técnico">Técnico</option>
+                                    <option value="Participante">Participante</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <label for="Descripcion">Descripcion</label>
+                        <textarea disabled class="form-control mb-4" name="descripcion"
+                            id="descripcionModelo2${response.id}" cols="30"
+                            rows="5">{{Modelo2.descripcion}}</textarea>
+
+                        <input disabled class="form-control mb-4" type="file" name="anexo"
+                            id="anexoModelo2${response.id}">
+
+                        {%if Modelo2.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{Modelo2.anexoPdf.url}}">{{Modelo2.anexoPdf.name}}</a>
+                        {% endif %}
+
+                        <div class="justify-content-end d-flex">
+                            <button onclick="modelo2Actualizar('${response.id}')" type="button"
+                                class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                    Guardar</i></button>
+                            <button type="button" class="btn btn-primary p-2 mr-2"
+                                onclick="modelo2Editar('${response.id}')" id="${response.id}"
+                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                            <button type="button" class="btn btn-danger  p-2 mr-2"
+                                onclick="modelo2Eliminar('${response.id}')" title="Eliminar entrada"><i
+                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </form>
+            <hr>
+        `)
+    }
+    function modelo2Eliminar(id) {
+        $("#accionModal").text("Eliminar Item");
+        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
+        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo2EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
+    function modelo2EliminarConfirm(id) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            url: '{% url "investigadores:eliminar-modelo2" %}',
+            type: "POST",
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.deleted) {
+                    $("#modelo2" + id).remove();
+                    $("#modelo2Crear" + id).remove();
+                    toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                }
+            }
+        });
+
+        $('#ItemEliminar-id').trigger("reset");
+        $('#modalDinamico').modal('hide');//cierra modal
+        return false;
+    }
+
+    //Fin modelo2
+
+    //Modelo3
+    function modelo3Editar(id) {
+        $("#tituloPresentacionModelo3" + id).prop("disabled", false);
+        $("#autoresModelo3" + id).prop("disabled", false);
+        $("#nombreConferenciaModelo3" + id).prop("disabled", false);
+        $("#fechaModelo3" + id).prop("disabled", false);
+        $("#estudiantesModelo3" + id).prop("disabled", false);
+        $("#doiModelo3" + id).prop("disabled", false);
+        $("#presentacionPosterModelo3" + id).prop("disabled", false);
+        $("#urlModelo3" + id).prop("disabled", false);
+        $("#anexoModelo3" + id).prop("disabled", false);
+    }
+    function desactivarCamposModelo3(id) {
+        $("#tituloPresentacionModelo3" + id).prop("disabled", true);
+        $("#autoresModelo3" + id).prop("disabled", true);
+        $("#nombreConferenciaModelo3" + id).prop("disabled", true);
+        $("#fechaModelo3" + id).prop("disabled", true);
+        $("#estudiantesModelo3" + id).prop("disabled", true);
+        $("#doiModelo3" + id).prop("disabled", true);
+        $("#presentacionPosterModelo3" + id).prop("disabled", true);
+        $("#urlModelo3" + id).prop("disabled", true);
+        $("#anexoModelo3" + id).prop("disabled", true);
+    }
+    function modelo3Actualizar(id) {
+        var formData = new FormData(document.getElementById("modelo3" + id))
+        formData.append("id", id);
+
+        $.ajax({
+            url: '{% url "investigadores:actualizar-modelo3" %}',
+            type: 'POST',
+            data: formData,
+            enctype: "multipart/form-data",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'html',
+            success: function (data) {
+                toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+                desactivarCamposModelo3(id);
+            }
+        });
+
+        return false;
+
+    }
+    function modelo3Crear(posicion, numeral, seccion, orden, periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: '{% url "investigadores:crear-modelo3" %}',
+            data: {
+                "posicion": posicion,
+                "numeral": numeral,
+                "seccion": seccion,
+                "orden": orden,
+                "periodo": periodo,
+            },
+            dataType: "Json",
+            success: function (response) {
+                toastr.success('Entrada creada', 'Operacion exitosa')
+                dibujarmodelo3(response)
+            }
+        });
+
+    }
+    function dibujarmodelo3(response) {
+        if (response.orden == '26,0' || response.orden == '27,0') {
+            $("#modelo3" + `${response.posicion}`).after(
+                `
+                <form id="modelo3${response.id}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Título de la presentación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="tituloPresentacion"
+                                        id="tituloPresentacionModelo3${response.id}"
+                                        value="{{Modelo3.tituloPresentacion}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Autores:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="autores"
+                                        id="autoresModelo3${response.id}" value="{{Modelo3.autores}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Nombre conferencia:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="nombreConferencia"
+                                        id="nombreConferenciaModelo3${response.id}"
+                                        value="{{Modelo3.nombreConferencia}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo3${response.id}" value="{{Modelo3.fecha}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Estudiantes:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="estudiantes"
+                                        id="estudiantesModelo3${response.id}" value="{{Modelo3.estudiantes}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI/ISBN:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="doi"
+                                        id="doiModelo3${response.id}" value="{{Modelo3.doi}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Url:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url" id="urlModelo3${response.id}" value="{{Modelo3.url}}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo3${response.id}">
+                            {%if Modelo3.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{Modelo3.anexoPdf.url}}">{{Modelo3.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo3Actualizar(${response.id})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo3Editar(${response.id})" id="${response.id}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo3Eliminar(${response.id})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <hr>
+                `);
+        }
+        else {
+            $("#modelo3" + `${response.posicion}`).after(
+                `
+                <form id="modelo3${response.id}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Título de la presentación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="tituloPresentacion"
+                                        id="tituloPresentacionModelo3${response.id}"
+                                        value="{{Modelo3.tituloPresentacion}}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Autores:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="autores"
+                                        id="autoresModelo3${response.id}" value="{{Modelo3.autores}}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Nombre conferencia:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="nombreConferencia"
+                                        id="nombreConferenciaModelo3${response.id}"
+                                        value="{{Modelo3.nombreConferencia}}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo3${response.id}" value="{{Modelo3.fecha}}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Tipo de presentación</label>
+                                <div class="col-sm-10">
+                                    <select disabled class="form-control mb-4" name="presentacionPoster"
+                                        id="presentacionPosterModelo3${response.id}">
+                                        <option value="{{Modelo3.presentacionPoster}}">
+                                            {% if Modelo3.presentacionPoster  %}
+                                            {{Modelo3.presentacionPoster}}
+                                            {% else %}
+                                            --------------------
+                                            {% endif %}
+                                        </option>
+                                        <option value="Presentación Oral">Presentación Oral</option>
+                                        <option value="Poster">Poster</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Estudiantes:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="estudiantes"
+                                        id="estudiantesModelo3${response.id}" value="{{Modelo3.estudiantes}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI/ISBN:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="doi"
+                                        id="doiModelo3${response.id}" value="{{Modelo3.doi}}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Url:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url" id="urlModelo3${response.id}" value="{{Modelo3.url}}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo3${response.id}">
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo3Actualizar(${response.id})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo3Editar(${response.id})" id="${response.id}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo3Eliminar(${response.id})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <hr>
+                `);
+        }
+    }
+    function modelo3Eliminar(id) {
+        $("#accionModal").text("Eliminar Item");
+        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
+        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo3EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
+    function modelo3EliminarConfirm(id) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            url: '{% url "investigadores:eliminar-modelo3" %}',
+            type: "POST",
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.deleted) {
+                    $("#modelo3" + id).remove();
+                    $("#modelo3Crear" + id).remove();
+                    toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                }
+            }
+        });
+
+        $('#ItemEliminar-id').trigger("reset");
+        $('#modalDinamico').modal('hide');//cierra modal
+        return false;
+    }
+
+    //FinModelo3
+
+    //citas
+    function citasEditar(id) {
+        $("#citas" + id).prop("disabled", false);
+        $("#citasPeriodo" + id).prop("disabled", false);
+        $("#indiceH" + id).prop("disabled", false);
+        $("#anexoCitas" + id).prop("disabled", false);
+
+    }
+
+    function desactivarCitas(id) {
+        $("#citas" + id).prop("disabled", true);
+        $("#citasPeriodo" + id).prop("disabled", true);
+        $("#indiceH" + id).prop("disabled", true);
+        $("#anexoCitas" + id).prop("disabled", true);
+
+    }
+    function citasActualizar(id) {
+        var formData = new FormData(document.getElementById("campo" + id))
+        formData.append("id", id);
+
+        $.ajax({
+            url: '{% url "investigadores:actualizar_citas" %}',
+            type: 'POST',
+            data: formData,
+            enctype: "multipart/form-data",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'html',
+            success: function (data) {
+                toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+            }
+        });
+
+        return false;
+    }
+
+//Fin citas
+</script>
+{% endblock %}
+

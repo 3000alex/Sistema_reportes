@@ -1,0 +1,26 @@
+{% extends 'core/header.html' %}
+{% block reportesEnviados %}
+<div class="container">
+        <table id="reportesEnviados" class="table table-bordered table-striped text-center" style="width:100%">
+                <thead>
+                    <tr>
+                        <th scope="col">Reportes</th>
+                        <th scope="col">Fecha de envio</th>
+                        <th scope="col">Descargar</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    {% for r in reportes %}
+                    <tr id="user-{{inv.id}}">
+                        <td class="userEmail userData" name="email">{{r.reporte}}</td>
+                        <td class="userName userData" name="name">{{r.fechaCreacion|date:"d M Y"}}</td>
+                        <td class="userName userData" name="name"><a href="{{r.reporte.url}}" class="btn btn-primary" target="_blank"> <i class="fas fa-file-download"></i> </a></td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+</div>
+
+{% endblock %}

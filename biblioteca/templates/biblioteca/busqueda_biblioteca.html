@@ -1,0 +1,132 @@
+{% extends 'core/header.html' %}
+<!--Encabezado - nav - title name-->
+{% block biblioteca_personal %}
+<div style="padding-top: 260px;">
+    <div class="container card pb-4" >
+
+        <div class="row">
+            <div class="col-12 card-header">
+                <strong>
+                    <p style="font-size:20px;" class="text-center">Búsqueda de publicaciones (basado en NASA/ADS)</p>
+                </strong>
+            </div>
+        </div>
+    
+        <div class="mt-3 col-12">
+                <i><p class="text-muted">QUICK:
+                    <button id="autor" class="btn btn-link">author</button>
+                    <button id="primer_autor" class="btn btn-link">1st author</button>
+                    <button id="año" class="btn btn-link">year</button>
+                    <button id="abstract" class="btn btn-link">abstract</button>
+                    <button id="title" class="btn btn-link" >title</button>
+                    <button id="database" class="btn btn-link" >database</button>
+                </p></i>
+        </div>
+        <div class="row">
+            <div class="container ">
+                <label for="autor">Búsqueda general:</label>
+                <form class="col-12" action="{% url 'biblioteca:publicaciones_author' %}">
+                    <div class="col-10 input-group">
+                        <input class="form-control" type="text"  name="author"id="busquedaGeneral" class="form-control" id="validationCustomUsername" 
+                            aria-describedby="inputGroupPrepend" required>
+                        <span>&nbsp;&nbsp;&nbsp;</span>
+                        <button class="mr-4 bg-primary  text-white btn btn-primary" id="inputGroupPrepend">Buscar &nbsp; <i class="fas fa-search"></i></button>
+                        
+                    </div>
+                </form>
+    
+    
+            </div>
+                
+        </div>
+        <div class="row">
+            <div class="container">
+                <div class="input-group">
+                    <div class="mt-4 col-4">
+                                <p><strong>autor</strong> Hawking, S</p>
+                                <p><strong>1er autor</strong> ^Hawking, S</p>
+                                <p><strong>año</strong> year:2012</p>
+                                <p><strong>rango</strong> year:2000-2015</p>
+                                <p><strong>abstract</strong> abs:"OAGH"</p>
+                                <p><strong>astronomía</strong> database:"astronomy"</p>
+                           
+                    </div>
+            
+                    <div class="mt-4 col-6">
+                        <strong>ejemplos:</strong>       
+                            <p style="margin-left: 70px;">Haro abs:"T Tauri" year:1960-1965</p>
+                            <p style="margin-left: 70px;">^Faber author:"Dressler"</p>
+                            <p style="margin-left: 70px;">Hubble, E year:1920</p>
+                            <p style="margin-left: 70px;">author: "Smith, A" database:"astronomy"</p>         
+                            <p style="margin-left: 70px;">title: "Event Horizon Telescope"</p>         
+                            
+                    </div>
+                </div>
+                    
+            </div>
+        </div>
+        
+        <hr>
+    
+        <div class="row">
+            <form class="col-12" action="{% url 'biblioteca:publicaciones_bidcode' %}">
+                <label for="bibcode">BibCode:</label>
+                <input placeholder="ejemplo: 2018MNRAS.479..917G" class="form-control" type="text" name="bibcode" id="bibcode">
+                <input class="btn btn-primary float-right btn-lg mt-3 mb-2 mr-4" type="submit" value="Buscar">
+            </form>
+        </div>
+        <hr>
+    
+        <div class="row">
+            <form class="col-12" action="{% url 'biblioteca:publicaciones_orcid' %}">
+                <label for="orcid">ORCID:</label>
+                <input placeholder="0000-0002-3642-9146" class="form-control"
+                    value="{{user.orcId}}" type="text" name="orcid" id="orcid">
+    
+                     {% if user.orcId == None %} 
+                     <small> &nbsp;&nbsp; No tiene asignado ningun orcid en su <a href="{% url 'registration:actualizar-perfil' %}">perfil.</a></small> 
+                     
+                     {% endif %}
+    
+                <input class="btn btn-primary float-right btn-lg mt-3 mb-2 mr-4" type="submit" value="Buscar">
+            </form>
+        </div>
+        <hr>
+    
+    </div>
+</div>
+
+<br>
+{% endblock %}
+
+{% block JsCode %}
+    <script>
+        $("#autor").click(function () { 
+            $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'author:"" ')
+
+        });
+
+        $("#primer_autor").click(function () { 
+            $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'author:"^" ')
+        });
+
+        $("#año").click(function () { 
+            $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'year:')
+        });
+
+        $("#abstract").click(function () { 
+            $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'abs:"" ')
+        });
+
+        $("#title").click(function () { 
+            $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'title:"" ')
+        });
+
+        $("#database").click(function () { 
+            $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'database:"astronomy" ')
+        });
+
+
+
+    </script>
+{% endblock %}

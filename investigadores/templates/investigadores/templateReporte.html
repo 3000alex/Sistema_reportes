@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Sistema de reportes</title>
+    <style> *{ font-family: 'Times New Roman', Times, serif; } </style>
+</head>
+
+<body>
+
+        <header>
+            <p class="text-center h5"><Strong>INAOE<br>Reporte de Productividad Unificado</Strong></p>
+            
+            <p>El presente reporte agrupa toda la
+                información de productividad del investigador y es solicitado dos veces al año. La información aquí
+                contenida es utilizada para los reportes bianuales entregados a H. Junta de Gobierno y para el proceso
+                de asignación de Estímulos al Desempeño Académico (EDA).</p>
+            <p>Se solicita resaltar la participación de estudiantes en los puntos en que estén involucrados
+                (publicaciones, proyectos, patentes, etc.) colocando sus nombres en texto color rojo.</p>
+        </header>
+
+        <div class="datosInvestigador">
+            <p> <strong> <u> PERIODO DEL REPORTE: {{fechaInicioP|date:"F"|upper}} - {{fechaFinP|date:"F"|upper}} DE {{fechaFinP|date:"Y"}} </u> </strong> </P>
+            <p><strong>Nombre Completo: </strong>{{datosInvestigador.first_name}} {{datosInvestigador.last_name}}</p>
+            <p><strong>Coordinación: </strong>Astrofisica</p>
+            <p><strong>Nombramiento: </strong>{{datosInvestigador.nombramiento}}</p>
+            <p><strong>Nivel del SNI: </strong>{{datosInvestigador.nivelSni}}</p>
+        </div>
+        
+
+
+        <div class="numerales">
+            {%for numeral in numeral%}
+                {% if numeral.orden == 1 %}
+                    <p class="text-center" ><strong>I. INVESTIGACIÓN CIENTÍFICA</strong></p>
+                {% endif %}
+
+                {% if numeral.orden == 31 %}
+                    <p class="text-center" ><strong>II. FORMACIÓN DE RECURSOS HUMANOS</strong></p>
+                {% endif %}
+
+                {% if numeral.orden == 40 %}
+                    <p class="text-center" ><strong>III. DESARROLLO TECNOLÓGICO E INNOVACIÓN</strong></p>
+                {% endif %}
+
+                {% if numeral.orden == 47 %}
+                    <p class="text-center" ><strong>IV. APOYO INSTITUCIONAL</strong></p>
+                {% endif %}
+
+                {% if numeral.orden == 61 %}
+                    <p class="text-center" ><strong>V. INFORMACIÓN ADICIONAL</strong></p>
+                {% endif %}
+                
+                <p>{{numeral}}</p>
+
+            <div class="campos">
+                {% for biblioteca in biblioteca %} <!--Numerales 1, 2, 3, 4, 5, 7, 9, 11, 12, 13, 14 y 14a-->
+                    {% if numeral.id == biblioteca.numeral_id %}
+                    <ul>
+                        <li>{{biblioteca.autores}} , 
+                            {{biblioteca.titulo}}, 
+                            {{biblioteca.fecha|date:"Y/m"}},
+                            {{biblioteca.revistaPublicacion}}, 
+                            {{biblioteca.volumen}}, 
+                            {{biblioteca.paginas}},
+                            {% if biblioteca.estudiantesEnArticulo %} <br>Estudiantes: <span
+                                style="color: red;">{{ biblioteca.estudiantesEnArticulo }}</span><br>{% else %}<br>{% endif %}
+                            {% if biblioteca.doi %} <strong>DOI: </strong> <a href="https://ui.adsabs.harvard.edu/link_gateway/{{biblioteca.bibcode}}/doi:{{biblioteca.doi}}">{{biblioteca.doi}}<br></a>{% endif %}
+                            BibCode: <strong>{{biblioteca.bibcode}}</strong><br>
+                            <a href="">https://ui.adsabs.harvard.edu/abs/{{biblioteca.bibcode}}/abstract</a>
+                            <br>
+
+                        </li>
+                    </ul>
+                    {% endif %}
+                {% endfor %} <!--Fin Numerales Biblioteca-->
+
+                {% for modelo1 in modelo1 %}
+                    {% if numeral.id == modelo1.numeral_id %}
+                        {% if modelo1.autores %}
+                        <ul>
+                            <li>
+                                {% if modelo1.autores %}{{modelo1.autores}}<br>{% endif %}
+                                {% if modelo1.titulo %}{{modelo1.titulo}}<br>{% endif %}
+                                {% if modelo1.revistaPublicacion %}{{modelo1.revistaPublicacion}}<br>{% endif %}
+                                {% if modelo1.estudiantesEnArticulo %}Estudiante(s): <span style="color: red;">{{ modelo1.estudiantesEnArticulo }}<br></span>{% endif %}
+                                {% if modelo1.doi %}<strong>DOI: </strong> <a href="#">{{modelo1.doi}}<br></a>{% endif %}
+                                {% if modelo1.url %}<a href="">{{modelo1.url}}<br></a>{% endif %}
+                                <br>
+                            </li>
+                        </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                
+                {% for modelo2 in modelo2 %}
+                    {% if numeral.id == modelo2.numeral_id %}
+                        {% if modelo2.nombreProyecto %}
+                        <ul>
+                            <li>
+                                {% if modelo2.nombreProyecto %} Nombre del proyecto: {{modelo2.nombreProyecto}}<br>{% endif %}
+                                {% if modelo2.participantes %} Participantes: {{modelo2.participantes}}<br> {% endif %}
+                                {% if modelo2.estudiantes %} Estudiantes: <span style="color: red;">{{modelo2.estudiantes}}</span><br> {% endif %}
+                                {% if modelo2.responsableTecParticipante %} Responsable, Técnico o Participante:{{modelo2.responsableTecParticipante}}<br> {% endif %}
+                                {% if modelo2.descripcion %} Descripción: {{modelo2.descripcion}}<br> {% endif %}
+                            </li>
+                        </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                
+                {% for modelo3 in modelo3 %}
+                    {% if numeral.id == modelo3.numeral_id %}
+                        {% if modelo3.tituloPresentacion %}
+                        <ul>
+                            <li>
+                                {% if modelo3.tituloPresentacion %}Título de la presentación: {{modelo3.tituloPresentacion}} <br>{% endif %}
+                                {% if modelo3.autores %}Autores: {{modelo3.autores}} <br>{% endif %}
+                                {% if modelo3.nombreConferencia %}Nombre conferencia: {{modelo3.nombreConferencia}} <br>{% endif %}
+                                {% if modelo3.fecha %}Fecha: {{modelo3.fecha}} <br>{% endif %}
+                                {% if modelo3.presentacionPoster %}Tipo de presentación: {{modelo3.presentacionPoster}} <br>{% endif %}
+                                {% if modelo3.estudiantes %}Estudiantes: <span style="color: red;">{{modelo3.estudiantes}}</span> <br>{% endif %}
+                                {% if modelo3.doi %} <strong>DOI/ISBN:</strong> {{modelo3.doi}} <br>{% endif %}
+                                {% if modelo3.url %}<a href="">{{modelo3.url}}</a> <br>{% endif %}
+                            </li>
+                        </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                
+                {% for modelo4 in modelo4 %}
+                    {% if numeral.id == modelo4.numeral_id %}
+                        {% if modelo4.nombreCompleto %}
+                        <ul>
+                            <li>
+                                {% if modelo4.nombreCompleto %} Nombre completo: {{modelo4.nombreCompleto}}<br> {% endif %}
+                                {% if modelo4.tituloTesis %} Título de tesis: {{modelo4.tituloTesis}}<br> {% endif %}
+                                {% if modelo4.fecha %} Fecha: {{modelo4.fecha}}<br> {% endif %}
+                                {% if modelo4.url %}  {{modelo4.url}}<br> {% endif %}
+                            </li>
+                        </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                
+                {% for modelo5 in modelo5 %}
+                    {% if numeral.id == modelo5.numeral_id %}
+                        {% if modelo5.nombreCurso %}
+                        <ul>
+                            <li>
+                                {% if modelo5.nombreCurso %} Nombre del curso: {{modelo5.nombreCurso}} <br>{% endif %}
+                                {% if modelo5.periodoNumeral %} Periodo: {{modelo5.periodoNumeral}} <br> {% endif %}
+                                {% if modelo5.notas %} Notas: {{modelo5.notas}} <br>{% endif %}
+                            </li>
+                        </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                
+                {% for modelo6 in modelo6 %}
+                    {% if numeral.id == modelo6.numeral_id %}
+                        {% if modelo6.nombre %}
+                        <ul>
+                            <li>
+                                {% if modelo6.nombre %} Nombre: {{modelo6.nombre}} <br> {% endif %}
+                                {% if modelo6.tituloTesis %} Titulo de tesis: {{modelo6.tituloTesis}} <br> {% endif %}
+                                {% if modelo6.Grado %} Grado: {{modelo6.Grado}} <br> {% endif %}
+                                {% if modelo6.institucion %} Institución: {{modelo6.institucion}} <br> {% endif %}
+                                {% if modelo6.fecha %} Fecha: {{modelo6.fecha}} <br> {% endif %}
+                                {% if modelo6.notas %} Notas: {{modelo6.notas}} <br> {% endif %}
+                            </li>
+                        </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                
+                {% for modelo7 in modelo7 %}
+                    {% if numeral.id == modelo7.numeral_id %}
+                        {%  if modelo7.autores %}
+                        <ul>
+                            <li>
+                                {%  if modelo7.autores %} Autor(es): {{modelo7.autores}}<br> {% endif %}
+                                {%  if modelo7.url %} url: {{modelo7.url}} <br> {% endif %}
+                                {%  if modelo7.descripcion %} descripción: {{modelo7.descripcion}} <br> {% endif %}
+                            </li>
+                        </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                
+                {% for modelo8 in modelo8 %}
+                    {% if numeral.id == modelo8.numeral_id %}
+                        {% if modelo8.nombre %}
+                        <ul>
+                            <li>
+                                {% if modelo8.nombre %} {{modelo8.nombre}} <br> {% endif %}
+                                {% if modelo8.participantes %} {{modelo8.participantes}} <br> {% endif %}
+                                {% if modelo8.url %} {{modelo8.url}} <br> {% endif %}
+                                {% if modelo8.descripcion %} {{modelo8.descripcion}} <br> {% endif %}
+                            </li>
+                        </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                
+                {% for modelo9 in modelo9 %}
+                    {% if numeral.id == modelo9.numeral_id %}
+                        {% if modelo9.titulo %}
+                        <ul>
+                            <li>
+                                {% if modelo9.titulo %} Título: {{modelo9.titulo}} <br> {% endif %}
+                                {% if modelo9.autores %} Autor(es): {{modelo9.autores}} <br> {% endif %}
+                                {% if modelo9.numeroReportes %} No. Reportes/ID: {{modelo9.numeroReportes}} <br> {% endif %}
+                                {% if modelo9.fecha %} Fecha: {{modelo9.fecha}} <br> {% endif %}
+                                {% if modelo9.url %} url: {{modelo9.url}} <br> {% endif %}
+                            </li>
+                        </ul>
+                        {%endif%}
+                    {% endif %}
+                {% endfor %}
+
+            
+                {% for modelo10 in modelo10 %}
+                    {% if numeral.id == modelo10.numeral_id %}
+                        {% if modelo10.fecha %}
+                        <ul>
+                            <li>
+                                {% if modelo10.fecha %} Fecha: {{modelo10.fecha}} <br> {% endif %}
+                                {% if modelo10.url %} Url: {{modelo10.url}} <br> {% endif %}
+                                {% if modelo10.descripcion %} Descripción: {{modelo10.descripcion}} <br> {% endif %}
+                                {% if modelo10.periodoNumeral %} Periodo: {{modelo10.periodoNumeral}} <br> {% endif %}
+                            </li>
+                        </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                
+                {% for modelo11 in modelo11 %}
+                    {% if numeral.id == modelo11.numeral_id %}
+                        {% if modelo11.nombreEstudiante %}
+                        <ul>
+                            <li>
+                                {% if modelo11.nombreEstudiante %} Nombre del estudiante: {{modelo11.nombreEstudiante}} <br> {%endif%}
+                                {% if modelo11.descripcion %} Descripción: {{modelo11.descripcion}} <br> {%endif%}
+                                {% if modelo11.fecha %} Fecha: {{modelo11.fecha}} <br> {% endif %}
+                                {% if modelo11.fechaPeriodo %} Fecha o periodo: {{modelo11.fechaPeriodo}} <br> {% endif %}
+                            </li>
+                        </ul>
+                        {%endif%}
+                    {% endif %}
+                {% endfor %}
+
+                
+                {% for modelo12 in modelo12 %}
+                    {% if numeral.id == modelo12.numeral_id %}
+                        {% if modelo12.laboratorioTaller %}
+                        <ul>
+                            <li>
+                                {% if modelo12.laboratorioTaller %}Laboratorio o taller: {{modelo12.laboratorioTaller}} {% endif %}
+                            </li>
+                        </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                
+                {% for modelo13 in modelo13 %}
+                    {% if numeral.id == modelo13.numeral_id %}
+                        {% if modelo13.agenciasFinancieras %}
+                        <ul>
+                            <li>
+                                {% if modelo13.agenciasFinancieras %} Agencia(s) Financiadora(s): {{modelo13.agenciasFinancieras}} <br> {% endif %}
+                                {% if modelo13.descripcion %} Descripción: {{modelo13.descripcion}} <br> {% endif %}
+                            </li>
+                        </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                
+                {% for modelo14 in modelo14 %}
+                    {% if numeral.id == modelo14.numeral_id %}
+                        {% if modelo14.TelescopioInstrumentoInfra %}
+                        <ul>
+                            <li>
+                                {% if modelo14.TelescopioInstrumentoInfra %} Telescopio, instrumento, infraestructura: {{modelo14.TelescopioInstrumentoInfra}} <br> {% endif %}
+                                {% if modelo14.participantes %} Participante(s): {{modelo14.participantes}} <br> {% endif %}
+                                {% if modelo14.descripcion %} Descripción: {{modelo14.descripcion}} <br> {% endif %}
+                            </li>
+                        </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                
+                {% for modelo15 in modelo15 %}
+                    {% if numeral.id == modelo15.numeral_id %}
+                        {% if modelo15.descripcion %}
+                        <ul>
+                            <li>
+                                {% if modelo15.descripcion %} Descripción: {{modelo15.descripcion}} <br> {% endif %}
+                            </li>
+                        </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                {% for citas in citas %}
+                    {% if numeral.id == citas.numeral_id %}
+                        <p>Citas Totales: <strong>{{citas.citas}}</strong></p>
+                        <p>Citas obtenidas durante el periodo del reporte: <strong>{{citas.citasObtenidasEnPeriodo}}</strong></p>
+                        <p>30a. Índice H:</p>
+                        {{citas.indiceH}}
+                    {% endif %}
+                {% endfor %}
+
+            {% endfor %}
+        </div> <!--Fin Campos-->
+        
+        </div><!--Fin numerales div-->
+        
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

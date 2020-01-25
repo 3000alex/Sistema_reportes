@@ -1,0 +1,312 @@
+{% extends 'core/header_reportes.html' %}
+<!--Encabezado - nav - title name-->
+{%block contenido%}
+<ul id="accordion" class="container accordion mt-2">
+    {% for numeral in numeral %}
+    <li class="card-header">
+        <div class="link col-10">{{numeral}}<i class="fa fa-chevron-down"></i></div>
+        <ul class="submenu">
+
+            <!--modelo 14 numeral 61-->
+            {% if numeral.orden == 61 %}
+            <li>
+                {% for modelo14 in modelo14 %}
+
+                {% if modelo14.numeral_id == numeral.id %}
+                <form id="modelo14{{modelo14.id}}" type="post" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="telescopio" class="col-sm-2 col-form-label">Telescopio, instrumento,
+                                    infraestructura:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="telescopio"
+                                        id="telescopioModelo14{{modelo14.id}}"
+                                        value="{% if modelo14.TelescopioInstrumentoInfra %}{{modelo14.TelescopioInstrumentoInfra}}{% endif %}">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Participante(s): </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="participantes"
+                                        id="participantesModelo14{{modelo14.id}}"
+                                        value="{% if modelo14.participantes %} {{modelo14.participantes}}{% endif %}">
+                                </div>
+
+                            </div>
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo14{{modelo14.id}}" cols="30"
+                                rows="5">{% if modelo14.descripcion %} Descripción: {{modelo14.descripcion}} {% endif %}</textarea>
+
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo14{{modelo14.id}}">
+
+                            {%if modelo14.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo14.anexoPdf.url}}">{{modelo14.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo14Actualizar({{modelo14.id}})" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo14Editar({{modelo14.id}})" id="{{modelo14.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo14Eliminar({{modelo14.id}})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                    onclick="modelo14Crear({{modelo14.id}},{{modelo14.enumeral_id}},'{{modelo14.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo14.periodo_id}})"
+                    type="button" id="modelo14Crear{{modelo14.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 61 Modelo14-->
+        </ul>
+        <div class="col-12 d-flex justify-content-end" style="cursor: pointer;">
+            <i data-toggle="modal" data-target="#glosario" style="font-size: 20px;"
+                class="fas fa-question-circle text-dark "></i>
+        </div>
+    </li>
+
+    {% endfor %}
+</ul>
+<!-- Modal glosario -->
+<div class="modal fade" id="glosario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Glosario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center" colspan="2">V. INFORMACIÓN ADICIONAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for glosario in glosario %}
+                        <tr>
+                            <td width=50%>{{ glosario.numerales|safe }}</td>
+                            <td width=50%>{{ glosario.explicacion|safe }}</td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Modal glosario-->
+<!--Modal Multiple.-->
+<div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="accionModal"></h5>
+
+            </div>
+
+            <div class="modal-body">
+                <h5 id="textoModal" class="text-center"></h5><br>
+                <div class="d-flex justify-content-center">
+                    <i id="icono" style="font-size: 100px;" class=""></i>
+                </div>
+            </div>
+
+            <div class="modal-footer" id="footer">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Fin para Modal Multiple-->
+<br><br>
+{% endblock %}
+
+{% block JsCode %}
+<script>
+
+    //Modelo 14
+    function modelo14Editar(id) {
+        $("#telescopioModelo14" + id).prop("disabled", false);
+        $("#descripcionModelo14" + id).prop("disabled", false);
+        $("#participantesModelo14" + id).prop("disabled", false);
+        $("#anexoModelo14" + id).prop("disabled", false);
+    }
+    function desactivarCamposModelo14(id) {
+        $("#telescopioModelo14" + id).prop("disabled", true);
+        $("#descripcionModelo14" + id).prop("disabled", true);
+        $("#participantesModelo14" + id).prop("disabled", true);
+        $("#anexoModelo14" + id).prop("disabled", true);
+    }
+    function modelo14Actualizar(id) {
+
+        var formData = new FormData(document.getElementById("modelo14" + id))
+        formData.append("id", id);
+
+        $.ajax({
+            url: '{% url "investigadores:actualizar-modelo14" %}',
+            type: "post",
+            data: formData,
+            enctype: "multipart/form-data",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'html',
+
+            success: function (data) {
+                toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+                desactivarCamposModelo14(id);
+            }
+        });
+
+        return false;
+    }
+    function modelo14Crear(posicion, enumeral, seccion, orden, periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: '{% url "investigadores:crear-modelo14" %}',
+            data: {
+                "posicion": posicion,
+                "enumeral": enumeral,
+                "seccion": seccion,
+                "orden": orden,
+                "periodo": periodo,
+            },
+            dataType: "Json",
+            success: function (response) {
+                toastr.success('Entrada creada', 'Operacion exitosa')
+                dibujarmodelo14(response)
+            }
+        });
+    }
+    function modelo14Eliminar(id) {
+        $("#accionModal").text("Eliminar Item");
+        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
+        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo14EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
+    function modelo14EliminarConfirm(id) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            url: '{% url "investigadores:eliminar-modelo14" %}',
+            type: "POST",
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.deleted) {
+                    $("#modelo14" + id).remove();
+                    $("#modelo14Crear" + id).remove();
+                    toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                }
+            }
+        });
+
+        $('#ItemEliminar-id').trigger("reset");
+        $('#modalDinamico').modal('hide');//cierra modal
+        return false;
+    }
+    function dibujarmodelo14(data) {
+
+        $("#modelo14" + `${data.posicion}`).after(
+            `<form id="modelo14${data.id}" type="post" enctype="multipart/form-data">
+            <div class="card-body">
+
+                <div class="form-group">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="telescopio" class="col-sm-2 col-form-label">Telescopio, instrumento,
+                            infraestructura:</label>
+                        <div class="col-sm-10">
+                            <input disabled class="form-control mb-4" type="text" name="telescopio"
+                                id="telescopioModelo14${data.id}"
+                                value="">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Participante(s): </label>
+                        <div class="col-sm-10">
+                            <input disabled class="form-control mb-4" type="text" name="participantes"
+                                id="participantesModelo14${data.id}"
+                                value="">
+                        </div>
+
+                    </div>
+
+                    <label for="">Descripción: </label>
+                    <textarea disabled class="form-control mb-4" name="descripcion"
+                        id="descripcionModelo14${data.id}" cols="30"
+                        rows="5">{{Modelo14.descripcion}}</textarea>
+
+
+                    <input disabled class="form-control mb-4" type="file" name="anexo"
+                        id="anexoModelo14${data.id}">
+
+
+                    <div class="justify-content-end d-flex">
+                        <button onclick="modelo14Actualizar('${data.id}')" type="button"
+                            class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                Guardar</i></button>
+                        <button type="button" class="btn btn-primary p-2 mr-2"
+                            onclick="modelo14Editar('${data.id}')" id="${data.id}"
+                            title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                        <button id="crearSubModelo14${data.id}" type="button" class="btn btn-danger  p-2 mr-2"
+                            onclick="modelo14Eliminar('${data.id}')" title="Eliminar entrada"><i
+                                class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+        <hr>
+    `
+        );
+    }
+//Fin modelo14
+
+</script>
+
+{% endblock %}
