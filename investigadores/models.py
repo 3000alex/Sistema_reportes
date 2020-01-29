@@ -376,6 +376,24 @@ class Modelo15(models.Model):
     def __str__(self):
         return self.numeral.nombre
 
+#Numeral 
+class Modelo16(models.Model):
+    usuario =  models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE)
+    numeral = models.ForeignKey(Numeral, null=True,blank=True, on_delete=models.CASCADE)
+    periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
+    nombreEstudiante = models.CharField(max_length=500,  verbose_name="Nombre de estudiantes", blank=True)
+    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/', null=True, blank=True)
+    fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion", blank=True)
+
+    class Meta:
+        verbose_name="campo Modelo 16"
+        verbose_name_plural = "Campos del Modelo 16"
+        ordering = ['fechaCreacion']
+
+    def __str__(self):
+        return self.numeral.nombre
+
+
 class Citas(models.Model):
     usuario = models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE)
     numeral = models.ForeignKey(Numeral, null=True,blank=True, on_delete=models.CASCADE)

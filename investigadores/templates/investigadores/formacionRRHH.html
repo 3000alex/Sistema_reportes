@@ -277,38 +277,38 @@
             {% endif %}
             <!--Fin Numeral 37-->
 
-            <!--Numeral 38 modelo15 -->
+            <!--Numeral 38 modelo16 -->
             {% if numeral.orden == 38 %}
             <li>
-                {% for modelo15 in modelo15 %}
+                {% for modelo16 in modelo16 %}
 
-                {% if modelo15.numeral_id == numeral.id %}
-                <form id="modelo15{{modelo15.id}}" enctype="multipart/form-data">
+                {% if modelo16.numeral_id == numeral.id %}
+                <form id="modelo16{{modelo16.id}}" enctype="multipart/form-data">
                     <div class="card-body">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label for="">Descripcion:</label>
-                            <textarea disabled class="form-control mb-4" name="descripcion"
-                                id="descripcionModelo15{{modelo15.id}}" cols="30"
-                                rows="5">{% if modelo15.descripcion %}{{ modelo15.descripcion }} {% endif %}</textarea>
+                            <label for="">Nombre estudiante:</label>
+                            <input type="text" disabled class="form-control mb-4" value="{% if modelo16.nombreEstudiante %}{{ modelo16.nombreEstudiante }}{% endif %}" name="nombreEstudiante"
+                                id="nombreEstudianteModelo16{{modelo16.id}}"
+                                rows="5"></input>
 
                             <input disabled class="form-control mb-4" type="file" name="anexo"
-                                id="anexoModelo15{{modelo15.id}}">
-                            {%if modelo15.anexoPdf %}
+                                id="anexoModelo16{{modelo16.id}}">
+                            {%if modelo16.anexoPdf %}
                             <strong>Actualmente: </strong><a
-                                href="{{modelo15.anexoPdf.url}}">{{modelo15.anexoPdf.name}}</a>
+                                href="{{modelo16.anexoPdf.url}}">{{modelo16.anexoPdf.name}}</a>
                             {% endif %}
 
                             <div class="justify-content-end d-flex">
-                                <button onclick="modelo15Actualizar('{{modelo15.id}}')" type="button"
+                                <button onclick="modelo16Actualizar('{{modelo16.id}}')" type="button"
                                     class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
                                         class="fas fa-save">&nbsp;
                                         Guardar</i></button>
                                 <button type="button" class="btn btn-primary p-2 mr-2"
-                                    onclick="modelo15Editar('{{modelo15.id}}')" id="{{modelo15.id}}"
+                                    onclick="modelo16Editar('{{modelo16.id}}')"
                                     title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
                                 <button type="button" class="btn btn-danger  p-2 mr-2"
-                                    onclick="modelo15Eliminar('{{modelo15.id}}')" title="Eliminar entrada"><i
+                                    onclick="modelo16Eliminar('{{modelo16.id}}')" title="Eliminar entrada"><i
                                         class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                             </div>
 
@@ -317,8 +317,8 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo15Crear({{modelo15.id}},{{modelo15.numeral_id}},'{{modelo15.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo15.periodo_id}})"
-                    type="button" id="modelo15Crear{{modelo15.id}}" class="btn btn-danger"><i
+                    onclick="modelo16Crear({{modelo16.id}},{{modelo16.numeral_id}},'{{modelo16.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo16.periodo_id}})"
+                    type="button" id="modelo16Crear{{modelo16.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
                 {% endif %}

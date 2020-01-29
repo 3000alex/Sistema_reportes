@@ -11,7 +11,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 # Modelos y forms
 from .models import Numeral, Citas, ReporteEnviado, Modelo1, Modelo2, Modelo3, Modelo4, Modelo5, Modelo6, Modelo7, Modelo8, Modelo9, Modelo10, Glosario
-from .models import Modelo11, Modelo12, Modelo13, Modelo14, Modelo15, Periodo
+from .models import Modelo11, Modelo12, Modelo13, Modelo14, Modelo15,Modelo16, Periodo
 from registration.models import User
 from biblioteca.models import Biblioteca
 from .models import ReporteEnviado
@@ -113,10 +113,10 @@ class formacion_RH(View):
             usuario_id=request.user.id, periodo=periodoActual)
         modelo6 = Modelo6.objects.filter(
             usuario_id=request.user.id, periodo=periodoActual)
-        modelo15 = Modelo15.objects.filter(usuario_id=request.user.id, periodo=periodoActual)  # Modelo generico con el numeral 38
+        modelo16 = Modelo16.objects.filter(usuario_id=request.user.id, periodo=periodoActual)  # Modelo generico con el numeral 38
 
         data = {"numeral": numeral, "modelo4": modelo4, "modelo5": modelo5, "modelo6": modelo6,
-                "modelo15": modelo15, "glosario": glosario, 'periodoActual': periodoActual}
+                "modelo16": modelo16, "glosario": glosario, 'periodoActual': periodoActual}
         return render(request, "investigadores/formacionRRHH.html", data)
 
 
