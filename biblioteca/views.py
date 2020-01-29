@@ -47,7 +47,9 @@ class editar_biblioteca(View):
         obj = Biblioteca.objects.get(id=id1)
         estudiantesEnArticulo1 = request.POST.get('estudiantesEnArticulo', obj.estudiantesEnArticulo)  # Contador (Front - end)
         numeral1 = request.POST.get('numeral',obj.numeral_id) #Numeral relacionado con articulo
+        
         if numeral1 == "":
+            
             obj.estudiantesEnArticulo = estudiantesEnArticulo1
             numeral = ""
             obj.save()

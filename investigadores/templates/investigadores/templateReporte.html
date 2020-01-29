@@ -8,20 +8,14 @@
      <!-- Bootstrap CSS -->
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Sistema de reportes</title>
-    <style> *{ font-family: 'Times New Roman', Times, serif; } </style>
+    <style> *{ font-family: Calibri, 'Trebuchet MS', sans-serif; font-size: 11pt;  } </style>
 </head>
 
 <body>
 
         <header>
             <p class="text-center h5"><Strong>INAOE<br>Reporte de Productividad Unificado</Strong></p>
-            
-            <p>El presente reporte agrupa toda la
-                información de productividad del investigador y es solicitado dos veces al año. La información aquí
-                contenida es utilizada para los reportes bianuales entregados a H. Junta de Gobierno y para el proceso
-                de asignación de Estímulos al Desempeño Académico (EDA).</p>
-            <p>Se solicita resaltar la participación de estudiantes en los puntos en que estén involucrados
-                (publicaciones, proyectos, patentes, etc.) colocando sus nombres en texto color rojo.</p>
+            <br>
         </header>
 
         <div class="datosInvestigador">
@@ -62,18 +56,23 @@
                 {% for biblioteca in biblioteca %} <!--Numerales 1, 2, 3, 4, 5, 7, 9, 11, 12, 13, 14 y 14a-->
                     {% if numeral.id == biblioteca.numeral_id %}
                     <ul>
-                        <li>{{biblioteca.autores}} , 
-                            {{biblioteca.titulo}}, 
-                            {{biblioteca.fecha|date:"Y/m"}},
-                            {{biblioteca.revistaPublicacion}}, 
-                            {{biblioteca.volumen}}, 
-                            {{biblioteca.paginas}},
-                            {% if biblioteca.estudiantesEnArticulo %} <br>Estudiantes: <span
-                                style="color: red;">{{ biblioteca.estudiantesEnArticulo }}</span><br>{% else %}<br>{% endif %}
-                            {% if biblioteca.doi %} <strong>DOI: </strong> <a href="https://ui.adsabs.harvard.edu/link_gateway/{{biblioteca.bibcode}}/doi:{{biblioteca.doi}}">{{biblioteca.doi}}<br></a>{% endif %}
-                            BibCode: <strong>{{biblioteca.bibcode}}</strong><br>
-                            <a href="">https://ui.adsabs.harvard.edu/abs/{{biblioteca.bibcode}}/abstract</a>
-                            <br>
+                        <li>
+                            <p class=".biblioteca" >
+                                {% if biblioteca.autores != "" %}{{biblioteca.autores}},{% endif %}
+                                {% if biblioteca.titulo != "" %}<i>{{biblioteca.titulo}}</i>,{% endif %}
+                                {% if biblioteca.revistaPublicacion != "" %}{{biblioteca.revistaPublicacion}},{% endif %}
+                                {% if biblioteca.volumen != "" %}{{biblioteca.volumen}},{% endif %} 
+                                {% if biblioteca.fecha != "" %}{{biblioteca.fecha|date:"Y/m"}},{% endif %}
+                                {% if biblioteca.paginas != "" %}{{biblioteca.paginas}},{% endif %}
+                                {% if biblioteca.estudiantesEnArticulo != "" %} <br>Estudiantes: <span style="color: red;">{{ biblioteca.estudiantesEnArticulo }}</span> {% else %}{% endif %}
+    
+                                {% if biblioteca.doi %}<br> <strong>DOI: </strong> <a href="https://ui.adsabs.harvard.edu/link_gateway/{{biblioteca.bibcode}}/doi:{{biblioteca.doi}}">{{biblioteca.doi}}</a>{% endif %}
+                                {% if biblioteca.bibcode %}<br> BibCode: <strong>{{biblioteca.bibcode}}</strong><br> {% endif %}
+                                
+                                <a href="">https://ui.adsabs.harvard.edu/abs/{{biblioteca.bibcode}}/abstract</a>
+                            </p>
+                           
+                            
 
                         </li>
                     </ul>
@@ -337,6 +336,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+$(".biblioteca").css('color', 'red');
+</script>
 </body>
 
 </html>

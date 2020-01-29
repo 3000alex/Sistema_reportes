@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from django.views.generic import View
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView
+from django.views.generic.detail import DetailView
 # mensajes
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
@@ -34,6 +35,7 @@ from io import StringIO
 import json
 #Reporte maestro
 from administradores.reporteMaestro import Reporte
+#Reportes adms
 
 
 class StaffRequiredMixin(object):
@@ -157,38 +159,13 @@ class perfil_adm(StaffRequiredMixin, SuccessMessageMixin, UpdateView):
         return user
 
 
-class reportes_adm(StaffRequiredMixin, View):
+class reportes_adm(StaffRequiredMixin,View):
+    def get(self, request):
+        return render(request,'administradores/reportes_adm.html')
     
-    def get(self,request):
-        periodo = Periodo.objects.all()
-        
-        ultimoPeriodo = Periodo.objects.last()
-        reporte = ReporteEnviado.objects.filter(periodo_id=ultimoPeriodo)
-        usuarios = User.objects.all()
-        data = {
-            'periodo':periodo,
-            'ultimoPeriodo':ultimoPeriodo,
-            'reportes':reporte,
-            'usuarios':usuarios,
-        }
-        return render(request,'administradores/reportes_adm.html', data)
-    
-    def post(self,request):
-        periodo = request.POST.get('periodo',None)
-        reporteSerialize = serializers.serialize('json',ReporteEnviado.objects.filter(periodo_id=periodo), fields=('reporte','anexo','fechaCreacion','periodo_id','usuario_id'))
-        usuariosSerialize = serializers.serialize('json',User.objects.all(), fields=('first_name','last_name'))
-
-        data = {
-            periodo,
-            reporteSerialize,
-            usuariosSerialize
-        }
-
-        return HttpResponse(data, content_type='application/json')
-
 class reporteMaestro(View):
 
-    periodo = Periodo.objects.last()
+    #periodo = Periodo.objects.last() -> Verificar porque no deja migrar
 
     def get(self, request):
 

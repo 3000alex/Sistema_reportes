@@ -90,9 +90,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306',
         'TIME_ZONE':'America/Mexico_City',
-        'OPTIONS': {
-            'charset': 'utf8mb4'  # This is the important line
-        }
+        
     }
 }
 

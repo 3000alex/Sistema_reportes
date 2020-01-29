@@ -16,6 +16,7 @@ administradorespatterns = ([
     #Reportes
     path('administrador/reportes-adm/',views.reportes_adm.as_view(), name="reportes_adm"),
     path('reporteMaestro', views.reporteMaestro.as_view(), name="reporteMaestro"),
+
     #Enviar correo 
     path('administrador/correoBienvenida/',views.correoBienvenida.as_view(), name="correoBienvenida"),
 

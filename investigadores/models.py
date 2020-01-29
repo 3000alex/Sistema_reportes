@@ -274,7 +274,6 @@ class Modelo10(models.Model):
     descripcion = models.TextField(max_length=15000,verbose_name="descripcion", blank=True)
     fecha = models.CharField(max_length=500,verbose_name="fecha", blank=True)
     url = models.CharField(max_length=500,verbose_name="url", blank=True)
-    cursosCortosDescripcion = models.CharField(max_length=500,verbose_name="Cursos cortos en escuelas o talleres (Descripcion)", blank=True)
     periodoNumeral = models.CharField(max_length=500,verbose_name="periodo", blank=True)
     anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/',null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
@@ -295,7 +294,6 @@ class Modelo11(models.Model):
     nombreEstudiante = models.CharField(max_length=500,verbose_name="Nombre del estudiante", blank=True)
     descripcion = models.TextField(max_length=15000,verbose_name="Descripcion", blank=True)
     fecha = models.CharField(max_length=500,verbose_name="Fecha", blank=True)
-    fechaPeriodo = models.CharField(max_length=500,verbose_name="Fecha o periodo", blank=True)
     anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
@@ -398,10 +396,10 @@ class Citas(models.Model):
 
 class ReporteEnviado(models.Model):
     usuario = models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE)
-    reporte = models.FileField(verbose_name="archivo PDF", null=True, blank=True, upload_to='reportes/pdfs/')
-    anexo = models.FileField(verbose_name="anexos reporte", null=True, blank=True, upload_to='reportes/anexos/')
-    periodo = models.ForeignKey(Periodo, null=True,blank=True, on_delete=models.CASCADE, verbose_name="periodo del reporte")
-    fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
+    reporte = models.FileField(verbose_name="reporte", null=True, blank=True, upload_to='reportes/pdfs/')
+    anexo = models.FileField(verbose_name="anexos", null=True, blank=True, upload_to='reportes/anexos/')
+    periodo = models.ForeignKey(Periodo, null=True,blank=True, on_delete=models.CASCADE, verbose_name="periodo")
+    fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="fecha")
 
     class Meta:
         verbose_name = "Reporte Enviado"
@@ -410,3 +408,4 @@ class ReporteEnviado(models.Model):
 
     def __str__(self):
         return self.periodo.nombrePeriodo
+    

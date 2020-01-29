@@ -25,7 +25,8 @@ import os
 from django.conf import settings
 #PDF 
 import pdfkit
-from django.template.loader import get_template
+from io import BytesIO
+from django.core.files import File
 # Correo
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage
@@ -34,6 +35,8 @@ from django.template.loader import render_to_string
 from django.shortcuts import render
 from django.core.files import File
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#Reporte final
+from .generarReporteCoordinacion import generarPdf
 
 @method_decorator(login_required, name='dispatch')
 class investigacion_cientifica(View):
@@ -1336,53 +1339,41 @@ class crearModelo15(View):
 
 class enviarReporte(View):
     def get(self, request, *args, **kwargs):
-       pass
+        periodo = Periodo.objects.last()
+
+        html = generarPdf(request)
+        config = pdfkit.configuration(wkhtmltopdf='C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe')
+        options = {
+            'page-size': 'Letter',
+            'margin-top': '0.75in',
+            'margin-right': '0.75in',
+            'margin-bottom': '0.75in',
+            'margin-left': '0.75in',
+            'encoding': "UTF-8",
+            'no-outline': None
+        }
+        pdf = pdfkit.from_string(html,'reporte.pdf',configuration=config,options=options)
+        with open('reporte.pdf', 'r', encoding="utf8") as archivo:
+            reportePDF = archivo
+
+        reporteFinal = ReporteEnviado.objects.create( periodo_id=periodo.id, usuario_id=request.user.id)
+        
+        
+        archivo = reportesEnviados.objects.get(id = reporteFinal.id)
+        archivo.reporte = archivo 
+        #reporteFinal.save()
+        archivo.save()
+
+        
+        
+        
+        return HttpResponse(pdf,content_type='application/pdf')
 
 # Generar PDF
 @method_decorator(login_required, name='dispatch')
 class generarReporte(View):
-    periodo = Periodo.objects.last()
     def get(self,request):
-        template = get_template('investigadores/templateReporte.html')
-        #periodo = Periodo.objects.last()
-        periodo = Periodo.objects.get(id=1) #Para obtener valores del 2019
-
-        yearPeriodo = periodo.fechaInicio.year
-        monthPeriodoInicio = periodo.fechaInicio.month
-        monthPeriodoFin = periodo.fechaFin.month
- 
-    
-        dataReporte = {
-            'fechaInicioP': periodo.fechaInicio,
-            'fechaFinP':periodo.fechaFin,
-            'datosInvestigador': User.objects.get(id=request.user.id),
-            'numeral': Numeral.objects.all(),
-            'citas': Citas.objects.filter(usuario_id=request.user.id),
-            'biblioteca': Biblioteca.objects.filter( user_id=request.user.id, fecha__year=yearPeriodo, fecha__month__range=[monthPeriodoInicio, monthPeriodoFin]),
-            'modelo1': Modelo1.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            'modelo2': Modelo2.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            'modelo3': Modelo3.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            
-            #Formacion_RH
-            'modelo4': Modelo4.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            'modelo5': Modelo5.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            'modelo6':Modelo6.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            #Desarrollo Tec. Inn.
-            'modelo7': Modelo7.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            'modelo8': Modelo8.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            'modelo9': Modelo9.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            
-            #Apoyo Institucional
-            'modelo10': Modelo10.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            'modelo11': Modelo11.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            'modelo12': Modelo12.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            'modelo13':Modelo13.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            #Informacion Adicional
-            'modelo14': Modelo14.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            'modelo15': Modelo15.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-            }
-        html = template.render(dataReporte)
-        
+        html = generarPdf(request)
         config = pdfkit.configuration(wkhtmltopdf='C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe')
         options = {
             'page-size': 'Letter',
