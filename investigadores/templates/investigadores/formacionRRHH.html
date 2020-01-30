@@ -168,7 +168,7 @@
             {% endif %}
             <!--Fin Numeral 35-36-->
 
-            <!--Numerale 37 Modelo6--> 
+            <!--Numerale 37 Modelo6-->
             {% if numeral.orden == 37 %}
             <li>
                 {% for modelo6 in modelo6 %}
@@ -288,9 +288,9 @@
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="">Nombre estudiante:</label>
-                            <input type="text" disabled class="form-control mb-4" value="{% if modelo16.nombreEstudiante %}{{ modelo16.nombreEstudiante }}{% endif %}" name="nombreEstudiante"
-                                id="nombreEstudianteModelo16{{modelo16.id}}"
-                                rows="5"></input>
+                            <input type="text" disabled class="form-control mb-4"
+                                value="{% if modelo16.nombreEstudiante %}{{ modelo16.nombreEstudiante }}{% endif %}"
+                                name="nombreEstudiante" id="nombreEstudianteModelo16{{modelo16.id}}" rows="5"></input>
 
                             <input disabled class="form-control mb-4" type="file" name="anexo"
                                 id="anexoModelo16{{modelo16.id}}">
@@ -305,8 +305,8 @@
                                         class="fas fa-save">&nbsp;
                                         Guardar</i></button>
                                 <button type="button" class="btn btn-primary p-2 mr-2"
-                                    onclick="modelo16Editar('{{modelo16.id}}')"
-                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    onclick="modelo16Editar('{{modelo16.id}}')" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
                                 <button type="button" class="btn btn-danger  p-2 mr-2"
                                     onclick="modelo16Eliminar('{{modelo16.id}}')" title="Eliminar entrada"><i
                                         class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
@@ -317,7 +317,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo16Crear({{modelo16.id}},{{modelo16.numeral_id}},'{{modelo16.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo16.periodo_id}})"
+                    onclick="modelo16Crear({{modelo16.id}},{{modelo16.numeral_id}}, '{{numeral.orden}}', {{modelo16.periodo_id}})"
                     type="button" id="modelo16Crear{{modelo16.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -602,7 +602,7 @@
         $('#modalDinamico').modal('hide');//cierra modal
         return false;
     }
-    
+
     function dibujarmodelo4(response) {
         $("#modelo4" + `${response.posicion}`).append(
             `
@@ -1000,25 +1000,23 @@
     }
     //Fin modelo6
 
-    //Modelo 15
-    function modelo15Editar(id) {
-        //Formacion RHH
-        $("#descripcionModelo15" + id).prop("disabled", false);
-        //Apoyo institucional
-        $("#anexoModelo15" + id).prop("disabled", false);
+    //Modelo 16
+    function modelo16Editar(id) {
+
+        $("#nombreEstudianteModelo16" + id).prop("disabled", false);
+        $("#anexoModelo16" + id).prop("disabled", false);
     }
-    function desactivarCamposModelo15(id) {
-        //Formacion RHH
-        $("#descripcionModelo15" + id).prop("disabled", true);
-        //Apoyo institucional
-        $("#anexoModelo15" + id).prop("disabled", true);
+    function desactivarCamposModelo16(id) {
+
+        $("#nombreEstudianteModelo16" + id).prop("disabled", true);
+        $("#anexoModelo16" + id).prop("disabled", true);
     }
-    function modelo15Actualizar(id) {
-        var formData = new FormData(document.getElementById("modelo15" + id))
+    function modelo16Actualizar(id) {
+        var formData = new FormData(document.getElementById("modelo16" + id))
         formData.append("id", id);
 
         $.ajax({
-            url: '{% url "investigadores:actualizar-modelo15" %}',
+            url: '{% url "investigadores:actualizar-modelo16" %}',
             type: 'POST',
             data: formData,
             enctype: "multipart/form-data",
@@ -1028,42 +1026,23 @@
             dataType: 'html',
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
-                desactivarCamposModelo15(id)
+                desactivarCamposModelo16(id)
             }
         });
 
         return false;
     }
-    function modelo15Crear(posicion, numeral, seccion, orden, periodo) {
-
-        $.ajax({
-            type: "GET",
-            url: '{% url "investigadores:crear-modelo15" %}',
-            data: {
-                "posicion": posicion,
-                "numeral": numeral,
-                "seccion": seccion,
-                "orden": orden,
-                "periodo": periodo,
-            },
-            dataType: "Json",
-            success: function (response) {
-                toastr.success('Entrada creada', 'Operacion exitosa')
-                dibujarmodelo15(response)
-            }
-        });
-    }
-    function modelo15Eliminar(id) {
+    function modelo16Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
         $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
         $("#icono").addClass('far fa-question-circle text-danger')
-        $("#footer").html(`<button class="btn btn-primary" onclick="modelo15EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo16EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
-    function modelo15EliminarConfirm(id) {
+    function modelo16EliminarConfirm(id) {
         var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
         $.ajax({
-            url: '{% url "investigadores:eliminar-modelo15" %}',
+            url: '{% url "investigadores:eliminar-modelo16" %}',
             type: "POST",
             data: {
                 'id': id,
@@ -1072,8 +1051,8 @@
             dataType: 'json',
             success: function (data) {
                 if (data.deleted) {
-                    $("#modelo15" + id).remove();
-                    $("#modelo15Crear" + id).remove();
+                    $("#modelo16" + id).remove();
+                    $("#modelo16Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
                 }
             }
@@ -1083,49 +1062,62 @@
         $('#modalDinamico').modal('hide');//cierra modal
         return false;
     }
-    function dibujarmodelo15(response) {
-        
-        if (response.orden == '38,0') {
-            $("#modelo15" + `${response.posicion}`).after(
-                `
-            <form id="modelo15${response.id}" enctype="multipart/form-data">
-                <div class="card-body">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="">Descripcion:</label>
-                        <textarea disabled class="form-control mb-4" name="descripcion"
-                            id="descripcionModelo15${response.id}" cols="30"
-                            rows="5">{{Modelo15.descripcion}}</textarea>
-    
-                        <input disabled class="form-control mb-4" type="file" name="anexo"
-                            id="anexoModelo15${response.id}">
-                                
-                        {%if Modelo15.anexoPdf %}
-                            <strong>Actualmente: </strong><a
-                                href="{{Modelo15.anexoPdf.url}}">{{Modelo15.anexoPdf.name}}</a>
-                        {% endif %}
-    
-                        <div class="justify-content-end d-flex">
-                            <button onclick="modelo15Actualizar(${response.id})" type="button"
-                                class="btn btn-success p-2 mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
-                                    Guardar</i></button>
-                            <button type="button" class="btn btn-primary p-2 mr-2"
-                                onclick="modelo15Editar(${response.id})" id="${response.id}"
-                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                            <button type="button" class="btn btn-danger  p-2 mr-2"
-                                onclick="modelo15Eliminar(${response.id})" title="Eliminar entrada"><i
-                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                        </div>
-                    </div>
-    
-                </div>
-            </form>
-            <hr>
-            `);
-        }
-
+    function modelo16Crear(posicion, numeral, orden, periodo){
+        $.ajax({
+            type: "GET",
+            url: '{% url "investigadores:crear-modelo16" %}',
+            data: {
+                "posicion": posicion,
+                "numeral": numeral,
+                "orden": orden,
+                "periodo": periodo,
+            },
+            dataType: "Json",
+            success: function (response) {
+                toastr.success('Entrada creada', 'Operacion exitosa')
+                dibujarmodelo16(response)
+            }
+        });
     }
+    function dibujarmodelo16(response) {
 
-//Fin modelo15
+        $("#modelo16" + `${response.posicion}`).after(
+        `
+        <form id="modelo16${response.id}" enctype="multipart/form-data">
+            <div class="card-body">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="">Nombre estudiante:</label>
+                    <input type="text" disabled class="form-control mb-4"
+                        value="{% if modelo16.nombreEstudiante %}{{ modelo16.nombreEstudiante }}{% endif %}"
+                        name="nombreEstudiante" id="nombreEstudianteModelo16${response.id}" rows="5"></input>
+
+                    <input disabled class="form-control mb-4" type="file" name="anexo"
+                        id="anexoModelo16${response.id}">
+                    {%if modelo16.anexoPdf %}
+                    <strong>Actualmente: </strong><a
+                        href="{{modelo16.anexoPdf.url}}">{{modelo16.anexoPdf.name}}</a>
+                    {% endif %}
+
+                    <div class="justify-content-end d-flex">
+                        <button onclick="modelo16Actualizar(${response.id})" type="button"
+                            class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                class="fas fa-save">&nbsp;
+                                Guardar</i></button>
+                        <button type="button" class="btn btn-primary p-2 mr-2"
+                            onclick="modelo16Editar(${response.id})" title="Editar entrada"><i
+                                class="fas fa-edit">&nbsp;Editar</i></button>
+                        <button type="button" class="btn btn-danger  p-2 mr-2"
+                            onclick="modelo16Eliminar(${response.id})" title="Eliminar entrada"><i
+                                class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+        `);
+
+}
 </script>
 {% endblock %}

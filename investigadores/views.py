@@ -312,7 +312,6 @@ class crearModelo1(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -381,7 +380,6 @@ class crearModelo2(View):
     def get(self, request):
         posicion1 = request.GET.get('posicion', None)
         numeral1 = request.GET.get('numeral', None)
-        Seccion = request.GET.get('seccion', None)
         orden = request.GET.get('orden', None)
         periodo = request.GET.get('periodo', None)
 
@@ -389,7 +387,6 @@ class crearModelo2(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -469,7 +466,6 @@ class crearModelo3(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -563,7 +559,6 @@ class crearModelo4(View):
 
         posicion1 = request.GET.get('posicion', None)
         numeral1 = request.GET.get('numeral', None)
-        Seccion = request.GET.get('seccion', None)
         orden = request.GET.get('orden', None)
         periodo = request.GET.get('periodo', None)
 
@@ -571,7 +566,6 @@ class crearModelo4(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -634,7 +628,6 @@ class crearModelo5(View):
 
         posicion1 = request.GET.get('posicion', None)
         numeral1 = request.GET.get('numeral', None)
-        Seccion = request.GET.get('seccion', None)
         orden = request.GET.get('orden', None)
         periodo = request.GET.get('periodo', None)
 
@@ -642,7 +635,6 @@ class crearModelo5(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -710,7 +702,6 @@ class crearModelo6(View):
 
         posicion1 = request.GET.get('posicion', None)
         numeral1 = request.GET.get('numeral', None)
-        Seccion = request.GET.get('seccion', None)
         orden = request.GET.get('orden', None)
         periodo = request.GET.get('periodo', None)
 
@@ -718,7 +709,6 @@ class crearModelo6(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -779,7 +769,6 @@ class crearModelo7(View):
 
         posicion1 = request.GET.get('posicion', None)
         numeral1 = request.GET.get('numeral', None)
-        Seccion = request.GET.get('seccion', None)
         orden = request.GET.get('orden', None)
         periodo = request.GET.get('periodo', None)
 
@@ -787,7 +776,6 @@ class crearModelo7(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -850,7 +838,6 @@ class crearModelo8(View):
 
         posicion1 = request.GET.get('posicion', None)
         numeral1 = request.GET.get('numeral', None)
-        Seccion = request.GET.get('seccion', None)
         orden = request.GET.get('orden', None)
         periodo = request.GET.get('periodo', None)
 
@@ -858,7 +845,6 @@ class crearModelo8(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -926,7 +912,6 @@ class crearModelo9(View):
 
         posicion1 = request.GET.get('posicion', None)
         numeral1 = request.GET.get('numeral', None)
-        Seccion = request.GET.get('seccion', None)
         orden = request.GET.get('orden', None)
         periodo = request.GET.get('periodo', None)
 
@@ -934,7 +919,6 @@ class crearModelo9(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -997,7 +981,6 @@ class crearModelo10(View):
 
         posicion1 = request.GET.get('posicion', None)
         numeral1 = request.GET.get('numeral', None)
-        Seccion = request.GET.get('seccion', None)
         orden = request.GET.get('orden', None)
         periodo = request.GET.get('periodo', None)
 
@@ -1005,7 +988,6 @@ class crearModelo10(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -1065,7 +1047,6 @@ class crearModelo11(View):
 
         posicion1 = request.GET.get('posicion', None)
         numeral1 = request.GET.get('numeral', None)
-        Seccion = request.GET.get('seccion', None)
         orden = request.GET.get('orden', None)
         periodo = request.GET.get('periodo', None)
 
@@ -1073,7 +1054,6 @@ class crearModelo11(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -1128,7 +1108,6 @@ class crearModelo12(View):
 
         posicion1 = request.GET.get('posicion', None)
         numeral1 = request.GET.get('numeral', None)
-        Seccion = request.GET.get('seccion', None)
         orden = request.GET.get('orden', None)
         periodo = request.GET.get('periodo', None)
 
@@ -1136,7 +1115,6 @@ class crearModelo12(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -1192,7 +1170,6 @@ class crearModelo13(View):
 
         posicion1 = request.GET.get('posicion', None)
         numeral1 = request.GET.get('numeral', None)
-        Seccion = request.GET.get('seccion', None)
         orden = request.GET.get('orden', None)
         periodo = request.GET.get('periodo', None)
 
@@ -1200,7 +1177,6 @@ class crearModelo13(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -1256,7 +1232,6 @@ class crearModelo14(View):
 
         posicion1 = request.GET.get('posicion', None)
         numeral1 = request.GET.get('numeral', None)
-        Seccion = request.GET.get('seccion', None)
         orden = request.GET.get('orden', None)
         periodo = request.GET.get('periodo', None)
 
@@ -1264,7 +1239,6 @@ class crearModelo14(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -1318,7 +1292,6 @@ class crearModelo15(View):
 
         posicion1 = request.GET.get('posicion', None)
         numeral1 = request.GET.get('numeral', None)
-        Seccion = request.GET.get('seccion', None)
         orden = request.GET.get('orden', None)
         periodo = request.GET.get('periodo', None)
 
@@ -1326,7 +1299,6 @@ class crearModelo15(View):
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo,
-            nombreDeSeccion=Seccion,
         )
 
         data = {
@@ -1336,6 +1308,65 @@ class crearModelo15(View):
         }
         return JsonResponse(data)
 
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo16(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        estudiantes = request.POST.get('nombreEstudiante', None)
+
+        obj = Modelo16.objects.get(id=id1)
+        obj.nombreEstudiante = estudiantes
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexoPdf:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+                obj.anexoPdf = archivo
+            else:
+                obj.anexoPdf = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo16(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo16.objects.get(id=id1)
+        if obj.anexoPdf:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        Modelo16.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo16(View):
+    def get(self, request):
+
+        posicion1 = request.GET.get('posicion', None)
+        numeral1 = request.GET.get('numeral', None)
+        orden = request.GET.get('orden', None)
+        periodo = request.GET.get('periodo', None)
+
+        obj = Modelo16.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral1,
+            periodo_id=periodo,
+        )
+
+        data = {
+            'id': obj.id,
+            'posicion': posicion1,
+            'orden': orden,
+        }
+        return JsonResponse(data)
 
 class enviarReporte(View):
     def get(self, request, *args, **kwargs):

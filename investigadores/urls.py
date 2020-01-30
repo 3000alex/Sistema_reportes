@@ -85,6 +85,11 @@ investigadorespatterns = ([
     path('actualizar-modelo15/',vista.actualizarModelo15.as_view(), name="actualizar-modelo15"),
     path('eliminar-modelo15/',vista.eliminarModelo15.as_view(), name="eliminar-modelo15"),
     path('crear-modelo15/',vista.crearModelo15.as_view(), name="crear-modelo15"),
+    
+    path('actualizar-modelo16/',vista.actualizarModelo16.as_view(), name="actualizar-modelo16"),
+    path('eliminar-modelo16/',vista.eliminarModelo16.as_view(), name="eliminar-modelo16"),
+    path('crear-modelo16/',vista.crearModelo16.as_view(), name="crear-modelo16"),
+    
     #Finalizar reporte
     path('enviar-Reporte/',vista.enviarReporte.as_view(), name="enviar-Reporte")
     

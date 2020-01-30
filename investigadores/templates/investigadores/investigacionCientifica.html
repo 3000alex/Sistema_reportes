@@ -717,7 +717,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}},'{{modelo1.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo1.periodo_id}})"
+                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}}, '{{numeral.orden}}', {{modelo1.periodo_id}})"
                     type="button" id="modelo1Crear{{modelo1.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -940,7 +940,7 @@
                 </form>
 
                 <button
-                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}},'{{modelo1.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo1.periodo_id}})"
+                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}}, '{{numeral.orden}}', {{modelo1.periodo_id}})"
                     type="button" id="" class="btn btn-danger"><i class="fas fa-plus-circle"></i>Agregar
                     entrada</button>
                 <hr>
@@ -1160,7 +1160,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}},'{{modelo1.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo1.periodo_id}})"
+                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}}, '{{numeral.orden}}', {{modelo1.periodo_id}})"
                     type="button" id="" class="btn btn-danger"><i class="fas fa-plus-circle"></i>Agregar
                     entrada</button>
                 <hr>
@@ -1889,7 +1889,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}},'{{modelo1.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo1.periodo_id}})"
+                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}}, '{{numeral.orden}}', {{modelo1.periodo_id}})"
                     type="button" id="modelo1Crear{{modelo1.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -1989,7 +1989,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo2Crear({{modelo2.id}},{{modelo2.numeral_id}},'{{modelo2.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo2.periodo_id}})"
+                    onclick="modelo2Crear({{modelo2.id}},{{modelo2.numeral_id}}, '{{numeral.orden}}', {{modelo2.periodo_id}})"
                     type="button" id="modelo2Crear{{modelo2.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -2091,7 +2091,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}},'{{modelo1.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo1.periodo_id}})"
+                    onclick="modelo1Crear({{modelo1.id}},{{modelo1.numeral_id}}, '{{numeral.orden}}', {{modelo1.periodo_id}})"
                     type="button" id="modelo1Crear{{modelo1.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -2223,7 +2223,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo3Crear({{modelo3.id}},{{modelo3.numeral_id}},'{{modelo3.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo3.periodo_id}})"
+                    onclick="modelo3Crear({{modelo3.id}},{{modelo3.numeral_id}},' '{{numeral.orden}}', {{modelo3.periodo_id}})"
                     type="button" id="modelo3Crear{{modelo3.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -2335,7 +2335,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo3Crear({{modelo3.id}},{{modelo3.numeral_id}},'{{modelo3.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo3.periodo_id}})"
+                    onclick="modelo3Crear({{modelo3.id}},{{modelo3.numeral_id}}, '{{numeral.orden}}', {{modelo3.periodo_id}})"
                     type="button" id="modelo3Crear{{modelo3.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -2768,7 +2768,7 @@
         return false;
 
     }
-    function modelo1Crear(posicion, numeral, seccion, orden, periodo) {
+    function modelo1Crear(posicion, numeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
@@ -2776,7 +2776,6 @@
             data: {
                 "posicion": posicion,
                 "numeral": numeral,
-                "seccion": seccion,
                 "orden": orden,
                 "periodo": periodo,
             },
@@ -2986,7 +2985,7 @@
         return false;
 
     }
-    function modelo2Crear(posicion, numeral, seccion, orden, periodo) {
+    function modelo2Crear(posicion, numeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
@@ -2994,7 +2993,6 @@
             data: {
                 "posicion": posicion,
                 "numeral": numeral,
-                "seccion": seccion,
                 "orden": orden,
                 "periodo": periodo,
             },
@@ -3173,7 +3171,7 @@
         return false;
 
     }
-    function modelo3Crear(posicion, numeral, seccion, orden, periodo) {
+    function modelo3Crear(posicion, numeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
@@ -3181,7 +3179,6 @@
             data: {
                 "posicion": posicion,
                 "numeral": numeral,
-                "seccion": seccion,
                 "orden": orden,
                 "periodo": periodo,
             },
