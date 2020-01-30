@@ -48,7 +48,7 @@
                     </div>
                 </form>
                 <button
-                onclick="modelo15Crear({{modelo15.id}},{{modelo15.enumeral_id}}, '{{numeral.orden}}', {{modelo15.periodo_id}})"
+                onclick="modelo15Crear({{modelo15.id}},{{modelo15.numeral_id}}, '{{numeral.orden}}', {{modelo15.periodo_id}})"
                 type="button" id="modelo15Crear{{modelo15.id}}" class="btn btn-danger"><i
                     class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -88,16 +88,16 @@
 
                                 </div>
                             </div>
-
+                            
                             <div class="form-group row">
-                                <label for="" class="col-sm-2">No. Reporte/ID: </label>
+                                <label for="" class="col-sm-2">Revista o publicación: </label>
                                 <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="Nreportes"
-                                        id="NreporteModelo9{{modelo9.id}}"
-                                        value="{% if modelo9.numeroReportes %}{{modelo9.numeroReportes}}{% endif %}">
-
+                                    <input disabled class="form-control mb-4" type="text" name="revistaPublicacion"
+                                        id="revistaPublicacionModelo9{{modelo9.id}}"
+                                        value="{% if modelo9.revistaPublicacion %}{{modelo9.revistaPublicacion}}{% endif %}">
                                 </div>
                             </div>
+
 
                             <div class="form-group row">
                                 <label for="" class="col-sm-2">Fecha: </label>
@@ -117,14 +117,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Revista o publicación: </label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="revistaPublicacion"
-                                        id="revistaPublicacionModelo9{{modelo9.id}}"
-                                        value="{% if modelo9.revistaPublicacion %}{{modelo9.revistaPublicacion}}{% endif %}">
-                                </div>
-                            </div>
 
                             <input class="form-control mb-4" disabled type="file" name="anexo"
                                 id="anexoModelo9{{modelo9.id}}">
@@ -150,7 +142,7 @@
                     </div>
                 </form>
                 <button
-                onclick="modelo9Crear({{modelo9.id}},{{modelo9.enumeral_id}}, '{{numeral.orden}}', {{modelo9.periodo_id}})"
+                onclick="modelo9Crear({{modelo9.id}},{{modelo9.numeral_id}}, '{{numeral.orden}}', {{modelo9.periodo_id}})"
                 type="button" id="modelo9Crear{{modelo9.id}}" class="btn btn-danger"><i
                     class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -223,7 +215,7 @@
                     </div>
                 </form>
                 <button
-                onclick="modelo10Crear({{modelo10.id}},{{modelo10.enumeral_id}}, '{{numeral.orden}}', {{modelo10.periodo_id}})"
+                onclick="modelo10Crear({{modelo10.id}},{{modelo10.numeral_id}}, '{{numeral.orden}}', {{modelo10.periodo_id}})"
                 type="button" id="modelo10Crear{{modelo10.id}}" class="btn btn-danger"><i
                     class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -279,7 +271,7 @@
                     </div>
                 </form>
                 <button
-                onclick="modelo10Crear({{modelo10.id}},{{modelo10.enumeral_id}}, '{{numeral.orden}}', {{modelo10.periodo_id}})"
+                onclick="modelo10Crear({{modelo10.id}},{{modelo10.numeral_id}}, '{{numeral.orden}}', {{modelo10.periodo_id}})"
                 type="button" id="modelo10Crear{{modelo10.id}}" class="btn btn-danger"><i
                     class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -343,7 +335,7 @@
                     </div>
                 </form>
                 <button
-                onclick="modelo11Crear({{modelo11.id}},{{modelo11.enumeral_id}}, '{{numeral.orden}}', {{modelo11.periodo_id}})"
+                onclick="modelo11Crear({{modelo11.id}},{{modelo11.numeral_id}}, '{{numeral.orden}}', {{modelo11.periodo_id}})"
                 type="button" id="modelo11Crear{{modelo11.id}}" class="btn btn-danger"><i
                     class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -416,7 +408,7 @@
                     </div>
                 </form>
                 <button
-                onclick="modelo11Crear({{modelo11.id}},{{modelo11.enumeral_id}}, '{{numeral.orden}}', {{modelo11.periodo_id}})"
+                onclick="modelo11Crear({{modelo11.id}},{{modelo11.numeral_id}}, '{{numeral.orden}}', {{modelo11.periodo_id}})"
                 type="button" id="modelo11Crear{{modelo11.id}}" class="btn btn-danger"><i
                     class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -441,9 +433,9 @@
                             <div class="form-group row">
                                 <label for="" class="col-sm-2">Fecha o periodo: </label>
                                 <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="fechaPeriodo"
-                                        id="fechaPeriodoModelo11{{modelo11.id}}"
-                                        value="{% if modelo11.fechaPeriodo %}{{modelo11.fechaPeriodo}}{% endif %}">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo11{{modelo11.id}}"
+                                        value="{% if modelo11.fecha %}{{modelo11.fecha}}{% endif %}">
 
                                 </div>
                             </div>
@@ -478,7 +470,7 @@
                     </div>
                 </form>
                 <button
-                onclick="modelo11Crear({{modelo11.id}},{{modelo11.enumeral_id}}, '{{numeral.orden}}', {{modelo11.periodo_id}})"
+                onclick="modelo11Crear({{modelo11.id}},{{modelo11.numeral_id}}, '{{numeral.orden}}', {{modelo11.periodo_id}})"
                 type="button" id="modelo11Crear{{modelo11.id}}" class="btn btn-danger"><i
                     class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -531,7 +523,7 @@
                     </div>
                 </form>
                 <button
-                onclick="modelo15Crear({{modelo15.id}},{{modelo15.enumeral_id}}, '{{numeral.orden}}', {{modelo15.periodo_id}})"
+                onclick="modelo15Crear({{modelo15.id}},{{modelo15.numeral_id}}, '{{numeral.orden}}', {{modelo15.periodo_id}})"
                 type="button" id="modelo15Crear{{modelo15.id}}" class="btn btn-danger"><i
                     class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -587,7 +579,7 @@
                     </div>
                 </form>
                 <button
-                onclick="modelo12Crear({{modelo12.id}},{{modelo12.enumeral_id}}, '{{numeral.orden}}', {{modelo12.periodo_id}})"
+                onclick="modelo12Crear({{modelo12.id}},{{modelo12.numeral_id}}, '{{numeral.orden}}', {{modelo12.periodo_id}})"
                 type="button" id="modelo12Crear{{modelo12.id}}" class="btn btn-danger"><i
                     class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -648,7 +640,7 @@
                     </div>
                 </form>
                 <button
-                onclick="modelo13Crear({{modelo13.id}},{{modelo13.enumeral_id}}, '{{numeral.orden}}', {{modelo13.periodo_id}})"
+                onclick="modelo13Crear({{modelo13.id}},{{modelo13.numeral_id}}, '{{numeral.orden}}', {{modelo13.periodo_id}})"
                 type="button" id="modelo13Crear{{modelo13.id}}" class="btn btn-danger"><i
                     class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -701,7 +693,7 @@
                     </div>
                 </form>
                 <button
-                onclick="modelo15Crear({{modelo15.id}},{{modelo15.enumeral_id}}, '{{numeral.orden}}', {{modelo15.periodo_id}})"
+                onclick="modelo15Crear({{modelo15.id}},{{modelo15.numeral_id}}, '{{numeral.orden}}', {{modelo15.periodo_id}})"
                 type="button" id="modelo15Crear{{modelo15.id}}" class="btn btn-danger"><i
                     class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -831,14 +823,14 @@
 
         return false;
     }
-    function modelo9Crear(posicion, enumeral, orden, periodo) {
+    function modelo9Crear(posicion, numeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo9" %}',
             data: {
                 "posicion": posicion,
-                "enumeral": enumeral,
+                "numeral": numeral,
                 "orden": orden,
                 "periodo": periodo,
             },
@@ -902,15 +894,16 @@
                                     id="autoresModelo9${response.id}" value="">
                             </div>
                         </div>
-    
-                        <div class="form-group row">
-                            <label for=""  class="col-sm-2">No. Reportes/ID: </label>
-                            <div class="col-sm-10">
-                                <input disabled class="form-control mb-4" type="text" name="Nreportes"
-                                    id="NreporteModelo9${response.id}" value="">
 
+                        <div class="form-group row">
+                            <label for="" class="col-sm-2">Revista o publicación: </label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-4" type="text" name="revistaPublicacion"
+                                    id="revistaPublicacionModelo9${response.id}"
+                                    value="">
                             </div>
                         </div>
+    
     
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Fecha: </label>
@@ -928,14 +921,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="" class="col-sm-2">Revista o publicación: </label>
-                            <div class="col-sm-10">
-                                <input disabled class="form-control mb-4" type="text" name="revistaPublicacion"
-                                    id="revistaPublicacionModelo9${response.id}"
-                                    value="">
-                            </div>
-                        </div>
     
                         <input disabled class="form-control mb-4" type="file" name="anexo"
                             id="anexoModelo9${response.id}">
@@ -1004,14 +989,14 @@
 
         return false;
     }
-    function modelo10Crear(posicion, enumeral, orden, periodo) {
+    function modelo10Crear(posicion, numeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo10" %}',
             data: {
                 "posicion": posicion,
-                "enumeral": enumeral,
+                "numeral": numeral,
                 "orden": orden,
                 "periodo": periodo,
             },
@@ -1190,14 +1175,14 @@
 
         return false;
     }
-    function modelo11Crear(posicion, enumeral, orden, periodo) {
+    function modelo11Crear(posicion, numeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo11" %}',
             data: {
                 "posicion": posicion,
-                "enumeral": enumeral,
+                "numeral": numeral,
                 "orden": orden,
                 "periodo": periodo,
             },
@@ -1353,7 +1338,7 @@
                             <div class="form-group row">
                                 <label for="" class="col-sm-2">Fecha o periodo: </label>
                                 <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="fechaPeriodo"
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
                                         id="fechaPeriodoModelo11${response.id}" value="">
                                 </div>
                             </div>
@@ -1424,14 +1409,14 @@
 
         return false;
     }
-    function modelo12Crear(posicion, enumeral, orden, periodo) {
+    function modelo12Crear(posicion, numeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo12" %}',
             data: {
                 "posicion": posicion,
-                "enumeral": enumeral,
+                "numeral": numeral,
                 "orden": orden,
                 "periodo": periodo,
             },
@@ -1551,14 +1536,14 @@
 
         return false;
     }
-    function modelo13Crear(posicion, enumeral, orden, periodo) {
+    function modelo13Crear(posicion, numeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo13" %}',
             data: {
                 "posicion": posicion,
-                "enumeral": enumeral,
+                "numeral": numeral,
                 "orden": orden,
                 "periodo": periodo,
             },
@@ -1684,14 +1669,14 @@
 
         return false;
     }
-    function modelo15Crear(posicion, enumeral, orden, periodo) {
+    function modelo15Crear(posicion, numeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo15" %}',
             data: {
                 "posicion": posicion,
-                "enumeral": enumeral,
+                "numeral": numeral,
                 "orden": orden,
                 "periodo": periodo,
             },

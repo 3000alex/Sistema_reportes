@@ -75,7 +75,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo14Crear({{modelo14.id}},{{modelo14.enumeral_id}}, '{{numeral.orden}}', {{modelo14.periodo_id}})"
+                    onclick="modelo14Crear({{modelo14.id}},{{modelo14.numeral_id}}, '{{numeral.orden}}', {{modelo14.periodo_id}})"
                     type="button" id="modelo14Crear{{modelo14.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -198,14 +198,14 @@
 
         return false;
     }
-    function modelo14Crear(posicion, enumeral, orden, periodo) {
+    function modelo14Crear(posicion, numeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo14" %}',
             data: {
                 "posicion": posicion,
-                "enumeral": enumeral,
+                "numeral": numeral,
                 "orden": orden,
                 "periodo": periodo,
             },

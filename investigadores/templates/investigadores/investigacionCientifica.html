@@ -2223,7 +2223,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo3Crear({{modelo3.id}},{{modelo3.numeral_id}},' '{{numeral.orden}}', {{modelo3.periodo_id}})"
+                    onclick="modelo3Crear({{modelo3.id}},{{modelo3.numeral_id}}, '{{numeral.orden}}', {{modelo3.periodo_id}})"
                     type="button" id="modelo3Crear{{modelo3.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -3434,7 +3434,6 @@
         $("#anexoCitas" + id).prop("disabled", false);
 
     }
-
     function desactivarCitas(id) {
         $("#citas" + id).prop("disabled", true);
         $("#citasPeriodo" + id).prop("disabled", true);
@@ -3457,6 +3456,7 @@
             dataType: 'html',
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+                desactivarCitas(id)
             }
         });
 

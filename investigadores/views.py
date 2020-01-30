@@ -1010,7 +1010,6 @@ class actualizarModelo11(View):
         obj.nombreEstudiante = nombre
         obj.descripcion = descripcion
         obj.fecha = fecha
-        obj.fechaPeriodo = fechaPeriodo
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
