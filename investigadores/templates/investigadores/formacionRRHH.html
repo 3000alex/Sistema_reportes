@@ -81,7 +81,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo4Crear({{modelo4.id}},{{modelo4.numeral_id}},'{{modelo4.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo4.periodo_id}})"
+                    onclick="modelo4Crear({{modelo4.id}},{{modelo4.numeral_id}}, '{{numeral.orden}}', {{modelo4.periodo_id}})"
                     type="button" id="modelo4Crear{{modelo4.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -157,7 +157,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo5Crear({{modelo5.id}},{{modelo5.numeral_id}},'{{modelo5.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo5.periodo_id}})"
+                    onclick="modelo5Crear({{modelo5.id}},{{modelo5.numeral_id}}, '{{numeral.orden}}', {{modelo5.periodo_id}})"
                     type="button" id="modelo5Crear{{modelo5.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -266,7 +266,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo6Crear({{modelo6.id}},{{modelo6.numeral_id}},'{{modelo6.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo6.periodo_id}})"
+                    onclick="modelo6Crear({{modelo6.id}},{{modelo6.numeral_id}}, {{numeral.orden}}', {{modelo6.periodo_id}})"
                     type="button" id="modelo6Crear{{modelo6.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -428,7 +428,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo6Crear({{modelo6.id}},{{modelo6.numeral_id}},'{{modelo6.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo6.periodo_id}})"
+                    onclick="modelo6Crear({{modelo6.id}},{{modelo6.numeral_id}}, '{{numeral.orden}}', {{modelo6.periodo_id}})"
                     type="button" id="modelo6Crear{{modelo6.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -553,7 +553,7 @@
 
         return false;
     }
-    function modelo4Crear(posicion, numeral, seccion, orden, periodo) {
+    function modelo4Crear(posicion, numeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
@@ -561,7 +561,6 @@
             data: {
                 "posicion": posicion,
                 "numeral": numeral,
-                "seccion": seccion,
                 "orden": orden,
                 "periodo": periodo,
             },
@@ -602,7 +601,6 @@
         $('#modalDinamico').modal('hide');//cierra modal
         return false;
     }
-
     function dibujarmodelo4(response) {
         $("#modelo4" + `${response.posicion}`).append(
             `
@@ -706,7 +704,7 @@
 
         return false;
     }
-    function modelo5Crear(posicion, numeral, seccion, orden, periodo) {
+    function modelo5Crear(posicion, numeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
@@ -714,7 +712,6 @@
             data: {
                 "posicion": posicion,
                 "numeral": numeral,
-                "seccion": seccion,
                 "orden": orden,
                 "periodo": periodo,
             },
@@ -855,7 +852,7 @@
 
         return false;
     }
-    function modelo6Crear(posicion, numeral, seccion, orden, periodo) {
+    function modelo6Crear(posicion, numeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
@@ -863,7 +860,6 @@
             data: {
                 "posicion": posicion,
                 "numeral": numeral,
-                "seccion": seccion,
                 "orden": orden,
                 "periodo": periodo,
             },

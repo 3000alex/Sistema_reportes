@@ -75,7 +75,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo14Crear({{modelo14.id}},{{modelo14.enumeral_id}},'{{modelo14.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo14.periodo_id}})"
+                    onclick="modelo14Crear({{modelo14.id}},{{modelo14.enumeral_id}}, '{{numeral.orden}}', {{modelo14.periodo_id}})"
                     type="button" id="modelo14Crear{{modelo14.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -130,6 +130,7 @@
     </div>
 </div>
 <!--Fin Modal glosario-->
+
 <!--Modal Multiple.-->
 <div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
@@ -197,7 +198,7 @@
 
         return false;
     }
-    function modelo14Crear(posicion, enumeral, seccion, orden, periodo) {
+    function modelo14Crear(posicion, enumeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
@@ -205,7 +206,6 @@
             data: {
                 "posicion": posicion,
                 "enumeral": enumeral,
-                "seccion": seccion,
                 "orden": orden,
                 "periodo": periodo,
             },

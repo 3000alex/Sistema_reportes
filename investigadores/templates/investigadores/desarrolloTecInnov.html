@@ -67,7 +67,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo7Crear({{modelo7.id}},{{modelo7.enumeral_id}},'{{modelo7.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo7.periodo_id}})"
+                    onclick="modelo7Crear({{modelo7.id}},{{modelo7.enumeral_id}}, '{{numeral.orden}}', {{modelo7.periodo_id}})"
                     type="button" id="modelo7Crear{{modelo7.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -148,7 +148,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo8Crear({{modelo8.id}},{{modelo8.enumeral_id}},'{{modelo8.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo8.periodo_id}})"
+                    onclick="modelo8Crear({{modelo8.id}},{{modelo8.enumeral_id}}, '{{numeral.orden}}', {{modelo8.periodo_id}})"
                     type="button" id="modelo8Crear{{modelo8.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -244,7 +244,7 @@
                     </div>
                 </form>
                 <button
-                    onclick="modelo9Crear({{modelo9.id}},{{modelo9.enumeral_id}},'{{modelo9.nombreDeSeccion}}', '{{numeral.orden}}', {{modelo9.periodo_id}})"
+                    onclick="modelo9Crear({{modelo9.id}},{{modelo9.enumeral_id}}, '{{numeral.orden}}', {{modelo9.periodo_id}})"
                     type="button" id="modelo9Crear{{modelo9.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
@@ -367,7 +367,7 @@
 
         return false;
     }
-    function modelo7Crear(posicion, enumeral, seccion, orden, periodo) {
+    function modelo7Crear(posicion, enumeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
@@ -375,7 +375,6 @@
             data: {
                 "posicion": posicion,
                 "enumeral": enumeral,
-                "seccion": seccion,
                 "orden": orden,
                 "periodo": periodo,
             },
@@ -513,7 +512,7 @@
 
         return false;
     }
-    function modelo8Crear(posicion, enumeral, seccion, orden, periodo) {
+    function modelo8Crear(posicion, enumeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
@@ -521,7 +520,6 @@
             data: {
                 "posicion": posicion,
                 "enumeral": enumeral,
-                "seccion": seccion,
                 "orden": orden,
                 "periodo": periodo,
             },
@@ -666,7 +664,7 @@
 
         return false;
     }
-    function modelo9Crear(posicion, enumeral, seccion, orden, periodo) {
+    function modelo9Crear(posicion, enumeral, orden, periodo) {
 
         $.ajax({
             type: "GET",
@@ -674,7 +672,6 @@
             data: {
                 "posicion": posicion,
                 "enumeral": enumeral,
-                "seccion": seccion,
                 "orden": orden,
                 "periodo": periodo,
             },
