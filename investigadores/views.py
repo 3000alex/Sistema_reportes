@@ -27,6 +27,8 @@ from django.conf import settings
 import pdfkit
 from io import BytesIO
 from django.core.files import File
+#config = pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')  #Linux
+config =  pdfkit.configuration(wkhtmltopdf='C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe') #Windows
 # Correo
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage
@@ -1372,7 +1374,6 @@ class enviarReporte(View):
         periodo = Periodo.objects.last()
 
         html = generarPdf(request)
-        config = pdfkit.configuration(wkhtmltopdf='C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe')
         options = {
             'page-size': 'Letter',
             'margin-top': '0.75in',
@@ -1404,7 +1405,6 @@ class enviarReporte(View):
 class generarReporte(View):
     def get(self,request):
         html = generarPdf(request)
-        config = pdfkit.configuration(wkhtmltopdf='C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe')
         options = {
             'page-size': 'Letter',
             'margin-top': '0.75in',
