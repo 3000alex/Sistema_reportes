@@ -13,7 +13,7 @@
                 {% for modelo14 in modelo14 %}
 
                 {% if modelo14.numeral_id == numeral.id %}
-                <form id="modelo14{{modelo14.id}}" type="post" enctype="multipart/form-data">
+                <form id="modelo14{{modelo14.id}}" name="numeral61" type="post" enctype="multipart/form-data">
                     <div class="card-body">
 
                         <div class="form-group">
@@ -161,7 +161,7 @@
 
 {% block JsCode %}
 <script>
-
+    
     //Modelo 14
     function modelo14Editar(id) {
         $("#telescopioModelo14" + id).prop("disabled", false);

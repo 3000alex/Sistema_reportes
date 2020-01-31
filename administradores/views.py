@@ -165,7 +165,7 @@ class reportes_adm(StaffRequiredMixin,View):
     
 class reporteMaestro(View):
 
-    #periodo = Periodo.objects.last() -> Verificar porque no deja migrar
+    periodo = Periodo.objects.last() #-> Verificar porque no deja migrar
 
     def get(self, request):
 

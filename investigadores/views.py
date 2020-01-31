@@ -1395,9 +1395,6 @@ class enviarReporte(View):
         #reporteFinal.save()
         archivo.save()
 
-        
-        
-        
         return HttpResponse(pdf,content_type='application/pdf')
 
 # Generar PDF

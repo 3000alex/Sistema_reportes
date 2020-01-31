@@ -1,5 +1,5 @@
 from .models import Numeral, Citas, Modelo1, Modelo2, Modelo3, Modelo4, Modelo5, Modelo6, Modelo7, Modelo8, Modelo9, Modelo10
-from .models import Modelo11, Modelo12, Modelo13, Modelo14, Modelo15, Periodo
+from .models import Modelo11, Modelo12, Modelo13, Modelo14, Modelo15, Modelo16, Periodo
 from registration.models import User
 from biblioteca.models import Biblioteca
 from datetime import date
@@ -45,6 +45,7 @@ def generarPdf(request):
         #Informacion Adicional
         'modelo14': Modelo14.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
         'modelo15': Modelo15.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
+        'modelo16': Modelo16.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
     }
     html = template.render(dataReporte)
 

@@ -142,6 +142,7 @@ LOGOUT_REDIRECT_URL = '/'
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'core/static/core','static_admin')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'core/static/core')
 ]

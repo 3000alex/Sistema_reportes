@@ -744,8 +744,6 @@ def Reporte(request):
                         paragraph.add_run(" ")
                         paragraph.add_run(item.url)
                         paragraph.add_run(" ")
-                        paragraph.add_run(item.cursosCortosDescripcion)
-                        paragraph.add_run(" ")
                         paragraph.add_run(item.periodoNumeral)
                    
 
@@ -759,8 +757,6 @@ def Reporte(request):
                         paragraph.add_run(item.descripcion)
                         paragraph.add_run(" ")
                         paragraph.add_run(item.fecha)
-                        paragraph.add_run(" ")
-                        paragraph.add_run(item.fechaPeriodo)
 
 
             for item in modelo12:
@@ -800,6 +796,6 @@ def Reporte(request):
                         paragraph.add_run(item.descripcion)
                 
         
-    d = document.save('demo.docx')
+    d = document.save('media/reporte.docx')
 
     return document
