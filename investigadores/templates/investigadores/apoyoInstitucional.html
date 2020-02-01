@@ -3,7 +3,7 @@
 {%block contenido%}
 <!-- Contenedor -->
 <ul id="accordion" class="container accordion mt-2">
-    {% for numeral in numeral %}
+    {% for numeral in numeralName %}
     <li class="card-header">
         <div class="link col-10">{{numeral}}<i class="fa fa-chevron-down"></i></div>
         <ul class="submenu">
@@ -11,49 +11,57 @@
             <!--Numeral 47 Modelo15-->
             {% if numeral.orden == 47 %}
             <li>
-                {% for modelo15 in modelo15 %}
+                {% for modelo15 in numeral_47 %}
 
-                {% if modelo15.numeral_id == numeral.id %}
-                <form id="modelo15{{modelo15.id}}" enctype="multipart/form-data">
-                    <div class="card-body">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="">Descripción</label>
-                            <textarea disabled class="form-control mb-4" name="descripcion"
-                                id="descripcionModelo15{{modelo15.id}}" cols="30"
-                                rows="5"> {% if modelo15.descripcion %}{{modelo15.descripcion}}{% endif %} </textarea>
-                            <input disabled class="form-control mb-4" type="file" name="anexo"
-                                id="anexoModelo15{{modelo15.id}}">
+                    <form id="modelo15{{modelo15.id}}" enctype="multipart/form-data">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="">Descripción</label>
+                                <textarea disabled class="form-control mb-4" name="descripcion"
+                                    id="descripcionModelo15{{modelo15.id}}" cols="30"
+                                    rows="5"> {% if modelo15.descripcion %}{{modelo15.descripcion}}{% endif %} </textarea>
+                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                    id="anexoModelo15{{modelo15.id}}">
 
-                            {%if modelo15.anexoPdf %}
-                            <strong>Actualmente: </strong><a
-                                href="{{modelo15.anexoPdf.url}}">{{modelo15.anexoPdf.name}}</a>
-                            {% endif %}
+                                {%if modelo15.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{modelo15.anexoPdf.url}}">{{modelo15.anexoPdf.name}}</a>
+                                {% endif %}
 
-                            <div class="justify-content-end d-flex">
-                                <button onclick="modelo15Actualizar('{{modelo15.id}}')" type="button"
-                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
-                                        class="fas fa-save">&nbsp;
-                                        Guardar</i></button>
-                                <button type="button" class="btn btn-primary p-2 mr-2"
-                                    onclick="modelo15Editar('{{modelo15.id}}')" id="{{modelo15.id}}"
-                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger  p-2 mr-2"
-                                    onclick="modelo15Eliminar('{{modelo15.id}}')" title="Eliminar entrada"><i
-                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                <div class="justify-content-end d-flex">
+                                    <button onclick="modelo15Actualizar('{{modelo15.id}}')" type="button"
+                                        class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                            class="fas fa-save">&nbsp;
+                                            Guardar</i></button>
+                                    <button type="button" class="btn btn-primary p-2 mr-2"
+                                        onclick="modelo15Editar('{{modelo15.id}}')" id="{{modelo15.id}}"
+                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-danger  p-2 mr-2"
+                                        onclick="modelo15Eliminar('{{modelo15.id}}')" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                </div>
+
                             </div>
 
                         </div>
-
+                    </form>
+                    <hr>
+                    {% if forloop.last %}
+                    <button onclick="modelo15Crear({{numeral.id}})"
+                        type="button" id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>Agregar entrada</button>
+                    {% endif %}        
+                    
+                    {% empty %}
+                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                        <strong>
+                            <p class="text-center ">Sin entradas</p>
+                        </strong>
                     </div>
-                </form>
-                <button
-                onclick="modelo15Crear({{modelo15.id}},{{modelo15.numeral_id}}, '{{numeral.orden}}', {{modelo15.periodo_id}})"
-                type="button" id="modelo15Crear{{modelo15.id}}" class="btn btn-danger"><i
-                    class="fas fa-plus-circle"></i>Agregar entrada</button>
-                <hr>
-                {% endif %}
-
+                    <button onclick="modelo15Crear({{numeral.id}})"
+                        type="button" id="modelo15Crear" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
             </li>
             {% endif %}
@@ -62,9 +70,8 @@
             <!--Numeral 48 Modelo9 -->
             {% if numeral.orden == 48 %}
             <li>
-                {% for modelo9 in modelo9 %}
+                {% for modelo9 in numeral_48 %}
 
-                {% if modelo9.numeral_id == numeral.id %}
                 <form id="modelo9{{modelo9.id}}" enctype="multipart/form-data">
                     <div class="card-body">
 
@@ -88,7 +95,7 @@
 
                                 </div>
                             </div>
-                            
+
                             <div class="form-group row">
                                 <label for="" class="col-sm-2">Revista o publicación: </label>
                                 <div class="col-sm-10">
@@ -141,25 +148,33 @@
                         </div>
                     </div>
                 </form>
-                <button
-                onclick="modelo9Crear({{modelo9.id}},{{modelo9.numeral_id}}, '{{numeral.orden}}', {{modelo9.periodo_id}})"
-                type="button" id="modelo9Crear{{modelo9.id}}" class="btn btn-danger"><i
-                    class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
-                {% endif %}
-
+                {% if forloop.last %}
+                <button onclick="modelo9Crear({{numeral.id}})"
+                    type="button" id="modelo9Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo9Crear({{numeral.id}})"
+                    type="button" id="modelo9Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
             </li>
             {% endif %}
             <!--Fin Numeral 48 Modelo9-->
 
-            <!--Numeral 49-52  Modelo10-->
-            {% if numeral.orden > 48 and numeral.orden < 52.1 %}
+            <!--Numeral 49 Modelo10-->
+            {% if numeral.orden == 49 %}
             <li>
 
-                {% for modelo10 in modelo10 %}
+                {% for modelo10 in numeral_49 %}
 
-                {% if modelo10.numeral_id == numeral.id %}
                 <form id="modelo10{{modelo10.id}}" enctype="multipart/form-data">
                     <div class="card-body">
 
@@ -214,24 +229,437 @@
 
                     </div>
                 </form>
-                <button
-                onclick="modelo10Crear({{modelo10.id}},{{modelo10.numeral_id}}, '{{numeral.orden}}', {{modelo10.periodo_id}})"
-                type="button" id="modelo10Crear{{modelo10.id}}" class="btn btn-danger"><i
-                    class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
-                {% endif %}
-
+                {% if forloop.last %}
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
             </li>
             {% endif %}
-            <!--Fin Numeral 49-52 49a,49b, 52a  Modelo10-->
+            <!--Fin Numeral 49 Modelo10-->
+
+            <!--Numeral 49a Modelo10-->
+            {% if numeral.orden == 49.1 %}
+            <li>
+
+                {% for modelo10 in numeral_49a %}
+
+                <form id="modelo10{{modelo10.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo10{{modelo10.id}}"
+                                        value="{% if modelo10.fecha %}{{modelo10.fecha}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Url: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url"
+                                        id="urlModelo10{{modelo10.id}}"
+                                        value="{% if modelo10.url %}{{modelo10.url}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo10{{modelo10.id}}" cols="30"
+                                rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo10{{modelo10.id}}">
+
+                            {%if modelo10.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo10.anexoPdf.url}}">{{modelo10.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo10Actualizar('{{modelo10.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <hr>
+                {% if forloop.last %}
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 49a Modelo10-->
+
+            <!--Numeral 49b  Modelo10-->
+            {% if numeral.orden == 49.2 %}
+            <li>
+
+                {% for modelo10 in numeral_49b %}
+
+                <form id="modelo10{{modelo10.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo10{{modelo10.id}}"
+                                        value="{% if modelo10.fecha %}{{modelo10.fecha}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Url: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url"
+                                        id="urlModelo10{{modelo10.id}}"
+                                        value="{% if modelo10.url %}{{modelo10.url}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo10{{modelo10.id}}" cols="30"
+                                rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo10{{modelo10.id}}">
+
+                            {%if modelo10.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo10.anexoPdf.url}}">{{modelo10.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo10Actualizar('{{modelo10.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <hr>
+                {% if forloop.last %}
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 49b  Modelo10-->
+
+            <!--Numeral 50  Modelo10-->
+            {% if numeral.orden == 50 %}
+            <li>
+
+                {% for modelo10 in numeral_50 %}
+
+                <form id="modelo10{{modelo10.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo10{{modelo10.id}}"
+                                        value="{% if modelo10.fecha %}{{modelo10.fecha}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Url: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url"
+                                        id="urlModelo10{{modelo10.id}}"
+                                        value="{% if modelo10.url %}{{modelo10.url}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo10{{modelo10.id}}" cols="30"
+                                rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo10{{modelo10.id}}">
+
+                            {%if modelo10.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo10.anexoPdf.url}}">{{modelo10.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo10Actualizar('{{modelo10.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <hr>
+                {% if forloop.last %}
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 50  Modelo10-->
+
+            <!--Numeral 51  Modelo10-->
+            {% if numeral.orden == 51 %}
+            <li>
+
+                {% for modelo10 in numeral_51 %}
+
+                <form id="modelo10{{modelo10.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo10{{modelo10.id}}"
+                                        value="{% if modelo10.fecha %}{{modelo10.fecha}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Url: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url"
+                                        id="urlModelo10{{modelo10.id}}"
+                                        value="{% if modelo10.url %}{{modelo10.url}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo10{{modelo10.id}}" cols="30"
+                                rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo10{{modelo10.id}}">
+
+                            {%if modelo10.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo10.anexoPdf.url}}">{{modelo10.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo10Actualizar('{{modelo10.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <hr>
+                {% if forloop.last %}
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 51  Modelo10-->
+
+            <!--Numeral 52  Modelo10-->
+            {% if numeral.orden == 52 %}
+            <li>
+
+                {% for modelo10 in numeral_52 %}
+
+                <form id="modelo10{{modelo10.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo10{{modelo10.id}}"
+                                        value="{% if modelo10.fecha %}{{modelo10.fecha}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Url: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url"
+                                        id="urlModelo10{{modelo10.id}}"
+                                        value="{% if modelo10.url %}{{modelo10.url}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo10{{modelo10.id}}" cols="30"
+                                rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo10{{modelo10.id}}">
+
+                            {%if modelo10.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo10.anexoPdf.url}}">{{modelo10.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo10Actualizar('{{modelo10.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <hr>
+                {% if forloop.last %}
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 52  Modelo10-->
 
             <!--Numeral 52a Modelo10 -->
             {% if numeral.orden == 52.1 %}
             <li>
-                {% for modelo10 in modelo10 %}
+                {% for modelo10 in numeral_52a %}
 
-                {% if modelo10.numeral_id == numeral.id %}
                 <form id="modelo10{{modelo10.id}}" enctype="multipart/form-data">
                     <div class="card-body">
                         {% csrf_token %}
@@ -270,13 +698,22 @@
 
                     </div>
                 </form>
-                <button
-                onclick="modelo10Crear({{modelo10.id}},{{modelo10.numeral_id}}, '{{numeral.orden}}', {{modelo10.periodo_id}})"
-                type="button" id="modelo10Crear{{modelo10.id}}" class="btn btn-danger"><i
-                    class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
-                {% endif %}
-
+                {% if forloop.last %}
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo10Crear({{numeral.id}})"
+                    type="button" id="modelo10Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
             </li>
             {% endif %}
@@ -286,9 +723,8 @@
             <!--Numeral 53 modelo 11-->
             {% if numeral.orden == 53 %}
             <li>
-                {% for modelo11 in modelo11 %}
+                {% for modelo11 in numeral_53 %}
 
-                {% if modelo11.numeral_id == numeral.id %}
                 <form id="modelo11{{modelo11.id}}" enctype="multipart/form-data">
                     <div class="card-body">
                         {% csrf_token %}
@@ -334,13 +770,22 @@
 
                     </div>
                 </form>
-                <button
-                onclick="modelo11Crear({{modelo11.id}},{{modelo11.numeral_id}}, '{{numeral.orden}}', {{modelo11.periodo_id}})"
-                type="button" id="modelo11Crear{{modelo11.id}}" class="btn btn-danger"><i
-                    class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
-                {% endif %}
-
+                {% if forloop.last %}
+                <button onclick="modelo11Crear({{numeral.id}})"
+                    type="button" id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo11Crear({{numeral.id}})"
+                    type="button" id="modelo11Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
             </li>
             {% endif %}
@@ -349,9 +794,8 @@
             <!--Numeral 54 Modelo 11-->
             {% if numeral.orden == 54 %}
             <li>
-                {% for modelo11 in modelo11 %}
+                {% for modelo11 in numeral_54 %}
 
-                {% if modelo11.numeral_id == numeral.id %}
                 <form id="modelo11{{modelo11.id}}" enctype="multipart/form-data">
                     <div class="card-body">
                         {% csrf_token %}
@@ -407,24 +851,32 @@
 
                     </div>
                 </form>
-                <button
-                onclick="modelo11Crear({{modelo11.id}},{{modelo11.numeral_id}}, '{{numeral.orden}}', {{modelo11.periodo_id}})"
-                type="button" id="modelo11Crear{{modelo11.id}}" class="btn btn-danger"><i
-                    class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
-                {% endif %}
-
+                {% if forloop.last %}
+                <button onclick="modelo11Crear({{numeral.id}})"
+                    type="button" id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo11Crear({{numeral.id}})"
+                    type="button" id="modelo11Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
             </li>
             {% endif %}
             <!--Fin Numeral 54 modelo 11 -->
 
-            <!--Numeral 55-56 Modelo 11-->
-            {% if numeral.orden == 55 or numeral.orden == 56 %}
+            <!--Numeral 55 Modelo 11-->
+            {% if numeral.orden == 55 %}
             <li>
-                {% for modelo11 in modelo11 %}
+                {% for modelo11 in numeral_55 %}
 
-                {% if modelo11.numeral_id == numeral.id %}
                 <form id="modelo11{{modelo11.id}}" enctype="multipart/form-data">
                     <div class="card-body">
                         {% csrf_token %}
@@ -469,24 +921,102 @@
 
                     </div>
                 </form>
-                <button
-                onclick="modelo11Crear({{modelo11.id}},{{modelo11.numeral_id}}, '{{numeral.orden}}', {{modelo11.periodo_id}})"
-                type="button" id="modelo11Crear{{modelo11.id}}" class="btn btn-danger"><i
-                    class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
-                {% endif %}
-
+                {% if forloop.last %}
+                <button onclick="modelo11Crear({{numeral.id}})"
+                    type="button" id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo11Crear({{numeral.id}})"
+                    type="button" id="modelo11Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
             </li>
             {% endif %}
-            <!--Fin Numeral 55-56 modelo 11 -->
+            <!--Fin Numeral 55 modelo 11 -->
+
+            <!--Numeral 56 Modelo 11-->
+            {% if numeral.orden == 56 %}
+            <li>
+                {% for modelo11 in numeral_56 %}
+
+                <form id="modelo11{{modelo11.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha o periodo: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo11{{modelo11.id}}"
+                                        value="{% if modelo11.fecha %}{{modelo11.fecha}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <label for="">Descripción: </label>
+                            <textarea disabled class="form-control mb-4" name="descripcion"
+                                id="descripcionModelo11{{modelo11.id}}" cols="30"
+                                rows="5">{% if modelo11.descripcion %}{{modelo11.descripcion}}{%endif%}</textarea>
+
+                            <input disabled class="form-control mb-4" disabled type="file" name="anexo"
+                                id="anexoModelo11{{modelo11.id}}">
+
+                            {%if modelo11.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo11.anexoPdf.url}}">{{modelo11.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo11Actualizar('{{modelo11.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo11Editar('{{modelo11.id}}')" id="{{modelo11.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo11Eliminar('{{modelo11.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <hr>
+                {% if forloop.last %}
+                <button onclick="modelo11Crear({{numeral.id}})"
+                    type="button" id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo11Crear({{numeral.id}})"
+                    type="button" id="modelo11Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 56 modelo 11 -->
 
             <!--Numeral 57 Modelo15-->
             {% if numeral.orden == 57 %}
             <li>
-                {% for modelo15 in modelo15 %}
+                {% for modelo15 in numeral_57 %}
 
-                {% if modelo15.numeral_id == numeral.id %}
                 <form id="modelo15{{modelo15.id}}" enctype="multipart/form-data">
                     <div class="card-body">
                         {% csrf_token %}
@@ -522,13 +1052,22 @@
 
                     </div>
                 </form>
-                <button
-                onclick="modelo15Crear({{modelo15.id}},{{modelo15.numeral_id}}, '{{numeral.orden}}', {{modelo15.periodo_id}})"
-                type="button" id="modelo15Crear{{modelo15.id}}" class="btn btn-danger"><i
-                    class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
-                {% endif %}
-
+                {% if forloop.last %}
+                <button onclick="modelo15Crear({{numeral.id}})"
+                    type="button" id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo15Crear({{numeral.id}})"
+                    type="button" id="modelo15Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
             </li>
             {% endif %}
@@ -537,9 +1076,8 @@
             <!--modelo 12 numeral 58 -->
             {% if numeral.orden == 58 %}
             <li>
-                {% for modelo12 in modelo12 %}
+                {% for modelo12 in numeral_58 %}
 
-                {% if modelo12.numeral_id == numeral.id %}
                 <form id="modelo12{{modelo12.id}}" enctype="multipart/form-data">
                     <div class="card-body">
                         {% csrf_token %}
@@ -578,13 +1116,22 @@
 
                     </div>
                 </form>
-                <button
-                onclick="modelo12Crear({{modelo12.id}},{{modelo12.numeral_id}}, '{{numeral.orden}}', {{modelo12.periodo_id}})"
-                type="button" id="modelo12Crear{{modelo12.id}}" class="btn btn-danger"><i
-                    class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
-                {% endif %}
-
+                {% if forloop.last %}
+                <button onclick="modelo12Crear({{numeral.id}})"
+                    type="button" id="modelo12Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo12Crear({{numeral.id}})"
+                    type="button" id="modelo12Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
             </li>
             {% endif %}
@@ -593,9 +1140,8 @@
             <!--modelo 13 numeral 59 -->
             {% if numeral.orden == 59 %}
             <li>
-                {% for modelo13 in modelo13 %}
+                {% for modelo13 in numeral_59 %}
 
-                {% if modelo13.numeral_id == numeral.id %}
                 <form id="modelo13{{modelo13.id}}" enctype="multipart/form-data">
                     <div class="card-body">
                         {% csrf_token %}
@@ -639,13 +1185,22 @@
 
                     </div>
                 </form>
-                <button
-                onclick="modelo13Crear({{modelo13.id}},{{modelo13.numeral_id}}, '{{numeral.orden}}', {{modelo13.periodo_id}})"
-                type="button" id="modelo13Crear{{modelo13.id}}" class="btn btn-danger"><i
-                    class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
-                {% endif %}
-
+                {% if forloop.last %}
+                <button onclick="modelo13Crear({{numeral.id}})"
+                    type="button" id="modelo13Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo13Crear({{numeral.id}})"
+                    type="button" id="modelo13Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
             </li>
             {% endif %}
@@ -654,9 +1209,8 @@
             <!--modelo 15 numeral 60-->
             {% if numeral.orden == 60 %}
             <li>
-                {% for modelo15 in modelo15 %}
+                {% for modelo15 in numeral_60 %}
 
-                {% if modelo15.numeral_id == numeral.id %}
                 <form id="modelo15{{modelo15.id}}" enctype="multipart/form-data">
                     <div class="card-body">
                         {% csrf_token %}
@@ -692,13 +1246,22 @@
 
                     </div>
                 </form>
-                <button
-                onclick="modelo15Crear({{modelo15.id}},{{modelo15.numeral_id}}, '{{numeral.orden}}', {{modelo15.periodo_id}})"
-                type="button" id="modelo15Crear{{modelo15.id}}" class="btn btn-danger"><i
-                    class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
-                {% endif %}
-
+                {% if forloop.last %}
+                <button onclick="modelo15Crear({{numeral.id}})"
+                    type="button" id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                {% endif %}        
+                
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="modelo15Crear({{numeral.id}})"
+                    type="button" id="modelo15Crear" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
             </li>
             {% endif %}
@@ -823,20 +1386,24 @@
 
         return false;
     }
-    function modelo9Crear(posicion, numeral, orden, periodo) {
+    function modelo9Crear(numeral) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo9" %}',
             data: {
-                "posicion": posicion,
                 "numeral": numeral,
-                "orden": orden,
-                "periodo": periodo,
             },
             dataType: "Json",
             success: function (response) {
                 toastr.success('Entrada creada', 'Operacion exitosa')
+                $("#sinEntradas"+numeral).remove()
+                $("#modelo9Crear").after(`
+                <button onclick="modelo9Crear(${response.numeral})" type="button"
+                    id="modelo9Crear${response.numeral}" class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                `)
+                $("#modelo9Crear").remove()
                 dibujarmodelo9(response)
             }
         });
@@ -872,7 +1439,7 @@
         return false;
     }
     function dibujarmodelo9(response) {
-        $("#modelo9" + `${response.posicion}`).after(
+        $("#modelo9Crear" + `${response.numeral}`).before(
             `
             <form id="modelo9${response.id}" enctype="multipart/form-data">
                 <div class="card-body">
@@ -989,20 +1556,24 @@
 
         return false;
     }
-    function modelo10Crear(posicion, numeral, orden, periodo) {
+    function modelo10Crear(numeral) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo10" %}',
             data: {
-                "posicion": posicion,
                 "numeral": numeral,
-                "orden": orden,
-                "periodo": periodo,
             },
             dataType: "Json",
             success: function (response) {
                 toastr.success('Entrada creada', 'Operacion exitosa')
+                $("#sinEntradas"+numeral).remove()
+                $("#modelo10Crear").after(`
+                <button onclick="modelo10Crear(${response.numeral})" type="button"
+                    id="modelo10Crear${response.numeral}" class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                `)
+                $("#modelo10Crear").remove()
                 dibujarmodelo10(response)
             }
         });
@@ -1039,9 +1610,9 @@
     }
     function dibujarmodelo10(response) {
 
-        if (response.orden == '49,0' || response.orden == '49,1' || response.orden == '49,2' || response.orden == '50,0' || response.orden == '51,0' || response.orden == '52,0') {
+        if (response.numeral == '51' || response.numeral == '51' || response.numeral == '52' || response.numeral == '53' || response.numeral == '54' || response.numeral == '55') {
 
-            $("#modelo10" + `${response.posicion}`).after(
+            $("#modelo10Crear" + `${response.numeral}`).before(
                 `
                 <form id="modelo10${response.id}" enctype="multipart/form-data">
                     <div class="card-body">
@@ -1092,7 +1663,7 @@
         }
         else {
 
-            $("#modelo10" + `${response.posicion}`).after(
+            $("#modelo10Crear" + `${response.numeral}`).before(
                 `
                 <form id="modelo10${response.id}" enctype="multipart/form-data">
                     <div class="card-body">
@@ -1175,20 +1746,24 @@
 
         return false;
     }
-    function modelo11Crear(posicion, numeral, orden, periodo) {
+    function modelo11Crear(numeral) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo11" %}',
             data: {
-                "posicion": posicion,
                 "numeral": numeral,
-                "orden": orden,
-                "periodo": periodo,
             },
             dataType: "Json",
             success: function (response) {
                 toastr.success('Entrada creada', 'Operacion exitosa')
+                $("#sinEntradas"+numeral).remove()
+                $("#modelo11Crear").after(`
+                <button onclick="modelo11Crear(${response.numeral})" type="button"
+                    id="modelo11Crear${response.numeral}" class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                `)
+                $("#modelo11Crear").remove()
                 dibujarmodelo11(response)
             }
         });
@@ -1224,8 +1799,8 @@
         return false;
     }
     function dibujarmodelo11(response) {
-        if (response.orden == '53,0') {
-            $("#modelo11" + `${response.posicion}`).after(
+        if (response.numeral == '57') {
+            $("#modelo11Crear" + `${response.numeral}`).before(
                 `
                 <form id="modelo11${response.id}" enctype="multipart/form-data">
                     <div class="card-body">
@@ -1271,8 +1846,8 @@
                 <hr>
                 `);
         }
-        else if (response.orden == '54,0') {
-            $("#modelo11" + `${response.posicion}`).after(
+        else if (response.numeral == '58') {
+            $("#modelo11Crear" + `${response.numeral}`).before(
                 `
                 <form id="modelo11${response.id}" enctype="multipart/form-data">
                     <div class="card-body">
@@ -1327,8 +1902,8 @@
                 <hr>
                 `);
         }
-        else if (response.orden == '55,0' || response.orden == '56,0') {
-            $("#modelo11" + `${response.posicion}`).after(
+        else if (response.numeral == '59' || response.numeral == '60') {
+            $("#modelo11Crear" + `${response.numeral}`).before(
                 `
                 <form id="modelo11${response.id}" enctype="multipart/form-data">
                     <div class="card-body">
@@ -1409,20 +1984,24 @@
 
         return false;
     }
-    function modelo12Crear(posicion, numeral, orden, periodo) {
+    function modelo12Crear(numeral) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo12" %}',
             data: {
-                "posicion": posicion,
                 "numeral": numeral,
-                "orden": orden,
-                "periodo": periodo,
             },
             dataType: "Json",
             success: function (response) {
                 toastr.success('Entrada creada', 'Operacion exitosa')
+                $("#sinEntradas"+numeral).remove()
+                $("#modelo12Crear").after(`
+                <button onclick="modelo12Crear(${response.numeral})" type="button"
+                    id="modelo12Crear${response.numeral}" class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                `)
+                $("#modelo12Crear").remove()
                 dibujarmodelo12(response)
             }
         });
@@ -1458,7 +2037,7 @@
         return false;
     }
     function dibujarmodelo12(response) {
-        $("#modelo12" + `${response.posicion}`).after(
+        $("#modelo12Crear" + `${response.numeral}`).before(
             `
             <form id="modelo12${response.id}" enctype="multipart/form-data">
                 <div class="card-body">
@@ -1536,20 +2115,24 @@
 
         return false;
     }
-    function modelo13Crear(posicion, numeral, orden, periodo) {
+    function modelo13Crear(numeral) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo13" %}',
             data: {
-                "posicion": posicion,
                 "numeral": numeral,
-                "orden": orden,
-                "periodo": periodo,
             },
             dataType: "Json",
             success: function (response) {
                 toastr.success('Entrada creada', 'Operacion exitosa')
+                $("#sinEntradas"+numeral).remove()
+                $("#modelo13Crear").after(`
+                <button onclick="modelo13Crear(${response.numeral})" type="button"
+                    id="modelo13Crear${response.numeral}" class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                `)
+                $("#modelo13Crear").remove()
                 dibujarmodelo13(response)
             }
         });
@@ -1585,7 +2168,7 @@
         return false;
     }
     function dibujarmodelo13(response) {
-        $("#modelo13" + `${response.posicion}`).after(
+        $("#modelo13Crear" + `${response.numeral}`).before(
             `
             <form id="modelo13${response.id}" enctype="multipart/form-data">
                 <div class="card-body">
@@ -1669,20 +2252,24 @@
 
         return false;
     }
-    function modelo15Crear(posicion, numeral, orden, periodo) {
+    function modelo15Crear(numeral) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo15" %}',
             data: {
-                "posicion": posicion,
                 "numeral": numeral,
-                "orden": orden,
-                "periodo": periodo,
             },
             dataType: "Json",
             success: function (response) {
                 toastr.success('Entrada creada', 'Operacion exitosa')
+                $("#sinEntradas"+numeral).remove()
+                $("#modelo15Crear").after(`
+                <button onclick="modelo15Crear(${response.numeral})" type="button"
+                    id="modelo15Crear${response.numeral}" class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                `)
+                $("#modelo15Crear").remove()
                 dibujarmodelo15(response)
             }
         });
@@ -1720,7 +2307,7 @@
     function dibujarmodelo15(response) {
 
 
-        $("#modelo15" + `${response.posicion}`).after(
+        $("#modelo15Crear" + `${response.numeral}`).before(
             `
             <form id="modelo15${response.id}" enctype="multipart/form-data">
                 <div class="card-body">

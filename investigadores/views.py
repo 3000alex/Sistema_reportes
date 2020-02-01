@@ -89,7 +89,6 @@ class investigacion_cientifica(View):
         }
         return render(request, "investigadores/investigacionCientifica.html", data)
 
-
 @method_decorator(login_required, name='dispatch')
 class formacion_RH(View):
     def get(self, request):
@@ -110,7 +109,6 @@ class formacion_RH(View):
             "periodoActual": periodoActual
             }
         return render(request, "investigadores/formacionRRHH.html", data)
-
 
 @method_decorator(login_required, name='dispatch')
 class desarrollo_tec_inovacion(View):

@@ -2,7 +2,7 @@
 <!--Encabezado - nav - title name-->
 {%block contenido%}
 <ul id="accordion" class="container accordion mt-2">
-    {% for numeral in numeral %}
+    {% for numeral in numeralName %}
     <li class="card-header">
         <div class="link col-10">{{numeral}}<i class="fa fa-chevron-down"></i></div>
         <ul class="submenu">
@@ -10,9 +10,8 @@
             <!--modelo 14 numeral 61-->
             {% if numeral.orden == 61 %}
             <li>
-                {% for modelo14 in modelo14 %}
+                {% for modelo14 in numeral_61 %}
 
-                {% if modelo14.numeral_id == numeral.id %}
                 <form id="modelo14{{modelo14.id}}" name="numeral61" type="post" enctype="multipart/form-data">
                     <div class="card-body">
 
@@ -74,13 +73,22 @@
 
                     </div>
                 </form>
-                <button
-                    onclick="modelo14Crear({{modelo14.id}},{{modelo14.numeral_id}}, '{{numeral.orden}}', {{modelo14.periodo_id}})"
-                    type="button" id="modelo14Crear{{modelo14.id}}" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>Agregar entrada</button>
                 <hr>
-                {% endif %}
-
+                    {% if forloop.last %}
+                    <button onclick="modelo14Crear({{numeral.id}})"
+                        type="button" id="modelo14Crear{{numeral.id}}" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>Agregar entrada</button>
+                    {% endif %}        
+                    
+                {% empty %}
+                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                        <strong>
+                            <p class="text-center ">Sin entradas</p>
+                        </strong>
+                    </div>
+                    <button onclick="modelo14Crear({{numeral.id}})"
+                        type="button" id="modelo14Crear" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
             </li>
             {% endif %}
@@ -198,20 +206,24 @@
 
         return false;
     }
-    function modelo14Crear(posicion, numeral, orden, periodo) {
+    function modelo14Crear(numeral) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo14" %}',
             data: {
-                "posicion": posicion,
                 "numeral": numeral,
-                "orden": orden,
-                "periodo": periodo,
             },
             dataType: "Json",
             success: function (response) {
                 toastr.success('Entrada creada', 'Operacion exitosa')
+                $("#sinEntradas"+numeral).remove()
+                $("#modelo14Crear").after(`
+                <button onclick="modelo14Crear(${response.numeral})" type="button"
+                    id="modelo14Crear${response.numeral}" class="btn btn-danger">
+                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
+                `)
+                $("#modelo14Crear").remove()
                 dibujarmodelo14(response)
             }
         });
@@ -248,7 +260,7 @@
     }
     function dibujarmodelo14(data) {
 
-        $("#modelo14" + `${data.posicion}`).after(
+        $("#modelo14Crear" + `${data.numeral}`).before(
             `<form id="modelo14${data.id}" type="post" enctype="multipart/form-data">
             <div class="card-body">
 
