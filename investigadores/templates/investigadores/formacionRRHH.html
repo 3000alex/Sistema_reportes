@@ -7,8 +7,266 @@
         <div class="link col-10">{{numeral}}<i class="fa fa-chevron-down"></i></div>
         <ul class="submenu">
 
+            <!--Numeral 31 Modelo4 -->
+            {% if numeral.orden == 31 %}
+            <li>
+                {% for modelo4 in modelo4 %}
+
+                {% if modelo4.numeral_id == numeral.id %}
+                <form id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Nombre completo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="nombreCompleto"
+                                        id="nombreCompletoModelo4{{modelo4.id}}"
+                                        value="{% if modelo4.nombreCompleto %}{{modelo4.nombreCompleto}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Título de tesis:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="tituloTesis"
+                                        id="tituloTesisModelo4{{modelo4.id}}"
+                                        value="{% if modelo4.tituloTesis %}{{modelo4.tituloTesis}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo4{{modelo4.id}}"
+                                        value="{% if modelo4.fecha %} {{modelo4.fecha}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Url:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url"
+                                        id="urlModelo4{{modelo4.id}}"
+                                        value="{% if modelo4.url %}{{modelo4.url}}{% endif %}">
+                                </div>
+                            </div>
+
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo4{{modelo4.id}}">
+
+                            {%if modelo4.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo4.anexoPdf.url}}">{{modelo4.anexoPdf.name}}</a>
+                            {% endif %}
+
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo4Actualizar('{{modelo4.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo4Editar('{{modelo4.id}}')" id="{{modelo4.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                    onclick="modelo4Crear({{modelo4.id}},{{modelo4.numeral_id}}, '{{numeral.orden}}', {{modelo4.periodo_id}})"
+                    type="button" id="modelo4Crear{{modelo4.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+
+            </li>
+            {% endif %}
+            <!-- Fin Numeral 31,34 Modelo4 -->
+
+            <!--Numeral 32 Modelo4 -->
+            {% if numeral.orden == 32 %}
+            <li>
+                {% for modelo4 in modelo4 %}
+
+                {% if modelo4.numeral_id == numeral.id %}
+                <form id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Nombre completo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="nombreCompleto"
+                                        id="nombreCompletoModelo4{{modelo4.id}}"
+                                        value="{% if modelo4.nombreCompleto %}{{modelo4.nombreCompleto}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Título de tesis:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="tituloTesis"
+                                        id="tituloTesisModelo4{{modelo4.id}}"
+                                        value="{% if modelo4.tituloTesis %}{{modelo4.tituloTesis}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo4{{modelo4.id}}"
+                                        value="{% if modelo4.fecha %} {{modelo4.fecha}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Url:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url"
+                                        id="urlModelo4{{modelo4.id}}"
+                                        value="{% if modelo4.url %}{{modelo4.url}}{% endif %}">
+                                </div>
+                            </div>
+
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo4{{modelo4.id}}">
+
+                            {%if modelo4.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo4.anexoPdf.url}}">{{modelo4.anexoPdf.name}}</a>
+                            {% endif %}
+
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo4Actualizar('{{modelo4.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo4Editar('{{modelo4.id}}')" id="{{modelo4.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                    onclick="modelo4Crear({{modelo4.id}},{{modelo4.numeral_id}}, '{{numeral.orden}}', {{modelo4.periodo_id}})"
+                    type="button" id="modelo4Crear{{modelo4.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+
+            </li>
+            {% endif %}
+            <!-- Fin Numeral 31,34 Modelo4 -->
+
             <!--Numeral 31,34 Modelo4 -->
-            {% if numeral.orden == 31 or numeral.orden == 32 or numeral.orden == 33 or numeral.orden == 34 %}
+            {% if  numeral.orden == 33 %}
+            <li>
+                {% for modelo4 in modelo4 %}
+
+                {% if modelo4.numeral_id == numeral.id %}
+                <form id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Nombre completo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="nombreCompleto"
+                                        id="nombreCompletoModelo4{{modelo4.id}}"
+                                        value="{% if modelo4.nombreCompleto %}{{modelo4.nombreCompleto}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Título de tesis:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="tituloTesis"
+                                        id="tituloTesisModelo4{{modelo4.id}}"
+                                        value="{% if modelo4.tituloTesis %}{{modelo4.tituloTesis}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="fecha"
+                                        id="fechaModelo4{{modelo4.id}}"
+                                        value="{% if modelo4.fecha %} {{modelo4.fecha}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Url:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="url" name="url"
+                                        id="urlModelo4{{modelo4.id}}"
+                                        value="{% if modelo4.url %}{{modelo4.url}}{% endif %}">
+                                </div>
+                            </div>
+
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo4{{modelo4.id}}">
+
+                            {%if modelo4.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo4.anexoPdf.url}}">{{modelo4.anexoPdf.name}}</a>
+                            {% endif %}
+
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo4Actualizar('{{modelo4.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo4Editar('{{modelo4.id}}')" id="{{modelo4.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                    onclick="modelo4Crear({{modelo4.id}},{{modelo4.numeral_id}}, '{{numeral.orden}}', {{modelo4.periodo_id}})"
+                    type="button" id="modelo4Crear{{modelo4.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+
+            </li>
+            {% endif %}
+            <!-- Fin Numeral 31,34 Modelo4 -->
+
+            <!--Numeral 31,34 Modelo4 -->
+            {% if numeral.orden == 34 %}
             <li>
                 {% for modelo4 in modelo4 %}
 
@@ -94,7 +352,82 @@
             <!-- Fin Numeral 31,34 Modelo4 -->
 
             <!--Numerales 35-36 Modelo5-->
-            {% if numeral.orden == 35 or numeral.orden == 36 %}
+            {% if numeral.orden == 35 %}
+            <li>
+                {% for modelo5 in modelo5 %}
+
+                {% if modelo5.numeral_id == numeral.id %}
+                <form id="modelo5{{modelo5.id}}" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Nombre del curso: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="nombreCurso"
+                                        id="nombreCursoModelo5{{modelo5.id}}"
+                                        value="{% if modelo5.nombreCurso %}{{modelo5.nombreCurso}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Periodo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="periodo"
+                                        id="periodoModelo5{{modelo5.id}}"
+                                        value="{% if modelo5.periodoNumeral %}{{modelo5.periodoNumeral}}{% endif %}">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2">Notas: </label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-4" type="text" name="notas"
+                                        id="notasModelo5{{modelo5.id}}"
+                                        value="{% if modelo5.notas %}{{modelo5.notas}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control mb-4" type="file" name="anexo"
+                                id="anexoModelo5{{modelo5.id}}">
+                            {%if modelo5.anexoPdf %}
+                            <strong>Actualmente: </strong><a
+                                href="{{modelo5.anexoPdf.url}}">{{modelo5.anexoPdf.name}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo5Actualizar('{{modelo5.id}}')" type="button"
+                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button type="button" class="btn btn-primary p-2 mr-2"
+                                    onclick="modelo5Editar('{{modelo5.id}}')" id="{{modelo5.id}}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger  p-2 mr-2"
+                                    onclick="modelo5Eliminar('{{modelo5.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <button
+                    onclick="modelo5Crear({{modelo5.id}},{{modelo5.numeral_id}}, '{{numeral.orden}}', {{modelo5.periodo_id}})"
+                    type="button" id="modelo5Crear{{modelo5.id}}" class="btn btn-danger"><i
+                        class="fas fa-plus-circle"></i>Agregar entrada</button>
+                <hr>
+                {% endif %}
+
+                {% endfor %}
+            </li>
+            {% endif %}
+            <!--Fin Numeral 35-36-->
+
+            <!--Numerales 35-36 Modelo5-->
+            {% if numeral.orden == 36 %}
             <li>
                 {% for modelo5 in modelo5 %}
 
@@ -892,9 +1225,9 @@
         return false;
     }
     function dibujarmodelo6(response) {
-        if(response.orden == '39,0'){
+        if (response.orden == '39,0') {
             $("#modelo6" + `${response.posicion}`).append(
-            `
+                `
             <form id="modelo6${response.id}" enctype="multipart/form-data">
                 <div class="card-body">
                     {% csrf_token %}
@@ -987,9 +1320,9 @@
             <hr>
             `);
         }
-        else{
+        else {
             $("#modelo6" + `${response.posicion}`).append(
-            `
+                `
             <form id="modelo6${response.id}" enctype="multipart/form-data">
                 <div class="card-body">
                     {% csrf_token %}
@@ -1073,7 +1406,7 @@
             <hr>
             `);
         }
-        
+
     }
     //Fin modelo6
 
@@ -1139,7 +1472,7 @@
         $('#modalDinamico').modal('hide');//cierra modal
         return false;
     }
-    function modelo16Crear(posicion, numeral, orden, periodo){
+    function modelo16Crear(posicion, numeral, orden, periodo) {
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo16" %}',
@@ -1159,7 +1492,7 @@
     function dibujarmodelo16(response) {
 
         $("#modelo16" + `${response.posicion}`).after(
-        `
+            `
         <form id="modelo16${response.id}" enctype="multipart/form-data">
             <div class="card-body">
                 {% csrf_token %}
@@ -1195,6 +1528,6 @@
         </form>
         `);
 
-}
+    }
 </script>
 {% endblock %}
