@@ -55,28 +55,31 @@
     </header>
 
     <section class="sticky-top bg-light mb-4 " style="opacity: 0.95;" >
-        <div class="row">
-            <div class="col-12">
-
-                <main class="navbar">
-        
-                    <div class="navbar-light justify-content-start">
-                        <a class="navbar-brand" href="{% url 'investigadores:home'  %}">
-                            <i class="fas fa-home">&nbsp; Inicio</i></a>   
-                    </div>
-                    
-                    <div class="navbar-light justify-content-end">
-                        <a data-toggle="modal" data-target="#logout" class="nav-link text-secondary" href="#">
-                            <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar Sesión</a>        
-                            
-                        <a class="nav-link text-secondary" href="javascript:history.back()">
-                            <i  class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a> 
-                    </div>
-        
-                </main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+    
+                    <main class="navbar">
+            
+                        <div class="navbar-light justify-content-start">
+                            <a class="navbar-brand" href="{% url 'investigadores:home'  %}">
+                                <i class="fas fa-home">&nbsp; Inicio</i></a>   
+                        </div>
+                        
+                        <div class="navbar-light justify-content-end">
+                            <a data-toggle="modal" data-target="#logout" class="nav-link text-secondary" href="#">
+                                <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar Sesión</a>        
+                                
+                            <a class="nav-link text-secondary" href="javascript:history.back()">
+                                <i  class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a> 
+                        </div>
+            
+                    </main>
+                </div>
             </div>
+    
         </div>
-
+        
         <div class="container-fluid">
             <div class="row">
 
@@ -84,11 +87,22 @@
                     <h5>Bienvenido <br>{{ user.first_name}} {{user.last_name}}</h5>
                 </div>
 
-                <div class="col-6 col-md-6 d-flex text-center justify-content-end">
-                    <p>Periodo:<br><strong>{{periodoActual}}</strong></p>
+                <div class="col-6 col-md-6 d-flex justify-content-end">
+                    <!--<p>Periodo:<br><strong>{{periodoActual}}</strong></p> !-->
+                    <label class="mr-2" for="periodo">Periodo: </label>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <select onchange="this.form.submit()" class="form-control" name="periodoActual" id="periodoActual">
+                            <option value="{{periodoActual}}">{{periodoActual.nombrePeriodo}}</option>
+                            {% for periodos in periodos %}
+                                <option value="{{periodos.id}}">{{periodos.nombrePeriodo}}</option>
+                            {% endfor %}
+                        </select>  
+                    </form>
+                    
                 </div>
             </div>
-
+        
             <div class="row">
 
                 <div class="col-12 col-md-6">   
@@ -193,7 +207,6 @@
         <!--  FINModal -->
     </div>
 
-    <div class="">
         <ul class="pagination  nav-pills justify-content-center">
             {% if request.path == '/reportes/investigacion-cientifica/' %}
             <li class="page-item disabled"><a class="page-link" tabindex="-1" href="#">Anterior</a></li>
@@ -264,10 +277,9 @@
             <li class="page-item disabled"><a class="page-link" tabindex="-1"
                     href="{% url 'investigadores:apoyo_institucional' %}">Siguiente</a></li>
             {% endif %}
-
-
+            
         </ul>
-    </div>
+
 
     <footer>
 
