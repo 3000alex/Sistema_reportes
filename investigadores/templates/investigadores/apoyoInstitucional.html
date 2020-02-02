@@ -48,7 +48,7 @@
                     </form>
                     <hr>
                     {% if forloop.last %}
-                    <button onclick="modelo15Crear({{numeral.id}})"
+                    <button onclick="modelo15Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>Agregar entrada</button>
                     {% endif %}        
@@ -59,7 +59,7 @@
                             <p class="text-center ">Sin entradas</p>
                         </strong>
                     </div>
-                    <button onclick="modelo15Crear({{numeral.id}})"
+                    <button onclick="modelo15Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo15Crear" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -150,7 +150,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo9Crear({{numeral.id}})"
+                <button onclick="modelo9Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo9Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -161,7 +161,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo9Crear({{numeral.id}})"
+                <button onclick="modelo9Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo9Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -231,7 +231,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -242,7 +242,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -312,7 +312,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -323,7 +323,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -393,7 +393,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -404,7 +404,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -474,7 +474,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -485,7 +485,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -555,7 +555,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -566,7 +566,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -636,7 +636,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -647,7 +647,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -700,7 +700,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -711,7 +711,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo10Crear({{numeral.id}})"
+                <button onclick="modelo10Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo10Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -772,7 +772,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo11Crear({{numeral.id}})"
+                <button onclick="modelo11Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -783,7 +783,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo11Crear({{numeral.id}})"
+                <button onclick="modelo11Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo11Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -853,7 +853,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo11Crear({{numeral.id}})"
+                <button onclick="modelo11Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -864,7 +864,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo11Crear({{numeral.id}})"
+                <button onclick="modelo11Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo11Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -923,7 +923,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo11Crear({{numeral.id}})"
+                <button onclick="modelo11Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -934,7 +934,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo11Crear({{numeral.id}})"
+                <button onclick="modelo11Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo11Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -993,7 +993,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo11Crear({{numeral.id}})"
+                <button onclick="modelo11Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -1004,7 +1004,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo11Crear({{numeral.id}})"
+                <button onclick="modelo11Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo11Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -1054,7 +1054,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo15Crear({{numeral.id}})"
+                <button onclick="modelo15Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -1065,7 +1065,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo15Crear({{numeral.id}})"
+                <button onclick="modelo15Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo15Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -1118,7 +1118,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo12Crear({{numeral.id}})"
+                <button onclick="modelo12Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo12Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -1129,7 +1129,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo12Crear({{numeral.id}})"
+                <button onclick="modelo12Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo12Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -1187,7 +1187,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo13Crear({{numeral.id}})"
+                <button onclick="modelo13Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo13Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -1198,7 +1198,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo13Crear({{numeral.id}})"
+                <button onclick="modelo13Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo13Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -1248,7 +1248,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo15Crear({{numeral.id}})"
+                <button onclick="modelo15Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endif %}        
@@ -1259,7 +1259,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo15Crear({{numeral.id}})"
+                <button onclick="modelo15Crear({{numeral.id}},{{periodoActual.id}})"
                     type="button" id="modelo15Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>Agregar entrada</button>
                 {% endfor %}
@@ -1386,13 +1386,14 @@
 
         return false;
     }
-    function modelo9Crear(numeral) {
+    function modelo9Crear(numeral,periodo) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo9" %}',
             data: {
                 "numeral": numeral,
+                "periodo": periodo,
             },
             dataType: "Json",
             success: function (response) {
@@ -1556,13 +1557,14 @@
 
         return false;
     }
-    function modelo10Crear(numeral) {
+    function modelo10Crear(numeral,periodo) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo10" %}',
             data: {
                 "numeral": numeral,
+                "periodo": periodo,
             },
             dataType: "Json",
             success: function (response) {
@@ -1746,13 +1748,14 @@
 
         return false;
     }
-    function modelo11Crear(numeral) {
+    function modelo11Crear(numeral,periodo) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo11" %}',
             data: {
                 "numeral": numeral,
+                "periodo": periodo,
             },
             dataType: "Json",
             success: function (response) {
@@ -1984,13 +1987,14 @@
 
         return false;
     }
-    function modelo12Crear(numeral) {
+    function modelo12Crear(numeral,periodo) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo12" %}',
             data: {
                 "numeral": numeral,
+                "periodo": periodo,
             },
             dataType: "Json",
             success: function (response) {
@@ -2115,13 +2119,14 @@
 
         return false;
     }
-    function modelo13Crear(numeral) {
+    function modelo13Crear(numeral,periodo) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo13" %}',
             data: {
                 "numeral": numeral,
+                "periodo": periodo,
             },
             dataType: "Json",
             success: function (response) {
@@ -2252,13 +2257,14 @@
 
         return false;
     }
-    function modelo15Crear(numeral) {
+    function modelo15Crear(numeral,periodo) {
 
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo15" %}',
             data: {
                 "numeral": numeral,
+                "periodo": periodo,
             },
             dataType: "Json",
             success: function (response) {

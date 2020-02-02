@@ -414,7 +414,7 @@ class crearModelo1(View):
         numeral1 = request.GET.get('numeral', None)
         id = request.GET.get('periodo',None)
         periodo = Periodo.objects.get(id=id)
-        
+
         obj = Modelo1.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral1,
@@ -597,6 +597,25 @@ class actualizarCitas(View):
 
         data = {
             'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearCitas(View):
+    def get(self,request):
+        numeral1 = request.GET.get('numeral', None)
+        id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=id)
+        
+        obj = Citas.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral1,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id':obj.id,
+            'numeral': numeral1,
         }
         return JsonResponse(data)
 
@@ -1407,9 +1426,9 @@ class crearModelo16(View):
 
 class enviarReporte(View):
     def get(self, request, *args, **kwargs):
-        periodo = Periodo.objects.last()
-
-        html = generarPdf(request)
+        periodo_id = request.GET.get('periodoActual',None)
+        html = generarPdf(request,periodo_id)
+        
         options = {
             'page-size': 'Letter',
             'margin-top': '0.75in',
@@ -1420,24 +1439,21 @@ class enviarReporte(View):
             'no-outline': None
         }
         pdf = pdfkit.from_string(html,'reporte.pdf',configuration=config,options=options)
-        with open('reporte.pdf', 'r', encoding="utf8") as archivo:
-            reportePDF = archivo
+        periodo = Periodo.objects.get(id=periodo_id)
+        periodo = periodo.nombrePeriodo
+        data={
+            'periodo':periodo
+        }
 
-        reporteFinal = ReporteEnviado.objects.create( periodo_id=periodo.id, usuario_id=request.user.id)
-        
-        
-        archivo = reportesEnviados.objects.get(id = reporteFinal.id)
-        archivo.reporte = archivo 
-        #reporteFinal.save()
-        archivo.save()
-
-        return HttpResponse(pdf,content_type='application/pdf')
+        return JsonResponse(data)
 
 # Generar PDF
 @method_decorator(login_required, name='dispatch')
 class generarReporte(View):
     def get(self,request):
-        html = generarPdf(request)
+        periodo_id = request.GET.get('periodo',None)
+
+        html = generarPdf(request,periodo_id)
         options = {
             'page-size': 'Letter',
             'margin-top': '0.75in',

@@ -7,10 +7,10 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.template.loader import get_template
 
-def generarPdf(request):
+def generarPdf(request,periodo_id):
     template = get_template('investigadores/templateReporte.html')
     #periodo = Periodo.objects.last()
-    periodo = Periodo.objects.get(id=1) #Para obtener valores del 2019
+    periodo = Periodo.objects.get(id=periodo_id) #Para obtener valores del 2019
 
     yearPeriodo = periodo.fechaInicio.year
     monthPeriodoInicio = periodo.fechaInicio.month
@@ -22,7 +22,7 @@ def generarPdf(request):
         'fechaFinP':periodo.fechaFin,
         'datosInvestigador': User.objects.get(id=request.user.id),
         'numeral': Numeral.objects.all(),
-        'citas': Citas.objects.filter(usuario_id=request.user.id),
+        'citas': Citas.objects.filter(usuario_id=request.user.id,periodo_id = periodo.id),
         'biblioteca': Biblioteca.objects.filter( user_id=request.user.id, fecha__year=yearPeriodo, fecha__month__range=[monthPeriodoInicio, monthPeriodoFin]),
         'modelo1': Modelo1.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
         'modelo2': Modelo2.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),

@@ -93,7 +93,7 @@
                     <form action="" method="POST">
                         {% csrf_token %}
                         <select onchange="this.form.submit()" class="form-control" name="periodoActual" id="periodoActual">
-                            <option value="{{periodoActual}}">{{periodoActual.nombrePeriodo}}</option>
+                            <option value="{{periodoActual.id}}">{{periodoActual.nombrePeriodo}}</option>
                             {% for periodos in periodos %}
                                 <option value="{{periodos.id}}">{{periodos.nombrePeriodo}}</option>
                             {% endfor %}
@@ -116,7 +116,11 @@
                 <div class="col-12 col-md-6">
                     <div class="d-flex justify-content-center justify-content-sm-end mt-2 mb-2">
                         <div class="btn-group" role="group">
-                            <a class="btn btn-success btn-sm" href="{% url 'investigadores:generarReporte' %}">Vista Previa</a>
+                            <form action="{% url 'investigadores:generarReporte' %}">
+                                <input type="hidden" value="{{periodoActual.id}}" name="periodo">
+                                <button onclick="this.form.submit()" class="btn btn-success btn-sm">Vista Previa</button>
+                            </form>
+                            
                             <a class="btn btn-info btn-sm" href="{% url 'investigadores:reportesEnviados' %}">Historico</a>
                             <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#FinReporte" href="#">Finalizar Reporte </a>
                             
@@ -176,12 +180,34 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        <a href="{% url 'investigadores:enviar-Reporte' %}" class="btn btn-success">Aceptar</a>
+                        <button onclick="enviarReporte()" data-dismiss="modal" class="btn btn-success">Aceptar</button>                        
                     </div>
                 </div>
             </div>
         </div>
         <!--  FINModal -->
+
+        <div class="modal fade" id="reporteFinalizado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Reporte Enviado</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">El reporte {{ periodoActual }} fue enviado exitosamente a la coordinación</p> 
+                        <p class="text-center">Usted recibira en breve una copia del documento enviado en su correo electronico</p>    
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Aceptar</button>                 
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Modal cerrar sesion -->
         <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -324,6 +350,23 @@
                     error: function (error, tipoError) {
                         toastr.error('Sesión terminada redireccionando', 'Error en la operación')
                         window.location.href = '{% url "logout" %}'
+                    }
+                });
+            }
+        </script>
+        <script>
+            function enviarReporte(){
+                periodoActual = $("select[name='periodoActual']").val().trim()
+                $.ajax({
+                    type: "GET",
+                    url: '{% url "investigadores:enviar-Reporte" %}',
+                    data: {
+                        'periodoActual':periodoActual,
+                    },
+                    dataType: "Json",
+                    success: function (response) {
+                        $("#reporteFinalizado").modal('show')
+                        
                     }
                 });
             }

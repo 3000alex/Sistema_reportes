@@ -35,7 +35,7 @@ investigadorespatterns = ([
 
     #Citas
     path('actualizar_citas',vista.actualizarCitas.as_view(), name="actualizar_citas"),
-
+    path('crear-citas', vista.crearCitas.as_view(), name="crear-citas"),
     #Formacion RRHH - CRUD
 
     path('actualizar-modelo4/',vista.actualizarModelo4.as_view(), name="actualizar-modelo4"),
