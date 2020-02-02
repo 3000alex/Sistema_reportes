@@ -161,7 +161,30 @@ class perfil_adm(StaffRequiredMixin, SuccessMessageMixin, UpdateView):
 
 class reportes_adm(StaffRequiredMixin,View):
     def get(self, request):
-        return render(request,'administradores/reportes_adm.html')
+
+        periodos = Periodo.objects.all()
+        periodoActual = Periodo.objects.last()
+
+        reportes = ReporteEnviado.objects.filter(periodo_id=periodoActual)
+        data = {
+            'periodos':periodos,
+            'periodoActual':periodoActual,
+            'reportes':reportes,
+        }
+        return render(request,'administradores/reportes_adm.html', data)
+    
+    def post(self,request):
+        periodos = Periodo.objects.all()
+        periodo_id = request.POST.get('periodo_id',None)
+        periodoActual = Periodo.objects.get(id=periodo_id)
+        reportes = ReporteEnviado.objects.filter(periodo_id=periodoActual)
+        data = {
+            'periodos':periodos,
+            'periodoActual':periodoActual,
+            'reportes':reportes,
+        }
+        return render(request,'administradores/reportes_adm.html', data)
+
     
 class reporteMaestro(View):
 

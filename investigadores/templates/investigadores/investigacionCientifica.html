@@ -3952,7 +3952,7 @@
 
         var formData = new FormData(document.getElementById("biblioteca" + id))
         formData.append("id", id);
-        expresion = /[1-2][0][1-9][1-9][/][0-1][0-9]/;
+        expresion = /[1-2][0][1-9][0-9][/][0-1][0-9]/;
         fecha = $("#fecha" + id).val().trim()
         if (expresion.test(fecha)) {
             $.ajax({
