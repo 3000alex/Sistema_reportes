@@ -36,6 +36,8 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.shortcuts import render
 from django.core.files import File
+from email.mime.base import MIMEBase
+from email import encoders
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #Reporte final
 from .generarReporteCoordinacion import generarPdf
@@ -1438,9 +1440,57 @@ class enviarReporte(View):
             'encoding': "UTF-8",
             'no-outline': None
         }
-        pdf = pdfkit.from_string(html,'reporte.pdf',configuration=config,options=options)
+        pdf = pdfkit.from_string(html,False,configuration=config,options=options)
         periodo = Periodo.objects.get(id=periodo_id)
         periodo = periodo.nombrePeriodo
+        
+        #Email para investigador
+        body = render_to_string(
+            'investigadores/templateReportesFinalizadoUsuario.html', {
+                'nombre': request.user.first_name + request.user.last_name,
+                'periodo':periodo,
+            },
+        )
+
+        email_message = EmailMessage(
+            subject='Reporte enviado a la Coordinación',
+            body=body,
+            from_email='reportes-astro@inaoep.mx',
+            to=[request.user.email],
+        )
+
+        email_message.content_subtype = 'html'
+        #Convertimos la instancia PDF en un tipo MIME para enviarlo
+        adjunto = MIMEBase('application', 'octet-stream')
+        adjunto.set_payload(pdf)
+        encoders.encode_base64(adjunto)
+        adjunto.add_header('Content-Disposition', "attachment; filename= Reporte "+periodo+'.pdf')
+        email_message.attach(adjunto)
+        #Enviamos email
+        email_message.send()
+
+
+        #Email para la coordinacion
+        bodyAdmin = render_to_string(
+         'investigadores/templateReporteFinalizado.html',{
+             'nombre':request.user.first_name,
+             'apellido': request.user.last_name,
+             'periodo': periodo,
+         }   
+        )
+
+        mensajeCordinacion = EmailMessage(
+            subject='Reporte enviado a la Coordinación',
+            body=bodyAdmin,
+            from_email='reportes-astro@inaoep.mx',
+            to=['alexXarellan@hotmail.com'], #Cambiar a astrofi@inaoep.mx
+        )
+        mensajeCordinacion.content_subtype = 'html'
+        mensajeCordinacion.attach(adjunto)
+        #Enviamos email
+        mensajeCordinacion.send()
+
+
         data={
             'periodo':periodo
         }

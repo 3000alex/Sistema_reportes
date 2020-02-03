@@ -81,13 +81,29 @@ class UsuarioAgregar(StaffRequiredMixin, View):
         username1 = request.POST.get('email', None)
         first_name1 = request.POST.get('nombre', None)
         lastName1 = request.POST.get('apellido', None)
-        password1 = get_random_string(length=20)
+        password1 =  get_random_string(length=20)
         nombreCorto1 = request.POST.get('nombreCorto',None)
-        correoInstitucional = 'reportes-astro@inaoep.mx'
         # Crear objeto
         userNew = User.objects.create_user(
             username=username1, email=email1, password=password1, first_name=first_name1, last_name=lastName1, nombreCorto=nombreCorto1)
 
+        body = render_to_string(
+            'administradores/templateBienvenida.html', {
+                'nombre': userNew.first_name,
+                'apellido': userNew.last_name,
+                'password': password1,
+                'correo': userNew.email,
+            },
+        )
+
+        email_message = EmailMessage(
+            subject='Bienvenido(a) al Sistema de Reportes de Astrofísica',
+            body=body,
+            from_email='reportes-astro@inaoep.mx',
+            to=[userNew.email],
+        )
+        email_message.content_subtype = 'html'
+        email_message.send()
 
         user = {'id': userNew.id, 'name': userNew.username, 'nombreCorto':userNew.nombreCorto,
                 'first_name': userNew.first_name, 'last_name': userNew.last_name, 'email': userNew.email}
@@ -114,7 +130,6 @@ class correoBienvenida(StaffRequiredMixin, View):
         password = get_random_string(length=20)
         obj.set_password(password)
         obj.save()
-        print()
         
         body = render_to_string(
             'administradores/templateBienvenida.html', {
