@@ -23,6 +23,7 @@ from django.shortcuts import redirect
 from django.core.files.storage import FileSystemStorage
 import os
 from django.conf import settings
+from django.core.files.base import ContentFile
 #PDF 
 import pdfkit
 from io import BytesIO
@@ -1426,6 +1427,7 @@ class crearModelo16(View):
         }
         return JsonResponse(data)
 
+"""
 class enviarReporte(View):
     def get(self, request, *args, **kwargs):
         periodo_id = request.GET.get('periodoActual',None)
@@ -1494,6 +1496,38 @@ class enviarReporte(View):
         data={
             'periodo':periodo
         }
+
+        return JsonResponse(data)
+"""
+class enviarReporte(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodoActual',None)
+        html = generarPdf(request,periodo_id)
+        
+        options = {
+            'page-size': 'Letter',
+            'margin-top': '0.75in',
+            'margin-right': '0.75in',
+            'margin-bottom': '0.75in',
+            'margin-left': '0.75in',
+            'encoding': "UTF-8",
+            'no-outline': None
+        }
+        pdf = pdfkit.from_string(html,False,configuration=config,options=options)
+        periodo = Periodo.objects.get(id=periodo_id)
+        periodo = periodo.nombrePeriodo
+        data={
+            'periodo':periodo
+        }
+
+        try:
+            reporte = ReporteEnviado.objects.get(periodo_id = periodo_id, usuario_id = request.user.id)
+            reporte.reporte.save('Reporte %s.pdf'%periodo, ContentFile(pdf))
+            data['actualizado'] = True
+        except:
+            reporte = ReporteEnviado.objects.create(periodo_id=periodo_id,usuario_id=request.user.id)
+            reporte.reporte.save('Reporte %s.pdf'%periodo,ContentFile(pdf))
+            data['actualizado'] = False
 
         return JsonResponse(data)
 

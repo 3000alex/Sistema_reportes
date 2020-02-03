@@ -46,9 +46,9 @@
                         <td>{{reporte.usuario.last_name}}</td>
                         <td> {{reporte.usuario.first_name}}</td>
 
-                        <td><a href="{{reporteUser.reporte.url}}"><i style="font-size:35px; color:red;"
+                        <td><a download="{{reporte.reporte.url}}" href="{{reporte.reporte.url}}"><i style="font-size:35px; color:red;"
                                     class="far fa-file-pdf"></i></a></td>
-                        <td><a href="{{reporteUser.anexo.url}}"><i style="font-size:35px;" class="far fa-file-archive"></i></a>
+                        <td><a download="{{reporte.anexo.url}}" href="{{reporte.anexo.url}}"><i style="font-size:35px;" class="far fa-file-archive"></i></a>
                         </td>
                     </tr>
                     {% endfor %}
