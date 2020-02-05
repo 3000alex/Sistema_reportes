@@ -161,6 +161,7 @@
     {% endblock %}
 
     <div class="modals">
+
         <!-- Modal Finalizar reporte -->
         <div class="modal fade" id="FinReporte" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
             aria-hidden="true">
@@ -187,27 +188,29 @@
         </div>
         <!--  FINModal -->
 
-        <div class="modal fade" id="reporteFinalizado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        <!--Modal Multiple.-->
+        <div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Reporte Enviado</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h5 class="modal-title" id="accionModal"></h5>
+
                     </div>
+
                     <div class="modal-body">
-                        <p class="text-center">El reporte {{ periodoActual }} fue enviado exitosamente a la coordinación</p> 
-                        <p class="text-center">Usted recibira en breve una copia del documento enviado en su correo electronico</p>    
-                        
+                        <p class="text-center" id="textoModal"></p><br>
+                        <p class="text-center" id="textoModal2"></p>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Aceptar</button>                 
+
+                    <div class="modal-footer" id="footer">
+
                     </div>
+
                 </div>
             </div>
         </div>
+        <!--Fin para Modal Multiple-->
 
         <!-- Modal cerrar sesion -->
         <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -365,7 +368,25 @@
                     },
                     dataType: "Json",
                     success: function (response) {
-                        $("#reporteFinalizado").modal('show')
+                        estado = ""
+                        if(response.actualizado){
+                            estado = "actualizado y enviado exitosamente"
+                            toastr.info('El reporte '+response.periodo+ ' fue '+estado)
+                            $("#accionModal").text("Reporte finalizado");
+                            $("#textoModal").html(`El reporte ${response.periodo} fue actualizado y enviado a la coordinación exitosamente.`) //¿Desea eliminar este Item?
+                            $("#textoModal2").html("En breve recibira un correo adjuntando una copia del reporte")
+                            $("#footer").html(`<button class="btn btn-success btn-block" data-dismiss="modal">Aceptar</button>`)
+                            $('#modalDinamico').modal('show'); // abrir
+                        }
+                        else {
+                            estado = "enviado exitosamente"
+                            toastr.success('El reporte '+response.periodo+ ' fue '+estado)
+                            $("#accionModal").text("Reporte finalizado");
+                            $("#textoModal").html(`El reporte ${response.periodo} fue enviado a la coordinación exitosamente.`) //¿Desea eliminar este Item?
+                            $("#textoModal2").html("En breve recibira un correo adjuntando una copia del reporte")
+                            $("#footer").html(`<button class="btn btn-success btn-block" data-dismiss="modal">Aceptar</button>`)
+                            $('#modalDinamico').modal('show'); // abrir
+                        }
                         
                     }
                 });

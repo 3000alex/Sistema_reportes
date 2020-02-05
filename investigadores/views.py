@@ -24,6 +24,11 @@ from django.core.files.storage import FileSystemStorage
 import os
 from django.conf import settings
 from django.core.files.base import ContentFile
+from django.core.files.base import File as contenidoFile
+#Zip
+import zipfile
+import zlib
+from io import StringIO
 #PDF 
 import pdfkit
 from io import BytesIO
@@ -1520,16 +1525,17 @@ class enviarReporte(View):
             'periodo':periodo
         }
 
-        try:
-            reporte = ReporteEnviado.objects.get(periodo_id = periodo_id, usuario_id = request.user.id)
-            reporte.reporte.save('Reporte %s.pdf'%periodo, ContentFile(pdf))
-            data['actualizado'] = True
-        except:
-            reporte = ReporteEnviado.objects.create(periodo_id=periodo_id,usuario_id=request.user.id)
-            reporte.reporte.save('Reporte %s.pdf'%periodo,ContentFile(pdf))
+        reporte,creado = ReporteEnviado.objects.get_or_create(periodo_id = periodo_id, usuario_id = request.user.id)
+        reporte.reporte.save('Reporte %s.pdf'%periodo, ContentFile(pdf), save=False)
+        
+        reporte.save()
+        
+        if creado:
             data['actualizado'] = False
+        else:
+            data['actualizado'] = True
 
-        return JsonResponse(data)
+        return  JsonResponse(data)
 
 # Generar PDF
 @method_decorator(login_required, name='dispatch')
