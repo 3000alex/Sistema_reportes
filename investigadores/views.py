@@ -1432,7 +1432,7 @@ class crearModelo16(View):
         }
         return JsonResponse(data)
 
-"""
+
 class enviarReporte(View):
     def get(self, request, *args, **kwargs):
         periodo_id = request.GET.get('periodoActual',None)
@@ -1451,6 +1451,9 @@ class enviarReporte(View):
         periodo = Periodo.objects.get(id=periodo_id)
         periodo = periodo.nombrePeriodo
         
+        data = {
+            'periodo':periodo,
+        }
         #Email para investigador
         body = render_to_string(
             'investigadores/templateReportesFinalizadoUsuario.html', {
@@ -1497,45 +1500,86 @@ class enviarReporte(View):
         #Enviamos email
         mensajeCordinacion.send()
 
-
-        data={
-            'periodo':periodo
-        }
-
-        return JsonResponse(data)
-"""
-class enviarReporte(View):
-    def get(self,request):
-        periodo_id = request.GET.get('periodoActual',None)
-        html = generarPdf(request,periodo_id)
-        
-        options = {
-            'page-size': 'Letter',
-            'margin-top': '0.75in',
-            'margin-right': '0.75in',
-            'margin-bottom': '0.75in',
-            'margin-left': '0.75in',
-            'encoding': "UTF-8",
-            'no-outline': None
-        }
-        pdf = pdfkit.from_string(html,False,configuration=config,options=options)
-        periodo = Periodo.objects.get(id=periodo_id)
-        periodo = periodo.nombrePeriodo
-        data={
-            'periodo':periodo
-        }
-
+        #Guardamos reporte en BD
         reporte,creado = ReporteEnviado.objects.get_or_create(periodo_id = periodo_id, usuario_id = request.user.id)
-        reporte.reporte.save('Reporte %s.pdf'%periodo, ContentFile(pdf), save=False)
-        
-        reporte.save()
         
         if creado:
             data['actualizado'] = False
+
         else:
             data['actualizado'] = True
+            os.remove(os.path.join(BASE_DIR + '/media/'+reporte.reporte.name))
+            os.remove(os.path.join(BASE_DIR + '/media/'+reporte.anexo.name))
+            
+        reporte.reporte.save('Reporte '+periodo+' '+str(reporte.id)+'.pdf', ContentFile(pdf), save=False)
+        
+        #Genera Zip con anexos
+        anexoModelo1 = Modelo1.objects.exclude(anexoPdf = "")
+        anexoModelo2 = Modelo2.objects.exclude(anexoPdf = "")
+        anexoModelo3 = Modelo3.objects.exclude(anexoPdf = "")
+        anexoModelo4 = Modelo4.objects.exclude(anexoPdf = "")
+        anexoModelo5 = Modelo5.objects.exclude(anexoPdf = "")
+        anexoModelo6 = Modelo6.objects.exclude(anexoPdf = "")
+        anexoModelo7 = Modelo7.objects.exclude(anexoPdf = "")
+        anexoModelo8 = Modelo8.objects.exclude(anexoPdf = "")
+        anexoModelo9 = Modelo9.objects.exclude(anexoPdf = "")
+        anexoModelo10 = Modelo10.objects.exclude(anexoPdf = "")
+        anexoModelo11 = Modelo11.objects.exclude(anexoPdf = "")
+        anexoModelo12 = Modelo12.objects.exclude(anexoPdf = "")
+        anexoModelo13 = Modelo13.objects.exclude(anexoPdf = "")
+        anexoModelo14 = Modelo14.objects.exclude(anexoPdf = "")
+        anexoModelo15 = Modelo15.objects.exclude(anexoPdf = "")
+        anexoModelo16 = Modelo16.objects.exclude(anexoPdf = "")
+        anexoBiblioteca = Biblioteca.objects.exclude(anexoPdf = "")
+        anexoCitas = Citas.objects.exclude(anexoPdf = "")
+        
+        anexoZip = zipfile.ZipFile('media/anexos_zip/anexo.zip',mode='w', compression=zipfile.ZIP_DEFLATED)
+        
+        for anexo in anexoModelo1:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo2:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo3:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo4:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo5:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo6:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo7:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo8:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo9:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo10:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo11:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo12:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo13:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo14:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo15:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoModelo16:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoCitas:
+            anexoZip.write(anexo.anexoPdf.path)
+        for anexo in anexoBiblioteca:
+            anexoZip.write(anexo.anexoPdf.path)
+
+        anexoZip.close()
+        reporte.anexo.save("Anexo "+periodo+' '+str(reporte.id)+".zip", ContentFile(open('media/anexos_zip/anexo.zip','rb').read()))
+        reporte.save()
+        os.remove('media/anexos_zip/anexo.zip')
+        
 
         return  JsonResponse(data)
+
 
 # Generar PDF
 @method_decorator(login_required, name='dispatch')
