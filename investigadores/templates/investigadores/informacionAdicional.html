@@ -77,7 +77,7 @@
                     {% if forloop.last %}
                     <button onclick="modelo14Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo14Crear{{numeral.id}}" class="btn btn-danger"><i
-                            class="fas fa-plus-circle"></i>Agregar entrada</button>
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                     {% endif %}        
                     
                 {% empty %}
@@ -88,7 +88,7 @@
                     </div>
                     <button onclick="modelo14Crear({{numeral.id}}, {{periodoActual.id}})"
                         type="button" id="modelo14Crear" class="btn btn-danger"><i
-                            class="fas fa-plus-circle"></i>Agregar entrada</button>
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                 {% endfor %}
             </li>
             {% endif %}

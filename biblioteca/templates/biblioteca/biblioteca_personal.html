@@ -129,9 +129,9 @@
                     <label for="numeral">Añadir a numeral</label>
                     <select class="form-control mb-2" name="numeral" id="formNumeral">
                         <option selected id="form-Numeral" value=""></option>
-                        <option value=1>1.Artículos científicos arbitrados en revistas periódicas indizadas en el primer cuartil.</option>
-                        <option value=2>2.Artículos científicos arbitrados en revistas periódicas indizadas en segundo o tercer cuartil.</option>
-                        <option value=3>3.Artículos científicos arbitrados en revistas periódicas indizadas en cuarto cuartil.</option>
+                        <option value=1>1. Artículos científicos arbitrados en revistas periódicas indizadas en el primer cuartil.</option>
+                        <option value=2>2. Artículos científicos arbitrados en revistas periódicas indizadas en segundo o tercer cuartil.</option>
+                        <option value=3>3. Artículos científicos arbitrados en revistas periódicas indizadas en cuarto cuartil.</option>
                         <option value=4>4. Artículos científicos arbitrados en revistas del Índice CONACYT.</option>
                         <option value=5>5. Artículos científicos arbitrados en revistas periódicas emergentes.</option>
                         <option value=7>7. Artículos aceptados con arbitraje internacional en revistas periódicas indizadas.</option>
@@ -205,11 +205,11 @@
             //Asignamos valores recogidos y los colocamos en el Modal, para la edición
             $('#form-id').val(id);
 
-            if (estudiantesEnArticulo != "No aplica") {
-                $('#form-estudiantesEnArticulo').val(estudiantesEnArticulo);
+            if (estudiantesEnArticulo == "No aplica") {     
+                $('#form-estudiantesEnArticulo').val("");
             }
             else{
-                $('#form-estudiantesEnArticulo').val("");
+                $('#form-estudiantesEnArticulo').val(estudiantesEnArticulo);
             }
 
             $("#form-Numeral").text(numeral);
@@ -263,7 +263,7 @@
             }
             if(attr == "estudiantesEnArticulo" ){
                 if(biblioteca.estudiantesEnArticulo == ""){
-                    $(this).text("Sin especificar");
+                    $(this).text("No aplica");
                 }
                 else{
                     $(this).text(biblioteca.estudiantesEnArticulo);
