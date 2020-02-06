@@ -206,7 +206,6 @@ class reporteMaestro(View):
     periodo = Periodo.objects.last() #-> Verificar porque no deja migrar
 
     def get(self, request):
-
         #Reporte maestro:
         reporte = Reporte(request)
         response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')

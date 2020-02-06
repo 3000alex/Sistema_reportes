@@ -794,8 +794,5 @@ def Reporte(request):
                         document.add_paragraph(inv.nombreCorto)
                         paragraph = document.add_paragraph(style='List Bullet')
                         paragraph.add_run(item.descripcion)
-                
-        
-    d = document.save('media/reporte.docx')
 
     return document
