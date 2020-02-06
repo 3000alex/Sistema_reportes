@@ -720,7 +720,7 @@
                 toastr.success('Entrada creada', 'Operacion exitosa')
                 $("#sinEntradas"+numeral).remove()
                 $("#modelo7Crear").after(`
-                <button onclick="modelo7Crear(${response.numeral})" type="button"
+                <button onclick="modelo7Crear(${numeral},${periodo})" type="button"
                     id="modelo7Crear${response.numeral}" class="btn btn-danger">
                     <i class="fas fa-plus-circle"></i>Agregar entrada</button>
                 `)
@@ -870,7 +870,7 @@
                 toastr.success('Entrada creada', 'Operacion exitosa')
                 $("#sinEntradas"+numeral).remove()
                 $("#modelo8Crear").after(`
-                <button onclick="modelo8Crear(${response.numeral})" type="button"
+                <button onclick="modelo8Crear(${numeral},${periodo})" type="button"
                     id="modelo8Crear${response.numeral}" class="btn btn-danger">
                     <i class="fas fa-plus-circle"></i>Agregar entrada</button>
                 `)
@@ -1027,7 +1027,7 @@
                 toastr.success('Entrada creada', 'Operacion exitosa')
                 $("#sinEntradas"+numeral).remove()
                 $("#modelo9Crear").after(`
-                <button onclick="modelo9Crear(${response.numeral})" type="button"
+                <button onclick="modelo9Crear(${numeral},${periodo})" type="button"
                     id="modelo9Crear${response.numeral}" class="btn btn-danger">
                     <i class="fas fa-plus-circle"></i>Agregar entrada</button>
                 `)

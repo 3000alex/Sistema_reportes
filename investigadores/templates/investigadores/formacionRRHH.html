@@ -965,7 +965,7 @@
                 toastr.success('Entrada creada', 'Operacion exitosa')
                 $("#sinEntradas"+numeral).remove()
                 $("#modelo4Crear").after(`
-                <button onclick="modelo4Crear(${response.numeral})" type="button"
+                <button onclick="modelo4Crear(${numeral},${periodo})" type="button"
                     id="modelo4Crear${response.numeral}" class="btn btn-danger">
                     <i class="fas fa-plus-circle"></i>Agregar entrada</button>
                 `)
@@ -1121,7 +1121,7 @@
                 toastr.success('Entrada creada', 'Operacion exitosa')
                 $("#sinEntradas"+numeral).remove()
                 $("#modelo5Crear").after(`
-                <button onclick="modelo5Crear(${response.numeral})" type="button"
+                <button onclick="modelo5Crear(${numeral},${periodo})" type="button"
                     id="modelo5Crear${response.numeral}" class="btn btn-danger">
                     <i class="fas fa-plus-circle"></i>Agregar entrada</button>
                 `)
@@ -1274,7 +1274,7 @@
                 toastr.success('Entrada creada', 'Operacion exitosa')
                 $("#sinEntradas"+numeral).remove()
                 $("#modelo6Crear").after(`
-                <button onclick="modelo6Crear(${response.numeral})" type="button"
+                <button onclick="modelo6Crear(${numeral},${periodo})" type="button"
                     id="modelo6Crear${response.numeral}" class="btn btn-danger">
                     <i class="fas fa-plus-circle"></i>Agregar entrada</button>
                 `)
@@ -1574,7 +1574,7 @@
                 toastr.success('Entrada creada', 'Operacion exitosa')
                 $("#sinEntradas"+numeral).remove()
                 $("#modelo16Crear").after(`
-                <button onclick="modelo16Crear(${response.numeral})" type="button"
+                <button onclick="modelo16Crear(${numeral},${periodo})" type="button"
                     id="modelo16Crear${response.numeral}" class="btn btn-danger">
                     <i class="fas fa-plus-circle"></i>Agregar entrada</button>
                 `)
