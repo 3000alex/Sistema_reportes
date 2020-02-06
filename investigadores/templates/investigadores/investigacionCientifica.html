@@ -2284,7 +2284,7 @@
                     </strong>
                 </div>
                 <button onclick="modelo2Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo1Crear" class="btn btn-danger"><i
+                    type="button" id="modelo2Crear" class="btn btn-danger"><i
                         class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                 {% endfor %}
 
@@ -3653,7 +3653,6 @@
             {% endif %}
             <!--Fin Numeral 29 Modelo3-->
 
-
             {% if numeral.orden == 30 %}
             <li>
                 {% for campo in citas %}
@@ -4105,8 +4104,8 @@
                 toastr.success('Entrada creada', 'Operacion exitosa')
                 $("#sinEntradas"+numeral).remove()
                 $("#modelo1Crear").after(`
-                <button onclick="modelo1Crear(${response.numeral})" type="button"
-                    id="modelo1Crear${response.numeral}" class="btn btn-danger">
+                <button onclick="modelo1Crear(${numeral},${periodo})" type="button"
+                    id="modelo1Crear${numeral}" class="btn btn-danger">
                     <i class="fas fa-plus-circle"></i>Agregar entrada</button>
                 `)
                 $("#modelo1Crear").remove()
@@ -4327,7 +4326,7 @@
                 toastr.success('Entrada creada', 'Operacion exitosa')
                 $("#sinEntradas"+numeral).remove()
                 $("#modelo2Crear").after(`
-                <button onclick="modelo2Crear(${response.numeral})" type="button"
+                <button onclick="modelo2Crear(${numeral},${periodo})" type="button"
                     id="modelo2Crear${response.numeral}" class="btn btn-danger">
                     <i class="fas fa-plus-circle"></i>Agregar entrada</button>
                 `)
@@ -4518,7 +4517,7 @@
                 toastr.success('Entrada creada', 'Operacion exitosa')
                 $("#sinEntradas"+numeral).remove()
                 $("#modelo3Crear").after(`
-                <button onclick="modelo3Crear(${response.numeral})" type="button"
+                <button onclick="modelo3Crear(${numeral},${periodo})" type="button"
                     id="modelo3Crear${response.numeral}" class="btn btn-danger">
                     <i class="fas fa-plus-circle"></i>Agregar entrada</button>
                 `)

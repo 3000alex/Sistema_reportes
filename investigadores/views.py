@@ -180,7 +180,6 @@ class formacion_RH(View):
             }
         return render(request, "investigadores/formacionRRHH.html", data)
 
-
 @method_decorator(login_required, name='dispatch')
 class desarrollo_tec_inovacion(View):
     def get(self, request):
@@ -217,7 +216,6 @@ class desarrollo_tec_inovacion(View):
             'periodoActual': periodoActual,'periodos':periodos
             }
         return render(request, "investigadores/desarrolloTecInnov.html", data)
-
 
 @method_decorator(login_required, name='dispatch')
 class apoyo_institucional(View):
@@ -275,7 +273,6 @@ class apoyo_institucional(View):
             'periodoActual': periodoActual,'periodos':periodos
             }
         return render(request, "investigadores/apoyoInstitucional.html", data)
-
 
 @method_decorator(login_required, name='dispatch')
 class informacion_adicional(View):
