@@ -6,6 +6,7 @@ from registration.models import User
 from django.views.generic import View
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
+
 # Create your views here.
 def login_view(request):
     if request.user.is_authenticated:
