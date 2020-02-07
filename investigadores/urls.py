@@ -4,6 +4,7 @@ from . import views as vista #apoyo_institucional,desarrollo_tec_inovacion,forma
 
 investigadorespatterns = ([
     #Secciones
+    path('reporte_productividad',vista.reporte_productividad.as_view(), name='reporte-productividad'),
     path('Ampliar-sesion',vista.ampliarSesion.as_view(), name="Ampliar-sesion"),
     path('apoyo-institucional/', vista.apoyo_institucional.as_view(), name="apoyo_institucional"),
     path('desarrollo-tec-inovacion/', vista.desarrollo_tec_inovacion.as_view(), name="DTI"),

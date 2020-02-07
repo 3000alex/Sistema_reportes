@@ -1,918 +1,947 @@
-{% extends 'core/header_reportes.html' %}
-<!--Encabezado - nav - title name-->
-{%block contenido%}
-<ul id="accordion" class="container accordion mt-2">
-    {% for numeral in numeralName %}
-    <li class="card-header">
-        <div class="link col-10">{{numeral}}<i class="fa fa-chevron-down"></i></div>
-        <ul class="submenu">
-
-            <!--Numeral 31 Modelo4 -->
-            {% if numeral.orden == 31 %}
-            <li>
-                {% for modelo4 in numeral_31 %}
-
-                <form id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
-                    <div class="card-body">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Nombre completo:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="nombreCompleto"
-                                        id="nombreCompletoModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.nombreCompleto %}{{modelo4.nombreCompleto}}{% endif %}">
+<div id="numerales">
+    <ul id="accordion" class="container accordion mt-2">
+        {% for numeral in numeralName %}
+        <li class="card-header">
+            <div class="link col-10">{{numeral}}<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+    
+                <!--Numeral 31 Modelo4 -->
+                {% if numeral.orden == 31 %}
+                <li>
+                    {% for modelo4 in numeral_31 %}
+    
+                    <form id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Nombre completo:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="nombreCompleto"
+                                            id="nombreCompletoModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.nombreCompleto %}{{modelo4.nombreCompleto}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Título de tesis:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="tituloTesis"
+                                            id="tituloTesisModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.tituloTesis %}{{modelo4.tituloTesis}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Fecha:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="fecha"
+                                            id="fechaModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.fecha %} {{modelo4.fecha}}{% endif %}">
+    
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Url:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="url" name="url"
+                                            id="urlModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.url %}{{modelo4.url}}{% endif %}">
+                                    </div>
+                                </div>
+    
+    
+                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                    id="anexoModelo4{{modelo4.id}}">
+    
+                                {%if modelo4.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{modelo4.anexoPdf.url}}">{{modelo4.anexoPdf.name}}</a>
+                                {% endif %}
+    
+    
+                                <div class="justify-content-end d-flex">
+                                    <button onclick="modelo4Actualizar('{{modelo4.id}}')" type="button"
+                                        class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                            class="fas fa-save">&nbsp;
+                                            Guardar</i></button>
+                                    <button type="button" class="btn btn-primary p-2 mr-2"
+                                        onclick="modelo4Editar('{{modelo4.id}}')" id="{{modelo4.id}}"
+                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-danger  p-2 mr-2"
+                                        onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Título de tesis:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="tituloTesis"
-                                        id="tituloTesisModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.tituloTesis %}{{modelo4.tituloTesis}}{% endif %}">
+    
+                        </div>
+                    </form>
+                    <hr>
+                    {% if forloop.last %}
+                    <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endif %}        
+                    
+                    {% empty %}
+                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                        <strong>
+                            <p class="text-center ">Sin entradas</p>
+                        </strong>
+                    </div>
+                    <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo4Crear" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endfor %}
+    
+                </li>
+                {% endif %}
+                <!-- Fin Numeral 31,34 Modelo4 -->
+    
+                <!--Numeral 32 Modelo4 -->
+                {% if numeral.orden == 32 %}
+                <li>
+                    {% for modelo4 in numeral_32 %}
+    
+                    <form id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Nombre completo:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="nombreCompleto"
+                                            id="nombreCompletoModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.nombreCompleto %}{{modelo4.nombreCompleto}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Título de tesis:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="tituloTesis"
+                                            id="tituloTesisModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.tituloTesis %}{{modelo4.tituloTesis}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Fecha:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="fecha"
+                                            id="fechaModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.fecha %} {{modelo4.fecha}}{% endif %}">
+    
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Url:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="url" name="url"
+                                            id="urlModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.url %}{{modelo4.url}}{% endif %}">
+                                    </div>
+                                </div>
+    
+    
+                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                    id="anexoModelo4{{modelo4.id}}">
+    
+                                {%if modelo4.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{modelo4.anexoPdf.url}}">{{modelo4.anexoPdf.name}}</a>
+                                {% endif %}
+    
+    
+                                <div class="justify-content-end d-flex">
+                                    <button onclick="modelo4Actualizar('{{modelo4.id}}')" type="button"
+                                        class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                            class="fas fa-save">&nbsp;
+                                            Guardar</i></button>
+                                    <button type="button" class="btn btn-primary p-2 mr-2"
+                                        onclick="modelo4Editar('{{modelo4.id}}')" id="{{modelo4.id}}"
+                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-danger  p-2 mr-2"
+                                        onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Fecha:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="fecha"
-                                        id="fechaModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.fecha %} {{modelo4.fecha}}{% endif %}">
-
+    
+                        </div>
+                    </form>
+                    <hr>
+                    {% if forloop.last %}
+                    <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endif %}        
+                    
+                    {% empty %}
+                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                        <strong>
+                            <p class="text-center ">Sin entradas</p>
+                        </strong>
+                    </div>
+                    <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo4Crear" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endfor %}
+    
+                </li>
+                {% endif %}
+                <!-- Fin Numeral 32 Modelo4 -->
+    
+                <!--Numeral 33 Modelo4 -->
+                {% if  numeral.orden == 33 %}
+                <li>
+                    {% for modelo4 in numeral_33 %}
+    
+                    
+                    <form id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Nombre completo:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="nombreCompleto"
+                                            id="nombreCompletoModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.nombreCompleto %}{{modelo4.nombreCompleto}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Título de tesis:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="tituloTesis"
+                                            id="tituloTesisModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.tituloTesis %}{{modelo4.tituloTesis}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Fecha:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="fecha"
+                                            id="fechaModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.fecha %} {{modelo4.fecha}}{% endif %}">
+    
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Url:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="url" name="url"
+                                            id="urlModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.url %}{{modelo4.url}}{% endif %}">
+                                    </div>
+                                </div>
+    
+    
+                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                    id="anexoModelo4{{modelo4.id}}">
+    
+                                {%if modelo4.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{modelo4.anexoPdf.url}}">{{modelo4.anexoPdf.name}}</a>
+                                {% endif %}
+    
+    
+                                <div class="justify-content-end d-flex">
+                                    <button onclick="modelo4Actualizar('{{modelo4.id}}')" type="button"
+                                        class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                            class="fas fa-save">&nbsp;
+                                            Guardar</i></button>
+                                    <button type="button" class="btn btn-primary p-2 mr-2"
+                                        onclick="modelo4Editar('{{modelo4.id}}')" id="{{modelo4.id}}"
+                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-danger  p-2 mr-2"
+                                        onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Url:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="url" name="url"
-                                        id="urlModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.url %}{{modelo4.url}}{% endif %}">
+    
+                        </div>
+                    </form>
+                    <hr>
+                    {% if forloop.last %}
+                    <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endif %}        
+                    
+                    {% empty %}
+                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                        <strong>
+                            <p class="text-center ">Sin entradas</p>
+                        </strong>
+                    </div>
+                    <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo4Crear" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endfor %}
+    
+                </li>
+                {% endif %}
+                <!-- Fin Numeral 33 Modelo4 -->
+    
+                <!--Numeral 34 Modelo4 -->
+                {% if numeral.orden == 34 %}
+                <li>
+                    {% for modelo4 in numeral_34 %}
+    
+                    <form id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Nombre completo:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="nombreCompleto"
+                                            id="nombreCompletoModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.nombreCompleto %}{{modelo4.nombreCompleto}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Título de tesis:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="tituloTesis"
+                                            id="tituloTesisModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.tituloTesis %}{{modelo4.tituloTesis}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Fecha:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="fecha"
+                                            id="fechaModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.fecha %} {{modelo4.fecha}}{% endif %}">
+    
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Url:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="url" name="url"
+                                            id="urlModelo4{{modelo4.id}}"
+                                            value="{% if modelo4.url %}{{modelo4.url}}{% endif %}">
+                                    </div>
+                                </div>
+    
+    
+                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                    id="anexoModelo4{{modelo4.id}}">
+    
+                                {%if modelo4.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{modelo4.anexoPdf.url}}">{{modelo4.anexoPdf.name}}</a>
+                                {% endif %}
+    
+    
+                                <div class="justify-content-end d-flex">
+                                    <button onclick="modelo4Actualizar('{{modelo4.id}}')" type="button"
+                                        class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                            class="fas fa-save">&nbsp;
+                                            Guardar</i></button>
+                                    <button type="button" class="btn btn-primary p-2 mr-2"
+                                        onclick="modelo4Editar('{{modelo4.id}}')" id="{{modelo4.id}}"
+                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-danger  p-2 mr-2"
+                                        onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
                             </div>
-
-
-                            <input disabled class="form-control mb-4" type="file" name="anexo"
-                                id="anexoModelo4{{modelo4.id}}">
-
-                            {%if modelo4.anexoPdf %}
-                            <strong>Actualmente: </strong><a
-                                href="{{modelo4.anexoPdf.url}}">{{modelo4.anexoPdf.name}}</a>
-                            {% endif %}
-
-
-                            <div class="justify-content-end d-flex">
-                                <button onclick="modelo4Actualizar('{{modelo4.id}}')" type="button"
-                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
-                                        class="fas fa-save">&nbsp;
-                                        Guardar</i></button>
-                                <button type="button" class="btn btn-primary p-2 mr-2"
-                                    onclick="modelo4Editar('{{modelo4.id}}')" id="{{modelo4.id}}"
-                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger  p-2 mr-2"
-                                    onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
-                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+    
+                        </div>
+                    </form>
+                    <hr>
+                    {% if forloop.last %}
+                    <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endif %}        
+                    
+                    {% empty %}
+                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                        <strong>
+                            <p class="text-center ">Sin entradas</p>
+                        </strong>
+                    </div>
+                    <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo4Crear" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endfor %}
+    
+                </li>
+                {% endif %}
+                <!-- Fin Numeral 34 Modelo4 -->
+    
+                <!--Numerales 35 Modelo5-->
+                {% if numeral.orden == 35 %}
+                <li>
+                    {% for modelo5 in numeral_35 %}
+    
+                    <form id="modelo5{{modelo5.id}}" enctype="multipart/form-data">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            <div class="form-group">
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Nombre del curso: </label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="nombreCurso"
+                                            id="nombreCursoModelo5{{modelo5.id}}"
+                                            value="{% if modelo5.nombreCurso %}{{modelo5.nombreCurso}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Periodo:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="periodo"
+                                            id="periodoModelo5{{modelo5.id}}"
+                                            value="{% if modelo5.periodoNumeral %}{{modelo5.periodoNumeral}}{% endif %}">
+    
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Notas: </label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="notas"
+                                            id="notasModelo5{{modelo5.id}}"
+                                            value="{% if modelo5.notas %}{{modelo5.notas}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                    id="anexoModelo5{{modelo5.id}}">
+                                {%if modelo5.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{modelo5.anexoPdf.url}}">{{modelo5.anexoPdf.name}}</a>
+                                {% endif %}
+    
+                                <div class="justify-content-end d-flex">
+                                    <button onclick="modelo5Actualizar('{{modelo5.id}}')" type="button"
+                                        class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                            class="fas fa-save">&nbsp;
+                                            Guardar</i></button>
+                                    <button type="button" class="btn btn-primary p-2 mr-2"
+                                        onclick="modelo5Editar('{{modelo5.id}}')" id="{{modelo5.id}}"
+                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-danger  p-2 mr-2"
+                                        onclick="modelo5Eliminar('{{modelo5.id}}')" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                </div>
+    
+                            </div>
+    
+                        </div>
+                    </form>
+                    <hr>
+                    {% if forloop.last %}
+                    <button onclick="modelo5Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo5Crear{{numeral.id}}" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endif %}        
+                    
+                    {% empty %}
+                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                        <strong>
+                            <p class="text-center ">Sin entradas</p>
+                        </strong>
+                    </div>
+                    <button onclick="modelo5Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo5Crear" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endfor %}
+                </li>
+                {% endif %}
+                <!--Fin Numeral 35-->
+    
+                <!--Numerales 36 Modelo5-->
+                {% if numeral.orden == 36 %}
+                <li>
+                    {% for modelo5 in numeral_36 %}
+    
+                    <form id="modelo5{{modelo5.id}}" enctype="multipart/form-data">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            <div class="form-group">
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Nombre del curso: </label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="nombreCurso"
+                                            id="nombreCursoModelo5{{modelo5.id}}"
+                                            value="{% if modelo5.nombreCurso %}{{modelo5.nombreCurso}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Periodo:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="periodo"
+                                            id="periodoModelo5{{modelo5.id}}"
+                                            value="{% if modelo5.periodoNumeral %}{{modelo5.periodoNumeral}}{% endif %}">
+    
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Notas: </label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="notas"
+                                            id="notasModelo5{{modelo5.id}}"
+                                            value="{% if modelo5.notas %}{{modelo5.notas}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                    id="anexoModelo5{{modelo5.id}}">
+                                {%if modelo5.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{modelo5.anexoPdf.url}}">{{modelo5.anexoPdf.name}}</a>
+                                {% endif %}
+    
+                                <div class="justify-content-end d-flex">
+                                    <button onclick="modelo5Actualizar('{{modelo5.id}}')" type="button"
+                                        class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                            class="fas fa-save">&nbsp;
+                                            Guardar</i></button>
+                                    <button type="button" class="btn btn-primary p-2 mr-2"
+                                        onclick="modelo5Editar('{{modelo5.id}}')" id="{{modelo5.id}}"
+                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-danger  p-2 mr-2"
+                                        onclick="modelo5Eliminar('{{modelo5.id}}')" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                </div>
+    
+                            </div>
+    
+                        </div>
+                    </form>
+                    <hr>
+                    {% if forloop.last %}
+                    <button onclick="modelo5Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo5Crear{{numeral.id}}" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endif %}        
+                    
+                    {% empty %}
+                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                        <strong>
+                            <p class="text-center ">Sin entradas</p>
+                        </strong>
+                    </div>
+                    <button onclick="modelo5Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo5Crear" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endfor %}
+                </li>
+                {% endif %}
+                <!--Fin Numeral 36-->
+    
+                <!--Numerale 37 Modelo6-->
+                {% if numeral.orden == 37 %}
+                <li>
+                    {% for modelo6 in numeral_37 %}
+    
+                    <form id="modelo6{{modelo6.id}}" enctype="multipart/form-data">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Nombre: </label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="nombre"
+                                            id="nombreModelo6{{modelo6.id}}"
+                                            value="{% if modelo6.nombre %}{{modelo6.nombre}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Titulo de tesis: </label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="tituloTesis"
+                                            id="tituloTesisModelo6{{modelo6.id}}"
+                                            value="{% if modelo6.tituloTesis %}{{modelo6.tituloTesis}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Grado: </label>
+                                    <div class="col-sm-10">
+                                        <select disabled class="form-control mb-4" name="grado"
+                                            id="gradoModelo6{{modelo6.id}}">
+                                            <option selected value="{% if modelo6.Grado %}{{modelo6.Grado}}{% endif %}">
+                                                {% if modelo6.Grado == None or modelo6.Grado == "" %}-----------
+                                                {% else %}
+                                                {{modelo6.Grado}}
+                                                {% endif %}
+                                            </option>
+                                            <option value="Licenciatura">Licenciatura</option>
+                                            <option value="Maestría">Maestría</option>
+                                            <option value="Doctorado">Doctorado</option>
+                                        </select>
+    
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Institución: </label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="institucion"
+                                            id="institucionModelo6{{modelo6.id}}"
+                                            value="{% if modelo6.institucion %}{{modelo6.institucion}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Notas:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="notas"
+                                            id="notasModelo6{{modelo6.id}}"
+                                            value="{% if modelo6.notas %}{{modelo6.notas}}{% endif %}">
+                                    </div>
+                                </div>
+    
+    
+                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                    id="anexoModelo6{{modelo6.id}}">
+                                {%if modelo6.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{modelo6.anexoPdf.url}}">{{modelo6.anexoPdf.name}}</a>
+                                {% endif %}
+    
+                                <div class="justify-content-end d-flex">
+                                    <button onclick="modelo6Actualizar('{{modelo6.id}}')" type="button"
+                                        class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                            class="fas fa-save">&nbsp;
+                                            Guardar</i></button>
+                                    <button type="button" class="btn btn-primary p-2 mr-2"
+                                        onclick="modelo6Editar('{{modelo6.id}}')" id="{{modelo6.id}}"
+                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-danger  p-2 mr-2"
+                                        onclick="modelo6Eliminar('{{modelo6.id}}')" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                </div>
                             </div>
                         </div>
-
+                    </form>
+                    <hr>
+                    {% if forloop.last %}
+                    <button onclick="modelo6Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo6Crear{{numeral.id}}" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endif %}        
+                    
+                    {% empty %}
+                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                        <strong>
+                            <p class="text-center ">Sin entradas</p>
+                        </strong>
                     </div>
-                </form>
-                <hr>
-                {% if forloop.last %}
-                <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endif %}        
-                
-                {% empty %}
-                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
-                </div>
-                <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo4Crear" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endfor %}
-
-            </li>
-            {% endif %}
-            <!-- Fin Numeral 31,34 Modelo4 -->
-
-            <!--Numeral 32 Modelo4 -->
-            {% if numeral.orden == 32 %}
-            <li>
-                {% for modelo4 in numeral_32 %}
-
-                <form id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
-                    <div class="card-body">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Nombre completo:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="nombreCompleto"
-                                        id="nombreCompletoModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.nombreCompleto %}{{modelo4.nombreCompleto}}{% endif %}">
+                    <button onclick="modelo6Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo6Crear" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endfor %}
+                </li>
+                {% endif %}
+                <!--Fin Numeral 37-->
+    
+                <!--Numeral 38 modelo16 -->
+                {% if numeral.orden == 38 %}
+                <li>
+                    {% for modelo16 in numeral_38 %}
+    
+                    <form id="modelo16{{modelo16.id}}" enctype="multipart/form-data">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="">Nombre estudiante:</label>
+                                <input type="text" disabled class="form-control mb-4"
+                                    value="{% if modelo16.nombreEstudiante %}{{ modelo16.nombreEstudiante }}{% endif %}"
+                                    name="nombreEstudiante" id="nombreEstudianteModelo16{{modelo16.id}}" rows="5"></input>
+    
+                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                    id="anexoModelo16{{modelo16.id}}">
+                                {%if modelo16.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{modelo16.anexoPdf.url}}">{{modelo16.anexoPdf.name}}</a>
+                                {% endif %}
+    
+                                <div class="justify-content-end d-flex">
+                                    <button onclick="modelo16Actualizar('{{modelo16.id}}')" type="button"
+                                        class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                            class="fas fa-save">&nbsp;
+                                            Guardar</i></button>
+                                    <button type="button" class="btn btn-primary p-2 mr-2"
+                                        onclick="modelo16Editar('{{modelo16.id}}')" title="Editar entrada"><i
+                                            class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-danger  p-2 mr-2"
+                                        onclick="modelo16Eliminar('{{modelo16.id}}')" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
+    
                             </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Título de tesis:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="tituloTesis"
-                                        id="tituloTesisModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.tituloTesis %}{{modelo4.tituloTesis}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Fecha:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="fecha"
-                                        id="fechaModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.fecha %} {{modelo4.fecha}}{% endif %}">
-
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Url:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="url" name="url"
-                                        id="urlModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.url %}{{modelo4.url}}{% endif %}">
-                                </div>
-                            </div>
-
-
-                            <input disabled class="form-control mb-4" type="file" name="anexo"
-                                id="anexoModelo4{{modelo4.id}}">
-
-                            {%if modelo4.anexoPdf %}
-                            <strong>Actualmente: </strong><a
-                                href="{{modelo4.anexoPdf.url}}">{{modelo4.anexoPdf.name}}</a>
-                            {% endif %}
-
-
-                            <div class="justify-content-end d-flex">
-                                <button onclick="modelo4Actualizar('{{modelo4.id}}')" type="button"
-                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
-                                        class="fas fa-save">&nbsp;
-                                        Guardar</i></button>
-                                <button type="button" class="btn btn-primary p-2 mr-2"
-                                    onclick="modelo4Editar('{{modelo4.id}}')" id="{{modelo4.id}}"
-                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger  p-2 mr-2"
-                                    onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
-                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                            </div>
+    
                         </div>
-
+                    </form>
+                    <hr>
+                    {% if forloop.last %}
+                    <button onclick="modelo16Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo16Crear{{numeral.id}}" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endif %}        
+                    
+                    {% empty %}
+                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                        <strong>
+                            <p class="text-center ">Sin entradas</p>
+                        </strong>
                     </div>
-                </form>
-                <hr>
-                {% if forloop.last %}
-                <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endif %}        
-                
-                {% empty %}
-                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
-                </div>
-                <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo4Crear" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endfor %}
-
-            </li>
-            {% endif %}
-            <!-- Fin Numeral 32 Modelo4 -->
-
-            <!--Numeral 33 Modelo4 -->
-            {% if  numeral.orden == 33 %}
-            <li>
-                {% for modelo4 in numeral_33 %}
-
-                
-                <form id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
-                    <div class="card-body">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Nombre completo:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="nombreCompleto"
-                                        id="nombreCompletoModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.nombreCompleto %}{{modelo4.nombreCompleto}}{% endif %}">
+                    <button onclick="modelo16Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo16Crear" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endfor %}
+                </li>
+                {% endif %}
+                <!--Fin Numeral 38-->
+    
+                <!--Numeral 39 modelo6-->
+                {% if numeral.orden == 39 %}
+                <li>
+                    {% for modelo6 in numeral_39 %}
+    
+                    <form id="modelo6{{modelo6.id}}" enctype="multipart/form-data">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Nombre: </label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="nombre"
+                                            id="nombreModelo6{{modelo6.id}}"
+                                            value="{% if modelo6.nombre %}{{modelo6.nombre}}{% endif %}">
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Título de tesis:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="tituloTesis"
-                                        id="tituloTesisModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.tituloTesis %}{{modelo4.tituloTesis}}{% endif %}">
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Titulo de tesis: </label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="tituloTesis"
+                                            id="tituloTesisModelo6{{modelo6.id}}"
+                                            value="{% if modelo6.tituloTesis %}{{modelo6.tituloTesis}}{% endif %}">
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Fecha:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="fecha"
-                                        id="fechaModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.fecha %} {{modelo4.fecha}}{% endif %}">
-
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Grado: </label>
+                                    <div class="col-sm-10">
+                                        <select disabled class="form-control mb-4" name="grado"
+                                            id="gradoModelo6{{modelo6.id}}">
+                                            <option selected value="{% if modelo6.Grado %}{{modelo6.Grado}}{% endif %}">
+                                                {% if modelo6.Grado == None or modelo6.Grado == "" %}-----------
+                                                {% else %}
+                                                {{modelo6.Grado}}
+                                                {% endif %}
+    
+                                            </option>
+                                            <option value="Maestría">Maestría</option>
+                                            <option value="Doctorado">Doctorado</option>
+                                        </select>
+    
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Url:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="url" name="url"
-                                        id="urlModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.url %}{{modelo4.url}}{% endif %}">
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Institución: </label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="institucion"
+                                            id="institucionModelo6{{modelo6.id}}"
+                                            value="{% if modelo6.institucion %}{{modelo6.institucion}}{% endif %}">
+                                    </div>
                                 </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Fecha: </label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="fecha"
+                                            id="fechaModelo6{{modelo6.id}}"
+                                            value=" {% if modelo6.fecha %}{{modelo6.fecha}}{% endif %}">
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2">Notas:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="notas"
+                                            id="notasModelo6{{modelo6.id}}"
+                                            value="{% if modelo6.notas %}{{modelo6.notas}}{% endif %}">
+                                    </div>
+                                </div>
+    
+    
+                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                    id="anexoModelo6{{modelo6.id}}">
+                                {%if modelo6.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{modelo6.anexoPdf.url}}">{{modelo6.anexoPdf.name}}</a>
+                                {% endif %}
+    
+                                <div class="justify-content-end d-flex">
+                                    <button onclick="modelo6Actualizar('{{modelo6.id}}')" type="button"
+                                        class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                            class="fas fa-save">&nbsp;
+                                            Guardar</i></button>
+                                    <button type="button" class="btn btn-primary p-2 mr-2"
+                                        onclick="modelo6Editar('{{modelo6.id}}')" id="{{modelo6.id}}"
+                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-danger  p-2 mr-2"
+                                        onclick="modelo6Eliminar('{{modelo6.id}}')" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                </div>
+    
                             </div>
-
-
-                            <input disabled class="form-control mb-4" type="file" name="anexo"
-                                id="anexoModelo4{{modelo4.id}}">
-
-                            {%if modelo4.anexoPdf %}
-                            <strong>Actualmente: </strong><a
-                                href="{{modelo4.anexoPdf.url}}">{{modelo4.anexoPdf.name}}</a>
-                            {% endif %}
-
-
-                            <div class="justify-content-end d-flex">
-                                <button onclick="modelo4Actualizar('{{modelo4.id}}')" type="button"
-                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
-                                        class="fas fa-save">&nbsp;
-                                        Guardar</i></button>
-                                <button type="button" class="btn btn-primary p-2 mr-2"
-                                    onclick="modelo4Editar('{{modelo4.id}}')" id="{{modelo4.id}}"
-                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger  p-2 mr-2"
-                                    onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
-                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                            </div>
+    
                         </div>
-
+                    </form>
+                    <hr>
+                    {% if forloop.last %}
+                    <button onclick="modelo6Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo6Crear{{numeral.id}}" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endif %}        
+                    
+                    {% empty %}
+                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                        <strong>
+                            <p class="text-center ">Sin entradas</p>
+                        </strong>
                     </div>
-                </form>
-                <hr>
-                {% if forloop.last %}
-                <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endif %}        
-                
-                {% empty %}
-                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <button onclick="modelo6Crear({{numeral.id}},{{periodoActual.id}})"
+                        type="button" id="modelo6Crear" class="btn btn-danger"><i
+                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endfor %}
+                </li>
+                {% endif %}
+                <!--numeral 39 Modelo6-->
+    
+            </ul>
+            <div class="col-12 d-flex justify-content-end" style="cursor: pointer;">
+                <i data-toggle="modal" data-target="#glosario" style="font-size: 20px;"
+                    class="fas fa-question-circle text-dark "></i>
+            </div>
+        </li>
+    
+        {% endfor %}
+    
+    </ul>
+
+
+    <!-- Modal glosario -->
+    <div class="modal fade" id="glosario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Glosario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo4Crear" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endfor %}
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center" colspan="2">II. FORMACIÓN DE RECURSOS HUMANOS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for glosario in glosario %}
+                            <tr>
+                                <td width=50%>{{ glosario.numerales|safe }}</td>
+                                <td width=50%>{{ glosario.explicacion|safe }}</td>
+                            </tr>
+                            {% endfor %}
 
-            </li>
-            {% endif %}
-            <!-- Fin Numeral 33 Modelo4 -->
-
-            <!--Numeral 34 Modelo4 -->
-            {% if numeral.orden == 34 %}
-            <li>
-                {% for modelo4 in numeral_34 %}
-
-                <form id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
-                    <div class="card-body">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Nombre completo:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="nombreCompleto"
-                                        id="nombreCompletoModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.nombreCompleto %}{{modelo4.nombreCompleto}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Título de tesis:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="tituloTesis"
-                                        id="tituloTesisModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.tituloTesis %}{{modelo4.tituloTesis}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Fecha:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="fecha"
-                                        id="fechaModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.fecha %} {{modelo4.fecha}}{% endif %}">
-
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Url:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="url" name="url"
-                                        id="urlModelo4{{modelo4.id}}"
-                                        value="{% if modelo4.url %}{{modelo4.url}}{% endif %}">
-                                </div>
-                            </div>
-
-
-                            <input disabled class="form-control mb-4" type="file" name="anexo"
-                                id="anexoModelo4{{modelo4.id}}">
-
-                            {%if modelo4.anexoPdf %}
-                            <strong>Actualmente: </strong><a
-                                href="{{modelo4.anexoPdf.url}}">{{modelo4.anexoPdf.name}}</a>
-                            {% endif %}
-
-
-                            <div class="justify-content-end d-flex">
-                                <button onclick="modelo4Actualizar('{{modelo4.id}}')" type="button"
-                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
-                                        class="fas fa-save">&nbsp;
-                                        Guardar</i></button>
-                                <button type="button" class="btn btn-primary p-2 mr-2"
-                                    onclick="modelo4Editar('{{modelo4.id}}')" id="{{modelo4.id}}"
-                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger  p-2 mr-2"
-                                    onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
-                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                            </div>
-                        </div>
-
-                    </div>
-                </form>
-                <hr>
-                {% if forloop.last %}
-                <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endif %}        
-                
-                {% empty %}
-                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                        </tbody>
+                    </table>
                 </div>
-                <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo4Crear" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endfor %}
-
-            </li>
-            {% endif %}
-            <!-- Fin Numeral 34 Modelo4 -->
-
-            <!--Numerales 35 Modelo5-->
-            {% if numeral.orden == 35 %}
-            <li>
-                {% for modelo5 in numeral_35 %}
-
-                <form id="modelo5{{modelo5.id}}" enctype="multipart/form-data">
-                    <div class="card-body">
-                        {% csrf_token %}
-                        <div class="form-group">
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Nombre del curso: </label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="nombreCurso"
-                                        id="nombreCursoModelo5{{modelo5.id}}"
-                                        value="{% if modelo5.nombreCurso %}{{modelo5.nombreCurso}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Periodo:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="periodo"
-                                        id="periodoModelo5{{modelo5.id}}"
-                                        value="{% if modelo5.periodoNumeral %}{{modelo5.periodoNumeral}}{% endif %}">
-
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Notas: </label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="notas"
-                                        id="notasModelo5{{modelo5.id}}"
-                                        value="{% if modelo5.notas %}{{modelo5.notas}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <input disabled class="form-control mb-4" type="file" name="anexo"
-                                id="anexoModelo5{{modelo5.id}}">
-                            {%if modelo5.anexoPdf %}
-                            <strong>Actualmente: </strong><a
-                                href="{{modelo5.anexoPdf.url}}">{{modelo5.anexoPdf.name}}</a>
-                            {% endif %}
-
-                            <div class="justify-content-end d-flex">
-                                <button onclick="modelo5Actualizar('{{modelo5.id}}')" type="button"
-                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
-                                        class="fas fa-save">&nbsp;
-                                        Guardar</i></button>
-                                <button type="button" class="btn btn-primary p-2 mr-2"
-                                    onclick="modelo5Editar('{{modelo5.id}}')" id="{{modelo5.id}}"
-                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger  p-2 mr-2"
-                                    onclick="modelo5Eliminar('{{modelo5.id}}')" title="Eliminar entrada"><i
-                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </form>
-                <hr>
-                {% if forloop.last %}
-                <button onclick="modelo5Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo5Crear{{numeral.id}}" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endif %}        
-                
-                {% empty %}
-                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
                 </div>
-                <button onclick="modelo5Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo5Crear" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endfor %}
-            </li>
-            {% endif %}
-            <!--Fin Numeral 35-->
-
-            <!--Numerales 36 Modelo5-->
-            {% if numeral.orden == 36 %}
-            <li>
-                {% for modelo5 in numeral_36 %}
-
-                <form id="modelo5{{modelo5.id}}" enctype="multipart/form-data">
-                    <div class="card-body">
-                        {% csrf_token %}
-                        <div class="form-group">
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Nombre del curso: </label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="nombreCurso"
-                                        id="nombreCursoModelo5{{modelo5.id}}"
-                                        value="{% if modelo5.nombreCurso %}{{modelo5.nombreCurso}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Periodo:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="periodo"
-                                        id="periodoModelo5{{modelo5.id}}"
-                                        value="{% if modelo5.periodoNumeral %}{{modelo5.periodoNumeral}}{% endif %}">
-
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Notas: </label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="notas"
-                                        id="notasModelo5{{modelo5.id}}"
-                                        value="{% if modelo5.notas %}{{modelo5.notas}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <input disabled class="form-control mb-4" type="file" name="anexo"
-                                id="anexoModelo5{{modelo5.id}}">
-                            {%if modelo5.anexoPdf %}
-                            <strong>Actualmente: </strong><a
-                                href="{{modelo5.anexoPdf.url}}">{{modelo5.anexoPdf.name}}</a>
-                            {% endif %}
-
-                            <div class="justify-content-end d-flex">
-                                <button onclick="modelo5Actualizar('{{modelo5.id}}')" type="button"
-                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
-                                        class="fas fa-save">&nbsp;
-                                        Guardar</i></button>
-                                <button type="button" class="btn btn-primary p-2 mr-2"
-                                    onclick="modelo5Editar('{{modelo5.id}}')" id="{{modelo5.id}}"
-                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger  p-2 mr-2"
-                                    onclick="modelo5Eliminar('{{modelo5.id}}')" title="Eliminar entrada"><i
-                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </form>
-                <hr>
-                {% if forloop.last %}
-                <button onclick="modelo5Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo5Crear{{numeral.id}}" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endif %}        
-                
-                {% empty %}
-                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
-                </div>
-                <button onclick="modelo5Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo5Crear" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endfor %}
-            </li>
-            {% endif %}
-            <!--Fin Numeral 36-->
-
-            <!--Numerale 37 Modelo6-->
-            {% if numeral.orden == 37 %}
-            <li>
-                {% for modelo6 in numeral_37 %}
-
-                <form id="modelo6{{modelo6.id}}" enctype="multipart/form-data">
-                    <div class="card-body">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Nombre: </label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="nombre"
-                                        id="nombreModelo6{{modelo6.id}}"
-                                        value="{% if modelo6.nombre %}{{modelo6.nombre}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Titulo de tesis: </label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="tituloTesis"
-                                        id="tituloTesisModelo6{{modelo6.id}}"
-                                        value="{% if modelo6.tituloTesis %}{{modelo6.tituloTesis}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Grado: </label>
-                                <div class="col-sm-10">
-                                    <select disabled class="form-control mb-4" name="grado"
-                                        id="gradoModelo6{{modelo6.id}}">
-                                        <option selected value="{% if modelo6.Grado %}{{modelo6.Grado}}{% endif %}">
-                                            {% if modelo6.Grado == None or modelo6.Grado == "" %}-----------
-                                            {% else %}
-                                            {{modelo6.Grado}}
-                                            {% endif %}
-                                        </option>
-                                        <option value="Licenciatura">Licenciatura</option>
-                                        <option value="Maestría">Maestría</option>
-                                        <option value="Doctorado">Doctorado</option>
-                                    </select>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Institución: </label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="institucion"
-                                        id="institucionModelo6{{modelo6.id}}"
-                                        value="{% if modelo6.institucion %}{{modelo6.institucion}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Notas:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="notas"
-                                        id="notasModelo6{{modelo6.id}}"
-                                        value="{% if modelo6.notas %}{{modelo6.notas}}{% endif %}">
-                                </div>
-                            </div>
-
-
-                            <input disabled class="form-control mb-4" type="file" name="anexo"
-                                id="anexoModelo6{{modelo6.id}}">
-                            {%if modelo6.anexoPdf %}
-                            <strong>Actualmente: </strong><a
-                                href="{{modelo6.anexoPdf.url}}">{{modelo6.anexoPdf.name}}</a>
-                            {% endif %}
-
-                            <div class="justify-content-end d-flex">
-                                <button onclick="modelo6Actualizar('{{modelo6.id}}')" type="button"
-                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
-                                        class="fas fa-save">&nbsp;
-                                        Guardar</i></button>
-                                <button type="button" class="btn btn-primary p-2 mr-2"
-                                    onclick="modelo6Editar('{{modelo6.id}}')" id="{{modelo6.id}}"
-                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger  p-2 mr-2"
-                                    onclick="modelo6Eliminar('{{modelo6.id}}')" title="Eliminar entrada"><i
-                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <hr>
-                {% if forloop.last %}
-                <button onclick="modelo6Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo6Crear{{numeral.id}}" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endif %}        
-                
-                {% empty %}
-                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
-                </div>
-                <button onclick="modelo6Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo6Crear" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endfor %}
-            </li>
-            {% endif %}
-            <!--Fin Numeral 37-->
-
-            <!--Numeral 38 modelo16 -->
-            {% if numeral.orden == 38 %}
-            <li>
-                {% for modelo16 in numeral_38 %}
-
-                <form id="modelo16{{modelo16.id}}" enctype="multipart/form-data">
-                    <div class="card-body">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="">Nombre estudiante:</label>
-                            <input type="text" disabled class="form-control mb-4"
-                                value="{% if modelo16.nombreEstudiante %}{{ modelo16.nombreEstudiante }}{% endif %}"
-                                name="nombreEstudiante" id="nombreEstudianteModelo16{{modelo16.id}}" rows="5"></input>
-
-                            <input disabled class="form-control mb-4" type="file" name="anexo"
-                                id="anexoModelo16{{modelo16.id}}">
-                            {%if modelo16.anexoPdf %}
-                            <strong>Actualmente: </strong><a
-                                href="{{modelo16.anexoPdf.url}}">{{modelo16.anexoPdf.name}}</a>
-                            {% endif %}
-
-                            <div class="justify-content-end d-flex">
-                                <button onclick="modelo16Actualizar('{{modelo16.id}}')" type="button"
-                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
-                                        class="fas fa-save">&nbsp;
-                                        Guardar</i></button>
-                                <button type="button" class="btn btn-primary p-2 mr-2"
-                                    onclick="modelo16Editar('{{modelo16.id}}')" title="Editar entrada"><i
-                                        class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger  p-2 mr-2"
-                                    onclick="modelo16Eliminar('{{modelo16.id}}')" title="Eliminar entrada"><i
-                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </form>
-                <hr>
-                {% if forloop.last %}
-                <button onclick="modelo16Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo16Crear{{numeral.id}}" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endif %}        
-                
-                {% empty %}
-                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
-                </div>
-                <button onclick="modelo16Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo16Crear" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endfor %}
-            </li>
-            {% endif %}
-            <!--Fin Numeral 38-->
-
-            <!--Numeral 39 modelo6-->
-            {% if numeral.orden == 39 %}
-            <li>
-                {% for modelo6 in numeral_39 %}
-
-                <form id="modelo6{{modelo6.id}}" enctype="multipart/form-data">
-                    <div class="card-body">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Nombre: </label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="nombre"
-                                        id="nombreModelo6{{modelo6.id}}"
-                                        value="{% if modelo6.nombre %}{{modelo6.nombre}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Titulo de tesis: </label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="tituloTesis"
-                                        id="tituloTesisModelo6{{modelo6.id}}"
-                                        value="{% if modelo6.tituloTesis %}{{modelo6.tituloTesis}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Grado: </label>
-                                <div class="col-sm-10">
-                                    <select disabled class="form-control mb-4" name="grado"
-                                        id="gradoModelo6{{modelo6.id}}">
-                                        <option selected value="{% if modelo6.Grado %}{{modelo6.Grado}}{% endif %}">
-                                            {% if modelo6.Grado == None or modelo6.Grado == "" %}-----------
-                                            {% else %}
-                                            {{modelo6.Grado}}
-                                            {% endif %}
-
-                                        </option>
-                                        <option value="Maestría">Maestría</option>
-                                        <option value="Doctorado">Doctorado</option>
-                                    </select>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Institución: </label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="institucion"
-                                        id="institucionModelo6{{modelo6.id}}"
-                                        value="{% if modelo6.institucion %}{{modelo6.institucion}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Fecha: </label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="fecha"
-                                        id="fechaModelo6{{modelo6.id}}"
-                                        value=" {% if modelo6.fecha %}{{modelo6.fecha}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2">Notas:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="notas"
-                                        id="notasModelo6{{modelo6.id}}"
-                                        value="{% if modelo6.notas %}{{modelo6.notas}}{% endif %}">
-                                </div>
-                            </div>
-
-
-                            <input disabled class="form-control mb-4" type="file" name="anexo"
-                                id="anexoModelo6{{modelo6.id}}">
-                            {%if modelo6.anexoPdf %}
-                            <strong>Actualmente: </strong><a
-                                href="{{modelo6.anexoPdf.url}}">{{modelo6.anexoPdf.name}}</a>
-                            {% endif %}
-
-                            <div class="justify-content-end d-flex">
-                                <button onclick="modelo6Actualizar('{{modelo6.id}}')" type="button"
-                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
-                                        class="fas fa-save">&nbsp;
-                                        Guardar</i></button>
-                                <button type="button" class="btn btn-primary p-2 mr-2"
-                                    onclick="modelo6Editar('{{modelo6.id}}')" id="{{modelo6.id}}"
-                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger  p-2 mr-2"
-                                    onclick="modelo6Eliminar('{{modelo6.id}}')" title="Eliminar entrada"><i
-                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </form>
-                <hr>
-                {% if forloop.last %}
-                <button onclick="modelo6Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo6Crear{{numeral.id}}" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endif %}        
-                
-                {% empty %}
-                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
-                </div>
-                <button onclick="modelo6Crear({{numeral.id}},{{periodoActual.id}})"
-                    type="button" id="modelo6Crear" class="btn btn-danger"><i
-                        class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endfor %}
-            </li>
-            {% endif %}
-            <!--numeral 39 Modelo6-->
-
-        </ul>
-        <div class="col-12 d-flex justify-content-end" style="cursor: pointer;">
-            <i data-toggle="modal" data-target="#glosario" style="font-size: 20px;"
-                class="fas fa-question-circle text-dark "></i>
+            </div>
         </div>
-    </li>
+    </div>
+    <!--Fin Modal glosario-->
 
-    {% endfor %}
+    <!--Modal Multiple.-->
+    <div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accionModal"></h5>
 
-</ul>
-<!-- Modal glosario -->
-<div class="modal fade" id="glosario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Glosario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th class="text-center" colspan="2">II. FORMACIÓN DE RECURSOS HUMANOS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for glosario in glosario %}
-                        <tr>
-                            <td width=50%>{{ glosario.numerales|safe }}</td>
-                            <td width=50%>{{ glosario.explicacion|safe }}</td>
-                        </tr>
-                        {% endfor %}
+                </div>
 
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
+                <div class="modal-body">
+                    <h5 id="textoModal" class="text-center"></h5><br>
+                    <div class="d-flex justify-content-center">
+                        <i id="icono" style="font-size: 100px;" class=""></i>
+                    </div>
+                </div>
+
+                <div class="modal-footer" id="footer">
+
+                </div>
+
             </div>
         </div>
     </div>
+    <!--Fin para Modal Multiple-->
 </div>
-<!--Fin Modal glosario-->
-
-<!--Modal Multiple.-->
-<div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="accionModal"></h5>
-
-            </div>
-
-            <div class="modal-body">
-                <h5 id="textoModal" class="text-center"></h5><br>
-                <div class="d-flex justify-content-center">
-                    <i id="icono" style="font-size: 100px;" class=""></i>
-                </div>
-            </div>
-
-            <div class="modal-footer" id="footer">
-
-            </div>
-
-        </div>
-    </div>
-</div>
-<!--Fin para Modal Multiple-->
-
 <br><br>
-{% endblock %}
 
 {% block JsCode %}
+<script>
+    $(function () {
+    var Accordion = function (el, multiple) {
+        this.el = el || {};
+        this.multiple = multiple || false;
+
+        // Variables privadas
+        var links = this.el.find('.link');
+        // Evento
+        links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown)
+    }
+
+    Accordion.prototype.dropdown = function (e) {
+        var $el = e.data.el;
+        $this = $(this),
+            $next = $this.next();
+
+        $next.slideToggle();
+        $this.parent().toggleClass('open');
+
+        if (!e.data.multiple) {
+            $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+        };
+    }
+
+    var accordion = new Accordion($('#accordion'), false);
+});
+</script>
+
+
 <script>
 
     //Modelo 4

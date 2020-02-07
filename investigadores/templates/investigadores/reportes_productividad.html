@@ -1,0 +1,221 @@
+{% extends 'core/header_reportes.html' %}
+<!-- Secciones de la documentación-->
+{%block contenido%}
+<section class="container mb-4">
+
+    <nav class="nav nav-tabs d-flex justify-content-between text-center">
+
+        <a id="investigacionCientifica" class="nav-item nav-link disabled active"
+            onclick="investigacionCientifica({{periodoActual.id}})" href="#">I. Investigación<br> Cientifica.</a>
+
+        <a id="formacionRH" class="nav-item nav-link" onclick="formacion_RH({{periodoActual.id}})" href="#">II.
+            Formación de<br> RRHH.</a>
+
+        <a id="desarrolloTec" class="nav-item nav-link" onclick="desarrollo_tec_innov({{periodoActual.id}})"
+            href="#">III. Desarrollo<br> Tec. e innov.</a>
+
+        <a id="apoyoInstitucional" class="nav-item nav-link" onclick="apoyoInstitucional({{periodoActual.id}})"
+            href="#">IV. Apoyo<br> Institucional</a>
+
+        <a id="informacionAdicional" class="nav-item nav-link" onclick="informacionAdicional({{periodoActual.id}})"
+            href="#">V. Información <br>Adicional.</a>
+
+    </nav>
+</section>
+
+<div id="contenido">
+    <br>
+</div>
+
+<ul class="pagination  nav-pills justify-content-center">
+
+    <li id="investigacionCientificaPag" class="page-item active"><a class="page-link"
+            onclick="investigacionCientifica({{periodoActual.id}})">1</a></li>
+    <li id="formacionRHPag" class="page-item"><a class="page-link" onclick="formacion_RH({{periodoActual.id}})">2</a>
+    </li>
+    <li id="desarrolloTecPag" class="page-item"><a class="page-link"
+            onclick="desarrollo_tec_innov({{periodoActual.id}})">3</a></li>
+    <li id="apoyoInstitucionalPag" class="page-item"><a class="page-link"
+            onclick="apoyoInstitucional({{periodoActual.id}})">4</a></li>
+    <li id="informacionAdicionalPag" class="page-item"><a class="page-link"
+            onclick="informacionAdicional({{periodoActual.id}})">5</a></li>
+
+</ul>
+
+{%  endblock %}
+
+{% block JsCode %}
+
+<script>
+
+</script>
+
+<script>
+
+    function investigacionCientifica(periodo) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'investigadores:investigacion_cientifica' %}",
+            data: {
+                'periodoActual': periodo,
+                "csrfmiddlewaretoken": csrfmiddlewaretoken,
+            },
+            dataType: "html",
+            success: function (response) {
+                $("#numerales").remove()
+                $("#contenido").html(response);
+                //Navbar
+                $("#investigacionCientifica").addClass('disabled active')
+                $("#formacionRH").removeClass('disabled active')
+                $("#desarrolloTec").removeClass('disabled active')
+                $("#apoyoInstitucional").removeClass('disabled active')
+                $("#informacionAdicional").removeClass('disabled active')
+
+                //Paginador
+                $("#investigacionCientificaPag").addClass('active')
+                $("#formacionRHPag").removeClass('active')
+                $("#desarrolloTecPag").removeClass('active')
+                $("#apoyoInstitucionalPag").removeClass('active')
+                $("#informacionAdicionalPag").removeClass('active')
+            }
+        });
+
+    }
+
+    function formacion_RH(periodo) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'investigadores:formacion_RH' %}",
+            data: {
+                'periodoActual': periodo,
+                "csrfmiddlewaretoken": csrfmiddlewaretoken,
+            },
+            dataType: "html",
+            success: function (response) {
+                $("#numerales").remove()
+                $("#contenido").html(response);
+                //Navbar
+                $("#investigacionCientifica").removeClass('disabled active')
+                $("#formacionRH").addClass('disabled active')
+                $("#desarrolloTec").removeClass('disabled active')
+                $("#apoyoInstitucional").removeClass('disabled active')
+                $("#informacionAdicional").removeClass('disabled active')
+
+                //Paginador
+                $("#investigacionCientificaPag").removeClass('active')
+                $("#formacionRHPag").addClass('active')
+                $("#desarrolloTecPag").removeClass('active')
+                $("#apoyoInstitucionalPag").removeClass('active')
+                $("#informacionAdicionalPag").removeClass('active')
+
+            }
+        });
+
+    }
+
+    function desarrollo_tec_innov(periodo) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'investigadores:DTI' %}",
+            data: {
+                'periodoActual': periodo,
+                "csrfmiddlewaretoken": csrfmiddlewaretoken,
+            },
+            dataType: "html",
+            success: function (response) {
+                $("#numerales").remove()
+                $("#contenido").html(response);
+                //Navbar
+                $("#investigacionCientifica").removeClass('disabled active')
+                $("#formacionRH").removeClass('disabled active')
+                $("#desarrolloTec").addClass('disabled active')
+                $("#apoyoInstitucional").removeClass('disabled active')
+                $("#informacionAdicional").removeClass('disabled active')
+
+                //Paginador
+                $("#investigacionCientificaPag").removeClass('active')
+                $("#formacionRHPag").removeClass('active')
+                $("#desarrolloTecPag").addClass('active')
+                $("#apoyoInstitucionalPag").removeClass('active')
+                $("#informacionAdicionalPag").removeClass('active')
+            }
+        });
+
+
+    }
+
+    function apoyoInstitucional(periodo) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'investigadores:apoyo_institucional' %}",
+            data: {
+                'periodoActual': periodo,
+                "csrfmiddlewaretoken": csrfmiddlewaretoken,
+            },
+            dataType: "html",
+            success: function (response) {
+                $("#numerales").remove()
+                $("#contenido").html(response);
+                //Navbar
+                $("#investigacionCientifica").removeClass('disabled active')
+                $("#formacionRH").removeClass('disabled active')
+                $("#desarrolloTec").removeClass('disabled active')
+                $("#apoyoInstitucional").addClass('disabled active')
+                $("#informacionAdicional").removeClass('disabled active')
+
+                //Paginador
+                $("#investigacionCientificaPag").removeClass('active')
+                $("#formacionRHPag").removeClass('active')
+                $("#desarrolloTecPag").removeClass('active')
+                $("#apoyoInstitucionalPag").addClass('active')
+                $("#informacionAdicionalPag").removeClass('active')
+
+            }
+        });
+
+    }
+
+    function informacionAdicional(periodo) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'investigadores:informacion_adicional' %}",
+            data: {
+                'periodoActual': periodo,
+                "csrfmiddlewaretoken": csrfmiddlewaretoken,
+            },
+            dataType: "html",
+            success: function (response) {
+                $("#numerales").remove()
+                $("#contenido").html(response);
+
+                //Navbar
+                $("#investigacionCientifica").removeClass('disabled active')
+                $("#formacionRH").removeClass('disabled active')
+                $("#desarrolloTec").removeClass('disabled active')
+                $("#apoyoInstitucional").removeClass('disabled active')
+                $("#informacionAdicional").addClass('disabled active')
+
+                //Paginador
+                $("#investigacionCientificaPag").removeClass('active')
+                $("#formacionRHPag").removeClass('active')
+                $("#desarrolloTecPag").removeClass('active')
+                $("#apoyoInstitucionalPag").removeClass('active')
+                $("#informacionAdicionalPag").addClass('active')
+
+            }
+        });
+    }
+
+
+</script>
+{% endblock %}

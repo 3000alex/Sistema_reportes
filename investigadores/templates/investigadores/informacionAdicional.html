@@ -1,173 +1,203 @@
-{% extends 'core/header_reportes.html' %}
-<!--Encabezado - nav - title name-->
-{%block contenido%}
-<ul id="accordion" class="container accordion mt-2">
-    {% for numeral in numeralName %}
-    <li class="card-header">
-        <div class="link col-10">{{numeral}}<i class="fa fa-chevron-down"></i></div>
-        <ul class="submenu">
+<div id="numerales">
 
-            <!--modelo 14 numeral 61-->
-            {% if numeral.orden == 61 %}
-            <li>
-                {% for modelo14 in numeral_61 %}
+    <ul id="accordion" class="container accordion mt-2">
+        {% for numeral in numeralName %}
+        <li class="card-header">
+            <div class="link col-10">{{numeral}}<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
 
-                <form id="modelo14{{modelo14.id}}" name="numeral61" type="post" enctype="multipart/form-data">
-                    <div class="card-body">
+                <!--modelo 14 numeral 61-->
+                {% if numeral.orden == 61 %}
+                <li>
+                    {% for modelo14 in numeral_61 %}
 
-                        <div class="form-group">
-                            {% csrf_token %}
-                            <div class="form-group row">
-                                <label for="telescopio" class="col-sm-2 col-form-label">Telescopio, instrumento,
-                                    infraestructura:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="telescopio"
-                                        id="telescopioModelo14{{modelo14.id}}"
-                                        value="{% if modelo14.TelescopioInstrumentoInfra %}{{modelo14.TelescopioInstrumentoInfra}}{% endif %}">
-                                </div>
-                            </div>
+                    <form id="modelo14{{modelo14.id}}" name="numeral61" type="post" enctype="multipart/form-data">
+                        <div class="card-body">
 
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2 col-form-label">Participante(s): </label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-4" type="text" name="participantes"
-                                        id="participantesModelo14{{modelo14.id}}"
-                                        value="{% if modelo14.participantes %} {{modelo14.participantes}}{% endif %}">
+                            <div class="form-group">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    <label for="telescopio" class="col-sm-2 col-form-label">Telescopio, instrumento,
+                                        infraestructura:</label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="telescopio"
+                                            id="telescopioModelo14{{modelo14.id}}"
+                                            value="{% if modelo14.TelescopioInstrumentoInfra %}{{modelo14.TelescopioInstrumentoInfra}}{% endif %}">
+                                    </div>
                                 </div>
 
-                            </div>
 
-                            <label for="">Descripción: </label>
-                            <textarea disabled class="form-control mb-4" name="descripcion"
-                                id="descripcionModelo14{{modelo14.id}}" cols="30"
-                                rows="5">{% if modelo14.descripcion %} Descripción: {{modelo14.descripcion}} {% endif %}</textarea>
+                                <div class="form-group row">
+                                    <label for="" class="col-sm-2 col-form-label">Participante(s): </label>
+                                    <div class="col-sm-10">
+                                        <input disabled class="form-control mb-4" type="text" name="participantes"
+                                            id="participantesModelo14{{modelo14.id}}"
+                                            value="{% if modelo14.participantes %} {{modelo14.participantes}}{% endif %}">
+                                    </div>
+
+                                </div>
+
+                                <label for="">Descripción: </label>
+                                <textarea disabled class="form-control mb-4" name="descripcion"
+                                    id="descripcionModelo14{{modelo14.id}}" cols="30"
+                                    rows="5">{% if modelo14.descripcion %} Descripción: {{modelo14.descripcion}} {% endif %}</textarea>
 
 
-                            <input disabled class="form-control mb-4" type="file" name="anexo"
-                                id="anexoModelo14{{modelo14.id}}">
+                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                    id="anexoModelo14{{modelo14.id}}">
 
-                            {%if modelo14.anexoPdf %}
-                            <strong>Actualmente: </strong><a
-                                href="{{modelo14.anexoPdf.url}}">{{modelo14.anexoPdf.name}}</a>
-                            {% endif %}
+                                {%if modelo14.anexoPdf %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{modelo14.anexoPdf.url}}">{{modelo14.anexoPdf.name}}</a>
+                                {% endif %}
 
-                            <div class="justify-content-end d-flex">
-                                <button onclick="modelo14Actualizar({{modelo14.id}})" type="button"
-                                    class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
-                                        class="fas fa-save">&nbsp;
-                                        Guardar</i></button>
+                                <div class="justify-content-end d-flex">
+                                    <button onclick="modelo14Actualizar({{modelo14.id}})" type="button"
+                                        class="btn btn-success p-2 mr-2" title="Guardar cambios"><i
+                                            class="fas fa-save">&nbsp;
+                                            Guardar</i></button>
 
-                                <button type="button" class="btn btn-primary p-2 mr-2"
-                                    onclick="modelo14Editar({{modelo14.id}})" id="{{modelo14.id}}"
-                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-primary p-2 mr-2"
+                                        onclick="modelo14Editar({{modelo14.id}})" id="{{modelo14.id}}"
+                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
 
-                                <button type="button" class="btn btn-danger  p-2 mr-2"
-                                    onclick="modelo14Eliminar({{modelo14.id}})" title="Eliminar entrada"><i
-                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                    <button type="button" class="btn btn-danger  p-2 mr-2"
+                                        onclick="modelo14Eliminar({{modelo14.id}})" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
 
+
+                                </div>
 
                             </div>
 
                         </div>
-
-                    </div>
-                </form>
-                <hr>
-                    {% if forloop.last %}
-                    <button onclick="modelo14Crear({{numeral.id}},{{periodoActual.id}})"
-                        type="button" id="modelo14Crear{{numeral.id}}" class="btn btn-danger"><i
-                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                    {% endif %}        
-                    
-                {% empty %}
-                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                        <strong>
-                            <p class="text-center ">Sin entradas</p>
-                        </strong>
-                    </div>
-                    <button onclick="modelo14Crear({{numeral.id}}, {{periodoActual.id}})"
-                        type="button" id="modelo14Crear" class="btn btn-danger"><i
-                            class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                {% endfor %}
-            </li>
-            {% endif %}
-            <!--Fin Numeral 61 Modelo14-->
-        </ul>
-        <div class="col-12 d-flex justify-content-end" style="cursor: pointer;">
-            <i data-toggle="modal" data-target="#glosario" style="font-size: 20px;"
-                class="fas fa-question-circle text-dark "></i>
-        </div>
-    </li>
-
-    {% endfor %}
-</ul>
-<!-- Modal glosario -->
-<div class="modal fade" id="glosario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Glosario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    </form>
+                    <hr>
+                        {% if forloop.last %}
+                        <button onclick="modelo14Crear({{numeral.id}},{{periodoActual.id}})"
+                            type="button" id="modelo14Crear{{numeral.id}}" class="btn btn-danger"><i
+                                class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                        {% endif %}        
+                        
+                    {% empty %}
+                        <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                            <strong>
+                                <p class="text-center ">Sin entradas</p>
+                            </strong>
+                        </div>
+                        <button onclick="modelo14Crear({{numeral.id}}, {{periodoActual.id}})"
+                            type="button" id="modelo14Crear" class="btn btn-danger"><i
+                                class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    {% endfor %}
+                </li>
+                {% endif %}
+                <!--Fin Numeral 61 Modelo14-->
+            </ul>
+            <div class="col-12 d-flex justify-content-end" style="cursor: pointer;">
+                <i data-toggle="modal" data-target="#glosario" style="font-size: 20px;"
+                    class="fas fa-question-circle text-dark "></i>
             </div>
-            <div class="modal-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th class="text-center" colspan="2">V. INFORMACIÓN ADICIONAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for glosario in glosario %}
-                        <tr>
-                            <td width=50%>{{ glosario.numerales|safe }}</td>
-                            <td width=50%>{{ glosario.explicacion|safe }}</td>
-                        </tr>
-                        {% endfor %}
+        </li>
 
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Fin Modal glosario-->
+        {% endfor %}
+    </ul>
+    <!-- Modal glosario -->
+    <div class="modal fade" id="glosario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Glosario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center" colspan="2">V. INFORMACIÓN ADICIONAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for glosario in glosario %}
+                            <tr>
+                                <td width=50%>{{ glosario.numerales|safe }}</td>
+                                <td width=50%>{{ glosario.explicacion|safe }}</td>
+                            </tr>
+                            {% endfor %}
 
-<!--Modal Multiple.-->
-<div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="accionModal"></h5>
-
-            </div>
-
-            <div class="modal-body">
-                <h5 id="textoModal" class="text-center"></h5><br>
-                <div class="d-flex justify-content-center">
-                    <i id="icono" style="font-size: 100px;" class=""></i>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
                 </div>
             </div>
-
-            <div class="modal-footer" id="footer">
-
-            </div>
-
         </div>
     </div>
+    <!--Fin Modal glosario-->
+
+    <!--Modal Multiple.-->
+    <div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accionModal"></h5>
+
+                </div>
+
+                <div class="modal-body">
+                    <h5 id="textoModal" class="text-center"></h5><br>
+                    <div class="d-flex justify-content-center">
+                        <i id="icono" style="font-size: 100px;" class=""></i>
+                    </div>
+                </div>
+
+                <div class="modal-footer" id="footer">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--Fin para Modal Multiple-->
 </div>
-<!--Fin para Modal Multiple-->
-<br><br>
-{% endblock %}
+
 
 {% block JsCode %}
+
+<script>
+    $(function () {
+    var Accordion = function (el, multiple) {
+        this.el = el || {};
+        this.multiple = multiple || false;
+
+        // Variables privadas
+        var links = this.el.find('.link');
+        // Evento
+        links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown)
+    }
+
+    Accordion.prototype.dropdown = function (e) {
+        var $el = e.data.el;
+        $this = $(this),
+            $next = $this.next();
+
+        $next.slideToggle();
+        $this.parent().toggleClass('open');
+
+        if (!e.data.multiple) {
+            $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+        };
+    }
+
+    var accordion = new Accordion($('#accordion'), false);
+});
+</script>
+
+
 <script>
     //Modelo 14
     function modelo14Editar(id) {

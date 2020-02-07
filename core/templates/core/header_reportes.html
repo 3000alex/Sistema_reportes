@@ -90,7 +90,7 @@
                 <div class="col-6 col-md-6 d-flex justify-content-end">
                     <!--<p>Periodo:<br><strong>{{periodoActual}}</strong></p> !-->
                     <label class="mr-2" for="periodo">Periodo: </label>
-                    <form action="" method="POST">
+                    <form action="" method="POST"  >
                         {% csrf_token %}
                         <select onchange="this.form.submit()" class="form-control" name="periodoActual" id="periodoActual">
                             <option value="{{periodoActual.id}}">{{periodoActual.nombrePeriodo}}</option>
@@ -140,31 +140,8 @@
         </div>
     </section>
 
-    <!-- Secciones de la documentación-->
-    <section  class="container mb-4">
-
-        <nav class="nav nav-tabs d-flex justify-content-between text-center">
-
-            <a class="{% if request.path == '/reportes/investigacion-cientifica/' %}nav-item nav-link active{% else %}nav-item nav-link{% endif %}"
-                 href="{% url 'investigadores:investigacion_cientifica' %}">
-                 I. Investigación<br> Cientifica.</a>
-
-            <a class="{% if request.path == '/reportes/formacion-RH/' %}nav-item nav-link active{% else %}nav-item nav-link{% endif %}" href="{% url 'investigadores:formacion_RH' %}">
-                    II. Formación de<br>  RRHH.</a>
-
-            <a class="{% if request.path == '/reportes/desarrollo-tec-inovacion/' %}nav-item nav-link active{% else %}nav-item nav-link{% endif %}" href="{% url 'investigadores:DTI' %}">
-                III. Desarrollo<br> Tec. e innov.</a>
-
-            <a class="{% if request.path == '/reportes/apoyo-institucional/' %}nav-item nav-link active{% else %}nav-item nav-link{% endif %}" href="{% url 'investigadores:apoyo_institucional' %}"> 
-                IV. Apoyo<br> Institucional</a>
-            
-            <a class="{% if request.path == '/reportes/informacion-adicional/' %}nav-item nav-link active{% else %}nav-item nav-link{% endif %}" href="{% url 'investigadores:informacion_adicional' %}">
-                V. Información <br>Adicional.</a>
-          
-            </nav>
-    </section>
-
     {%block contenido%}
+    
     {% endblock %}
 
     <div class="modals">
@@ -242,80 +219,7 @@
         </div>
         <!--  FINModal -->
     </div>
-
-        <ul class="pagination  nav-pills justify-content-center">
-            {% if request.path == '/reportes/investigacion-cientifica/' %}
-            <li class="page-item disabled"><a class="page-link" tabindex="-1" href="#">Anterior</a></li>
-            <li class="page-item active"><a class="page-link "
-                    href="{% url 'investigadores:investigacion_cientifica' %}">1</a></li>
-            <li class="page-item"><a class="page-link" href="{% url 'investigadores:formacion_RH' %}">2</a></li>
-            <li class="page-item"><a class="page-link" href="{% url 'investigadores:DTI' %}">3</a></li>
-            <li class="page-item"><a class="page-link" href="{% url 'investigadores:apoyo_institucional' %}">4</a></li>
-            <li class="page-item"><a class="page-link" href="{% url 'investigadores:informacion_adicional' %}">5</a>
-            </li>
-            <li class="page-item"><a class="page-link" tabindex="-1"
-                    href="{% url 'investigadores:formacion_RH' %}">Siguiente</a></li>
-            {% endif %}
-
-            {% if request.path == '/reportes/formacion-RH/' %}
-            <li class="page-item"><a class="page-link" tabindex="-1"
-                    href="{% url 'investigadores:investigacion_cientifica' %}">Anterior</a></li>
-            <li class="page-item"><a class="page-link " href="{% url 'investigadores:investigacion_cientifica' %}">1</a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="{% url 'investigadores:formacion_RH' %}">2</a></li>
-            <li class="page-item"><a class="page-link" href="{% url 'investigadores:DTI' %}">3</a></li>
-            <li class="page-item"><a class="page-link" href="{% url 'investigadores:apoyo_institucional' %}">4</a></li>
-            <li class="page-item"><a class="page-link" href="{% url 'investigadores:informacion_adicional' %}">5</a>
-            </li>
-            <li class="page-item"><a class="page-link" tabindex="-1" href="{% url 'investigadores:DTI' %}">Siguiente</a>
-            </li>
-            {% endif %}
-
-            {% if request.path == '/reportes/desarrollo-tec-inovacion/' %}
-            <li class="page-item "><a class="page-link" tabindex="-1"
-                    href="{% url 'investigadores:formacion_RH' %}">Anterior</a></li>
-            <li class="page-item"><a class="page-link " href="{% url 'investigadores:investigacion_cientifica' %}">1</a>
-            </li>
-            <li class="page-item "><a class="page-link" href="{% url 'investigadores:formacion_RH' %}">2</a></li>
-            <li class="page-item active"><a class="page-link" href="{% url 'investigadores:DTI' %}">3</a></li>
-            <li class="page-item"><a class="page-link" href="{% url 'investigadores:apoyo_institucional' %}">4</a></li>
-            <li class="page-item"><a class="page-link" href="{% url 'investigadores:informacion_adicional' %}">5</a>
-            </li>
-            <li class="page-item "><a class="page-link" tabindex="-1"
-                    href="{% url 'investigadores:apoyo_institucional' %}">Siguiente</a></li>
-            {% endif %}
-
-            {% if request.path == '/reportes/apoyo-institucional/' %}
-            <li class="page-item"><a class="page-link" tabindex="-1" href="{% url 'investigadores:DTI' %}">Anterior</a>
-            </li>
-            <li class="page-item"><a class="page-link " href="{% url 'investigadores:investigacion_cientifica' %}">1</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="{% url 'investigadores:formacion_RH' %}">2</a></li>
-            <li class="page-item"><a class="page-link" href="{% url 'investigadores:DTI' %}">3</a></li>
-            <li class="page-item active"><a class="page-link"
-                    href="{% url 'investigadores:apoyo_institucional' %}">4</a></li>
-            <li class="page-item"><a class="page-link" href="{% url 'investigadores:informacion_adicional' %}">5</a>
-            </li>
-            <li class="page-item"><a class="page-link" tabindex="-1"
-                    href="{% url 'investigadores:informacion_adicional' %}">Siguiente</a></li>
-            {% endif %}
-
-            {% if request.path == '/reportes/informacion-adicional/' %}
-            <li class="page-item"><a class="page-link" tabindex="-1"
-                    href="{% url 'investigadores:apoyo_institucional' %}">Anterior</a></li>
-            <li class="page-item"><a class="page-link " href="{% url 'investigadores:investigacion_cientifica' %}">1</a>
-            </li>
-            <li class="page-item "><a class="page-link" href="{% url 'investigadores:formacion_RH' %}">2</a></li>
-            <li class="page-item"><a class="page-link" href="{% url 'investigadores:DTI' %}">3</a></li>
-            <li class="page-item "><a class="page-link" href="{% url 'investigadores:apoyo_institucional' %}">4</a></li>
-            <li class="page-item active"><a class="page-link"
-                    href="{% url 'investigadores:informacion_adicional' %}">5</a></li>
-            <li class="page-item disabled"><a class="page-link" tabindex="-1"
-                    href="{% url 'investigadores:apoyo_institucional' %}">Siguiente</a></li>
-            {% endif %}
-            
-        </ul>
-
+    
 
     <footer>
 
@@ -325,7 +229,9 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-
+        <script>
+            
+        </script>
         <script src="{% static 'core/js/activarCampos.js' %}"></script>
         <link rel="stylesheet" href="{% static 'core/css/toastr.min.css' %}">
         <script src="{% static 'core/js/toastr.min.js' %}" ></script>
@@ -333,6 +239,36 @@
         <script>
             //Control de sesion
             $(document).ready(function () {
+                var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+                var periodo = $('select[name="periodoActual"]').val().trim();
+                
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'investigadores:investigacion_cientifica' %}",
+                    data: {
+                        'periodoActual': periodo,
+                        "csrfmiddlewaretoken": csrfmiddlewaretoken,
+                    },
+                    dataType: "html",
+                    success: function (response) {
+                        $("#numerales").remove()
+                        $("#contenido").html(response);
+                        //Navbar
+                        $("#investigacionCientifica").addClass('disabled active')
+                        $("#formacionRH").removeClass('disabled active')
+                        $("#desarrolloTec").removeClass('disabled active')
+                        $("#apoyoInstitucional").removeClass('disabled active')
+                        $("#informacionAdicional").removeClass('disabled active')
+
+                        //Paginador
+                        $("#investigacionCientificaPag").addClass('active')
+                        $("#formacionRHPag").removeClass('active')
+                        $("#desarrolloTecPag").removeClass('active')
+                        $("#apoyoInstitucionalPag").removeClass('active')
+                        $("#informacionAdicionalPag").removeClass('active')
+                    }
+                });
+
                 setInterval(function () {
                     $("#accionModal").text("Sesión por caducar");
                     $("#textoModal").html(`Su sesión expira en 60 seg. <br> ¿Desea ampliarla?`);
@@ -340,7 +276,8 @@
                     $("#footer").html('<button type="button" onclick="AmpliarSesion()" class="btn btn-primary">Aceptar</button> <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button> ')
                     $("#modalDinamico").modal('show');
                 }, 540000);
-            })
+
+            });
         
             function AmpliarSesion() {
                 $.ajax({
@@ -364,6 +301,7 @@
                 });
             }
         </script>
+        
         <script>
             function enviarReporte(){
                 periodoActual = $("select[name='periodoActual']").val().trim()
