@@ -12,11 +12,15 @@ def generarPdf(request,periodo_id):
     #periodo = Periodo.objects.last()
     periodo = Periodo.objects.get(id=periodo_id) #Para obtener valores del 2019
     yearPeriodo = periodo.fechaInicio.year
- 
+    mesFin = ""
+    if periodo.fechaInicio.month == 1:
+        mesFin = "JUNIO"
+    elif periodo.fechaInicio.month == 7:
+        mesFin = "DICIEMBRE"
     
     dataReporte = {
         'fechaInicioP': periodo.fechaInicio,
-        'fechaFinP':periodo.fechaFin,
+        'mesFin':mesFin,
         'datosInvestigador': User.objects.get(id=request.user.id),
         'numeral': Numeral.objects.all(),
         'citas': Citas.objects.filter(usuario_id=request.user.id,periodo__fechaInicio__year = yearPeriodo),
