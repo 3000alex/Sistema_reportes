@@ -24,68 +24,77 @@
                 </p>
             </i>
         </div>
-        <div class="row">
-            <div class="container ">
+
+        <hr>
+        <div class="row">   
+            <form class="col-12" method="POST" action="{% url 'biblioteca:publicaciones_generales' %}">
+                {% csrf_token %}
                 <label for="autor">Búsqueda general:</label>
-                <form class="col-12" action="{% url 'biblioteca:publicaciones_author' %}">
-                    <div class="col-10 input-group">
-                        <input class="form-control" type="text" name="author" id="busquedaGeneral" class="form-control"
-                            id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
-                        <span>&nbsp;&nbsp;&nbsp;</span>
-                        <button class="mr-4 bg-primary  text-white btn btn-primary" id="inputGroupPrepend">Buscar &nbsp;
-                            <i class="fas fa-search"></i></button>
-
-                    </div>
-                </form>
-
-
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="container">
                 <div class="input-group">
-                    <div class="mt-4 col-4">
-                        <p><strong>autor</strong> Hawking, S</p>
-                        <p><strong>1er autor</strong> ^Hawking, S</p>
-                        <p><strong>año</strong> year:2012</p>
-                        <p><strong>rango</strong> year:2000-2015</p>
-                        <p><strong>abstract</strong> abs:"OAGH"</p>
-                        <p><strong>astronomía</strong> database:"astronomy"</p>
-
+                        
+                    <input class="form-control col-12" type="text" name="author" id="busquedaGeneral" class="form-control"
+                        id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                    <div class="input-group-append">
+                            <button class="text-white btn btn-primary" >Buscar &nbsp;<i class="fas fa-search"></i></button>
                     </div>
-
-                    <div class="mt-4 col-6">
-                        <strong>ejemplos:</strong>
-                        <p style="margin-left: 70px;">Haro abs:"T Tauri" year:1960-1965</p>
-                        <p style="margin-left: 70px;">^Faber author:"Dressler"</p>
-                        <p style="margin-left: 70px;">Hubble, E year:1920</p>
-                        <p style="margin-left: 70px;">author: "Smith, A" database:"astronomy"</p>
-                        <p style="margin-left: 70px;">title: "Event Horizon Telescope"</p>
-
-                    </div>
-                </div>
-
-            </div>
+                        
+                </div>  
+            </form>
         </div>
 
+        
+
+        <div class="row justify-content-center d-flex">
+                
+            <div class="mt-4 col-6">
+                <p><strong>autor</strong> Hawking, S</p>
+                <p><strong>1er autor</strong> ^Hawking, S</p>
+                <p><strong>año</strong> year:2012</p>
+                <p><strong>rango</strong> year:2000-2015</p>
+                <p><strong>abstract</strong> abs:"OAGH"</p>
+                <p><strong>astronomía</strong> database:"astronomy"</p>
+
+            </div>
+
+            <div class="mt-4 col-6">
+                <strong>ejemplos:</strong>
+                <p style="margin-left: 70px;">Haro abs:"T Tauri" year:1960-1965</p>
+                <p style="margin-left: 70px;">^Faber author:"Dressler"</p>
+                <p style="margin-left: 70px;">Hubble, E year:1920</p>
+                <p style="margin-left: 70px;">author: "Smith, A" database:"astronomy"</p>
+                <p style="margin-left: 70px;">title: "Event Horizon Telescope"</p>
+
+            </div>
+                
+        </div>
         <hr>
 
         <div class="row">
-            <form class="col-12" action="{% url 'biblioteca:publicaciones_bidcode' %}">
+            <form class="col-12" method="POST" action="{% url 'biblioteca:publicaciones_bidcode' %}">
+                {% csrf_token %}
                 <label for="bibcode">BibCode:</label>
-                <input placeholder="ejemplo: 2018MNRAS.479..917G" class="form-control" type="text" name="bibcode"
-                    id="bibcode">
-                <input class="btn btn-primary float-right btn-lg mt-3 mb-2 mr-4" type="submit" value="Buscar">
+                <div class="input-group">
+                    <input placeholder="ejemplo: 2018MNRAS.479..917G" class="form-control" type="text" name="bibcode" id="bibcode">
+                    <div class="input-group-append">
+                        <button class="text-white btn btn-primary" >Buscar &nbsp;<i class="fas fa-search"></i></button>
+                    </div>
+                </div>   
             </form>
         </div>
         <hr>
 
         <div class="row">
-            <form class="col-12" action="{% url 'biblioteca:publicaciones_orcid' %}">
+            <form class="col-12" method="POST" action="{% url 'biblioteca:publicaciones_orcid' %}">
+                {% csrf_token %}
                 <label for="orcid">ORCID:</label>
-                <input placeholder="0000-0002-3642-9146" class="form-control" value="{{user.orcId}}" type="text"
+                <div class="input-group">
+                    <input placeholder="0000-0002-1825-0097" class="form-control" value="{{user.orcId}}" type="text"
                     name="orcid" id="orcid">
+                    <div class="input-group-append">
+                        <button class="text-white btn btn-primary" >Buscar &nbsp;<i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                
 
                 {% if user.orcId == "" %}
                 <small> &nbsp;&nbsp; No tiene asignado ningun orcid en su <a
@@ -93,7 +102,7 @@
 
                 {% endif %}
 
-                <input class="btn btn-primary float-right btn-lg mt-3 mb-2 mr-4" type="submit" value="Buscar">
+                
             </form>
         </div>
         <hr>

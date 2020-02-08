@@ -9,7 +9,7 @@ bibliotecapatterns = ([
     path('editar-biblioteca/', views.editar_biblioteca.as_view(), name="editar-biblioteca"),
     path('eliminar-biblioteca', views.eliminar_biblioteca.as_view(), name="eliminar-biblioteca"),
     #Rutas de API ADS
-    path('publicaciones-author/', views.publicaciones_author.as_view(), name="publicaciones_author"),
+    path('publicaciones-generales/', views.publicaciones_generales.as_view(), name="publicaciones_generales"),
     path('publicaciones-bidcode/',views.publicaciones_bidcode.as_view(), name="publicaciones_bidcode"),
     path('publicaciones-orcid/',views.publicaciones_orcid.as_view(),name="publicaciones_orcid"),
     path('agregar-biblioteca/',views.agregar_biblioteca.as_view(), name="agregar-biblioteca"),

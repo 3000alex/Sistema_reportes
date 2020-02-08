@@ -48,8 +48,8 @@
 
     <!-- Modal UPDATE-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content ">
                 <div class="modal-header">
                     <h5 class="modal-title" id="myModalLabel">Editar investigador</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -68,7 +68,7 @@
                             <input id="form-Email" type="email" name="formEmail" class="form-control"
                                 aria-label="Username" aria-describedby="basic-addon1" required>
                         </div>
-                        <small class="form-text text-muted mb-3">Su usuario debe ser su correo electronico</small>
+                        <small class="form-text text-muted mb-3">El usuario debe ser el correo electrónico institucional del investigador.</small>
 
                         <label for="apellidos">Apellido(s):</label>
                         <div class="input-group mb-3">
@@ -90,12 +90,13 @@
                         </div>
 
                         <label for="apellidos">Nombre corto:</label>
-                        <div class="input-group mb-3">
+                        <div class="input-group ">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                             </div>
-                            <input id="form-NombreCorto" type="text" name="formNombreCorto" class="form-control"
-                                aria-label="Username" aria-describedby="basic-addon1">
+                            
+                            <input id="form-NombreCorto" type="text" name="formNombreCorto" class="form-control" data-toggle="popover" title="Acerca de" 
+                                aria-label="Username" aria-describedby="basic-addon1" placeholder="Nombre corto">
                         </div>
 
                     </div>
@@ -111,7 +112,7 @@
 
     <!-- Modal ADD-->
     <div class="modal fade" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="myModalLabel">Agregar Investigador</h5>
@@ -132,7 +133,7 @@
                             <input type="email" name="email" placeholder="Usuario" class="form-control"
                                 aria-label="Username" aria-describedby="basic-addon1" required>
                         </div>
-                        <small class="form-text text-muted mb-3">Su usuario debe ser su correo electronico</small>
+                        <small class="form-text text-muted mb-3">El usuario debe ser el correo electrónico institucional del investigador.</small>
 
                         <label for="apellidos">Apellido(s):</label>
                         <div class="input-group mb-3">
@@ -158,7 +159,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" name="nombreCorto" class="form-control" aria-label="Username"
+                            <input type="text" name="nombreCorto" class="form-control" aria-label="Username" data-toggle="popover" title="Acerca de" 
                                 aria-describedby="basic-addon1" placeholder="Nombre corto">
                         </div>
 
@@ -239,6 +240,22 @@
 <!--JS Code-->
 {% block JsCode %}
 <script>
+
+    //Popovers
+    $(function () {
+        $('[data-toggle="popover"]').popover({
+            trigger: 'hover',
+            html: true,
+            content: `<small class="form-text text-muted mb-3">
+                        <p>Cómo será identificado el investigador en el Reporte Maestro. <br>
+                            Formato sugerido: Apellido(s), N. <br>
+                            Ejemplo: López-Hernández, M.</p>
+                        <p>NOTA: El texto antes de la coma se usará para identificar en negrita
+                            al investigador en el Reporte Maestro</p> 
+                        </small>`
+        })
+        
+    })
     // Delete Item 
     function EliminarUsuarioModal(id) {
         $('#eliminarUsuario').modal('show'); // abrir

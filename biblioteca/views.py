@@ -30,13 +30,7 @@ class biblioteca_personal(ListView):
 class busqueda_biblioteca(ListView):
 
     def get(self,request):
-
-        try:
-            user = User.objects.get(id=request.user.id)            
-        except:
-            if not orcid:
-                user = "No se ha asignado un Orcid"
-
+        user = User.objects.get(id=request.user.id)   
         return render(request,"biblioteca/busqueda_biblioteca.html",{"user":user})
 
 @method_decorator(login_required, name='dispatch')
@@ -76,24 +70,24 @@ class eliminar_biblioteca(View):
         return JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
-class publicaciones_author(ListView):
-    def get(self,request):
+class publicaciones_generales(View):
+    def post(self,request):
         # Obtenemos valores de busqueda
-        query = request.GET['author']
+        query = request.POST.get('author')
 
          # determinamos nuestro token de busqueda
         ads.config.token = '71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7'
         # traemoes el modelo de biblioteca para validar si esta en biblioteca o no.j
         articulos = Biblioteca.objects.filter(user_id=request.user.id)
 
-        data =  list(ads.SearchQuery(q=query,rows=1000))  # Buscar por autor
+        data =  list(ads.SearchQuery(q=query,fl='title,pubdate,author',rows=1000))  # Buscar por autor
 
         return render(request, 'biblioteca/publicaciones.html', {'data': data, 'articulos': articulos})
 
 @method_decorator(login_required, name='dispatch')       
-class publicaciones_bidcode(ListView):
-    def get(self,request):
-        query_bidcode = request.GET['bibcode']
+class publicaciones_bidcode(View):
+    def post(self,request):
+        query_bidcode = request.POST.get('bibcode')
         # determinamos nuestro token de busqueda
         ads.config.token = '71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7'
         data = list(ads.SearchQuery(q=query_bidcode,rows=1000))  # Buscar por bidcode
@@ -102,9 +96,9 @@ class publicaciones_bidcode(ListView):
         return render(request, 'biblioteca/publicaciones.html', {'data': data, 'articulos': articulos})
 
 @method_decorator(login_required, name='dispatch')
-class publicaciones_orcid(ListView):
+class publicaciones_orcid(View):
     def get(self,request):
-        query_orcid = request.GET['orcid']
+        query_orcid = request.POST.get('orcid')
         # determinamos nuestro token de busqueda
         ads.config.token = '71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7'
         data = list(ads.SearchQuery(orcid=query_orcid,rows=1000))  # Buscar por orcid
@@ -115,97 +109,63 @@ class publicaciones_orcid(ListView):
 
 
 class agregar_biblioteca(View):
-    def get(self,request):
+    def post(self,request):
         #Obtenemos valores de bidcodes a buscar
-        bibcodes = request.GET.getlist("seleccion[]") #Obtenemos bibcodes seleccionados en el template publicacones
+        bibcodes = request.POST.getlist("seleccion[]") #Obtenemos bibcodes seleccionados en el template publicacones
         ads.config.token = '71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7' #Configuramos el token de ADS para las consultas
-        id1 = request.user.id #Obtenemos el ID del usuario para fitrar los articulos que se encuentran en la base y para despues guardarlos en la biblioteca personal
-        articulo = Biblioteca.objects.filter(user_id = request.user.id)  #Obtenemos articulos guardados en base de datos
-        
-        bibcodeBD = [] #Bibcodes que se encuentran en la base de datos
+        articulos = Biblioteca.objects.filter(user_id = request.user.id)  #Obtenemos articulos guardados en base de datos
         consulta = [] #Se almacenan los bibcodes que no estan duplicados en la BD y que se agregaran a biblioteca
-        titulo = [] #
-        fecha = [] 
-        autores = []
-        bibcode = []
-        doi = []
-        revista = []
-        paginas = []
-        volumen = []
-        url = []
-        autorAux = "" #variable concatenadora de autores de los articulos
 
-        #Se guarda en un array los bibcodes que estan en la BD.
-        for a in articulo:
-            bibcodeBD.append(a.bibcode)
-
-        #Se recorren los bibcodes que el usuario quiere agregar a la BD y se compara que no se encuentre en la BD para evitar entradas dobles, a su vez se guardan en
-        # 'consulta' los bibcodes que se buscaran y agregaran a la BD
         for b in bibcodes:
-            if b not in bibcodeBD:
+            if b not in articulos:
                 consulta.append(b)
         
-        #Recorremos los bibcodes que se almacenaran y buscamos los atributos correspondientes
-        for b in consulta:
-            data = ads.SearchQuery(q=b,rows=1000)
-                
+        for bibcode in consulta:
+            data = ads.SearchQuery(q=bibcode,fl='title,pubdate,author,doi,page,volume,pub',rows=1000)
+
             for dato in data:
                 #Iteramos el titulo y lo agregamos al arreglo que tiene los titulos
-                for t in dato.title:
-                    titulo.append(t)
-
-                bibcode.append(dato.bibcode)#Agregamos al arreglo el bibcode correspondiente al articulo
-                revista.append(dato.pub) #Agregamos al arreglo la revista donde fue publicada correspondiente al articulo
-
-                if dato.page: #Evaluamos si el articulo tiene paginas 
-                    p = ''.join(dato.page)   # Si el articulo tiene paginas se itera y se agrega al arreglo si no se rellena con un campo vacio
-                    paginas.append(p) 
+                
+                titulo = dato.title[0]
+                bibcode = bibcode  # Agregamos al arreglo el bibcode correspondiente al articulo
+                revista = dato.pub  # Agregamos al arreglo la revista donde fue publicada correspondiente al articulo
+                volumen = dato.volume  # Agregamos al arreglo el volumen  correspondiente al articulo
+                autores = '; '.join(dato.author)
+                
+                if dato.doi:
+                    doi = dato.doi[0]  # Si el articulo tiene un doi relacionado se itera y se agrega al arreglo si no se rellena con un campo vacio
                 else:
-                    paginas.append('')
-               
-                if dato.volume:
-                    volumen.append(dato.volume) #Agregamos al arreglo el volumen  correspondiente al articulo
+                    doi = ""
+                
+                if dato.page:
+                    paginas = dato.page[0]
                 else:
-                    volumen.append('')
+                    paginas = ""
+
                 #Guardamos en la variable fechaBD la fecha que nos devuelve la API en formato YYYY-MM-DD (Donde solo nos devuelve YYYY-MM y DD por default es 00)
                 fechaBD = dato.pubdate
-                temp = len(fechaBD) #Determinamos la longitud de la fecha recibida
-                fechaBD = fechaBD[:temp -3 ] 
-                f = datetime.strptime(fechaBD,"%Y-%m") #Damos formato correcto a la fecha 
-                fecha.append(f) #Procedemos a agregar la fecha al arreglo correspondiente al articulo
+                temp = len(fechaBD)  # Determinamos la longitud de la fecha recibida
+                fechaBD = fechaBD[:temp - 3 ] 
+                f = datetime.strptime(fechaBD, "%Y-%m") #Damos formato correcto a la fecha
+                fecha = f  # Procedemos a agregar la fecha al arreglo correspondiente al articulo
 
-                #Iteramos el los autores 
-                for d in dato.author:
-                    autorAux = autorAux + d + '; ' #Cambiamos el formato que nos regresa la API/NASA para que los autores sean separados por ;
-                temp = len(autorAux) #Comprobamos la longitud de la cadena de autores generada
-                autorAux = autorAux[:temp -2] #Eliminamos los ultimos caracteres de la cadena correspondientes a un ; y un " "
-                autores.append(autorAux) #Procedemos a agregar los autores al arreglo correspondiente al articulo
-                autorAux = "" #Limpiamos la variable concatenadora
+                    
+                url = 'https://ui.adsabs.harvard.edu/abs/' + bibcode + '/abstract'
 
-                
-                if dato.doi: #Evaluamos si el articulo tiene un doi relacionado
-                    for d in dato.doi: # Si el articulo tiene un doi relacionado se itera y se agrega al arreglo si no se rellena con un campo vacio
-                        doi.append(d)
-                else:
-                    doi.append("")
-                
-                url.append('https://ui.adsabs.harvard.edu/abs/' +dato.bibcode+ '/abstract')
-                
-        #Agregamos los articulos a la base de datos iterando un range en len(titulo) el cual nos regresara cuantos titulos hay que agregar e iterar.
-        for i in range(len(titulo)):
-
-            obj = Biblioteca.objects.create(
-                fecha = fecha[i],
-                bibcode = bibcode[i],
-                titulo = titulo[i],
-                autores = autores[i],
-                revistaPublicacion = revista[i],
-                paginas = paginas[i],
-                volumen = volumen[i],
-                doi = doi[i],
-                url = url[i],
-                user_id = id1
-            )
-            obj.save()    
+                obj = Biblioteca.objects.create(
+                    fecha = fecha,
+                    bibcode = bibcode,
+                    titulo = titulo,
+                    autores = autores,
+                    revistaPublicacion = revista,
+                    paginas = paginas,
+                    volumen = volumen,
+                    doi = doi,
+                    url = url,
+                    user_id = request.user.id
+                )
+                obj.save()  
+                    
+            
         messages.success(request,'<strong>Publicaciones importadas correctamente.<br> Favor de editar la información de sus publicaciones: cuartil, estudiantes, congresos, etc.</strong>')
-        return redirect("biblioteca:biblioteca_personal") 
+        return redirect("biblioteca:biblioteca_personal")
