@@ -20,7 +20,7 @@ class nuevo_periodo(View):
         else: 
             nombrePeriodo = str(dateNow.year)+"B: "+"ene-dic"
         
-        p = Periodo.objects.create(nombrePeriodo="Prueba")#nombrePeriodo)
+        p = Periodo.objects.create(nombrePeriodo=nombrePeriodo)
         
         for user in usuarios:
             
@@ -46,5 +46,3 @@ class nuevo_periodo(View):
             )
             email_message.content_subtype = 'html'
             email_message.send()
-
-        return HttpResponse("El nombre del periodo es: "+nombrePeriodo+"Periodo"+str(p)+"creado")
