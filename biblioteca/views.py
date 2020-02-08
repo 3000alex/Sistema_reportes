@@ -90,7 +90,7 @@ class publicaciones_bidcode(View):
         query_bidcode = request.POST.get('bibcode')
         # determinamos nuestro token de busqueda
         ads.config.token = '71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7'
-        data = list(ads.SearchQuery(q=query_bidcode,fl='title,year,bibcode,author',rows=1000))  # Buscar por bidcode
+        data = list(ads.SearchQuery(bibcode=query_bidcode,fl='title,year,bibcode,author',rows=1000))  # Buscar por bidcode
         articulos = Biblioteca.objects.filter(user_id=request.user.id) # Filtramos articulos para validar si existen en la biblioteca
         # Pasamos como 3 parametro un diccionario (json) con el contenido
         return render(request, 'biblioteca/publicaciones.html', {'data': data, 'articulos': articulos})
@@ -121,7 +121,7 @@ class agregar_biblioteca(View):
                 consulta.append(b)
         
         for bibcode in consulta:
-            data = ads.SearchQuery(q=bibcode,fl='title,pubdate,author,doi,page,volume,pub',rows=1000)
+            data = ads.SearchQuery(bibcode=bibcode,fl='title,pubdate,author,doi,page,volume,pub',rows=1000)
 
             for dato in data:
                 #Iteramos el titulo y lo agregamos al arreglo que tiene los titulos
@@ -157,6 +157,7 @@ class agregar_biblioteca(View):
                 
                     
                 url = 'https://ui.adsabs.harvard.edu/abs/' + bibcode + '/abstract'
+                
 
                 obj = Biblioteca.objects.create(
                     fecha = fecha,
