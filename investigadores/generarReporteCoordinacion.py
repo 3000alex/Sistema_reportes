@@ -11,10 +11,7 @@ def generarPdf(request,periodo_id):
     template = get_template('investigadores/templateReporte.html')
     #periodo = Periodo.objects.last()
     periodo = Periodo.objects.get(id=periodo_id) #Para obtener valores del 2019
-
     yearPeriodo = periodo.fechaInicio.year
-    monthPeriodoInicio = periodo.fechaInicio.month
-    monthPeriodoFin = periodo.fechaFin.month
  
     
     dataReporte = {
@@ -22,30 +19,30 @@ def generarPdf(request,periodo_id):
         'fechaFinP':periodo.fechaFin,
         'datosInvestigador': User.objects.get(id=request.user.id),
         'numeral': Numeral.objects.all(),
-        'citas': Citas.objects.filter(usuario_id=request.user.id,periodo_id = periodo.id),
-        'biblioteca': Biblioteca.objects.filter( user_id=request.user.id, fecha__year=yearPeriodo, fecha__month__range=[monthPeriodoInicio, monthPeriodoFin]),
-        'modelo1': Modelo1.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-        'modelo2': Modelo2.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-        'modelo3': Modelo3.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
+        'citas': Citas.objects.filter(usuario_id=request.user.id,periodo__fechaInicio__year = yearPeriodo),
+        'biblioteca': Biblioteca.objects.filter( user_id=request.user.id, fecha_ano=yearPeriodo),
+        'modelo1': Modelo1.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
+        'modelo2': Modelo2.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
+        'modelo3': Modelo3.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
             
         #Formacion_RH
-        'modelo4': Modelo4.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-        'modelo5': Modelo5.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-        'modelo6':Modelo6.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
+        'modelo4': Modelo4.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
+        'modelo5': Modelo5.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
+        'modelo6':Modelo6.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
         #Desarrollo Tec. Inn.
-        'modelo7': Modelo7.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-        'modelo8': Modelo8.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-        'modelo9': Modelo9.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
+        'modelo7': Modelo7.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
+        'modelo8': Modelo8.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
+        'modelo9': Modelo9.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
             
         #Apoyo Institucional
-        'modelo10': Modelo10.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-        'modelo11': Modelo11.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-        'modelo12': Modelo12.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-        'modelo13': Modelo13.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
+        'modelo10': Modelo10.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
+        'modelo11': Modelo11.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
+        'modelo12': Modelo12.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
+        'modelo13': Modelo13.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
         #Informacion Adicional
-        'modelo14': Modelo14.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-        'modelo15': Modelo15.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
-        'modelo16': Modelo16.objects.filter(usuario_id=request.user.id, periodo_id = periodo.id),
+        'modelo14': Modelo14.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
+        'modelo15': Modelo15.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
+        'modelo16': Modelo16.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
     }
     html = template.render(dataReporte)
 

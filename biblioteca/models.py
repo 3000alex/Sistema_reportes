@@ -13,7 +13,8 @@ class Biblioteca(models.Model):
     )
 
     user = models.ForeignKey(User,null=True,blank=True, on_delete=models.CASCADE)
-    fecha  = models.DateField(verbose_name="Fecha", null=True, blank=True)
+    fecha  = models.CharField(max_length=50,verbose_name="Fecha", null=True, blank=True)
+    fecha_ano = models.CharField(max_length=50,verbose_name="Fecha", null=True, blank=True)
     numeral = models.ForeignKey(Numeral, null=True, blank=True, on_delete=models.CASCADE)
     doi = models.CharField(max_length=100,verbose_name="doi", null=True,blank=True)
     bibcode = models.CharField(max_length=80, verbose_name="bibcode", null=True, blank=True)

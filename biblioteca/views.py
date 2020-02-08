@@ -80,7 +80,7 @@ class publicaciones_generales(View):
         # traemoes el modelo de biblioteca para validar si esta en biblioteca o no.j
         articulos = Biblioteca.objects.filter(user_id=request.user.id)
 
-        data =  list(ads.SearchQuery(q=query,fl='title,pubdate,author',rows=1000))  # Buscar por autor
+        data =  list(ads.SearchQuery(q=query,fl='title,year,bibcode,author',rows=1000))  # Buscar por autor
 
         return render(request, 'biblioteca/publicaciones.html', {'data': data, 'articulos': articulos})
 
@@ -90,7 +90,7 @@ class publicaciones_bidcode(View):
         query_bidcode = request.POST.get('bibcode')
         # determinamos nuestro token de busqueda
         ads.config.token = '71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7'
-        data = list(ads.SearchQuery(q=query_bidcode,rows=1000))  # Buscar por bidcode
+        data = list(ads.SearchQuery(q=query_bidcode,fl='title,year,bibcode,author',rows=1000))  # Buscar por bidcode
         articulos = Biblioteca.objects.filter(user_id=request.user.id) # Filtramos articulos para validar si existen en la biblioteca
         # Pasamos como 3 parametro un diccionario (json) con el contenido
         return render(request, 'biblioteca/publicaciones.html', {'data': data, 'articulos': articulos})
@@ -101,13 +101,13 @@ class publicaciones_orcid(View):
         query_orcid = request.POST.get('orcid')
         # determinamos nuestro token de busqueda
         ads.config.token = '71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7'
-        data = list(ads.SearchQuery(orcid=query_orcid,rows=1000))  # Buscar por orcid
+        data = list(ads.SearchQuery(orcid=query_orcid,fl='title,year,bibcode,author',rows=1000))  # Buscar por orcid
         articulos = Biblioteca.objects.filter(user_id=request.user.id)
 
         # Pasamos como 3 parametro un diccionario (json) con el contenido
         return render(request, 'biblioteca/publicaciones.html', {'data': data, 'articulos': articulos})
 
-
+@method_decorator(login_required, name='dispatch')
 class agregar_biblioteca(View):
     def post(self,request):
         #Obtenemos valores de bidcodes a buscar
@@ -144,11 +144,17 @@ class agregar_biblioteca(View):
 
                 #Guardamos en la variable fechaBD la fecha que nos devuelve la API en formato YYYY-MM-DD (Donde solo nos devuelve YYYY-MM y DD por default es 00)
                 fechaBD = dato.pubdate
-                temp = len(fechaBD)  # Determinamos la longitud de la fecha recibida
-                fechaBD = fechaBD[:temp - 3 ] 
-                f = datetime.strptime(fechaBD, "%Y-%m") #Damos formato correcto a la fecha
-                fecha = f  # Procedemos a agregar la fecha al arreglo correspondiente al articulo
+                temp = len(fechaBD)  # Determinamos la longitud de la fecha recibida | 2019-00-00
 
+                try:
+                    fecha = fechaBD[:temp - 3 ] 
+                    datetime.strptime(fecha, "%Y-%m") #Damos formato correcto a la fecha
+                    fecha = fecha.replace('-','/')
+                    fecha_ano = fecha[:temp - 6 ]
+                except:
+                    fecha = fechaBD[:temp - 6 ]
+                    fecha_ano = fecha
+                
                     
                 url = 'https://ui.adsabs.harvard.edu/abs/' + bibcode + '/abstract'
 
@@ -162,6 +168,7 @@ class agregar_biblioteca(View):
                     volumen = volumen,
                     doi = doi,
                     url = url,
+                    fecha_ano = fecha_ano,
                     user_id = request.user.id
                 )
                 obj.save()  

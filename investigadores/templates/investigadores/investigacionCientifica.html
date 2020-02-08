@@ -72,7 +72,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Fecha:</label>
                                     <div class="col-sm-10">
                                         <input maxlength="7" disabled class="form-control mb-4" type="text"
-                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}"
                                             name="fecha" id="fecha{{biblioteca.id}}"
                                             placeholder="Ingrese la fecha en formato YYYY/MM">
                                     </div>
@@ -198,7 +198,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Fecha:</label>
                                     <div class="col-sm-10">
                                         <input maxlength="7" disabled class="form-control mb-4" type="text"
-                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}"
                                             name="fecha" id="fecha{{biblioteca.id}}"
                                             placeholder="Ingrese la fecha en formato YYYY/MM">
                                     </div>
@@ -324,7 +324,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Fecha:</label>
                                     <div class="col-sm-10">
                                         <input maxlength="7" disabled class="form-control mb-4" type="text"
-                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}"
                                             name="fecha" id="fecha{{biblioteca.id}}"
                                             placeholder="Ingrese la fecha en formato YYYY/MM">
                                     </div>
@@ -455,7 +455,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Fecha:</label>
                                     <div class="col-sm-10">
                                         <input maxlength="7" disabled class="form-control mb-4" type="text"
-                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}"
                                             name="fecha" id="fecha{{biblioteca.id}}"
                                             placeholder="Ingrese la fecha en formato YYYY/MM">
                                     </div>
@@ -586,7 +586,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Fecha:</label>
                                     <div class="col-sm-10">
                                         <input maxlength="7" disabled class="form-control mb-4" type="text"
-                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}"
                                             name="fecha" id="fecha{{biblioteca.id}}"
                                             placeholder="Ingrese la fecha en formato YYYY/MM">
                                     </div>
@@ -828,7 +828,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Fecha:</label>
                                     <div class="col-sm-10">
                                         <input maxlength="7" disabled class="form-control mb-4" type="text"
-                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}"
                                             name="fecha" id="fecha{{biblioteca.id}}"
                                             placeholder="Ingrese la fecha en formato YYYY/MM">
                                     </div>
@@ -1063,7 +1063,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Fecha:</label>
                                     <div class="col-sm-10">
                                         <input maxlength="7" disabled class="form-control mb-4" type="text"
-                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}"
                                             name="fecha" id="fecha{{biblioteca.id}}"
                                             placeholder="Ingrese la fecha en formato YYYY/MM">
                                     </div>
@@ -1296,7 +1296,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Fecha:</label>
                                     <div class="col-sm-10">
                                         <input maxlength="7" disabled class="form-control mb-4" type="text"
-                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}"
                                             name="fecha" id="fecha{{biblioteca.id}}"
                                             placeholder="Ingrese la fecha en formato YYYY/MM">
                                     </div>
@@ -1426,7 +1426,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Fecha:</label>
                                     <div class="col-sm-10">
                                         <input maxlength="7" disabled class="form-control mb-4" type="text"
-                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}"
                                             name="fecha" id="fecha{{biblioteca.id}}"
                                             placeholder="Ingrese la fecha en formato YYYY/MM">
                                     </div>
@@ -1555,7 +1555,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Fecha:</label>
                                     <div class="col-sm-10">
                                         <input maxlength="7" disabled class="form-control mb-4" type="text"
-                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}"
                                             name="fecha" id="fecha{{biblioteca.id}}"
                                             placeholder="Ingrese la fecha en formato YYYY/MM">
                                     </div>
@@ -1685,7 +1685,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Fecha:</label>
                                     <div class="col-sm-10">
                                         <input maxlength="7" disabled class="form-control mb-4" type="text"
-                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}"
                                             name="fecha" id="fecha{{biblioteca.id}}"
                                             placeholder="Ingrese la fecha en formato YYYY/MM">
                                     </div>
@@ -1746,7 +1746,7 @@
                 <!--Numeral 14a desde biblioteca-->
                 {% if numeral.orden == 14.1 %}
                 <li>
-                    {% for biblioteca in numeral_15 %}
+                    {% for biblioteca in numeral_14a %}
     
                     <form id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
                         <div class="card-body">
@@ -1814,7 +1814,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Fecha:</label>
                                     <div class="col-sm-10">
                                         <input maxlength="7" disabled class="form-control mb-4" type="text"
-                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha|date:'Y/m'}}{% endif %}"
+                                            value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}"
                                             name="fecha" id="fecha{{biblioteca.id}}"
                                             placeholder="Ingrese la fecha en formato YYYY/MM">
                                     </div>
@@ -3692,15 +3692,6 @@
     
                         </div>
                     </form>
-                    {% empty %}
-                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                        <strong>
-                            <p class="text-center ">Sin entradas</p>
-                        </strong>
-                    </div>
-                    <button onclick="citasCrear({{numeral.id}}, {{periodoActual.id}})"
-                        type="button" id="CitasCrear" class="btn btn-danger"><i
-                            class="fas fa-plus-circle"></i> Generar Campos</button>
                     {% endfor %}
     
                 </li>
@@ -4802,65 +4793,7 @@
         $("#anexoCitas" + id).prop("disabled", true);
 
     }
-    function citasCrear(numeral,periodo){
-        $.ajax({
-            type: "GET",
-            url: '{% url "investigadores:crear-citas" %}',
-            data: {
-                "numeral": numeral,
-                "periodo":periodo,
-            },
-            dataType: "Json",
-            success: function (response) {
-                toastr.success('Entrada creada', 'Operacion exitosa')
-                $("#sinEntradas"+numeral).remove()
-                dibujarcitas(response)
-            }
-        });
 
-    }
-    function dibujarcitas(response){
-        $("#CitasCrear").before(
-            `
-            <form id="campo${response.id}" enctype="multipart/form-data">
-                <div class="card-body">
-
-                    <div class="form-group">
-                        {% csrf_token %}
-                        <label for="">Citas totales:</label>
-                        <input disabled class="form-control mb-2" type="number"
-                            value="" name="citas" id="citas${response.id}">
-
-                        <label for="">Citas obtenidas durante el periodo del reporte</label>
-                        <input disabled class="form-control mb-2" type="number"
-                            value="" name="citasPeriodo" id="citasPeriodo${response.id}">
-
-                    </div>
-
-                    <div class="form-group">
-                        <p>30a. índice H:</p>
-                        <input disabled class="form-control mb-4"
-                            value="" type="number" name="indiceH" id="indiceH${response.id}">
-                    </div>
-
-                    <input disabled class="form-control mb-4" type="file" name="anexo" id="anexoCitas${response.id}">
-                    {%if campo.anexoPdf %}
-                        <strong>Actualmente: </strong><a href="{{campo.anexoPdf.url}}">{{campo.anexoPdf.name}}</a>
-                    {% endif %}
-
-                    <div class="justify-content-end d-flex">
-                        <button onclick="citasActualizar('${response.id}')" type="button" class="btn btn-success mr-2"
-                            title="Guardar cambios"><i class="fas fa-save">&nbsp;
-                                Guardar</i></button>
-                        <button type="button" class="btn btn-primary" onclick="citasEditar('${response.id}')"
-                                id="" title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                    </div>
-
-                </div>
-             </form>
-            `);
-            $("#CitasCrear").remove()
-    }
     function citasActualizar(id) {
         var formData = new FormData(document.getElementById("campo" + id))
         formData.append("id", id);

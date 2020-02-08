@@ -77,37 +77,37 @@ class investigacion_cientifica(View):
         yearPeriodo = periodoActual.fechaInicio.year
         data = {
             "numeralName": Numeral.objects.filter(nombreDeSeccion="Investigacion Cientifica"),
-            'numeral_1': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=1, fecha__year=yearPeriodo),
-            'numeral_2': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=2, fecha__year=yearPeriodo), 
-            'numeral_3': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=3, fecha__year=yearPeriodo),
-            'numeral_4': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=4, fecha__year=yearPeriodo),
-            'numeral_5': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=5, fecha__year=yearPeriodo), 
-            'numeral_6': Modelo1.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=6),
-            'numeral_7': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=7, fecha__year=yearPeriodo), 
-            'numeral_8': Modelo1.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=8),
-            'numeral_9': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=9, fecha__year=yearPeriodo),
-            "numeral_10": Modelo1.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=10),
-            'numeral_11': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=11, fecha__year=yearPeriodo), 
-            'numeral_12': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=12, fecha__year=yearPeriodo),
-            'numeral_13': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=13, fecha__year=yearPeriodo), 
-            'numeral_14': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=14, fecha__year=yearPeriodo), 
-            'numeral_14a': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=15, fecha__year=yearPeriodo),
-            'numeral_15': Modelo1.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=16),
-            'numeral_16':Modelo1.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=17),
-            'numeral_17':Modelo1.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=18),
-            'numeral_18':Modelo2.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=19),
-            'numeral_19':Modelo2.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=20),
-            'numeral_20':Modelo2.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=21),
-            'numeral_21':Modelo2.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=22),
-            'numeral_22':Modelo2.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=23),
-            'numeral_23':Modelo1.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=24),
-            'numeral_24':Modelo3.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=25),
-            'numeral_25':Modelo3.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=26),
-            'numeral_26':Modelo3.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=27),
-            'numeral_27':Modelo3.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=28),
-            'numeral_28':Modelo3.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=29),
-            'numeral_29':Modelo3.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=30),
-            'citas': Citas.objects.filter(usuario_id=request.user.id, periodo=periodoActual), #Id - 31
+            'numeral_1': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=1, fecha_ano=yearPeriodo),
+            'numeral_2': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=2, fecha_ano=yearPeriodo), 
+            'numeral_3': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=3, fecha_ano=yearPeriodo),
+            'numeral_4': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=4, fecha_ano=yearPeriodo),
+            'numeral_5': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=5, fecha_ano=yearPeriodo), 
+            'numeral_6': Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=6, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_7': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=7, fecha_ano=yearPeriodo), 
+            'numeral_8': Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=8, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_9': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=9, fecha_ano=yearPeriodo),
+            "numeral_10": Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=10, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_11': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=11, fecha_ano=yearPeriodo), 
+            'numeral_12': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=12, fecha_ano=yearPeriodo),
+            'numeral_13': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=13, fecha_ano=yearPeriodo), 
+            'numeral_14': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=14, fecha_ano=yearPeriodo), 
+            'numeral_14a': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=15, fecha_ano=yearPeriodo),
+            'numeral_15': Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=16, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_16':Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=17, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_17':Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=18, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_18':Modelo2.objects.filter(usuario_id=request.user.id, numeral_id=19, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_19':Modelo2.objects.filter(usuario_id=request.user.id, numeral_id=20, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_20':Modelo2.objects.filter(usuario_id=request.user.id, numeral_id=21, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_21':Modelo2.objects.filter(usuario_id=request.user.id, numeral_id=22, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_22':Modelo2.objects.filter(usuario_id=request.user.id, numeral_id=23, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_23':Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=24, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_24':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=25, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_25':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=26, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_26':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=27, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_27':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=28, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_28':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=29, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_29':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=30, periodo__fechaInicio__year = yearPeriodo),
+            'citas': Citas.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo), #Id - 31
             'glosario': Glosario.objects.filter(seccion="I. INVESTIGACIÓN CIENTÍFICA"),
             'periodoActual': periodoActual,'periodos':periodos
         }
@@ -120,17 +120,18 @@ class formacion_RH(View):
         id1 = request.POST.get('periodoActual')
         periodoActual = Periodo.objects.get(id = id1)
         periodos = Periodo.objects.all()
+        yearPeriodo = periodoActual.fechaInicio.year
         data = {
             'numeralName': Numeral.objects.filter(nombreDeSeccion="Formacion de Recursos Humanos"),
-            'numeral_31': Modelo4.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=32),
-            'numeral_32': Modelo4.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=33),
-            'numeral_33': Modelo4.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=34),
-            'numeral_34': Modelo4.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=35),
-            'numeral_35': Modelo5.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=36),
-            'numeral_36': Modelo5.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=37),
-            'numeral_37': Modelo6.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=38),
-            'numeral_38': Modelo16.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=39),
-            'numeral_39': Modelo6.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=40),
+            'numeral_31': Modelo4.objects.filter(usuario_id=request.user.id, numeral_id=32, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_32': Modelo4.objects.filter(usuario_id=request.user.id, numeral_id=33, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_33': Modelo4.objects.filter(usuario_id=request.user.id, numeral_id=34, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_34': Modelo4.objects.filter(usuario_id=request.user.id, numeral_id=35, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_35': Modelo5.objects.filter(usuario_id=request.user.id, numeral_id=36, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_36': Modelo5.objects.filter(usuario_id=request.user.id, numeral_id=37, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_37': Modelo6.objects.filter(usuario_id=request.user.id, numeral_id=38, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_38': Modelo16.objects.filter(usuario_id=request.user.id,numeral_id=39, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_39': Modelo6.objects.filter(usuario_id=request.user.id, numeral_id=40, periodo__fechaInicio__year = yearPeriodo),
             "glosario": Glosario.objects.filter(seccion="II. FORMACIÓN DE RECURSOS HUMANOS"),
             "periodoActual": periodoActual,'periodos':periodos
             }
@@ -143,15 +144,16 @@ class desarrollo_tec_inovacion(View):
         id1 = request.POST.get('periodoActual')
         periodoActual = Periodo.objects.get(id = id1)
         periodos = Periodo.objects.all()
+        yearPeriodo = periodoActual.fechaInicio.year
         data = {
             "numeralName": Numeral.objects.filter(nombreDeSeccion="Desarrollo Tecnologico e Innovacion"), 
-            'numeral_40': Modelo7.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=41),
-            'numeral_41': Modelo7.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=42),
-            'numeral_42': Modelo7.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=43),
-            'numeral_43': Modelo7.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=44),
-            'numeral_44': Modelo7.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=45),
-            'numeral_45': Modelo8.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=46),
-            'numeral_46': Modelo9.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=47),
+            'numeral_40': Modelo7.objects.filter(usuario_id=request.user.id,numeral_id=41, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_41': Modelo7.objects.filter(usuario_id=request.user.id,numeral_id=42, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_42': Modelo7.objects.filter(usuario_id=request.user.id,numeral_id=43, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_43': Modelo7.objects.filter(usuario_id=request.user.id,numeral_id=44, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_44': Modelo7.objects.filter(usuario_id=request.user.id,numeral_id=45, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_45': Modelo8.objects.filter(usuario_id=request.user.id,numeral_id=46, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_46': Modelo9.objects.filter(usuario_id=request.user.id,numeral_id=47, periodo__fechaInicio__year = yearPeriodo),
             'glosario':  Glosario.objects.filter(seccion="III. DESARROLLO TECNOLÓGICO E INNOVACIÓN(agregar patentes en REGISTRO)"),
             'periodoActual': periodoActual,'periodos':periodos
             }
@@ -164,25 +166,26 @@ class apoyo_institucional(View):
         id1 = request.POST.get('periodoActual')
         periodoActual = Periodo.objects.get(id = id1)
         periodos = Periodo.objects.all()
+        yearPeriodo = periodoActual.fechaInicio.year
         data = {
             "numeralName": Numeral.objects.filter(nombreDeSeccion="Apoyo Institucional"),
-            'numeral_47': Modelo15.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=48),
-            'numeral_48': Modelo9.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=49),
-            'numeral_49': Modelo10.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=50),
-            'numeral_49a': Modelo10.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=51),
-            'numeral_49b': Modelo10.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=52),
-            'numeral_50': Modelo10.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=53),
-            'numeral_51': Modelo10.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=54),
-            'numeral_52': Modelo10.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=55),
-            'numeral_52a': Modelo10.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=56),
-            'numeral_53': Modelo11.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=57),
-            'numeral_54': Modelo11.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=58),
-            'numeral_55': Modelo11.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=59),
-            'numeral_56': Modelo11.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=60),
-            'numeral_57': Modelo15.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=61),
-            'numeral_58': Modelo12.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=62),
-            'numeral_59': Modelo13.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=63),
-            'numeral_60': Modelo15.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=64),
+            'numeral_47': Modelo15.objects.filter(usuario_id=request.user.id, numeral_id=48, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_48': Modelo9.objects.filter(usuario_id=request.user.id ,numeral_id=49, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_49': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=50, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_49a': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=51, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_49b': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=52, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_50': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=53, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_51': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=54, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_52': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=55, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_52a': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=56, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_53': Modelo11.objects.filter(usuario_id=request.user.id, numeral_id=57, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_54': Modelo11.objects.filter(usuario_id=request.user.id, numeral_id=58, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_55': Modelo11.objects.filter(usuario_id=request.user.id, numeral_id=59, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_56': Modelo11.objects.filter(usuario_id=request.user.id, numeral_id=60, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_57': Modelo15.objects.filter(usuario_id=request.user.id, numeral_id=61, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_58': Modelo12.objects.filter(usuario_id=request.user.id, numeral_id=62, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_59': Modelo13.objects.filter(usuario_id=request.user.id, numeral_id=63, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_60': Modelo15.objects.filter(usuario_id=request.user.id, numeral_id=64, periodo__fechaInicio__year = yearPeriodo),
             'glosario': Glosario.objects.filter(seccion="IV. APOYO INSTITUCIONAL"), 
             'periodoActual': periodoActual,'periodos':periodos
             }
@@ -195,9 +198,10 @@ class informacion_adicional(View):
         id1 = request.POST.get('periodoActual')
         periodoActual = Periodo.objects.get(id = id1)
         periodos = Periodo.objects.all()
+        yearPeriodo = periodoActual.fechaInicio.year
         data = {
             'numeralName': Numeral.objects.filter(nombreDeSeccion="Informacion Adicional"),
-            'numeral_61': Modelo14.objects.filter(usuario_id=request.user.id, periodo=periodoActual,numeral_id=65),
+            'numeral_61': Modelo14.objects.filter(usuario_id=request.user.id,numeral_id=65, periodo__fechaInicio__year = yearPeriodo),
             'glosario': Glosario.objects.filter(seccion="V. INFORMACIÖN ADICIONAL"), 
             'periodoActual': periodoActual,'periodos':periodos
             }
@@ -219,7 +223,9 @@ class actualizarBiblioteca(View):
         doi = request.POST.get('doi', None)
         fecha = request.POST.get('fecha', None)
         bibcode = request.POST.get('bibcode', None)
-
+        temp = len(fecha)
+        fecha_ano = fecha[:temp - 3 ]
+        
         # Actualizamos biblioteca
         obj = Biblioteca.objects.get(id=id1)
         obj.autores = autor
@@ -227,8 +233,9 @@ class actualizarBiblioteca(View):
         obj.revista_Publicacion = revista
         obj.estudiantesEnArticulo = estudiantes
         obj.doi = doi
-        obj.fecha = datetime.strptime(fecha, "%Y/%m")
+        obj.fecha = fecha
         obj.url = url
+        obj.fecha_ano = fecha_ano
         obj.bibcode = bibcode
         # Subir archivos
         if request.FILES:
@@ -1333,7 +1340,7 @@ class crearModelo16(View):
         return JsonResponse(data)
 
 
-class enviarReporte(View):
+class enviarReporte(View): #Verificar Zip Filtros estan mal
     def get(self, request, *args, **kwargs):
         periodo_id = request.GET.get('periodoActual',None)
         html = generarPdf(request,periodo_id)
