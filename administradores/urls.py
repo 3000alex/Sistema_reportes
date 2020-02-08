@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . import nuevoPeriodo as n
 
 
 administradorespatterns = ([ 
@@ -19,6 +20,9 @@ administradorespatterns = ([
 
     #Enviar correo 
     path('administrador/correoBienvenida/',views.correoBienvenida.as_view(), name="correoBienvenida"),
+
+    #Nuevo periodo
+    path('administrador/periodoNuevo', n.nuevo_periodo.as_view(), name='nuevo_periodo'),
 
     
 ],'administradores')

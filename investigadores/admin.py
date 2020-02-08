@@ -13,7 +13,7 @@ class PersonalizarReportesEnviados(admin.ModelAdmin):
     list_display = ('usuario','reporte','anexo','fechaCreacion')
 
 class PersonalizarPeriodo(admin.ModelAdmin):
-    list_display = ('nombrePeriodo','fechaInicio','fechaFin')
+    list_display = ('nombrePeriodo','fechaInicio')
 
 admin.site.register(Numeral)
 

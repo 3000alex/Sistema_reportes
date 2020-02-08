@@ -4,5 +4,6 @@ register = template.Library()
 
 @register.filter(name='nombreCorto')
 def nombreCorto(cadenaAutores,nombreC):
-    autores = cadenaAutores.replace(nombreC,'<strong>{nombreC}</strong>')
-    return str(autores.format(nombreC=nombreC))
+    nombre = nombreC.split(",")
+    autores = cadenaAutores.replace(nombre[0],'<strong>{nombre}</strong>')
+    return str(autores.format(nombre=nombre[0]))

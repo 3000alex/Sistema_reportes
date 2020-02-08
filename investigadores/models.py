@@ -64,8 +64,7 @@ class Glosario(models.Model):
 
 class Periodo(models.Model):
     nombrePeriodo = models.CharField(max_length=150, verbose_name="Nombre del periodo")
-    fechaInicio = models.DateTimeField(verbose_name="Fecha del inicio de periodo")
-    fechaFin = models.DateTimeField(verbose_name="Fecha del fin de periodo")
+    fechaInicio = models.DateTimeField(verbose_name="Fecha del inicio de periodo",auto_now_add=True)
     class Meta:
         verbose_name="Periodo del reporte"
         verbose_name_plural = "Periodos de los reportes"

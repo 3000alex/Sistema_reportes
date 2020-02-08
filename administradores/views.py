@@ -83,9 +83,15 @@ class UsuarioAgregar(StaffRequiredMixin, View):
         lastName1 = request.POST.get('apellido', None)
         password1 =  get_random_string(length=20)
         nombreCorto1 = request.POST.get('nombreCorto',None)
+        periodos = Periodo.objects.all()
         # Crear objeto
         userNew = User.objects.create_user(
             username=username1, email=email1, password=password1, first_name=first_name1, last_name=lastName1, nombreCorto=nombreCorto1)
+        
+        for p in periodos:
+            Citas.objects.create(
+                numeral_id = 31, periodo_id = p.id, usuario_id = userNew.id
+            )
 
         body = render_to_string(
             'administradores/templateBienvenida.html', {
