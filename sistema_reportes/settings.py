@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,7 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*','califa.inaoep.mx']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,6 +41,7 @@ INSTALLED_APPS = [
     'investigadores',
     'biblioteca',
     'metricas',
+    'reporteSNI',
 ]
 
 AUTH_USER_MODEL = 'registration.User'
@@ -76,7 +75,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'sistema_reportes.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -141,14 +139,12 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'core/static/core','static_admin')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'core/static/core')
 ]
 
 #Media ruta
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
@@ -159,7 +155,6 @@ EMAIL_HOST_USER = 'reportes-astro'
 EMAIL_HOST_PASSWORD = 'Th3.4astr0.r3ports'
 EMAIL_PORT = 25
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
 DEFAULT_FROM_EMAIL = 'reportes-astro' #Email que permite reenviar la contraseña si es olvidada
 
 #variables de Sesion
