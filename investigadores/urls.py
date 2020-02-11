@@ -17,7 +17,7 @@ investigadorespatterns = ([
     
     #reporte de productividad
     path('generarReporte/',vista.generarReporte.as_view(), name="generarReporte"),
-    path('reportesEnviaros/', vista.reportesEnviados.as_view(), name="reportesEnviados"),
+    path('reportesEnviados/', vista.reportesEnviados.as_view(), name="reportesEnviados"),
     path('descargarReportesEnviado',vista.descargarReporteEnviado.as_view(), name="descargarReporte"),
     #Biblioteca añadir Q1,Q2,Q3,Q4
     path('BibliotecaCrearNumeral/',vista.BibliotecaCrearNumeral.as_view(), name="BibliotecaCrearNumeral"),

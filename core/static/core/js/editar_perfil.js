@@ -35,7 +35,14 @@ $(document).ready(function () {
     });
 
     $("#editarPerfilAdm").click(function(){
-        $('#id_correoAlternativo').prop('disabled',false);
+        $('#correoAlternativo').prop('disabled',false);
+        $('#guardar').prop('disabled',false);
+        $(this).prop("disabled",true);
+    });
+
+    $("#guardar").click(function(){
+        $('#correoAlternativo').prop('disabled',true);
+        $('#editarPerfilAdm').prop('disabled',false);
         $(this).prop("disabled",true);
     });
 });

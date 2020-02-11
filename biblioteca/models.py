@@ -25,7 +25,7 @@ class Biblioteca(models.Model):
     paginas = models.CharField(max_length=150, blank=True,null=True)
     volumen = models.CharField(max_length=150, blank=True,null=True)
     url = models.CharField(max_length=550, blank=True,null=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF",  upload_to='anexos/pdfs/',  blank=True)
+    anexos = models.FileField(verbose_name="archivo PDF",  upload_to='anexos/',  blank=True)
     
 
     class Meta:

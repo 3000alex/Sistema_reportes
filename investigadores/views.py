@@ -240,11 +240,11 @@ class actualizarBiblioteca(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id, 'autores': obj.autores, 'titulo': obj.titulo,
@@ -297,11 +297,11 @@ class actualizarModelo1(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         data = {'id': obj.id}  # Json que se enviara a Data
@@ -314,8 +314,8 @@ class eliminarModelo1(View):
         id1 = request.POST.get('id', None)
 
         obj = Modelo1.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo1.objects.get(id=id1).delete()
 
         data = {
@@ -364,11 +364,11 @@ class actualizarModelo2(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -385,8 +385,8 @@ class eliminarModelo2(View):
         print(id1)
 
         obj = Modelo2.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo2.objects.get(id=id1).delete()
 
         data = {
@@ -441,11 +441,11 @@ class actualizarModelo3(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -460,8 +460,8 @@ class eliminarModelo3(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         obj = Modelo3.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo3.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -502,11 +502,11 @@ class actualizarCitas(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
         user = {'id': obj.id}  # Json que se enviara a Data
 
@@ -554,11 +554,11 @@ class actualizarModelo4(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -573,8 +573,8 @@ class eliminarModelo4(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         obj = Modelo4.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo4.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -617,11 +617,11 @@ class actualizarModelo5(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -636,8 +636,8 @@ class eliminarModelo5(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         obj = Modelo5.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo5.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -685,11 +685,11 @@ class actualizarModelo6(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -704,8 +704,8 @@ class eliminarModelo6(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         obj = Modelo6.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo6.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -747,11 +747,11 @@ class actualizarModelo7(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -766,8 +766,8 @@ class eliminarModelo7(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         obj = Modelo7.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo7.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -810,11 +810,11 @@ class actualizarModelo8(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -829,8 +829,8 @@ class eliminarModelo8(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         obj = Modelo8.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo8.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -877,11 +877,11 @@ class actualizarModelo9(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -896,8 +896,8 @@ class eliminarModelo9(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         obj = Modelo9.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo9.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -941,11 +941,11 @@ class actualizarModelo10(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -960,8 +960,8 @@ class eliminarModelo10(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         obj = Modelo10.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo10.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -1003,11 +1003,11 @@ class actualizarModelo11(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -1022,8 +1022,8 @@ class eliminarModelo11(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         obj = Modelo11.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo11.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -1061,11 +1061,11 @@ class actualizarModelo12(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -1080,8 +1080,8 @@ class eliminarModelo12(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         obj = Modelo12.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo12.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -1120,11 +1120,11 @@ class actualizarModelo13(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -1139,8 +1139,8 @@ class eliminarModelo13(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         obj = Modelo13.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo13.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -1179,14 +1179,14 @@ class actualizarModelo14(View):
         obj.TelescopioInstrumentoInfra = telescopio
         obj.descripcion = descripcion
         obj.participantes = participantes
-        #obj.anexoPdf = archivo
+        
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + obj.anexoPdf.url))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + obj.anexos.url))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -1236,11 +1236,11 @@ class actualizarModelo15(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -1255,8 +1255,8 @@ class eliminarModelo15(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         obj = Modelo15.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo15.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -1293,11 +1293,11 @@ class actualizarModelo16(View):
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
-            if obj.anexoPdf:
-                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
-                obj.anexoPdf = archivo
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
             else:
-                obj.anexoPdf = archivo
+                obj.anexos = archivo
         obj.save()
 
         user = {'id': obj.id}  # Json que se enviara a Data
@@ -1312,8 +1312,8 @@ class eliminarModelo16(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         obj = Modelo16.objects.get(id=id1)
-        if obj.anexoPdf:
-            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexoPdf.name))
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         Modelo16.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -1340,9 +1340,30 @@ class crearModelo16(View):
         return JsonResponse(data)
 
 
-class enviarReporte(View): #Verificar Zip Filtros estan mal
+class enviarReporte(View): 
     def get(self, request, *args, **kwargs):
         periodo_id = request.GET.get('periodoActual',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+        yearPeriodo = periodo.fechaInicio.year
+        anexoModelo1 = Modelo1.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo2 = Modelo2.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo3 = Modelo3.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo4 = Modelo4.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo5 = Modelo5.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo6 = Modelo6.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo7 = Modelo7.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo8 = Modelo8.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo9 = Modelo9.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo10 = Modelo10.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo11 = Modelo11.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo12 = Modelo12.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo13 = Modelo13.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo14 = Modelo14.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo15 = Modelo15.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoModelo16 = Modelo16.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoBiblioteca = Biblioteca.objects.exclude(anexos = "", fecha_ano=yearPeriodo)
+        anexoCitas = Citas.objects.exclude(anexos = "",periodo__fechaInicio__year = yearPeriodo)
+
         html = generarPdf(request,periodo_id)
         
         options = {
@@ -1361,6 +1382,7 @@ class enviarReporte(View): #Verificar Zip Filtros estan mal
         data = {
             'periodo':periodo,
         }
+        """
         #Email para investigador
         body = render_to_string(
             'investigadores/templateReportesFinalizadoUsuario.html', {
@@ -1407,7 +1429,7 @@ class enviarReporte(View): #Verificar Zip Filtros estan mal
         mensajeCordinacion.attach(adjunto)
         #Enviamos email
         mensajeCordinacion.send()
-
+        """
         #Guardamos reporte en BD
         reporte,creado = ReporteEnviado.objects.get_or_create(periodo_id = periodo_id, usuario_id = request.user.id)
         
@@ -1422,63 +1444,63 @@ class enviarReporte(View): #Verificar Zip Filtros estan mal
         reporte.reporte.save('Reporte '+periodo+' '+str(reporte.id)+'.pdf', ContentFile(pdf), save=False)
         
         #Genera Zip con anexos
-        anexoModelo1 = Modelo1.objects.exclude(anexoPdf = "")
-        anexoModelo2 = Modelo2.objects.exclude(anexoPdf = "")
-        anexoModelo3 = Modelo3.objects.exclude(anexoPdf = "")
-        anexoModelo4 = Modelo4.objects.exclude(anexoPdf = "")
-        anexoModelo5 = Modelo5.objects.exclude(anexoPdf = "")
-        anexoModelo6 = Modelo6.objects.exclude(anexoPdf = "")
-        anexoModelo7 = Modelo7.objects.exclude(anexoPdf = "")
-        anexoModelo8 = Modelo8.objects.exclude(anexoPdf = "")
-        anexoModelo9 = Modelo9.objects.exclude(anexoPdf = "")
-        anexoModelo10 = Modelo10.objects.exclude(anexoPdf = "")
-        anexoModelo11 = Modelo11.objects.exclude(anexoPdf = "")
-        anexoModelo12 = Modelo12.objects.exclude(anexoPdf = "")
-        anexoModelo13 = Modelo13.objects.exclude(anexoPdf = "")
-        anexoModelo14 = Modelo14.objects.exclude(anexoPdf = "")
-        anexoModelo15 = Modelo15.objects.exclude(anexoPdf = "")
-        anexoModelo16 = Modelo16.objects.exclude(anexoPdf = "")
-        anexoBiblioteca = Biblioteca.objects.exclude(anexoPdf = "")
-        anexoCitas = Citas.objects.exclude(anexoPdf = "")
-        
         anexoZip = zipfile.ZipFile('media/anexos_zip/anexo.zip',mode='w', compression=zipfile.ZIP_DEFLATED)
+
         
         for anexo in anexoModelo1:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)
         for anexo in anexoModelo2:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)            
         for anexo in anexoModelo3:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)            
         for anexo in anexoModelo4:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)            
         for anexo in anexoModelo5:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)            
         for anexo in anexoModelo6:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)            
         for anexo in anexoModelo7:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)            
         for anexo in anexoModelo8:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)            
         for anexo in anexoModelo9:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)            
         for anexo in anexoModelo10:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)            
         for anexo in anexoModelo11:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)            
         for anexo in anexoModelo12:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)            
         for anexo in anexoModelo13:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)            
         for anexo in anexoModelo14:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)            
         for anexo in anexoModelo15:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)
         for anexo in anexoModelo16:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)
         for anexo in anexoCitas:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)
         for anexo in anexoBiblioteca:
-            anexoZip.write(anexo.anexoPdf.path)
+            if anexo:
+                anexoZip.write('media/'+anexo.anexos.name)
 
         anexoZip.close()
         reporte.anexo.save("Anexo "+periodo+' '+str(reporte.id)+".zip", ContentFile(open('media/anexos_zip/anexo.zip','rb').read()))

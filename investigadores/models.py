@@ -84,7 +84,7 @@ class Modelo1(models.Model):
     url = models.CharField(max_length=100,verbose_name="url del articulo", blank=True)
     estudiantesEnArticulo = models.CharField(max_length=250,verbose_name="Nombre de los estudiantes en el articulo", blank=True)
     doi = models.CharField(max_length=150,verbose_name="Nombre de doi", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF",  upload_to='anexos/pdfs/', null=True)
+    anexos = models.FileField(verbose_name="archivo PDF",  upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
 
@@ -106,7 +106,7 @@ class Modelo2(models.Model):
     participantes = models.TextField(max_length=500,verbose_name="participantes",blank=True)
     estudiantes = models.CharField(max_length=10000,verbose_name="estudiantes",blank=True)
     responsableTecParticipante = models.CharField(max_length=500,verbose_name="responsable,tecnico o participante", blank=True,choices=ResponsableSelect)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/', null=True)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
 
@@ -131,7 +131,7 @@ class Modelo3(models.Model):
     estudiantes = models.CharField(max_length=10000,verbose_name="Nombre de los estudiantes", blank=True)
     doi = models.CharField(max_length=500,verbose_name="DOI/ISBN", blank=True)
     url = models.CharField(max_length=500,verbose_name="Nombre de la url", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/', null=True)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
     class Meta:
@@ -151,7 +151,7 @@ class Modelo4(models.Model):
     tituloTesis = models.CharField(max_length=500,verbose_name="Titulo de tesis", blank=True)
     fecha = models.CharField(max_length=500,verbose_name="fecha", blank=True)
     url = models.CharField(max_length=500,verbose_name="link de la url", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/', null=True)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
     class Meta:
@@ -170,7 +170,7 @@ class Modelo5(models.Model):
     nombreCurso = models.CharField(max_length=500,verbose_name="Nombre del Curso", blank=True)
     periodoNumeral = models.CharField(max_length=500,verbose_name="Periodo del numeral", blank=True)
     notas = models.CharField(max_length=500,verbose_name="Notas", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/', blank=True,)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', blank=True,)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
     class Meta:
@@ -192,7 +192,7 @@ class Modelo6(models.Model):
     institucion = models.CharField(max_length=500,verbose_name="Institucion", blank=True)
     fecha = models.CharField(max_length=500,verbose_name="fecha", blank=True)
     notas = models.CharField(max_length=500,verbose_name="notas", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/',null=True)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/',null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
 
@@ -212,7 +212,7 @@ class Modelo7(models.Model):
     autores = models.TextField(max_length=15000,verbose_name="autores", blank=True)
     descripcion = models.TextField(max_length=15000,verbose_name="descripcion", blank=True)
     url = models.CharField(max_length=500,verbose_name="url", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/', null=True)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
     class Meta:
@@ -232,7 +232,7 @@ class Modelo8(models.Model):
     descripcion = models.TextField(max_length=15000,verbose_name="descripcion", blank=True)
     participantes = models.TextField(max_length=500,verbose_name="participantes", blank=True)
     url = models.CharField(max_length=500,verbose_name="url", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/',null=True)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/',null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
     class Meta:
@@ -254,7 +254,7 @@ class Modelo9(models.Model):
     fecha = models.CharField(max_length=500,verbose_name="fecha", blank=True)
     url = models.CharField(max_length=500,verbose_name="url", blank=True)
     revistaPublicacion = models.CharField(max_length=500,verbose_name="revista o publicacion", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/', null=True)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
     class Meta:
@@ -274,7 +274,7 @@ class Modelo10(models.Model):
     fecha = models.CharField(max_length=500,verbose_name="fecha", blank=True)
     url = models.CharField(max_length=500,verbose_name="url", blank=True)
     periodoNumeral = models.CharField(max_length=500,verbose_name="periodo", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/',null=True)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/',null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
     class Meta:
@@ -293,7 +293,7 @@ class Modelo11(models.Model):
     nombreEstudiante = models.CharField(max_length=500,verbose_name="Nombre del estudiante", blank=True)
     descripcion = models.TextField(max_length=15000,verbose_name="Descripcion", blank=True)
     fecha = models.CharField(max_length=500,verbose_name="Fecha", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/', null=True)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
     class Meta:
@@ -310,7 +310,7 @@ class Modelo12(models.Model):
     numeral = models.ForeignKey(Numeral, null=True,blank=True, on_delete=models.CASCADE)
     periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     laboratorioTaller = models.CharField(max_length=500,verbose_name="Laboratorio o taller", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/',null=True, )
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/',null=True, )
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion", blank=True)
     
     class Meta:
@@ -328,7 +328,7 @@ class Modelo13(models.Model):
     periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     descripcion = models.TextField(max_length=15000,verbose_name="Descripcion", blank=True)
     agenciasFinancieras = models.CharField(max_length=500,verbose_name="Agencias Financieras", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/', null=True)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
     class Meta:
@@ -347,7 +347,7 @@ class Modelo14(models.Model):
     descripcion = models.TextField(max_length=15000,verbose_name="Descripcion", blank=True)
     TelescopioInstrumentoInfra = models.CharField(max_length=500,verbose_name="Opciones", blank=True)
     participantes = models.CharField(max_length=500,verbose_name="Participaciones", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/', null=True)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
     class Meta:
@@ -364,7 +364,7 @@ class Modelo15(models.Model):
     numeral = models.ForeignKey(Numeral, null=True,blank=True, on_delete=models.CASCADE)
     periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     descripcion = models.TextField(max_length=15000,verbose_name="descripcion", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/', null=True)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion", blank=True)
     
     class Meta:
@@ -381,7 +381,7 @@ class Modelo16(models.Model):
     numeral = models.ForeignKey(Numeral, null=True,blank=True, on_delete=models.CASCADE)
     periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     nombreEstudiante = models.CharField(max_length=500,  verbose_name="Nombre de estudiantes", blank=True)
-    anexoPdf = models.FileField(verbose_name="archivo PDF", upload_to='anexos/pdfs/', null=True, blank=True)
+    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True, blank=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion", blank=True)
 
     class Meta:
@@ -392,7 +392,6 @@ class Modelo16(models.Model):
     def __str__(self):
         return self.numeral.nombre
 
-
 class Citas(models.Model):
     usuario = models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE)
     numeral = models.ForeignKey(Numeral, null=True,blank=True, on_delete=models.CASCADE)
@@ -400,7 +399,7 @@ class Citas(models.Model):
     citas = models.CharField(verbose_name="Citas", max_length=10, blank=True)
     citasObtenidasEnPeriodo = models.CharField(verbose_name="Citas durante periodo del reporte", blank=True,max_length=10)
     indiceH = models.CharField(verbose_name="Indice H",  blank=True, max_length=3)
-    anexoPdf = models.FileField(verbose_name="archivo PDF",  null=True, upload_to='anexos/pdfs/')
+    anexos = models.FileField(verbose_name="archivo PDF",  null=True, upload_to='anexos/')
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
     class Meta:

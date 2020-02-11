@@ -10,7 +10,6 @@ from django.contrib import messages
 from django.core.mail import send_mail
 # Modelos y forms
 from registration.models import User
-from .forms import RegisterForm, CorreoAlternativo
 from investigadores.models import Modelo1, Modelo2, Modelo3, Modelo4, Modelo5, Modelo6, Modelo7, Modelo8, Modelo9, Modelo10, Modelo11, Modelo12, Modelo13, Modelo14, Modelo15
 from investigadores.models import ReporteEnviado,Periodo,Numeral
 from investigadores.models import Citas
@@ -167,17 +166,20 @@ class home_adm(StaffRequiredMixin, TemplateView):
     template_name = 'administradores/home_adm.html'
 
 
-class perfil_adm(StaffRequiredMixin, SuccessMessageMixin, UpdateView):
+class perfil_adm(StaffRequiredMixin, View):
     
-    form_class = CorreoAlternativo
-    template_name = 'administradores/perfil_adm.html'
-    success_url = reverse_lazy('administradores:home-adm')
-    success_message = '<div class="alert alert-success" role="alert"><strong>Perfil actualizado correctamente</strong></div>'
-
-    def get_object(self):
-        user, created = User.objects.get_or_create(
-            id=self.request.user.id)
-        return user
+    def get(self,request):
+        perfil = User.objects.get(id=request.user.id)
+        data = {'perfil':perfil}
+        return render(request,'administradores/perfil_adm.html',data)
+    
+    def post(self,request):
+        correoAlternativo = request.POST.get('correoAlternativo',None)
+        obj = User.objects.get(id = request.user.id)
+        obj.correoAlternativo = correoAlternativo
+        obj.save()
+        data = {'cambio':True}
+        return JsonResponse(data)
 
 
 class reportes_adm(StaffRequiredMixin,View):
@@ -198,6 +200,7 @@ class reportes_adm(StaffRequiredMixin,View):
         periodos = Periodo.objects.all()
         periodo_id = request.POST.get('periodo_id',None)
         periodoActual = Periodo.objects.get(id=periodo_id)
+
         reportes = ReporteEnviado.objects.filter(periodo_id=periodoActual)
         data = {
             'periodos':periodos,
@@ -209,13 +212,13 @@ class reportes_adm(StaffRequiredMixin,View):
     
 class reporteMaestro(View):
 
-    periodo = Periodo.objects.last() #-> Verificar porque no deja migrar
-
-    def get(self, request):
+    def post(self, request):
+        periodo_id = request.POST.get('periodoActual',None)
+        periodoActual = Periodo.objects.get(id=periodo_id)
         #Reporte maestro:
-        reporte = Reporte(request)
+        reporte = Reporte(request,periodo_id)
         response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-        response['Content-Disposition'] = 'attachment; filename=Reporte Maestro %s.docx' %(self.periodo.nombrePeriodo)
+        response['Content-Disposition'] = 'attachment; filename=Reporte Maestro %s.docx' %(periodoActual.nombrePeriodo)
         reporte.save(response)
         
         return response

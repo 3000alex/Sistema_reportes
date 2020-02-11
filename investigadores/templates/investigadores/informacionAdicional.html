@@ -46,9 +46,9 @@
                                 <input disabled class="form-control mb-4" type="file" name="anexo"
                                     id="anexoModelo14{{modelo14.id}}">
 
-                                {%if modelo14.anexoPdf %}
+                                {%if modelo14.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo14.anexoPdf.url}}">{{modelo14.anexoPdf.name}}</a>
+                                    href="{{modelo14.anexos.url}}">{{modelo14.anexos.name}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">

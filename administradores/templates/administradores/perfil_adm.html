@@ -12,14 +12,15 @@
               <fieldset>
                 <legend>Campos de perfil:</legend>
                 <div class="form-group">
-                   {{ form }}
+                   <label for="correoAlternativo">Correo Alternativo</label>
+                   <input disabled placeholder="Ingrese un correo alternativo" type="email" class="form-control" id="correoAlternativo" value="{{perfil.correoAlternativo}}">
                    <br>Si deseas cambiar la contraseña haz click <a href="{% url 'password_change' %}">aquí.</a></p>
                 </div>
               </fieldset>
               
  
               <div class="form-group">
-                <button id="guardar" type="submit" class="btn ml-2 float-right btn-success"><i class="fas fa-save"> &nbsp; Guardar Cambios</i></button>
+                <button disabled id="guardar" type="button" class="btn ml-2 float-right btn-success"><i class="fas fa-save"> &nbsp; Guardar Cambios</i></button>
                 <button type="button" class="btn btn-primary" id="editarPerfilAdm"><i class="fas fa-edit">&nbsp;Editar</i></button>
               </div>
 
@@ -28,4 +29,27 @@
         <div class="w-100 pb-2"></div>
 
     </section>
+{% endblock %}
+
+
+{% block JsCode %}
+<script>
+  $('#guardar').click(function(){
+    var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+    var correo = $('#correoAlternativo').val().trim();
+    $.ajax({
+      type: "POST",
+      url: "{% url 'administradores:perfil_adm' %}",
+      data: {
+        'csrfmiddlewaretoken': csrfmiddlewaretoken,
+        'correoAlternativo':correo,
+
+      },
+      dataType: "JSON",
+      success: function (response) {
+        toastr.success('Correo cambiado','Operación exitosa');
+      }
+    });
+  });
+</script>
 {% endblock %}

@@ -5,7 +5,12 @@
 
     <div class="container mb-4 dataT" style="padding-top: 250px;">
         <div class="reporte-maestro">
-            <a href="{%  url 'administradores:reporteMaestro' %}" class="btn btn-success">Reporte Maestro</a>
+            <form action="{%  url 'administradores:reporteMaestro' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" value="{{periodoActual.id}}" name="periodoActual">
+                <button onclick="this.form.submit()" class="btn btn-success"><i style="font-size: 20px;" class="far fa-file-word"></i>&nbsp; Reporte Maestro</button>
+            </form>
+            
         </div>
         <div class="row">
             <div class="col-12 d-flex justify-content-start justify-content-sm-end" >
@@ -59,4 +64,25 @@
     
     </section>
     
+{% endblock %}
+
+<!--JS Code-->
+{% block JsCode %}
+<script>
+
+    function reporteMaestro(periodo){
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            type: "POST",
+            url: "{%  url 'administradores:reporteMaestro' %}",
+            data: {
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+                'periodoActual':periodo,
+            },
+            dataType: "Json"
+        });
+    }
+    
+
+</script>
 {% endblock %}
