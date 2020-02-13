@@ -1382,7 +1382,7 @@ class enviarReporte(View):
         data = {
             'periodo':periodo,
         }
-        
+        """
         #Email para investigador
         body = render_to_string(
             'investigadores/templateReportesFinalizadoUsuario.html', {
@@ -1429,7 +1429,7 @@ class enviarReporte(View):
         mensajeCordinacion.attach(adjunto)
         #Enviamos email
         mensajeCordinacion.send()
-        
+        """
         #Guardamos reporte en BD
         reporte,creado = ReporteEnviado.objects.get_or_create(periodo_id = periodo_id, usuario_id = request.user.id)
         
@@ -1438,9 +1438,10 @@ class enviarReporte(View):
 
         else:
             data['actualizado'] = True
-            os.remove(os.path.join('media/'+reporte.reporte.name))
-            os.remove(os.path.join('media/'+reporte.anexo.name))
-
+            if reporte:
+                os.remove(os.path.join(BASE_DIR + 'media/'+reporte.reporte.name))
+                os.remove(os.path.join(BASE_DIR + 'media/'+reporte.anexo.name))
+            
         reporte.reporte.save('Reporte '+periodo+' '+str(reporte.id)+'.pdf', ContentFile(pdf), save=False)
         
         #Genera Zip con anexos
