@@ -13,9 +13,10 @@ def generarPdf(request,periodo_id):
     periodo = Periodo.objects.get(id=periodo_id) #Para obtener valores del 2019
     yearPeriodo = periodo.fechaInicio.year
     mesFin = ""
+    print(periodo.fechaInicio.month)
     if periodo.fechaInicio.month == 1:
         mesFin = "JUNIO"
-    elif periodo.fechaInicio.month == 7:
+    elif periodo.fechaInicio.month == 6:
         mesFin = "DICIEMBRE"
     
     dataReporte = {
