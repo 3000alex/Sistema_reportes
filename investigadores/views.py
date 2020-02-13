@@ -1438,8 +1438,9 @@ class enviarReporte(View):
 
         else:
             data['actualizado'] = True
-            if reporte:
+            if reporte.reporte:
                 os.remove(os.path.join(BASE_DIR + '/media/'+reporte.reporte.name))
+            if reporte.anexo:
                 os.remove(os.path.join(BASE_DIR + '/media/'+reporte.anexo.name))
             
         reporte.reporte.save('Reporte '+periodo+' '+str(reporte.id)+'.pdf', ContentFile(pdf), save=False)
