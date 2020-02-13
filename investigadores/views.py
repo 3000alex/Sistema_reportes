@@ -1452,94 +1452,76 @@ class enviarReporte(View):
         
         for anexo in anexoModelo1:
             if anexo:
-                archivo = open(BASE_DIR +anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo) 
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
 
         for anexo in anexoModelo2:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo)  
+               anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
 
         for anexo in anexoModelo3:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo)      
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))    
 
         for anexo in anexoModelo4:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo) 
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
 
         for anexo in anexoModelo5:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo) 
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
 
         for anexo in anexoModelo6:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo) 
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
 
         for anexo in anexoModelo7:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo)   
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
 
         for anexo in anexoModelo8:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo)        
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb')) 
 
         for anexo in anexoModelo9:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo)     
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))   
 
         for anexo in anexoModelo10:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo)           
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))       
 
         for anexo in anexoModelo11:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo) 
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
 
         for anexo in anexoModelo12:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo) 
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
 
         for anexo in anexoModelo13:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo)     
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
 
         for anexo in anexoModelo14:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo) 
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
 
         for anexo in anexoModelo15:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo) 
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
 
         for anexo in anexoModelo16:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo) 
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
         """
         for anexo in anexoCitas:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo) 
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
         """
 
         for anexo in anexoBiblioteca:
             if anexo:
-                archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo)
+                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
 
         anexoZip.close()
         reporte.anexo.save("Anexo "+periodo+' '+str(reporte.id)+".zip", ContentFile(open(BASE_DIR + '/media/'+'anexos_zip/anexo.zip','rb').read()))
