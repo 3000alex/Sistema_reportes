@@ -1500,7 +1500,7 @@ class enviarReporte(View):
                 anexoZip.write('media/'+anexo.anexos.name)
         for anexo in anexoCitas:
             if anexo:
-                anexoZip.write('../media/'+anexo.anexos.name)
+                anexoZip.write(BASE_DIR + '/media/'+anexo.anexos.name)
         for anexo in anexoBiblioteca:
             if anexo:
                 anexoZip.write(anexo.anexos.url)
