@@ -1362,7 +1362,7 @@ class enviarReporte(View):
         anexoModelo15 = Modelo15.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
         anexoModelo16 = Modelo16.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
         anexoBiblioteca = Biblioteca.objects.exclude(anexos = "", fecha_ano=yearPeriodo)
-        anexoCitas = Citas.objects.exclude(anexos = "",periodo__fechaInicio__year = yearPeriodo)
+        anexoCitas = Citas.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
 
         html = generarPdf(request,periodo_id)
         
@@ -1529,16 +1529,17 @@ class enviarReporte(View):
             if anexo:
                 archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
                 anexoZip.write(archivo) 
-
+        """
         for anexo in anexoCitas:
             if anexo:
                 archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
                 anexoZip.write(archivo) 
+        """
 
         for anexo in anexoBiblioteca:
             if anexo:
                 archivo = open(BASE_DIR + anexo.anexos.url, mode='rb')
-                anexoZip.write(archivo) 
+                anexoZip.write(archivo)
 
         anexoZip.close()
         reporte.anexo.save("Anexo "+periodo+' '+str(reporte.id)+".zip", ContentFile(open(BASE_DIR + '/media/'+'anexos_zip/anexo.zip','rb').read()))
