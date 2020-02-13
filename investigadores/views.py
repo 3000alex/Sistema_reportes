@@ -1446,8 +1446,8 @@ class enviarReporte(View):
         reporte.reporte.save('Reporte '+periodo+' '+str(reporte.id)+'.pdf', ContentFile(pdf), save=False)
         
         #Genera Zip con anexos
-        anexoZip = zipfile.ZipFile('media/anexos_zip/anexo.zip',mode='w', compression=zipfile.ZIP_DEFLATED)
-
+        #anexoZip = zipfile.ZipFile('media/anexos_zip/anexo.zip', mode='w', compression=zipfile.ZIP_DEFLATED)
+        anexoZip = zipfile.ZipFile(open('media/anexos_zip/anexo.zip','rb'), mode='w', compression=zipfile.ZIP_DEFLATED)
         
         for anexo in anexoModelo1:
             if anexo:
