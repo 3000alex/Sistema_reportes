@@ -1452,13 +1452,13 @@ class enviarReporte(View):
         
         for anexo in anexoModelo1:
             if anexo:
-                anexoZip.write('media/'+anexo.anexos.name)
+                anexoZip.write('../media/'+anexo.anexos.name)
         for anexo in anexoModelo2:
             if anexo:
-                anexoZip.write('media/'+anexo.anexos.name)            
+                anexoZip.write('../media/'+anexo.anexos.name)            
         for anexo in anexoModelo3:
             if anexo:
-                anexoZip.write('media/'+anexo.anexos.name)            
+                anexoZip.write('../media/'+anexo.anexos.name)            
         for anexo in anexoModelo4:
             if anexo:
                 anexoZip.write('media/'+anexo.anexos.name)            
@@ -1500,10 +1500,10 @@ class enviarReporte(View):
                 anexoZip.write('media/'+anexo.anexos.name)
         for anexo in anexoCitas:
             if anexo:
-                anexoZip.write('media/'+anexo.anexos.name)
+                anexoZip.write('../media/'+anexo.anexos.name)
         for anexo in anexoBiblioteca:
             if anexo:
-                anexoZip.write('media/'+anexo.anexos.name)
+                anexoZip.write('../media/'+anexo.anexos.name)
 
         anexoZip.close()
         reporte.anexo.save("Anexo "+periodo+' '+str(reporte.id)+".zip", ContentFile(open('media/anexos_zip/anexo.zip','rb').read()))
