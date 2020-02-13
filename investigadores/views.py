@@ -1438,9 +1438,9 @@ class enviarReporte(View):
 
         else:
             data['actualizado'] = True
-            os.remove(os.path.join(BASE_DIR + '/media/'+reporte.reporte.name))
-            os.remove(os.path.join(BASE_DIR + '/media/'+reporte.anexo.name))
-            
+            os.remove(os.path.join('media/'+reporte.reporte.name))
+            os.remove(os.path.join('media/'+reporte.anexo.name))
+
         reporte.reporte.save('Reporte '+periodo+' '+str(reporte.id)+'.pdf', ContentFile(pdf), save=False)
         
         #Genera Zip con anexos
