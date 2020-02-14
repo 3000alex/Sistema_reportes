@@ -6,10 +6,12 @@ from django.views.generic import View, ListView
 # Librerias para validar el login
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from biblioteca.models import Biblioteca
 from SNIads import SNIads
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-token = '71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7'
+token = "71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7"
+SNIads -t "71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7" -in in_refs.dat "Rosales-Ortega, F. F."
 # Create your views here.
 
 @method_decorator(login_required, name='dispatch')
@@ -25,6 +27,7 @@ class reporteSNI(View):
 @method_decorator(login_required, name='dispatch')
 class metodo1ReporteSNI(View):
     def get(self,request):
+        
         author = request.GET.get('autor','None')
         articulos = SNIads.get_papers(author, token=token)
         citas = SNIads.get_citations(articulos, token=token)
@@ -40,14 +43,19 @@ class metodo1ReporteSNI(View):
         response['content-Disposition'] = content
         return response
 
-        #SNIads autor -t token
 
 @method_decorator(login_required, name='dispatch')
 class metodo2ReporteSNI(View):
     def get(self,request):
-        autor = request.GET.get('autor','None')
-        print(autor)
-        print("Metodo2")
-        biblioteca = []
+        author = request.GET.get('autor','None')
+        articulos = Biblioteca.objects.filter(user_id = request.user.id)
+        
+        f = open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'w')
+        for b in articulos:
+            f.writelines('['+b.bibcode+']'+'\n')
+        f.close()
 
+        f = open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'r')
+        
 
+        return HttpResponse("H")
