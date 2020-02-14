@@ -7,6 +7,7 @@ from django.views.generic import View, ListView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from SNIads import SNIads
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 token = '71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7'
 # Create your views here.
 
@@ -27,7 +28,7 @@ class metodo1ReporteSNI(View):
         articulos = SNIads.get_papers(author, token=token)
         citas = SNIads.get_citations(articulos, token=token)
         SNIads.print_results(author, articulos, citas)
-        f = open('media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'w')
+        f = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'w')
         SNIads.print_results(author,articulos,citas,f)
         f.close()
 
