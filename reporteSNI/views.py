@@ -28,7 +28,7 @@ class metodo1ReporteSNI(View):
         author = request.GET.get('autor','None')
         articulos = SNIads.get_papers(author, token=token)
         citas = SNIads.get_citations(articulos, token=token)
-        SNIads.print_results(author, articulos, citas)
+        #SNIads.print_results(author, articulos, citas)
         f = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'w')
         SNIads.print_results(author,articulos,citas,f)
         f.close()
