@@ -1507,7 +1507,7 @@ class enviarReporte(View):
                     anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)
 
         anexoZip.close()
-        reporte.anexo.save("Anexo "+periodo+' '+str(reporte.id)+".zip", ContentFile(open('media/anexos_zip/anexo.zip','rb').read()))
+        reporte.anexo.save("Anexo "+periodo+' '+str(reporte.id)+".zip", ContentFile(open(BASE_DIR + '/media/'+'anexos_zip/anexo.zip','rb').read()))
         reporte.save()
         #os.remove('media/anexos_zip/anexo.zip')
         
