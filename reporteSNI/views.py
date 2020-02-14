@@ -34,7 +34,7 @@ class metodo1ReporteSNI(View):
         f.close()
 
         f = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'r')
-        response = HttpResponse(f, content_type="application/vnd.oasis.opendocument.text" )
+        response = HttpResponse(f, content_type="application/octet-stream" )
         return response
 
         #SNIads autor -t token
