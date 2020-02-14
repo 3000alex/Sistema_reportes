@@ -1362,7 +1362,7 @@ class enviarReporte(View):
         anexoModelo15 = Modelo15.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
         anexoModelo16 = Modelo16.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
         anexoBiblioteca = Biblioteca.objects.exclude(anexos = "", fecha_ano=yearPeriodo)
-        anexoCitas = Citas.objects.exclude(anexos = "", periodo__fechaInicio__year = yearPeriodo)
+        anexoCitas = Citas.objects.exclude(anexos = "",periodo__fechaInicio__year = yearPeriodo)
 
         html = generarPdf(request,periodo_id)
         
@@ -1444,88 +1444,70 @@ class enviarReporte(View):
                 os.remove(os.path.join(BASE_DIR + '/media/'+reporte.anexo.name))
             
         reporte.reporte.save('Reporte '+periodo+' '+str(reporte.id)+'.pdf', ContentFile(pdf), save=False)
-        archivo = ""
+        
         #Genera Zip con anexos
-        anexoZip = zipfile.ZipFile(BASE_DIR + '/media/'+'anexos_zip/anexo.zip', mode='w', compression=zipfile.ZIP_DEFLATED)
+        with zipfile.ZipFile(BASE_DIR + '/media/'+'anexos_zip/anexo.zip', mode='w', compression=zipfile.ZIP_DEFLATED) as anexoZip:
         
-        #anexoZip = zipfile.ZipFile(compression=zipfile.ZIP_DEFLATED)
-        
-        for anexo in anexoModelo1:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
-
-        for anexo in anexoModelo2:
-            if anexo:
-               anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
-
-        for anexo in anexoModelo3:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))    
-
-        for anexo in anexoModelo4:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
-
-        for anexo in anexoModelo5:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
-
-        for anexo in anexoModelo6:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
-
-        for anexo in anexoModelo7:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
-
-        for anexo in anexoModelo8:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb')) 
-
-        for anexo in anexoModelo9:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))   
-
-        for anexo in anexoModelo10:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))       
-
-        for anexo in anexoModelo11:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
-
-        for anexo in anexoModelo12:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
-
-        for anexo in anexoModelo13:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
-
-        for anexo in anexoModelo14:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
-
-        for anexo in anexoModelo15:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
-
-        for anexo in anexoModelo16:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
-        """
-        for anexo in anexoCitas:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
-        """
-
-        for anexo in anexoBiblioteca:
-            if anexo:
-                anexoZip.write(open(BASE_DIR + anexo.anexos.url, mode='rb'))
+            #anexoZip = zipfile.ZipFile(compression=zipfile.ZIP_DEFLATED)
+            
+            for anexo in anexoModelo1:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)
+            for anexo in anexoModelo2:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)            
+            for anexo in anexoModelo3:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)            
+            for anexo in anexoModelo4:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)            
+            for anexo in anexoModelo5:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)            
+            for anexo in anexoModelo6:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)            
+            for anexo in anexoModelo7:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)            
+            for anexo in anexoModelo8:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)            
+            for anexo in anexoModelo9:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)            
+            for anexo in anexoModelo10:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)            
+            for anexo in anexoModelo11:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)            
+            for anexo in anexoModelo12:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)            
+            for anexo in anexoModelo13:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)            
+            for anexo in anexoModelo14:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)            
+            for anexo in anexoModelo15:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)
+            for anexo in anexoModelo16:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)
+            for anexo in anexoCitas:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)
+            for anexo in anexoBiblioteca:
+                if anexo:
+                    anexoZip.write('media/'+anexo.anexos.name)
 
         anexoZip.close()
-        reporte.anexo.save("Anexo "+periodo+' '+str(reporte.id)+".zip", ContentFile(open(BASE_DIR + '/media/'+'anexos_zip/anexo.zip','rb').read()))
-        reporte.save()
+        reporte.anexo.save("Anexo "+periodo+' '+str(reporte.id)+".zip", ContentFile(open('media/anexos_zip/anexo.zip','rb').read()))
+        #reporte.save()
         #os.remove('media/anexos_zip/anexo.zip')
         
 

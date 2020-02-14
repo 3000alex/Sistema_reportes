@@ -9,6 +9,7 @@ from investigadores.urls import investigadorespatterns
 from biblioteca.urls import bibliotecapatterns
 from administradores.urls import administradorespatterns
 from metricas.urls import metricaspatterns
+from reporteSNI.urls import reporteSNIpatterns
 
 handler404 = 'core.views.error'
 
@@ -18,6 +19,7 @@ urlpatterns = [
     path('reportes/',include(bibliotecapatterns)),
     path('reportes/',include(administradorespatterns)),
     path('reportes/',include(metricaspatterns)),
+    path('reportes/',include(reporteSNIpatterns)),
     path('admin/', admin.site.urls),
 
     # Paths de Auth

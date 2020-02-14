@@ -1,0 +1,50 @@
+{% extends 'core/header.html' %}
+    {% load static %}
+    {% block reporteSNI %}
+        <section class="container" style="padding-top: 300px;">
+            <p class="text-center pb-4">Esta sección genera el documento de citas que CONACyT solicita a los investigadores que<br>
+                buscan entrar o renovar su distinción en el Sistema Nacional de Investigadores (SNI).</p>
+            
+            
+            <div class="row">
+                <div class="col-6 text-center">
+                    <p><Strong class="">Método 1</Strong></p>
+                    <small>Basado en el Apellido, Nombre de publicación</small>
+                    
+                    <p><small>Introduzca el Apellido, Nombre con el que suele publicar<br>
+                        en el siguiente formato: González, María</small></p>
+                    
+                    <form action="{% url 'reporteSNI:metodo1SNI' %}">
+                        <input class="form-control mb-4" type="text" placeholder="Apellido, Nombre" name="autor">
+                        <button type="submit" class="btn btn-success btn-lg pr-4 pl-4">Enviar</button>
+                    </form>
+                    
+                </div>
+
+                <div class="col-6 text-center">
+                    <p><Strong class="">Método 2</Strong></p>
+                    <small>Utiliza los bibcodes de los artículos registrados en su <a href="{% url 'biblioteca:biblioteca_personal' %}">Biblioteca personal.</a></small>
+                    <p><small>Introduzca el Apellido, Nombre con el que suele publicar<br>en el siguiente formato: González, M.</small></p>
+                    
+                    <form action="{% url 'reporteSNI:metodo2SNI' %}">
+                        <input class="form-control mb-4" type="text" placeholder="Apellido, N." name="autor">
+                        <button type="submit" class="btn btn-success btn-lg pr-4 pl-4">Enviar</button>
+                    </form>
+                    
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <p>NOTA: Los archivos que se generan TIENEN QUE SER VERIFICADOS ya que puede contener errores, por ejemplo:</p>
+                    <ul class="list-group">
+                        <li>Duplicidad de artículos, uno de ArXiv, otro de la publicación arbitrada (quitar el ArXiv).</li>
+                        <li>Errores por codificación de acentos y caracteres especiales.</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </section>
+        
+    {% endblock %}
+    
