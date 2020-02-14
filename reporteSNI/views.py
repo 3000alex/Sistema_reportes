@@ -32,9 +32,9 @@ class metodo1ReporteSNI(View):
         f = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'w')
         SNIads.print_results(author,articulos,citas,f)
         f.close()
-        
+
         f = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'r')
-        response = HttpResponse(f, content_type="text/plain")
+        response = HttpResponse(f, content_type="application/vnd.oasis.opendocument.text" )
         return response
 
         #SNIads autor -t token
