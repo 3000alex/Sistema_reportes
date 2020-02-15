@@ -1506,8 +1506,8 @@ class enviarReporte(View):
                     anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)
         anexoZip.close()
 
-        anexoZip = open(BASE_DIR + '/media/'+'anexos_zip/anexo.zip','rb')
-        reporte.anexo.save("Anexo "+periodo+' '+str(reporte.id)+".zip", ContentFile(anexoZip), save=False)
+        anexoZip = open(BASE_DIR + '/media/'+'anexos_zip/anexo.zip','rb') #Corregir este error
+        reporte.anexo.save("Anexo "+periodo+' '+str(reporte.id)+".zip", ContentFile(anexoZip.read()), save=False)
         reporte.save()
         #os.remove('media/anexos_zip/anexo.zip')
         

@@ -7,7 +7,7 @@ from django.views.generic import View, ListView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from biblioteca.models import Biblioteca
-#from SNIads import SNIads
+from SNIads import SNIads
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 token = "71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7"
@@ -27,7 +27,7 @@ class reporteSNI(View):
 @method_decorator(login_required, name='dispatch')
 class metodo1ReporteSNI(View):
     def get(self,request):
-        """
+        
         author = request.GET.get('autor','None')
         articulos = SNIads.get_papers(author, token=token)
         citas = SNIads.get_citations(articulos, token=token)
@@ -42,14 +42,13 @@ class metodo1ReporteSNI(View):
         content = "attachment; filename='%s'" %(filename)
         response['content-Disposition'] = content
         return response
-        """
-        pass
+
 
 
 @method_decorator(login_required, name='dispatch')
 class metodo2ReporteSNI(View):
     def get(self,request):
-        """
+        
         author = request.GET.get('autor','None')
         articulos = Biblioteca.objects.filter(user_id = request.user.id)
         
@@ -62,5 +61,3 @@ class metodo2ReporteSNI(View):
         
 
         return HttpResponse("H")
-        """
-        pass
