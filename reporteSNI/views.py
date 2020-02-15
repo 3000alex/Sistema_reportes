@@ -31,7 +31,6 @@ class metodo1ReporteSNI(View):
         author = request.GET.get('autor','None')
         articulos = SNIads.get_papers(author, token=token)
         citas = SNIads.get_citations(articulos, token=token)
-        #SNIads.print_results(author, articulos, citas)
         f = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'w')
         SNIads.print_results(author,articulos,citas,f)
         f.close()
@@ -42,8 +41,6 @@ class metodo1ReporteSNI(View):
         content = "attachment; filename='%s'" %(filename)
         response['content-Disposition'] = content
         return response
-
-
 
 @method_decorator(login_required, name='dispatch')
 class metodo2ReporteSNI(View):

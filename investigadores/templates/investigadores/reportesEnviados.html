@@ -16,8 +16,8 @@
                     <tr id="user-{{inv.id}}">
                         <td>{{r.periodo}}</td>
                         <td>{{r.fechaCreacion|date:"d M Y"}}</td>
-                        <td><a download="{{r.reporte.url}}" href="{{r.reporte.url}}"> <i style="font-size:35px;" class="far fa-file-pdf text-danger mr-2"></i> </a></td>
-                        <td><a download="{{r.anexo.url}}" href="{{r.anexo.url}}"> <i style="font-size:35px;" class="far fa-file-archive"></i> </a></td>
+                        <td><a  download href="{{r.reporte.url}}"> <i style="font-size:35px;" class="far fa-file-pdf text-danger mr-2"></i></a></td>
+                        <td><a download href="{{r.anexo.url}}"> <i style="font-size:35px;" class="far fa-file-archive"></i> </a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
