@@ -29,8 +29,6 @@ class obtenerGrafico(View):
             bibcode = q.bibcode
             titulo = q.title[0]
 
-        
-        
         metricas = ads.MetricsQuery(bibcode).execute()  # Buscar por orcid            
         
         citasTotales = metricas['citation stats refereed']['total number of citations']

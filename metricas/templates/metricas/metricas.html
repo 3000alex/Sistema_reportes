@@ -9,14 +9,13 @@
                     <button class="btn btn-link" id="title">title</button>
                     <button class="btn btn-link" id="bibcode">bibcode</button>
                 </p>
-                <form action="" id="metricasForm">
+                <form  id="obtenerMetricas">
                     {% csrf_token %}
                     <div class="input-group mb-3">
                         <input type="text" id="busquedaGeneral" class="form-control" name="query" aria-label="metricas"
                             aria-describedby="metricas">
                         <div class="input-group-prepend">
-                            <button type="button" class="btn btn-primary" id="obtenerMetricas"
-                            ><i class="fas fa-search text-white"></i></button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white"></i></button>
                         </div>
                     </div>
                 </form>
@@ -495,8 +494,9 @@
             rn.update();
         });
         
-        $('#obtenerMetricas').click(function(){
-            var formData = new FormData(document.getElementById("metricasForm"))
+        $('#obtenerMetricas').submit(function(e){
+            e.preventDefault();
+            var formData = new FormData(document.getElementById("obtenerMetricas"))
             $.ajax({
                 url: '{% url "metricas:obtenerGrafico" %}',
                 type: "post",
@@ -529,6 +529,7 @@
                     
                 }
             });
+            return false;
         });
         
         function cargarTotalCitas(data){
