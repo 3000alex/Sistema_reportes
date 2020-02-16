@@ -5,20 +5,28 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
+                <p> <span class="text-muted">QUICK FIELD:</span>
+                    <button class="btn btn-link" id="title">title</button>
+                    <button class="btn btn-link" id="bibcode">bibcode</button>
+                </p>
                 <form action="" id="metricasForm">
                     {% csrf_token %}
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="query" aria-label="metricas"
+                        <input type="text" id="busquedaGeneral" class="form-control" name="query" aria-label="metricas"
                             aria-describedby="metricas">
                         <div class="input-group-prepend">
-                            <button type="button" class="btn btn-primary" onclick="cargarMetricas()"
-                                id="basic-addon1"><i class="fas fa-search text-white"></i></button>
+                            <button type="button" class="btn btn-primary" id="obtenerMetricas"
+                            ><i class="fas fa-search text-white"></i></button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <div id="titulo" class="container-fluid">
+        
+    </div>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -235,14 +243,18 @@
                 datasets:
                     [{
                         label: 'Ref. Citations to ref. papers',
-                        backgroundColor: 'blue',
-                        backgroundColor: 'green'
+                        borderColor: 'blue',
+                        borderColor: 'green',
+                        backgroundColor: 'rgb(0, 0, 255,0.6)',
+                        backgroundColor: 'rgb(0, 128, 0, 0.6)'
                     },
 
                     {
                         label: 'Non ref. citations to ref. papers',
-                        backgroundColor: 'green',
-                        backgroundColor: 'blue'
+                        borderColor: 'green',
+                        borderColor: 'blue',
+                        backgroundColor: 'rgb(0, 128, 0, 0.6)',
+                        backgroundColor: 'rgb(0, 0, 255,0.6)'
                     }
                     ],
 
@@ -275,15 +287,19 @@
                 datasets:
                     [{
                         label: 'Ref. Citations to ref. papers',
-                        backgroundColor: 'blue',
-                        backgroundColor: 'green'
+                        borderColor: 'blue',
+                        borderColor: 'green',
+                        backgroundColor: 'rgb(0, 0, 255,0.6)',
+                        backgroundColor: 'rgb(0, 128, 0, 0.6)'
 
                     },
 
                     {
                         label: 'Non ref. citations to ref. papers',
-                        backgroundColor: 'green',
-                        backgroundColor: 'blue'
+                        borderColor: 'green',
+                        borderColor: 'blue',
+                        backgroundColor: 'rgb(0, 128, 0, 0.6)',
+                        backgroundColor: 'rgb(0, 0, 255,0.6)'
                     }
                     ],
 
@@ -314,18 +330,22 @@
             type: "bar",
             data: {
                 datasets:
+                
                     [{
-                        
                         label: 'Ref. Citations to ref. papers',
-                        backgroundColor: 'blue',
-                        backgroundColor: 'green'
+                        borderColor: 'blue',
+                        borderColor: 'green',
+                        backgroundColor: 'rgb(0, 0, 255,0.6)',
+                        backgroundColor: 'rgb(0, 128, 0, 0.6)'
 
                     },
 
                     {
                         label: 'Non ref. citations to ref. papers',
-                        backgroundColor: 'green',
-                        backgroundColor: 'blue'
+                        borderColor: 'green',
+                        borderColor: 'blue',
+                        backgroundColor: 'rgb(0, 128, 0, 0.6)',
+                        backgroundColor: 'rgb(0, 0, 255,0.6)'
                     }
                     ],
 
@@ -358,14 +378,18 @@
                 datasets:
                     [{
                         label: 'Ref. Citations to ref. papers',
-                        backgroundColor: 'blue',
-                        backgroundColor: 'green'
+                        borderColor: 'blue',
+                        borderColor: 'green',
+                        backgroundColor: 'rgb(0, 0, 255,0.6)',
+                        backgroundColor: 'rgb(0, 128, 0, 0.6)'
                     },
 
                     {
                         label: 'Non ref. citations to ref. papers',
-                        backgroundColor: 'green',
-                        backgroundColor: 'blue'
+                        borderColor: 'green',
+                        borderColor: 'blue',
+                        backgroundColor: 'rgb(0, 128, 0, 0.6)',
+                        backgroundColor: 'rgb(0, 0, 255,0.6)'
                     }
                     ],
 
@@ -470,37 +494,87 @@
             };
             rn.update();
         });
-    });
+        
+        $('#obtenerMetricas').click(function(){
+            var formData = new FormData(document.getElementById("metricasForm"))
+            $.ajax({
+                url: '{% url "metricas:obtenerGrafico" %}',
+                type: "post",
+                data: formData,
+                enctype: "multipart/form-data",
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
 
-    function cargarMetricas() {
-        var formData = new FormData(document.getElementById("metricasForm"))
-        $.ajax({
-            url: '{% url "metricas:obtenerGrafico" %}',
-            type: "post",
-            data: formData,
-            enctype: "multipart/form-data",
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: 'json',
+                success: function (data) {
 
-            success: function (data) {
+                    //Tabla Citas
+                    $("#numCitasTotales").html(data.citasTotales)
+                    $("#numCitasNormalizadas").html(data.citasNormalizadas)
+                    $("#numCitasReferenciadas").html(data.citasReferenciadas)
+                    $("#numCitasRefNorm").html(data.citasReferenciadasNormalizadas)
 
-                //Tabla Citas
-                $("#numCitasTotales").html(data.citasTotales)
-                $("#numCitasNormalizadas").html(data.citasNormalizadas)
-                $("#numCitasReferenciadas").html(data.citasReferenciadas)
-                $("#numCitasRefNorm").html(data.citasReferenciadasNormalizadas)
+                    //Tabla Reads
+                    $("#numTotalLecturas").html(data.numTotalLecturas)
+                    $("#numTotalDescargas").html(data.numTotalDescargas)
+                    $("#titulo").html(`
+                    <h4 class="text-primary"><b>Metricas para</b></h4>
+                    <p class="text-muted" ><b>${data.titulo}</b></p>
+                    `);
+                    cargarTotalCitas(data);
+                    cargarCitasNormalizadas(data);
+                    cargarTotalReads(data);
+                    cargarReadsNormalizadas(data);
+                    
+                }
+            });
+        });
+        
+        function cargarTotalCitas(data){
+            //tc.data.labels = data.citasLabels //['200','300','400'];
+            
+            tc.data.datasets.forEach((dataset) => {
+                dataset.data = ['21','33','44'];
+            });
+            
+            tc.update();
+        }
+        function cargarCitasNormalizadas(data){
+            cn.data.labels = ['50','30','40'];
+            cn.data.datasets.forEach((dataset) => {
+                dataset.data = ['21','33','44'];
+            });
+            cn.update();
+        }
+        function cargarTotalReads(data){
+            tr.data.labels = ['31','45','21']
+            tr.data.datasets.forEach((dataset) => {
+                dataset.data = ['21','33','44'];
+            });
+            tr.update();
 
-                //Tabla Reads
-                $("#numTotalLecturas").html(data.numTotalLecturas)
-                $("#numTotalDescargas").html(data.numTotalDescargas)
+        }
+        function cargarReadsNormalizadas(data){
+            rn.data.labels = ['34','55','66']
+            rn.data.datasets.forEach((dataset) => {
+                dataset.data = ['21','33','44'];
+            });
+            rn.update();
+        }
 
-            }
+
+        $("#title").click(function () {
+            $('#busquedaGeneral').val('title:""').focus()
         });
 
+        $("#bibcode").click(function () {
+            $('#busquedaGeneral').val('bibcode:""').focus()
+        });
+    
+    });
 
-    }
+
 
 </script>
 
