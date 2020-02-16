@@ -1,0 +1,507 @@
+{% extends 'core/header.html' %}
+{% load static %}
+{%block metricas %}
+<section style="padding-top: 300px;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <form action="" id="metricasForm">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="query" aria-label="metricas"
+                            aria-describedby="metricas">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-primary" onclick="cargarMetricas()"
+                                id="basic-addon1"><i class="fas fa-search text-white"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div id="citas" style="background-color: rgba(212, 212, 212, 0.3);" class="citas p-1">
+                    <p>
+                        <h2 class="ml-2">Citas</h2>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <table class="table table-hover">
+
+                    <tbody>
+                        <tr>
+                            <th scope="row">Citas totales</th>
+                            <td><i data-toggle="PopoverCitasTotales" data-placement="right"
+                                    class="fas fa-question-circle text-muted"></i></td>
+                            <td id="numCitasTotales"></td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Citas normalizadas</th>
+                            <td><i data-toggle="PopoversCitasNormalizadas"
+                                    class="fas fa-question-circle text-muted"></i></td>
+                            <td id="numCitasNormalizadas"></td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Citas referenciadas</th>
+                            <td><i data-toggle="PopoversCitasReferenciadas"
+                                    class="fas fa-question-circle text-muted"></i></td>
+                            <td id="numCitasReferenciadas"></td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Citas referenciadas normalizadas</th>
+                            <td><i data-toggle="PopoversCitasRefNorm" class="fas fa-question-circle text-muted"></i>
+                            </td>
+                            <td id="numCitasRefNorm"></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#total" role="tab"
+                            aria-controls="home" aria-selected="true">Total</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#normalizada" role="tab"
+                            aria-controls="profile" aria-selected="false">Normalizadas</a>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="radioButtons mt-2">
+
+                        <input class="ml-2 mr-2" value=true type="radio" name="stacked-groupedCitas" id="stacked"
+                            checked>&nbsp; <label for="stacked">stacked</label>
+                        <input class="ml-2 mr-2" value=false type="radio" name="stacked-groupedCitas"
+                            id="grouped">&nbsp;<label for="grouped">grouped</label>
+                    </div>
+
+                    <div class="tab-pane fade show active" id="total" role="tabpanel" aria-labelledby="home-tab"><canvas
+                            id="TotalCitas"></canvas></div>
+                    <div class="tab-pane fade" id="normalizada" role="tabpanel" aria-labelledby="profile-tab"><canvas
+                            id="NormalizadaCitas"></canvas></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div id="lecturas" style="background-color: rgba(212, 212, 212, 0.3);" class="lecturas p-1">
+                    <p>
+                        <h2 class="ml-2">Reads</h2>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                <table class="table table-hover">
+
+                    <tbody>
+                        <tr>
+                            <th scope="row">Número total de lecturas</th>
+                            <td><i data-toggle="PopoverTotalLecturas" class="fas fa-question-circle text-muted"></i>
+                            </td>
+                            <td id="numTotalLecturas"></td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Número total de descargas</th>
+                            <td><i data-toggle="PopoverNumeroDescargas" class="fas fa-question-circle text-muted"></i>
+                            </td>
+                            <td id="numTotalDescargas"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#totalRead" role="tab"
+                            aria-controls="home" aria-selected="true">Total</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#normalizadaRead" role="tab"
+                            aria-controls="profile" aria-selected="false">Normalizadas</a>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="radioButtons mt-2">
+                        <input class="ml-2 mr-2" value="true" type="radio" name="stacked-groupedRead" id="stacked"
+                            checked>&nbsp; <label for="stacked">stacked</label>
+                        <input class="ml-2 mr-2" value="false" type="radio" name="stacked-groupedRead"
+                            id="grouped">&nbsp;<label for="grouped">grouped</label>
+                    </div>
+                    <div class="tab-pane fade show active" id="totalRead" role="tabpanel"
+                        aria-labelledby="totalRead-tab"><canvas id="TotalRead"></canvas></div>
+                    <div class="tab-pane fade" id="normalizadaRead" role="tabpanel"
+                        aria-labelledby="normalizadaRead-tab"><canvas id="NormalizadaRead"></canvas></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+{% endblock %}
+
+{% block JsCode %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+    $(function () {
+        $('[data-toggle="PopoverCitasTotales"]').popover({
+            trigger: 'hover',
+            html: true,
+            title: "Citas Totales",
+            content: `<small class="form-text text-muted mb-3">
+                                The total number of times all papers in the list were cited.
+                                </small>`
+        });
+        $('[data-toggle="PopoversCitasNormalizadas"]').popover({
+            trigger: 'hover',
+
+            title: "Citas Normalizadas",
+            content: `For a list of N papers (i=1,...N), where N<sub>auth</sub><sup>i</sup> is the number of authors for publication i and C<sub>i</sub> the number of citations that this paper received, the normalized citation count for each article is C<sub>i</sub>/N<sub>auth</sub><sup>i</sup> ,and the 'normalized citations' for this list of N papers is the sum of these N numbers.`
+        });
+        $('[data-toggle="PopoversCitasReferenciadas"]').popover({
+            trigger: 'hover',
+            html: true,
+            title: "Citas Referenciadas",
+            content: `<small class="form-text text-muted mb-3">
+                                    Number of refereed citing papers.
+                                </small>`
+        });
+        $('[data-toggle="PopoversCitasRefNorm"]').popover({
+            trigger: 'hover',
+            html: true,
+            title: "Citas Referenciadas Normalizadas",
+            content: `<small class="form-text text-muted mb-3">
+                                The normalized number of citations from refereed publications to all refereed publications in the list.
+                                </small>`
+        });
+        $('[data-toggle="PopoverTotalLecturas"]').popover({
+            trigger: 'hover',
+            html: true,
+            title: "Número total de lecturas",
+            content: `<small class="form-text text-muted mb-3">
+                        The total number of times all papers were read. For each paper, a read is counted if an ADS user runs a search in our system and then requests to either view the paper\'s full bibliographic record or download the fulltext.
+                                </small>`
+        });
+        $('[data-toggle="PopoverNumeroDescargas"]').popover({
+            trigger: 'hover',
+            html: true,
+            title: "Número total de descargas",
+            content: `<small class="form-text text-muted mb-3">
+                        The total number of times full text (article or e-print) was accessed.
+                                </small>`
+        });
+
+    });
+</script>
+<script>
+
+    $(document).ready(function () {
+        //Grafica Total Citas
+        let TotalCitas = document.getElementById("TotalCitas").getContext("2d");
+        let tc = new Chart(TotalCitas, {
+            type: "bar",
+            data: {
+                datasets:
+                    [{
+                        label: 'Ref. Citations to ref. papers',
+                        backgroundColor: 'blue',
+                        backgroundColor: 'green'
+                    },
+
+                    {
+                        label: 'Non ref. citations to ref. papers',
+                        backgroundColor: 'green',
+                        backgroundColor: 'blue'
+                    }
+                    ],
+
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: true
+                    }],
+                    xAxes: [{
+                        stacked: true
+                    }]
+                },
+
+                title: {
+                    display: true,
+                    text: 'Titulo'
+                }
+            }
+        });
+        
+        //Grafica Normalizada Citas
+        var citasNormalizadas = document.getElementById("NormalizadaCitas").getContext("2d");
+        var cn = new Chart(citasNormalizadas, {
+            type: "bar",
+            data: {
+                datasets:
+                    [{
+                        label: 'Ref. Citations to ref. papers',
+                        backgroundColor: 'blue',
+                        backgroundColor: 'green'
+
+                    },
+
+                    {
+                        label: 'Non ref. citations to ref. papers',
+                        backgroundColor: 'green',
+                        backgroundColor: 'blue'
+                    }
+                    ],
+
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: true
+                    }],
+                    xAxes: [{
+                        stacked: true
+                    }]
+                },
+
+                title: {
+                    display: true,
+                    text: 'Titulo'
+                }
+            }
+        });
+
+        //Grafica Total Reads
+        var totalReads = document.getElementById("TotalRead").getContext("2d");
+        var tr = new Chart(totalReads, {
+            type: "bar",
+            data: {
+                datasets:
+                    [{
+                        
+                        label: 'Ref. Citations to ref. papers',
+                        backgroundColor: 'blue',
+                        backgroundColor: 'green'
+
+                    },
+
+                    {
+                        label: 'Non ref. citations to ref. papers',
+                        backgroundColor: 'green',
+                        backgroundColor: 'blue'
+                    }
+                    ],
+
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: true
+                    }],
+                    xAxes: [{
+                        stacked: true
+                    }]
+                },
+
+                title: {
+                    display: true,
+                    text: 'Titulo'
+                }
+            }
+        });
+
+        //Grafica Normalizada Reads
+        var readsNormalizadas = document.getElementById("NormalizadaRead").getContext("2d");
+        var rn = new Chart(readsNormalizadas, {
+            type: "bar",
+            data: {
+                datasets:
+                    [{
+                        label: 'Ref. Citations to ref. papers',
+                        backgroundColor: 'blue',
+                        backgroundColor: 'green'
+                    },
+
+                    {
+                        label: 'Non ref. citations to ref. papers',
+                        backgroundColor: 'green',
+                        backgroundColor: 'blue'
+                    }
+                    ],
+
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: true
+                    }],
+                    xAxes: [{
+                        stacked: true
+                    }]
+                },
+
+                title: {
+                    display: true,
+                    text: 'Titulo'
+                }
+            }
+        });
+
+        //Cambiar stacked true - false
+        $('input[type=radio][name=stacked-groupedCitas]').change(function () {
+            valor = $('input:radio[name=stacked-groupedCitas]:checked').val();
+            if(valor == "true"){
+                valorStacked = true
+            }
+            else{
+                valorStacked = false
+            }
+
+            tc.options = {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: valorStacked
+                    }],
+                    xAxes: [{
+                        stacked: valorStacked
+                    }]
+                }
+            };
+            tc.update();
+
+            cn.options = {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: valorStacked
+                    }],
+                    xAxes: [{
+                        stacked: valorStacked
+                    }]
+                }
+            };
+            cn.update();
+        });
+        
+        $('input[type=radio][name=stacked-groupedRead]').change(function () {
+            valor = $('input:radio[name=stacked-groupedRead]:checked').val();
+            if(valor == "true"){
+                valorStacked = true
+            }
+            else{
+                valorStacked = false
+            }
+
+            tr.options = {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: valorStacked
+                    }],
+                    xAxes: [{
+                        stacked: valorStacked
+                    }]
+                }
+            };
+            tr.update();
+
+            rn.options = {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: valorStacked
+                    }],
+                    xAxes: [{
+                        stacked: valorStacked
+                    }]
+                }
+            };
+            rn.update();
+        });
+    });
+
+    function cargarMetricas() {
+        var formData = new FormData(document.getElementById("metricasForm"))
+        $.ajax({
+            url: '{% url "metricas:obtenerGrafico" %}',
+            type: "post",
+            data: formData,
+            enctype: "multipart/form-data",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+
+            success: function (data) {
+
+                //Tabla Citas
+                $("#numCitasTotales").html(data.citasTotales)
+                $("#numCitasNormalizadas").html(data.citasNormalizadas)
+                $("#numCitasReferenciadas").html(data.citasReferenciadas)
+                $("#numCitasRefNorm").html(data.citasReferenciadasNormalizadas)
+
+                //Tabla Reads
+                $("#numTotalLecturas").html(data.numTotalLecturas)
+                $("#numTotalDescargas").html(data.numTotalDescargas)
+
+            }
+        });
+
+
+    }
+
+</script>
+
+{% endblock %}

@@ -1339,7 +1339,6 @@ class crearModelo16(View):
         }
         return JsonResponse(data)
 
-
 class enviarReporte(View): 
     def get(self, request, *args, **kwargs):
         periodo_id = request.GET.get('periodoActual',None)
@@ -1383,6 +1382,7 @@ class enviarReporte(View):
             'periodo':periodo,
         }
         
+        """
         #Email para investigador
         body = render_to_string(
             'investigadores/templateReportesFinalizadoUsuario.html', {
@@ -1429,7 +1429,7 @@ class enviarReporte(View):
         mensajeCordinacion.attach(adjunto)
         #Enviamos email
         mensajeCordinacion.send()
-        
+        """
         #Guardamos reporte en BD
         reporte,creado = ReporteEnviado.objects.get_or_create(periodo_id = periodo_id, usuario_id = request.user.id)
         
@@ -1447,8 +1447,6 @@ class enviarReporte(View):
         
         #Genera Zip con anexos
         with zipfile.ZipFile(BASE_DIR + '/media/'+'anexos_zip/anexo.zip', mode='w', compression=zipfile.ZIP_DEFLATED) as anexoZip:
-        
-            #anexoZip = zipfile.ZipFile(compression=zipfile.ZIP_DEFLATED)
             
             for anexo in anexoModelo1:
                 if anexo:
