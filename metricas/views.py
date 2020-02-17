@@ -25,22 +25,32 @@ class obtenerGrafico(View):
         query = request.POST.get('query', None)
         query = list(ads.SearchQuery(q=query, fl='bibcode,title'))
         bibcode = ""
+       
         for q in query:
             bibcode = q.bibcode
             titulo = q.title[0]
 
         metricas = ads.MetricsQuery(bibcode).execute()  # Buscar por orcid            
-        
+        #Citas tabla
         citasTotales = metricas['citation stats refereed']['total number of citations']
         citasNormalizadas = metricas['citation stats refereed']['normalized number of citations']
         citasReferenciadas = metricas['citation stats refereed']['total number of refereed citations']
         citasReferenciadasNormalizadas = metricas['citation stats refereed']['normalized number of refereed citations']
-        citasLabels = metricas['histograms']['citations']['nonrefereed to refereed']
-        #Reads
+        #Reads tabla
         numTotalLecturas = metricas['basic stats refereed']['total number of reads']
         numTotalDescargas = metricas['basic stats refereed']['total number of downloads']
         
-
+        #grafics
+        #Citas Totales
+        refereed_to_refereed = metricas['histograms']['citations']['refereed to refereed']
+        nonrefereed_to_refereed = metricas['histograms']['citations']['nonrefereed to refereed']
+        #citas Totales Normalizadas
+        refereed_to_refereed_normalized = metricas['histograms']['citations']['refereed to refereed normalized']
+        nonrefereed_to_refereed_normalized = metricas['histograms']['citations']['nonrefereed to refereed normalized']
+        #Reads Totales
+        refereed_reads = metricas['histograms']['reads']['refereed reads']
+        refereed_reads_normalized = metricas['histograms']['reads']['refereed reads normalized']
+        
         datos ={
             'citasTotales': citasTotales,
             'citasNormalizadas':citasNormalizadas,
@@ -48,8 +58,13 @@ class obtenerGrafico(View):
             'citasReferenciadasNormalizadas':citasReferenciadasNormalizadas,
             'numTotalLecturas':numTotalLecturas,
             'numTotalDescargas':numTotalDescargas,
-            'citasLabels':citasLabels,
             'titulo': titulo,
+            'refereed_to_refereed':refereed_to_refereed,
+            'nonrefereed_to_refereed':nonrefereed_to_refereed,
+            'refereed_to_refereed_normalized':refereed_to_refereed_normalized,
+            'nonrefereed_to_refereed_normalized':nonrefereed_to_refereed_normalized,
+            'refereed_reads':refereed_reads,
+            'refereed_reads_normalized':refereed_reads_normalized
         }
         
         return JsonResponse(datos)

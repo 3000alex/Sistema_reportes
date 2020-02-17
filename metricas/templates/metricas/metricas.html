@@ -2,6 +2,8 @@
 {% load static %}
 {%block metricas %}
 <section style="padding-top: 300px;">
+    
+    <!--Form-->
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -19,13 +21,14 @@
                         </div>
                     </div>
                 </form>
+                <div id="titulo" class="container-fluid">
+        
+                </div>
             </div>
         </div>
     </div>
-    <div id="titulo" class="container-fluid">
-        
-    </div>
-
+    
+    <!--Citas tables--->
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -90,9 +93,9 @@
 
                 </ul>
 
-                <div class="tab-content" id="myTabContent">
-                    <div class="radioButtons mt-2">
+                <div class="tab-content" id="TabCitas">
 
+                    <div class="radioButtons mt-2">
                         <input class="ml-2 mr-2" value=true type="radio" name="stacked-groupedCitas" id="stacked"
                             checked>&nbsp; <label for="stacked">stacked</label>
                         <input class="ml-2 mr-2" value=false type="radio" name="stacked-groupedCitas"
@@ -158,15 +161,18 @@
 
                 </ul>
 
-                <div class="tab-content" id="myTabContent">
+                <div class="tab-content" id="TabReads">
+
                     <div class="radioButtons mt-2">
-                        <input class="ml-2 mr-2" value="true" type="radio" name="stacked-groupedRead" id="stacked"
-                            checked>&nbsp; <label for="stacked">stacked</label>
+                        <input class="ml-2 mr-2" value="true" type="radio" name="stacked-groupedRead" id="stackedRead"
+                            checked>&nbsp; <label for="stackedRead">stacked</label>
                         <input class="ml-2 mr-2" value="false" type="radio" name="stacked-groupedRead"
-                            id="grouped">&nbsp;<label for="grouped">grouped</label>
+                            id="groupedRead">&nbsp;<label for="groupedRead">grouped</label>
                     </div>
+
                     <div class="tab-pane fade show active" id="totalRead" role="tabpanel"
                         aria-labelledby="totalRead-tab"><canvas id="TotalRead"></canvas></div>
+
                     <div class="tab-pane fade" id="normalizadaRead" role="tabpanel"
                         aria-labelledby="normalizadaRead-tab"><canvas id="NormalizadaRead"></canvas></div>
                 </div>
@@ -235,30 +241,8 @@
 
     $(document).ready(function () {
         //Grafica Total Citas
-        let TotalCitas = document.getElementById("TotalCitas").getContext("2d");
-        let tc = new Chart(TotalCitas, {
-            type: "bar",
-            data: {
-                datasets:
-                    [{
-                        label: 'Ref. Citations to ref. papers',
-                        borderColor: 'blue',
-                        borderColor: 'green',
-                        backgroundColor: 'rgb(0, 0, 255,0.6)',
-                        backgroundColor: 'rgb(0, 128, 0, 0.6)'
-                    },
+        let options = {
 
-                    {
-                        label: 'Non ref. citations to ref. papers',
-                        borderColor: 'green',
-                        borderColor: 'blue',
-                        backgroundColor: 'rgb(0, 128, 0, 0.6)',
-                        backgroundColor: 'rgb(0, 0, 255,0.6)'
-                    }
-                    ],
-
-            },
-            options: {
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -273,9 +257,31 @@
 
                 title: {
                     display: true,
-                    text: 'Titulo'
+                    text: 'papers',
+                    position:'left'
                 }
             }
+        
+        let TotalCitas = document.getElementById("TotalCitas").getContext("2d");
+        let tc = new Chart(TotalCitas, {
+            type: "bar",
+            data: {
+                datasets:
+                    [{
+                        label: 'Ref. Citations to ref. papers',
+                        borderColor: 'blue',
+                        backgroundColor: 'rgb(0, 0, 255,0.6)',
+                    },
+
+                    {
+                        label: 'Non ref. citations to ref. papers',
+                        borderColor: 'green',
+                        backgroundColor: 'rgb(0, 128, 0, 0.6)',
+                    }
+                    ],
+
+            },
+            options: options
         });
         
         //Grafica Normalizada Citas
@@ -287,40 +293,18 @@
                     [{
                         label: 'Ref. Citations to ref. papers',
                         borderColor: 'blue',
-                        borderColor: 'green',
                         backgroundColor: 'rgb(0, 0, 255,0.6)',
-                        backgroundColor: 'rgb(0, 128, 0, 0.6)'
-
                     },
 
                     {
                         label: 'Non ref. citations to ref. papers',
                         borderColor: 'green',
-                        borderColor: 'blue',
                         backgroundColor: 'rgb(0, 128, 0, 0.6)',
-                        backgroundColor: 'rgb(0, 0, 255,0.6)'
                     }
                     ],
 
             },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        },
-                        stacked: true
-                    }],
-                    xAxes: [{
-                        stacked: true
-                    }]
-                },
-
-                title: {
-                    display: true,
-                    text: 'Titulo'
-                }
-            }
+            options: options
         });
 
         //Grafica Total Reads
@@ -329,44 +313,13 @@
             type: "bar",
             data: {
                 datasets:
-                
                     [{
-                        label: 'Ref. Citations to ref. papers',
+                        label: 'Refereed',
                         borderColor: 'blue',
-                        borderColor: 'green',
                         backgroundColor: 'rgb(0, 0, 255,0.6)',
-                        backgroundColor: 'rgb(0, 128, 0, 0.6)'
-
-                    },
-
-                    {
-                        label: 'Non ref. citations to ref. papers',
-                        borderColor: 'green',
-                        borderColor: 'blue',
-                        backgroundColor: 'rgb(0, 128, 0, 0.6)',
-                        backgroundColor: 'rgb(0, 0, 255,0.6)'
-                    }
-                    ],
-
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        },
-                        stacked: true
                     }],
-                    xAxes: [{
-                        stacked: true
-                    }]
-                },
-
-                title: {
-                    display: true,
-                    text: 'Titulo'
-                }
-            }
+            },
+            options: options
         });
 
         //Grafica Normalizada Reads
@@ -376,41 +329,13 @@
             data: {
                 datasets:
                     [{
-                        label: 'Ref. Citations to ref. papers',
+                        label: 'Refereed',
                         borderColor: 'blue',
-                        borderColor: 'green',
                         backgroundColor: 'rgb(0, 0, 255,0.6)',
-                        backgroundColor: 'rgb(0, 128, 0, 0.6)'
-                    },
-
-                    {
-                        label: 'Non ref. citations to ref. papers',
-                        borderColor: 'green',
-                        borderColor: 'blue',
-                        backgroundColor: 'rgb(0, 128, 0, 0.6)',
-                        backgroundColor: 'rgb(0, 0, 255,0.6)'
-                    }
-                    ],
+                    },],
 
             },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        },
-                        stacked: true
-                    }],
-                    xAxes: [{
-                        stacked: true
-                    }]
-                },
-
-                title: {
-                    display: true,
-                    text: 'Titulo'
-                }
-            }
+            options: options
         });
 
         //Cambiar stacked true - false
@@ -434,6 +359,11 @@
                     xAxes: [{
                         stacked: valorStacked
                     }]
+                },
+                title: {
+                    display: true,
+                    text: 'papers',
+                    position:'left'
                 }
             };
             tc.update();
@@ -449,6 +379,11 @@
                     xAxes: [{
                         stacked: valorStacked
                     }]
+                },
+                title: {
+                    display: true,
+                    text: 'papers',
+                    position:'left'
                 }
             };
             cn.update();
@@ -474,6 +409,11 @@
                     xAxes: [{
                         stacked: valorStacked
                     }]
+                },
+                title: {
+                    display: true,
+                    text: 'papers',
+                    position:'left'
                 }
             };
             tr.update();
@@ -489,6 +429,11 @@
                     xAxes: [{
                         stacked: valorStacked
                     }]
+                },
+                title: {
+                    display: true,
+                    text: 'papers',
+                    position:'left'
                 }
             };
             rn.update();
@@ -533,34 +478,69 @@
         });
         
         function cargarTotalCitas(data){
-            //tc.data.labels = data.citasLabels //['200','300','400'];
-            
-            tc.data.datasets.forEach((dataset) => {
-                dataset.data = ['21','33','44'];
+            labels = []
+            refereed_to_refereed = []
+            nonrefereed_to_refereed = []
+
+            $.each(data.refereed_to_refereed, function (indexInArray, valueOfElement) { 
+                labels.push(indexInArray);
+                refereed_to_refereed.push(valueOfElement)
             });
+            $.each(data.nonrefereed_to_refereed, function (indexInArray, valueOfElement) { 
+                nonrefereed_to_refereed.push(valueOfElement)
+            });
+            
+            tc.data.labels = labels
+            tc.data.datasets[0].data =  refereed_to_refereed; // Ref. citations to ref. papers
+            tc.data.datasets[1].data =  nonrefereed_to_refereed; // Non ref. citation to ref. papers
+            
             
             tc.update();
         }
         function cargarCitasNormalizadas(data){
-            cn.data.labels = ['50','30','40'];
-            cn.data.datasets.forEach((dataset) => {
-                dataset.data = ['21','33','44'];
+            labels = []
+            refereed_to_refereed_normalized = []
+            nonrefereed_to_refereed_normalized = []
+
+            $.each(data.refereed_to_refereed_normalized, function (indexInArray, valueOfElement) { 
+                labels.push(indexInArray);
+                refereed_to_refereed_normalized.push(valueOfElement)
             });
+
+            $.each(data.nonrefereed_to_refereed_normalized, function (indexInArray, valueOfElement) { 
+                nonrefereed_to_refereed_normalized.push(valueOfElement)
+            });
+            
+            cn.data.labels = labels
+            cn.data.datasets[0].data =  refereed_to_refereed_normalized; // Ref. citations to ref. papers
+            cn.data.datasets[1].data =  nonrefereed_to_refereed_normalized; // Non ref. citation to ref. papers
             cn.update();
         }
+        
         function cargarTotalReads(data){
-            tr.data.labels = ['31','45','21']
-            tr.data.datasets.forEach((dataset) => {
-                dataset.data = ['21','33','44'];
+            labels = []
+            refereed_reads = []
+    
+            $.each(data.refereed_reads, function (indexInArray, valueOfElement) { 
+                labels.push(indexInArray);
+                refereed_reads.push(valueOfElement)
             });
+            
+            tr.data.labels = labels
+            tr.data.datasets[0].data = refereed_reads; // Refereed
             tr.update();
-
         }
         function cargarReadsNormalizadas(data){
-            rn.data.labels = ['34','55','66']
-            rn.data.datasets.forEach((dataset) => {
-                dataset.data = ['21','33','44'];
+            labels = []
+            refereed_reads_normalized = []
+
+            $.each(data.refereed_reads_normalized, function (indexInArray, valueOfElement) { 
+                labels.push(indexInArray);
+                refereed_reads_normalized.push(valueOfElement)
             });
+ 
+            rn.data.labels = labels
+            rn.data.datasets[0].data =   refereed_reads_normalized; // Refereed
             rn.update();
         }
 
@@ -574,9 +554,6 @@
         });
     
     });
-
-
-
 </script>
 
 {% endblock %}
