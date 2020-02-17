@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 ]
 
 CRONJOBS = [
-    ('*/2 * * * *', investigadores.nuevoPeriodo.prueba)
+    ('*/2 * * * *', 'administradores.nuevoPeriodo.nuevoPeriodo')
 ]
 
 AUTH_USER_MODEL = 'registration.User'

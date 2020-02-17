@@ -22,7 +22,7 @@ administradorespatterns = ([
     path('administrador/correoBienvenida/',views.correoBienvenida.as_view(), name="correoBienvenida"),
 
     #Nuevo periodo
-    path('administrador/periodoNuevo', n.nuevo_periodo.as_view(), name='nuevo_periodo'),
+    path('administrador/periodoNuevo', n.nuevo_periodo, name='nuevo_periodo'),
 
     
 ],'administradores')

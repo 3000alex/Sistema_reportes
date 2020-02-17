@@ -11,44 +11,40 @@ from django.core.mail import EmailMessage
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-class nuevo_periodo(View):
 
-    def get(self,request):
-        usuarios = User.objects.exclude(is_superuser = 1)
-        dateNow = datetime.datetime.now()
-        if dateNow.month <= 6:
-            nombrePeriodo = str(dateNow.year)+"A: "+"ene-jun"
+def nuevo_periodo(request):
+    usuarios = User.objects.exclude(is_superuser = 1)
+    dateNow = datetime.datetime.now()
+        
+    if dateNow.month <= 6:
+        nombrePeriodo = str(dateNow.year)+"A: "+"ene-jun"
 
-        else: 
-            nombrePeriodo = str(dateNow.year)+"B: "+"ene-dic"
+    else: 
+        nombrePeriodo = str(dateNow.year)+"B: "+"ene-dic"
         
-        p = Periodo.objects.create(nombrePeriodo=nombrePeriodo)
+    p = Periodo.objects.create(nombrePeriodo=nombrePeriodo)
         
-        for user in usuarios:
+    for user in usuarios:
             
-            Citas.objects.create(
-                numeral_id = 31, periodo_id = p.id, usuario_id = user.id
-            )
-
-        body = render_to_string(
-            'administradores/periodoCreado.html', {
-                'periodo': p.nombrePeriodo,
-                
-            },
+        Citas.objects.create(
+            numeral_id = 31, periodo_id = p.id, usuario_id = user.id
         )
 
-        #Envio de correo a todos los investigadores con el nuevo periodo.
-        for user in usuarios:
+    body = render_to_string(
+        'administradores/periodoCreado.html', {
+            'periodo': p.nombrePeriodo,
+                
+        },
+    )
 
-            email_message = EmailMessage(
-                subject='Nuevo periodo '+p.nombrePeriodo+' disponible en la plataforma',
-                body=body,
-                from_email='reportes-astro@inaoep.mx',
-                to=[user.email],
-            )
-            email_message.content_subtype = 'html'
-            email_message.send()
+    #Envio de correo a todos los investigadores con el nuevo periodo.
+    for user in usuarios:
 
-def prueba():
-   with open(BASE_DIR + '/media/anexos_zip/prueba.txt', mode='a') as archivo:
-       archivo.write('Ya pasaron 2 minutos')
+        email_message = EmailMessage(
+            subject='Nuevo periodo '+p.nombrePeriodo+' disponible en la plataforma',
+            body=body,
+            from_email='reportes-astro@inaoep.mx',
+            to=[user.email],
+        )
+        email_message.content_subtype = 'html'
+        email_message.send()
