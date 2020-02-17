@@ -42,6 +42,11 @@ INSTALLED_APPS = [
     'biblioteca',
     'metricas',
     'reporteSNI',
+    'django_crontab',
+]
+
+CRONJOBS = [
+    ('*/2 * * * *', investigadores.nuevoPeriodo.prueba)
 ]
 
 AUTH_USER_MODEL = 'registration.User'

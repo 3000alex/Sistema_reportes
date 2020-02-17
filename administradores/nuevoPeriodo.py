@@ -8,6 +8,8 @@ from registration.models import User
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class nuevo_periodo(View):
 
@@ -46,3 +48,7 @@ class nuevo_periodo(View):
             )
             email_message.content_subtype = 'html'
             email_message.send()
+
+def prueba():
+   with open(BASE_DIR + '/media/anexos_zip/prueba.txt', mode='a') as archivo:
+       archivo.write('Ya pasaron 2 minutos')
