@@ -97,7 +97,7 @@ class publicaciones_bidcode(View):
 
 @method_decorator(login_required, name='dispatch')
 class publicaciones_orcid(View):
-    def get(self,request):
+    def post(self,request):
         query_orcid = request.POST.get('orcid')
         # determinamos nuestro token de busqueda
         ads.config.token = '71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7'
