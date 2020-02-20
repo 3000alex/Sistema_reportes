@@ -51,15 +51,16 @@ class metodo2ReporteSNI(View):
         #Obtenemos lista de bibcodes
         biblioteca = Biblioteca.objects.filter(user_id = request.user.id)
         if biblioteca:
-            bibcodesFile = open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'w')
+            bibcodes = open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'w')
             for b in biblioteca:
-                bibcodesFile.writelines('['+b.bibcode+']'+'\n')
-            bibcodesFile.close()
+                bibcodes.writelines('['+b.bibcode+']'+'\n')
+            bibcodes.close()
 
             #Usamos la libreria SNI para generar el reporte con el archivo bibcodes_{}.dat
-            bibcodesFile = open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'rb')
-            articulos = SNIads.get_papers(author, token=token,in_file=bibcodesFile.read())
-            citas = SNIads.get_citations(articulos, token=token)
+            with open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'r') as bibcodesFile:
+                articulos = SNIads.get_papers(author, token=token, in_file=bibcodesFile)
+                citas = SNIads.get_citations(articulos, token=token)
+
             sniFile = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'r')
             SNIads.print_results(author,articulos,citas,sniFile)
             sniFile.close()
