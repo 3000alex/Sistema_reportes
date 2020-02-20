@@ -8,6 +8,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from biblioteca.models import Biblioteca
 from SNIads import SNIads
+from django.contrib import messages
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 token = "71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7"
@@ -60,7 +61,7 @@ class metodo2ReporteSNI(View):
             articulos = SNIads.get_papers(author, token=token, in_file=BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author))
             citas = SNIads.get_citations(articulos, token=token)
 
-            sniFile = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'r')
+            sniFile = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'w')
             SNIads.print_results(author,articulos,citas,sniFile)
             sniFile.close()
 
@@ -74,5 +75,5 @@ class metodo2ReporteSNI(View):
             sniFile.close()
             return response
         else:
-
-            return HttpResponse("H")
+            #messages.success(request,'<strong>Publicaciones importadas correctamente.<br> Favor de editar la información de sus publicaciones: cuartil, estudiantes, congresos, etc.</strong>')
+            return messages.success(request,'<strong>Publicaciones importadas correctamente.<br> Favor de editar la información de sus publicaciones: cuartil, estudiantes, congresos, etc.</strong>')
