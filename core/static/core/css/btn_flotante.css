@@ -1,0 +1,31 @@
+
+.btn-reporte {
+    display:block;
+    width:70px;
+    height:70px;
+    color:rgb(5, 5, 5);
+    cursor: pointer;
+    position: fixed;
+    right:100px;
+    bottom:20px;
+    font-size: 60px;
+}
+
+.btn-biblioteca {
+    display:block;
+    color: white;
+    border-radius: 100%;
+    width: 70px;
+    height: 70px;
+    background: green;
+    cursor: pointer;
+    position: fixed;
+    right:30px;
+    bottom:50px;
+    font-size: 40px;
+    z-index: 999;
+}
+
+
+
+

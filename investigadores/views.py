@@ -207,7 +207,6 @@ class informacion_adicional(View):
             }
         return render(request, "investigadores/informacionAdicional.html", data)
 
-
 # Investigacion Cientifica - CRUD
 
 # Numerales Biblioteca
@@ -329,12 +328,13 @@ class crearModelo1(View):
         numeral1 = request.GET.get('numeral', None)
         id = request.GET.get('periodo',None)
         periodo = Periodo.objects.get(id=id)
-
+        
         obj = Modelo1.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo.id,
         )
+        
         
         data = {
             'id': obj.id,
@@ -401,12 +401,13 @@ class crearModelo2(View):
         numeral1 = request.GET.get('numeral', None)
         id = request.GET.get('periodo',None)
         periodo = Periodo.objects.get(id=id)
-
+        
         obj = Modelo2.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo.id,
         )
+        
 
         data = {
             'id': obj.id,
@@ -474,12 +475,13 @@ class crearModelo3(View):
         numeral1 = request.GET.get('numeral', None)
         id = request.GET.get('periodo',None)
         periodo = Periodo.objects.get(id=id)
-
+        
         obj = Modelo3.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral1,
             periodo_id=periodo.id,
         )
+        
 
         data = {
             'id': obj.id,

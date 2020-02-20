@@ -40,6 +40,7 @@ class metodo1ReporteSNI(View):
         filename = 'refs_{}.tex'.format(SNIads.clean_author(author))
         content = "attachment; filename='%s'" %(filename)
         response['content-Disposition'] = content
+        f.close()
         return response
 
 @method_decorator(login_required, name='dispatch')
@@ -47,14 +48,31 @@ class metodo2ReporteSNI(View):
     def get(self,request):
         
         author = request.GET.get('autor','None')
-        articulos = Biblioteca.objects.filter(user_id = request.user.id)
-        
-        f = open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'w')
-        for b in articulos:
-            f.writelines('['+b.bibcode+']'+'\n')
-        f.close()
+        #Obtenemos lista de bibcodes
+        biblioteca = Biblioteca.objects.filter(user_id = request.user.id)
+        if biblioteca:
+            bibcodesFile = open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'w')
+            for b in biblioteca:
+                bibcodesFile.writelines('['+b.bibcode+']'+'\n')
+            bibcodesFile.close()
 
-        f = open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'r')
-        
+            #Usamos la libreria SNI para generar el reporte con el archivo bibcodes_{}.dat
+            bibcodesFile = open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'r')
+            articulos = SNIads.get_papers(author, token=token,in_file=bibcodesFile)
+            citas = SNIads.get_citations(articulos, token=token)
+            sniFile = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'r')
+            SNIads.print_results(author,articulos,citas,sniFile)
+            sniFile.close()
 
-        return HttpResponse("H")
+
+            #Generamos archivo y lo servimos
+            sniFile = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'r')
+            response = HttpResponse(sniFile, content_type="application/octet-stream" )
+            filename = 'refs_{}.tex'.format(SNIads.clean_author(author))
+            content = "attachment; filename='%s'" %(filename)
+            response['content-Disposition'] = content
+            sniFile.close()
+            return response
+        else:
+
+            return HttpResponse("H")
