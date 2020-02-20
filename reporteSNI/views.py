@@ -57,8 +57,8 @@ class metodo2ReporteSNI(View):
             bibcodesFile.close()
 
             #Usamos la libreria SNI para generar el reporte con el archivo bibcodes_{}.dat
-            bibcodesFile = open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'r')
-            articulos = SNIads.get_papers(author, token=token,in_file=bibcodesFile)
+            bibcodesFile = open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'rb')
+            articulos = SNIads.get_papers(author, token=token,in_file=bibcodesFile.read())
             citas = SNIads.get_citations(articulos, token=token)
             sniFile = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'r')
             SNIads.print_results(author,articulos,citas,sniFile)
