@@ -28,8 +28,13 @@
                     
                     <form action="{% url 'reporteSNI:metodo2SNI' %}">
                         <input class="form-control mb-4" type="text" placeholder="Apellido, N." name="autor">
+                        {% if biblioteca %}
                         <button type="submit" data-toggle="modal" data-target="#reporteSNI" class="btn btn-success btn-lg pr-4 pl-4">Enviar</button>
+                        {% else %}
+                        <button type="button" data-toggle="modal" data-target="#bibliotecaVacia" class="btn btn-success btn-lg pr-4 pl-4">Enviar</button>
+                        {% endif %}
                     </form>
+                    
                     
                 </div>
             </div>
@@ -68,5 +73,27 @@
       </div>
     </div>
   </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="bibliotecaVacia" tabindex="-1" role="dialog" aria-labelledby="Articulo" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Reporte SNI</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="text-center">Biblioteca vacia, favor de actualizarla para utilizar esta opcion</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Aceptar</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  
     {% endblock %}
     

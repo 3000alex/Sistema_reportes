@@ -23,7 +23,12 @@ class instruccionesSNI(View):
 @method_decorator(login_required, name='dispatch')
 class reporteSNI(View):
     def get(self,request):
-        return render(request, 'reporteSNI/reporteSNI.html')
+        try:
+            biblioteca = Biblioteca.objects.filter(user_id = request.user.id)
+        except:
+            biblioteca = ""
+            
+        return HttpResponse(request, 'reporteSNI/reporteSNI.html',data={'biblioteca'})
 
 @method_decorator(login_required, name='dispatch')
 class metodo1ReporteSNI(View):
