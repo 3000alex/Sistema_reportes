@@ -56,30 +56,25 @@ class metodo2ReporteSNI(View):
         author = request.GET.get('autor','None')
         #Obtenemos lista de bibcodes
         biblioteca = Biblioteca.objects.filter(user_id = request.user.id)
-        if biblioteca:
-            bibcodes = open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'w')
-            for b in biblioteca:
-                bibcodes.writelines('['+b.bibcode+']'+'\n')
-            bibcodes.close()
 
-            #Usamos la libreria SNI para generar el reporte con el archivo bibcodes_{}.dat
-            articulos = SNIads.get_papers(author, token=token, in_file=BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author))
-            citas = SNIads.get_citations(articulos, token=token)
+        bibcodes = open(BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author), 'w')
+        for b in biblioteca:
+            bibcodes.writelines('['+b.bibcode+']'+'\n')
+        bibcodes.close()
+        
+        #Usamos la libreria SNI para generar el reporte con el archivo bibcodes_{}.dat
+        articulos = SNIads.get_papers(author, token=token, in_file=BASE_DIR + '/media/reporteSNI/bibcodes_{}.dat'.format(author))
+        citas = SNIads.get_citations(articulos, token=token)
+        sniFile = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'w')
+        SNIads.print_results(author,articulos,citas,sniFile)
+        sniFile.close()
 
-            sniFile = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'w')
-            SNIads.print_results(author,articulos,citas,sniFile)
-            sniFile.close()
 
-
-            #Generamos archivo y lo servimos
-            sniFile = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'r')
-            response = HttpResponse(sniFile, content_type="application/octet-stream" )
-            filename = 'refs_{}.tex'.format(SNIads.clean_author(author))
-            content = "attachment; filename='%s'" %(filename)
-            response['content-Disposition'] = content
-            sniFile.close()
-            return response
-        else:
-            #messages.success(request,'<strong>Publicaciones importadas correctamente.<br> Favor de editar la información de sus publicaciones: cuartil, estudiantes, congresos, etc.</strong>')
-            messages.success(request,'<strong>Publicaciones importadas correctamente.<br> Favor de editar la información de sus publicaciones: cuartil, estudiantes, congresos, etc.</strong>')
-            return False
+        #Generamos archivo y lo servimos
+        sniFile = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'r')
+        response = HttpResponse(sniFile, content_type="application/octet-stream" )
+        filename = 'refs_{}.tex'.format(SNIads.clean_author(author))
+        content = "attachment; filename='%s'" %(filename)
+        response['content-Disposition'] = content
+        sniFile.close()
+        return response
