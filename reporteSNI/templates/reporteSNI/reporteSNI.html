@@ -15,7 +15,7 @@
                         en el siguiente formato: González, María</small></p>
                     
                     <form action="{% url 'reporteSNI:metodo1SNI' %}">
-                        <input class="form-control mb-4" type="text" placeholder="Apellido, Nombre" name="autor">
+                        <input class="form-control mb-4" type="text" placeholder="Apellido, Nombre" name="autor" required>
                         <button type="submit" data-toggle="modal" data-target="#reporteSNI" class="btn btn-success btn-lg pr-4 pl-4">Enviar</button>
                     </form>
                     
@@ -27,7 +27,7 @@
                     <p><small>Introduzca el Apellido, Nombre con el que suele publicar<br>en el siguiente formato: González, M.</small></p>
                     
                     <form action="{% url 'reporteSNI:metodo2SNI' %}">
-                        <input class="form-control mb-4" type="text" placeholder="Apellido, N." name="autor">
+                        <input class="form-control mb-4" type="text" placeholder="Apellido, N." name="autor" required>
                         {% if biblioteca %}
                         <button type="submit" data-toggle="modal" data-target="#reporteSNI" class="btn btn-success btn-lg pr-4 pl-4">Enviar</button>
                         {% else %}
