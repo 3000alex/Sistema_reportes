@@ -1367,7 +1367,7 @@
         </div>
     </div>
     <!--Fin Modal glosario-->
-    <i data-toggle="modal" data-target="#glosario" class="far fa-question-circle btn-reporte"></i>
+    <i data-toggle="modal" data-placement="top" data-target="#glosario"  class="far fa-question-circle btn-reporte"></i>
 </div>
 
 
@@ -1399,6 +1399,14 @@
     }
 
     var accordion = new Accordion($('#accordion'), false);
+    $('[data-toggle="modal"]').popover({
+            trigger: 'hover',
+            html: true,
+            title: "Glosario",
+            content: `<small class="form-text text-muted mb-3">
+                                Glosario perteneciente a la seccion de apoyo institucional.
+                                </small>`
+        });
 });
 </script>
 
