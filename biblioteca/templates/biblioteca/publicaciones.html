@@ -7,7 +7,7 @@
     <form action="{% url 'biblioteca:agregar-biblioteca' %}" id="formid" method="POST">
         {% csrf_token %} 
 
-        <div class="btn-biblioteca text-center" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#loading" id="enviar">     
+        <div class="btn-biblioteca text-center" title="Agregar a biblioteca" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#loading" id="enviar">     
             <i  class="fas fa-book bg-black"  onclick="enviar()"></i>
         </div>
         
