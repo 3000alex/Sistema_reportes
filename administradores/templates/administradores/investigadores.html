@@ -3,7 +3,6 @@
 {% block usuarios %}
 
 <div class="container" style="padding-top: 255px;">
-    <a href="{% url 'administradores:nuevo_periodo' %}" class="btn btn-dark">Activar nuevo periodo</a>
     {% csrf_token %}
     <div class="row justify-content-end">
         <button class="btn btn-primary mb-3 mt-2 mr-4" data-toggle="modal" data-target="#modal-add"><i
