@@ -1539,6 +1539,7 @@ class generarReporte(View):
 class reportesEnviados(ListView):
     model = ReporteEnviado
     template_name = 'investigadores/reportesEnviados.html'
+    queryset = ReporteEnviado.objects.filter(usuario_id=request.user.id)
     context_object_name = 'reportes'
 
 
