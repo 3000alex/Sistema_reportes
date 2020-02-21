@@ -1536,11 +1536,10 @@ class generarReporte(View):
         
     
 @method_decorator(login_required, name='dispatch')
-class reportesEnviados(ListView):
-    model = ReporteEnviado
-    template_name = 'investigadores/reportesEnviados.html'
-    queryset = ReporteEnviado.objects.filter(usuario_id=request.user.id)
-    context_object_name = 'reportes'
+class reportesEnviados(View):
+    def get(self,request):
+        queryset = ReporteEnviado.objects.filter(usuario_id= request.user.id)
+        return render('investigadores/reportesEnviados.html',{'reportes':queryset})
 
 
 @method_decorator(login_required, name='dispatch')
