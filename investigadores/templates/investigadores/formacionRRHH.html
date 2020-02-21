@@ -52,7 +52,7 @@
                                 </div>
     
     
-                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo4{{modelo4.id}}">
     
                                 {%if modelo4.anexos %}
@@ -150,7 +150,7 @@
                                 </div>
     
     
-                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo4{{modelo4.id}}">
     
                                 {%if modelo4.anexos %}
@@ -249,7 +249,7 @@
                                 </div>
     
     
-                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo4{{modelo4.id}}">
     
                                 {%if modelo4.anexos %}
@@ -347,7 +347,7 @@
                                 </div>
     
     
-                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo4{{modelo4.id}}">
     
                                 {%if modelo4.anexos %}
@@ -436,7 +436,7 @@
                                     </div>
                                 </div>
     
-                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo5{{modelo5.id}}">
                                 {%if modelo5.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -523,7 +523,7 @@
                                     </div>
                                 </div>
     
-                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo5{{modelo5.id}}">
                                 {%if modelo5.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -637,7 +637,7 @@
                                 </div>
     
     
-                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo6{{modelo6.id}}">
                                 {%if modelo6.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -698,7 +698,7 @@
                                     value="{% if modelo16.nombreEstudiante %}{{ modelo16.nombreEstudiante }}{% endif %}"
                                     name="nombreEstudiante" id="nombreEstudianteModelo16{{modelo16.id}}" rows="5"></input>
     
-                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo16{{modelo16.id}}">
                                 {%if modelo16.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -821,7 +821,7 @@
                                 </div>
     
     
-                                <input disabled class="form-control mb-4" type="file" name="anexo"
+                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo6{{modelo6.id}}">
                                 {%if modelo6.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -913,31 +913,6 @@
     </div>
     <!--Fin Modal glosario-->
 
-    <!--Modal Multiple.-->
-    <div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="accionModal"></h5>
-
-                </div>
-
-                <div class="modal-body">
-                    <h5 id="textoModal" class="text-center"></h5><br>
-                    <div class="d-flex justify-content-center">
-                        <i id="icono" style="font-size: 100px;" class=""></i>
-                    </div>
-                </div>
-
-                <div class="modal-footer" id="footer">
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <!--Fin para Modal Multiple-->
     <i data-toggle="modal" data-placement="top" data-target="#glosario"  class="far fa-question-circle btn-reporte"></i>
 </div>
 <br><br>
@@ -945,39 +920,75 @@
 {% block JsCode %}
 <script>
     $(function () {
-    var Accordion = function (el, multiple) {
-        this.el = el || {};
-        this.multiple = multiple || false;
+        var Accordion = function (el, multiple) {
+            this.el = el || {};
+            this.multiple = multiple || false;
 
-        // Variables privadas
-        var links = this.el.find('.link');
-        // Evento
-        links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown)
-    }
+            // Variables privadas
+            var links = this.el.find('.link');
+            // Evento
+            links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown)
+        }
 
-    Accordion.prototype.dropdown = function (e) {
-        var $el = e.data.el;
-        $this = $(this),
-            $next = $this.next();
+        Accordion.prototype.dropdown = function (e) {
+            var $el = e.data.el;
+            $this = $(this),
+                $next = $this.next();
 
-        $next.slideToggle();
-        $this.parent().toggleClass('open');
+            $next.slideToggle();
+            $this.parent().toggleClass('open');
 
-        if (!e.data.multiple) {
-            $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
-        };
-    }
+            if (!e.data.multiple) {
+                $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+            };
+        }
 
-    var accordion = new Accordion($('#accordion'), false);
-    $('[data-toggle="modal"]').popover({
+        var accordion = new Accordion($('#accordion'), false);
+        $('[data-toggle="modal"]').popover({
             trigger: 'hover',
             html: true,
             title: "Glosario",
             content: `<small class="form-text text-muted mb-3">
-                                Glosario perteneciente a la seccion de formacion RRHH.
+                                Glosario perteneciente a la seccion de Investigación Adicional
                                 </small>`
         });
-});
+    });
+
+    $(document).on('change', 'input[type="file"]', function () {
+        var fileName = this.files[0].name;
+        var fileSize = this.files[0].size;
+
+        if (fileSize > 5242880) {
+            $("#accionModal").text("Archivo invalido");
+            $("#textoModal").text("El archivo no debe superar los 5MB") //¿Desea eliminar este Item?
+            $("#icono").addClass('fas fa-exclamation text-danger')
+            $("#footer").html(`<button class="btn btn-primary" data-dismiss="modal">Aceptar</button>`)
+            $('#modalDinamico').modal('show'); // abrir
+            this.value = '';
+        } else {
+            // recuperamos la extensión del archivo
+            var ext = fileName.split('.').pop();
+
+            // Convertimos en minúscula porque 
+            // la extensión del archivo puede estar en mayúscula
+            ext = ext.toLowerCase();
+
+            // console.log(ext);
+            switch (ext) {
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                case 'pdf': break;
+                default:
+                    $("#accionModal").text("Archivo invalido");
+                    $("#textoModal").text("El archivo no tiene la extensión adecuada") //¿Desea eliminar este Item?
+                    $("#icono").addClass('fas fa-exclamation text-danger')
+                    $("#footer").html(`<button class="btn btn-primary" data-dismiss="modal">Aceptar</button>`)
+                    $('#modalDinamico').modal('show'); // abrir
+                    this.value = ''; // reset del valor
+            }
+        }
+    });
 </script>
 
 
@@ -1112,7 +1123,7 @@
                             </div>
                         </div>
 
-                        <input disabled class="form-control mb-4" type="file" name="anexo"
+                        <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                             id="anexoModelo4${response.id}">
 
                         {%if modelo4.anexos %}
@@ -1264,7 +1275,7 @@
                             </div>
                         </div>
     
-                        <input disabled class="form-control mb-4" type="file" name="anexo"
+                        <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                             id="anexoModelo5${response.id}">
     
     
@@ -1454,7 +1465,7 @@
                             </div>
                         </div>
     
-                        <input disabled class="form-control mb-4" type="file" name="anexo"
+                        <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                             id="anexoModelo6${response.id}">
 
                         {%if subModelo6.anexos %}
@@ -1542,7 +1553,7 @@
                             </div>
                         </div>
     
-                        <input disabled class="form-control mb-4" type="file" name="anexo"
+                        <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                             id="anexoModelo6${response.id}">
 
                         {%if subModelo6.anexos %}
@@ -1673,7 +1684,7 @@
                         value="{% if modelo16.nombreEstudiante %}{{ modelo16.nombreEstudiante }}{% endif %}"
                         name="nombreEstudiante" id="nombreEstudianteModelo16${response.id}" rows="5"></input>
 
-                    <input disabled class="form-control mb-4" type="file" name="anexo"
+                    <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo16${response.id}">
                     {%if modelo16.anexos %}
                     <strong>Actualmente: </strong><a
