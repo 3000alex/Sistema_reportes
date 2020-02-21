@@ -1362,8 +1362,8 @@ class enviarReporte(View):
         anexoModelo14 = Modelo14.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fechaInicio__year = yearPeriodo)
         anexoModelo15 = Modelo15.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fechaInicio__year = yearPeriodo)
         anexoModelo16 = Modelo16.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fechaInicio__year = yearPeriodo)
-        anexoBiblioteca = Biblioteca.objects.exclude(anexos = "").filter(user_id = request.user.id, periodo__fechaInicio__year = yearPeriodo)
-        anexoCitas = Citas.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fechaInicio__year = yearPeriodo)
+        anexoBiblioteca = Biblioteca.objects.exclude(anexos = "").filter(user_id = request.user.id, fecha_ano=yearPeriodo)
+        anexoCitas = Citas.objects.exclude(anexos = "").filter(usuario_id = request.user.id,periodo__fechaInicio__year = yearPeriodo)
 
         html = generarPdf(request,periodo_id)
         
