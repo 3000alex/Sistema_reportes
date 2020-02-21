@@ -1539,7 +1539,7 @@ class generarReporte(View):
 class reportesEnviados(View):
     def get(self,request):
         queryset = ReporteEnviado.objects.filter(usuario_id= request.user.id)
-        return render('investigadores/reportesEnviados.html',{'reportes':queryset})
+        return render('investigadores/reportesEnviados.html',data={'reportes':queryset})
 
 
 @method_decorator(login_required, name='dispatch')
