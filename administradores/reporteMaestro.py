@@ -604,8 +604,6 @@ def Reporte(request,periodo_id):
                         p.add_run("DOI: ")
                         p.add_run(item.doi).font.color.rgb = RGBColor(0x42, 0x24, 0xE9)
                         p.add_run(" \r")
-                    p.add_run("Bibcode: "+item.bibcode)
-                    p.add_run(" \r")
                     p.add_run("URL: ")
                     p.add_run(item.url).font.color.rgb = RGBColor(0x42, 0x24, 0xE9)
             
