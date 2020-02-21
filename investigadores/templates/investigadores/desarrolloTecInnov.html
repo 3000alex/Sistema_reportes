@@ -661,7 +661,7 @@
         </div>
     </div>
     <!--Fin Modal glosario-->
-    <i data-toggle="modal" data-placement="top" data-target="#glosario"  class="far fa-question-circle btn-reporte"></i>
+    <i data-toggle="modal" id="glosario-btn" data-placement="top" data-target="#glosario"  class="far fa-question-circle btn-reporte"></i>
 </div>
 
 {% block JsCode %}
@@ -692,7 +692,7 @@
         }
 
         var accordion = new Accordion($('#accordion'), false);
-        $('[data-toggle="modal"]').popover({
+        $('#glosario-btn').popover({
             trigger: 'hover',
             html: true,
             title: "Glosario",

@@ -1511,7 +1511,6 @@ class enviarReporte(View):
         reporte.save()
         #os.remove('media/anexos_zip/anexo.zip')
         
-
         return  JsonResponse(data)
 
 
