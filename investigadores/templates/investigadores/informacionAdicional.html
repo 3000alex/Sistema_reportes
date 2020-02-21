@@ -56,12 +56,15 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    
+                                    <button onclick="desactivarCamposModelo14('{{modelo14.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
 
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo14Editar({{modelo14.id}})" id="{{modelo14.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
 
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo14Eliminar({{modelo14.id}})" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
 
@@ -337,10 +340,12 @@
                         <button onclick="modelo14Actualizar('${data.id}')" type="button"
                             class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                 Guardar</i></button>
+                        <button onclick="desactivarCamposModelo14('{{modelo14.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                            <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                         <button type="button" class="btn btn-primary  mr-2"
                             onclick="modelo14Editar('${data.id}')" id="${data.id}"
                             title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                        <button id="crearSubModelo14${data.id}" type="button" class="btn btn-danger   mr-2"
+                        <button id="crearSubModelo14${data.id}" type="button" class="btn btn-danger"
                             onclick="modelo14Eliminar('${data.id}')" title="Eliminar entrada"><i
                                 class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                     </div>

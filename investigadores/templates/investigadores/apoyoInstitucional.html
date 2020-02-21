@@ -33,10 +33,13 @@
                                             class="btn btn-success  mr-2" title="Guardar cambios"><i
                                                 class="fas fa-save">&nbsp;
                                                 Guardar</i></button>
+                                        <button onclick="desactivarCamposModelo15('{{modelo15.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                            <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+
                                         <button type="button" class="btn btn-primary  mr-2"
                                             onclick="modelo15Editar('{{modelo15.id}}')" id="{{modelo15.id}}"
                                             title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                        <button type="button" class="btn btn-danger   mr-2"
+                                        <button type="button" class="btn btn-danger"
                                             onclick="modelo15Eliminar('{{modelo15.id}}')" title="Eliminar entrada"><i
                                                 class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                     </div>
@@ -139,10 +142,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo9('{{modelo9.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo9Editar('{{modelo9.id}}')" id="{{modelo9.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo9Eliminar('{{modelo9.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -220,10 +225,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo10('{{modelo10.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -290,7 +297,7 @@
                                     id="descripcionModelo10{{modelo10.id}}" cols="30"
                                     rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
 
-                                <input disabled class="form-control mb-1" disabled type="file" name="anexo"
+                                <input disabled class="form-control mb-4" disabled type="file" name="anexo"
                                     id="anexoModelo10{{modelo10.id}}">
 
                                 {%if modelo10.anexos %}
@@ -303,10 +310,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo10('{{modelo10.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -386,10 +395,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo10('{{modelo10.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -469,10 +480,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo10('{{modelo10.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -552,10 +565,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo10('{{modelo10.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -635,10 +650,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo10('{{modelo10.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -702,10 +719,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo10('{{modelo10.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo10Editar('{{modelo10.id}}')" id="{{modelo10.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo10Eliminar('{{modelo10.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -775,10 +794,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo11('{{modelo11.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo11Editar('{{modelo11.id}}')" id="{{modelo11.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo11Eliminar('{{modelo11.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -858,10 +879,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo11('{{modelo11.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo11Editar('{{modelo11.id}}')" id="{{modelo11.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo11Eliminar('{{modelo11.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -931,10 +954,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo11('{{modelo11.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo11Editar('{{modelo11.id}}')" id="{{modelo11.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo11Eliminar('{{modelo11.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -1003,10 +1028,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo11('{{modelo11.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo11Editar('{{modelo11.id}}')" id="{{modelo11.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo11Eliminar('{{modelo11.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -1065,10 +1092,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo15('{{modelo15.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo15Editar('{{modelo15.id}}')" id="{{modelo15.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo15Eliminar('{{modelo15.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -1132,10 +1161,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo12('{{modelo12.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo12Editar('{{modelo12.id}}')" id="{{modelo12.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo12Eliminar('{{modelo12.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -1203,10 +1234,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo10('{{modelo10.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo13Editar('{{modelo13.id}}')" id="{{modelo13.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo13Eliminar('{{modelo13.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -1265,10 +1298,12 @@
                                         class="btn btn-success  mr-2" title="Guardar cambios"><i
                                             class="fas fa-save">&nbsp;
                                             Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo15('{{modelo15.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary  mr-2"
                                         onclick="modelo15Editar('{{modelo15.id}}')" id="{{modelo15.id}}"
                                         title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger   mr-2"
+                                    <button type="button" class="btn btn-danger"
                                         onclick="modelo15Eliminar('{{modelo15.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                                 </div>
@@ -1571,10 +1606,12 @@
                             <button onclick="modelo9Actualizar(${response.id})" type="button"
                                 class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                     Guardar</i></button>
+                            <button onclick="desactivarCamposModelo9('{{modelo9.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                             <button type="button" class="btn btn-primary  mr-2"
                                 onclick="modelo9Editar(${response.id})" id="${response.id}"
                                 title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                            <button type="button" class="btn btn-danger   mr-2"
+                            <button type="button" class="btn btn-danger"
                                 onclick="modelo9Eliminar(${response.id})" title="Eliminar entrada"><i
                                     class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                         </div>
@@ -1717,10 +1754,12 @@
                                 <button onclick="modelo10Actualizar(${response.id})" type="button"
                                 class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                     Guardar</i></button>
+                                <button onclick="desactivarCamposModelo10('{{modelo10.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                    <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                 <button type="button" class="btn btn-primary  mr-2"
                                     onclick="modelo10Editar(${response.id})" id="${response.id}"
                                     title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger   mr-2"
+                                <button type="button" class="btn btn-danger"
                                     onclick="modelo10Eliminar(${response.id})" title="Eliminar entrada"><i
                                         class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                             </div>
@@ -1760,10 +1799,12 @@
                                 <button onclick="modelo10Actualizar(${response.id})" type="button"
                                     class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                         Guardar</i></button>
+                                <button onclick="desactivarCamposModelo10('{{modelo10.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                    <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                 <button type="button" class="btn btn-primary  mr-2"
                                     onclick="modelo10Editar(${response.id})" id="${response.id}"
                                     title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger   mr-2"
+                                <button type="button" class="btn btn-danger"
                                     onclick="modelo10Eliminar(${response.id})" title="Eliminar entrada"><i
                                         class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                             </div>
@@ -1903,10 +1944,12 @@
                                 <button onclick="modelo11Actualizar(${response.id})" type="button"
                                     class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                         Guardar</i></button>
+                                <button onclick="desactivarCamposModelo11('{{modelo11.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                    <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                 <button type="button" class="btn btn-primary  mr-2"
                                     onclick="modelo11Editar(${response.id})" id="${response.id}"
                                     title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger   mr-2"
+                                <button type="button" class="btn btn-danger"
                                     onclick="modelo11Eliminar(${response.id})" title="Eliminar entrada"><i
                                         class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                             </div>
@@ -1959,10 +2002,12 @@
                                 <button onclick="modelo11Actualizar(${response.id})" type="button"
                                     class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                         Guardar</i></button>
+                                <button onclick="desactivarCamposModelo11('{{modelo11.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                    <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                 <button type="button" class="btn btn-primary  mr-2"
                                     onclick="modelo11Editar(${response.id})" id="${response.id}"
                                     title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger   mr-2"
+                                <button type="button" class="btn btn-danger"
                                     onclick="modelo11Eliminar(${response.id})" title="Eliminar entrada"><i
                                         class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                             </div>
@@ -2006,10 +2051,12 @@
                                 <button onclick="modelo11Actualizar(${response.id})" type="button"
                                     class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                         Guardar</i></button>
+                                <button onclick="desactivarCamposModelo11('{{modelo11.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                    <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                 <button type="button" class="btn btn-primary  mr-2"
                                     onclick="modelo11Editar(${response.id})" id="{{subModelo11.id}}"
                                     title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger   mr-2"
+                                <button type="button" class="btn btn-danger"
                                     onclick="modelo11Eliminar(${response.id})" title="Eliminar entrada"><i
                                         class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                             </div>
@@ -2136,10 +2183,12 @@
                             <button onclick="modelo12Actualizar(${response.id})" type="button"
                                 class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                     Guardar</i></button>
+                            <button onclick="desactivarCamposModelo12('{{modelo12.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                             <button type="button" class="btn btn-primary  mr-2"
                                 onclick="modelo12Editar(${response.id})" id="${response.id}"
                                 title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                            <button type="button" class="btn btn-danger   mr-2"
+                            <button type="button" class="btn btn-danger"
                                 onclick="modelo12Eliminar(${response.id})" title="Eliminar entrada"><i
                                     class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                         </div>
@@ -2275,10 +2324,12 @@
                             <button onclick="modelo13Actualizar(${response.id})" type="button"
                                 class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                     Guardar</i></button>
+                            <button onclick="desactivarCamposModelo13('{{modelo13.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                             <button type="button" class="btn btn-primary  mr-2"
                                 onclick="modelo13Editar(${response.id})" id="${response.id}"
                                 title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                            <button type="button" class="btn btn-danger   mr-2"
+                            <button type="button" class="btn btn-danger"
                                 onclick="modelo13Eliminar(${response.id})" title="Eliminar entrada"><i
                                     class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                         </div>
@@ -2404,10 +2455,12 @@
                             <button onclick="modelo15Actualizar(${response.id})" type="button"
                                 class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                     Guardar</i></button>
+                            <button onclick="desactivarCamposModelo15('{{modelo15.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                             <button type="button" class="btn btn-primary  mr-2"
                                 onclick="modelo15Editar(${response.id})" id="${response.id}"
                                 title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                            <button type="button" class="btn btn-danger   mr-2"
+                            <button type="button" class="btn btn-danger"
                                 onclick="modelo15Eliminar(${response.id})" title="Eliminar entrada"><i
                                     class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                         </div>
