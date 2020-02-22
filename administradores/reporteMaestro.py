@@ -24,6 +24,10 @@ def nombreCorto(cadenaAutores,nombreC):
     autores = cadenaAutores.replace(nombre[0],'<strong>{nombre}</strong>')
     return str(autores.format(nombre=nombre[0]))
 
+def nombreFile(nombreFile):
+    nombre = nombreFile.replace("anexos/","")
+    return nombre
+
 def add_hyperlink(paragraph, text, url):
     # This gets access to the document.xml.rels file and gets a new relation id value
     part = paragraph.part
@@ -581,7 +585,8 @@ def Reporte(request,periodo_id):
                         row_cells[3].text = item.indiceH
     
         
-        for inv in usuario:   
+        for inv in usuario: 
+
             for item in biblioteca:
                 if n.id == item.numeral_id  and inv.id == item.user_id:
                     
@@ -618,7 +623,7 @@ def Reporte(request,periodo_id):
 
                     if item.doi:
                         p.add_run("DOI: ")
-                        p.add_run(item.doi).font.color.rgb = RGBColor(0x42, 0x24, 0xE9)
+                        add_hyperlink(p,item.doi,"https://ui.adsabs.harvard.edu/link_gateway/"+item.bibcode+"/doi:"+item.doi)
                         p.add_run(" \r")
                     
                     if item.bibcode:
@@ -633,6 +638,10 @@ def Reporte(request,periodo_id):
                     if item.url:
                         p.add_run("URL: ")
                         add_hyperlink(p,item.url,item.url)
+                        p.add_run(" \r")
+
+                    if item.anexos:
+                        p.add_run("Anexo: " + nombreFile(item.anexos.name))
             
             for item in modelo1:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
@@ -669,6 +678,10 @@ def Reporte(request,periodo_id):
                     if item.url:
                         p.add_run("URL: ")
                         add_hyperlink(p,item.url,item.url)
+                        p.add_run(" \r")
+                    
+                    if item.anexos:
+                        p.add_run("Anexo: " + nombreFile(item.anexos.name))
             
             for item in modelo2:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
@@ -693,7 +706,7 @@ def Reporte(request,periodo_id):
                         paragraph.add_run(item.estudiantes + "\n").font.color.rgb = RGBColor(255,0,0)
 
                     if item.anexos:
-                        paragraph.add_run("Anexo: " + item.anexos.name)
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
     
             for item in modelo3:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
@@ -725,6 +738,10 @@ def Reporte(request,periodo_id):
                     if item.url:
                         paragraph.add_run("URL: ")
                         add_hyperlink(paragraph,item.url,item.url)
+                        paragraph.add_run(" \r")
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
                                 
             for item in modelo4:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
@@ -743,6 +760,10 @@ def Reporte(request,periodo_id):
                     if item.url:
                         paragraph.add_run("URL: ")
                         add_hyperlink(paragraph,item.url,item.url)
+                        paragraph.add_run(" \r")
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
             for item in modelo5:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
@@ -756,7 +777,10 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Periodo: " + item.periodoNumeral + "\n")
 
                     if item.notas:
-                        paragraph.add_run("Notas: " + item.notas)
+                        paragraph.add_run("Notas: " + item.notas + "\n")
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
             for item in modelo6:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
@@ -779,7 +803,10 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Fecha: " + item.fecha + "\n")
 
                     if item.notas:
-                        paragraph.add_run("Notas: " + item.notas)
+                        paragraph.add_run("Notas: " + item.notas + "\n")
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
             for item in modelo7:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
@@ -795,6 +822,10 @@ def Reporte(request,periodo_id):
                     if item.url:
                         paragraph.add_run("URL: ")
                         add_hyperlink(paragraph,item.url,item.url)
+                        paragraph.add_run(" \r")
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
             for item in modelo8:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
@@ -813,6 +844,10 @@ def Reporte(request,periodo_id):
                     if item.url:
                         paragraph.add_run("URL: ")
                         add_hyperlink(paragraph,item.url,item.url)
+                        paragraph.add_run(" \r")
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
             for item in modelo9:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
@@ -837,6 +872,10 @@ def Reporte(request,periodo_id):
                     if item.url:
                         paragraph.add_run("URL: ")
                         add_hyperlink(paragraph,item.url,item.url)
+                        paragraph.add_run(" \r")
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
                     
             for item in modelo10:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
@@ -855,7 +894,11 @@ def Reporte(request,periodo_id):
                     
                     if item.url:
                         paragraph.add_run("URL: ")
-                        add_hyperlink(paragraph,item.url,item.url)
+                        add_hyperlink(paragraph,item.url,item.url + "\n")
+                        paragraph.add_run(" \r")
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
                    
 
             for item in modelo11:
@@ -870,7 +913,10 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Fecha: " + item.fecha + "\n")
                     
                     if item.descripcion:
-                        paragraph.add_run("Descripción: " + item.descripcion)
+                        paragraph.add_run("Descripción: " + item.descripcion + "\n")
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
 
             for item in modelo12:
@@ -879,7 +925,10 @@ def Reporte(request,periodo_id):
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.laboratorioTaller:
-                        paragraph.add_run("Laboratorio o taller:" + item.laboratorioTaller)
+                        paragraph.add_run("Laboratorio o taller:" + item.laboratorioTaller + "\n")
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
                    
 
             for item in modelo13:
@@ -888,10 +937,13 @@ def Reporte(request,periodo_id):
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.agenciasFinancieras:
-                        paragraph.add_run("Agencia(s) financiadora(s):" + item.agenciasFinancieras)
+                        paragraph.add_run("Agencia(s) financiadora(s):" + item.agenciasFinancieras + "\n")
                     
                     if item.descripcion:
                         paragraph.add_run("Descripción: " + item.descripcion + "\n")
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
                    
 
             for item in modelo14:
@@ -906,7 +958,10 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Participante(s): " + item.participantes + "\n")
                     
                     if item.descripcion:
-                        paragraph.add_run("Descripción: " + item.descripcion)
+                        paragraph.add_run("Descripción: " + item.descripcion + "\n")
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
             for item in modelo15:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
@@ -915,6 +970,9 @@ def Reporte(request,periodo_id):
                     
                     if item.descripcion:
                         paragraph.add_run("Descripción: " + item.descripcion)
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
             
             for item in modelo16:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
@@ -922,7 +980,9 @@ def Reporte(request,periodo_id):
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.nombreEstudiante:
-                        paragraph.add_run("Nombre estudiante: " + item.nombreEstudiante)
-
+                        paragraph.add_run("Nombre estudiante: " + item.nombreEstudiante + "\n")
+                    
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
     return document
