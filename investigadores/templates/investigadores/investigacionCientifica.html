@@ -1,3 +1,4 @@
+{% load name %}
 <div id="numerales">
     <ul id="accordion" class="container accordion mt-2">
         <small class="form-text text-muted mb-2">NOTA: Los numerales 1-5, 7, 9, 11-14 y 14a son generados con base en su
@@ -93,7 +94,7 @@
 
                                 {%if biblioteca.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name}}</a>
+                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -228,7 +229,7 @@
 
                                 {%if biblioteca.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name}}</a>
+                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -363,7 +364,7 @@
 
                                 {%if biblioteca.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name}}</a>
+                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -503,7 +504,7 @@
 
                                 {%if biblioteca.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name}}</a>
+                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -643,7 +644,7 @@
 
                                 {%if biblioteca.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name}}</a>
+                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="d-flex justify-content-end">
@@ -760,7 +761,7 @@
 
                                 {%if modelo1.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name}}</a>
+                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -901,7 +902,7 @@
 
                                 {%if biblioteca.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name}}</a>
+                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -1012,7 +1013,7 @@
 
                                 {%if modelo1.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name}}</a>
+                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -1153,7 +1154,7 @@
 
                                 {%if biblioteca.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name}}</a>
+                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -1262,7 +1263,7 @@
 
                                 {%if modelo1.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name}}</a>
+                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -1403,7 +1404,7 @@
 
                                 {%if biblioteca.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name}}</a>
+                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -1542,7 +1543,7 @@
 
                                 {%if biblioteca.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name}}</a>
+                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -1680,7 +1681,7 @@
 
                                 {%if biblioteca.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name}}</a>
+                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -1819,7 +1820,7 @@
 
                                 {%if biblioteca.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name}}</a>
+                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -1957,7 +1958,7 @@
 
                                 {%if biblioteca.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name}}</a>
+                                    href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -2065,7 +2066,7 @@
 
                                 {%if modelo1.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name}}</a>
+                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -2175,7 +2176,7 @@
 
                                 {%if modelo1.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name}}</a>
+                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -2286,7 +2287,7 @@
 
                                 {%if modelo1.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name}}</a>
+                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -2402,7 +2403,7 @@
 
                                 {%if modelo2.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo2.anexos.url}}">{{modelo2.anexos.name}}</a>
+                                    href="{{modelo2.anexos.url}}">{{modelo2.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -2519,7 +2520,7 @@
 
                                 {%if modelo2.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo2.anexos.url}}">{{modelo2.anexos.name}}</a>
+                                    href="{{modelo2.anexos.url}}">{{modelo2.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -2636,7 +2637,7 @@
 
                                 {%if modelo2.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo2.anexos.url}}">{{modelo2.anexos.name}}</a>
+                                    href="{{modelo2.anexos.url}}">{{modelo2.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -2752,7 +2753,7 @@
 
                                 {%if modelo2.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo2.anexos.url}}">{{modelo2.anexos.name}}</a>
+                                    href="{{modelo2.anexos.url}}">{{modelo2.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -2869,7 +2870,7 @@
 
                                 {%if modelo2.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo2.anexos.url}}">{{modelo2.anexos.name}}</a>
+                                    href="{{modelo2.anexos.url}}">{{modelo2.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -2989,7 +2990,7 @@
 
                                 {%if modelo1.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name}}</a>
+                                    href="{{modelo1.anexos.url}}">{{modelo1.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -3139,7 +3140,7 @@
 
                                 {%if modelo3.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo3.anexos.url}}">{{modelo3.anexos.name}}</a>
+                                    href="{{modelo3.anexos.url}}">{{modelo3.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -3288,7 +3289,7 @@
 
                                 {%if modelo3.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo3.anexos.url}}">{{modelo3.anexos.name}}</a>
+                                    href="{{modelo3.anexos.url}}">{{modelo3.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -3417,7 +3418,7 @@
                                     name="anexo" id="anexoModelo3{{modelo3.id}}">
                                 {%if modelo3.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo3.anexos.url}}">{{modelo3.anexos.name}}</a>
+                                    href="{{modelo3.anexos.url}}">{{modelo3.anexos.name|nombreFile}}</a>
                                 {% endif %}
                                 <div class="justify-content-end d-flex">
                                     <button onclick="modelo3Actualizar({{modelo3.id}})" type="button"
@@ -3546,7 +3547,7 @@
                                     name="anexo" id="anexoModelo3{{modelo3.id}}">
                                 {%if modelo3.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo3.anexos.url}}">{{modelo3.anexos.name}}</a>
+                                    href="{{modelo3.anexos.url}}">{{modelo3.anexos.name|nombreFile}}</a>
                                 {% endif %}
                                 <div class="justify-content-end d-flex">
                                     <button onclick="modelo3Actualizar({{modelo3.id}})" type="button"
@@ -3694,7 +3695,7 @@
 
                                 {%if modelo3.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo3.anexos.url}}">{{modelo3.anexos.name}}</a>
+                                    href="{{modelo3.anexos.url}}">{{modelo3.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -3842,7 +3843,7 @@
 
                                 {%if modelo3.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo3.anexos.url}}">{{modelo3.anexos.name}}</a>
+                                    href="{{modelo3.anexos.url}}">{{modelo3.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
@@ -3920,7 +3921,7 @@
                             <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
                                 id="anexoCitas{{campo.id}}">
                             {%if campo.anexos %}
-                            <strong>Actualmente: </strong><a href="{{campo.anexos.url}}">{{campo.anexos.name}}</a>
+                            <strong>Actualmente: </strong><a href="{{campo.anexos.url}}">{{campo.anexos.name|nombreFile}}</a>
                             {% endif %}
 
                             <div class="justify-content-end d-flex">
@@ -4176,7 +4177,7 @@
 
                             {%if biblioteca.anexos %}
                             <strong>Actualmente: </strong><a
-                                href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name}}</a>
+                                href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
                             {% endif %}
 
                             <div class="justify-content-end d-flex">
@@ -4687,7 +4688,7 @@
 
                         {%if Modelo2.anexos %}
                             <strong>Actualmente: </strong><a
-                                href="{{Modelo2.anexos.url}}">{{Modelo2.anexos.name}}</a>
+                                href="{{Modelo2.anexos.url}}">{{Modelo2.anexos.name|nombreFile}}</a>
                         {% endif %}
 
                         <div class="justify-content-end d-flex">
@@ -4883,7 +4884,7 @@
                                 id="anexoModelo3${response.id}">
                             {%if Modelo3.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{Modelo3.anexos.url}}">{{Modelo3.anexos.name}}</a>
+                                    href="{{Modelo3.anexos.url}}">{{Modelo3.anexos.name|nombreFile}}</a>
                             {% endif %}
 
                             <div class="justify-content-end d-flex">

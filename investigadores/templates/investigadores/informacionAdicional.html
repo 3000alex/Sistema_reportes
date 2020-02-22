@@ -1,3 +1,4 @@
+{% load name %}
 <div id="numerales">
 
     <ul id="accordion" class="container accordion mt-2">
@@ -48,7 +49,7 @@
 
                                 {%if modelo14.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo14.anexos.url}}">{{modelo14.anexos.name}}</a>
+                                    href="{{modelo14.anexos.url}}">{{modelo14.anexos.name|nombreFile}}</a>
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">

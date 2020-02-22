@@ -1,3 +1,4 @@
+{% load name %}
 <div id="numerales">
     <ul id="accordion" class="container accordion mt-2">
         {% for numeral in numeralName %}
@@ -57,7 +58,7 @@
     
                                 {%if modelo4.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo4.anexos.url}}">{{modelo4.anexos.name}}</a>
+                                    href="{{modelo4.anexos.url}}">{{modelo4.anexos.name|nombreFile}}</a>
                                 {% endif %}
     
     
@@ -155,7 +156,7 @@
     
                                 {%if modelo4.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo4.anexos.url}}">{{modelo4.anexos.name}}</a>
+                                    href="{{modelo4.anexos.url}}">{{modelo4.anexos.name|nombreFile}}</a>
                                 {% endif %}
     
     
@@ -254,7 +255,7 @@
     
                                 {%if modelo4.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo4.anexos.url}}">{{modelo4.anexos.name}}</a>
+                                    href="{{modelo4.anexos.url}}">{{modelo4.anexos.name|nombreFile}}</a>
                                 {% endif %}
     
     
@@ -352,7 +353,7 @@
     
                                 {%if modelo4.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo4.anexos.url}}">{{modelo4.anexos.name}}</a>
+                                    href="{{modelo4.anexos.url}}">{{modelo4.anexos.name|nombreFile}}</a>
                                 {% endif %}
     
     
@@ -440,7 +441,7 @@
                                     id="anexoModelo5{{modelo5.id}}">
                                 {%if modelo5.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo5.anexos.url}}">{{modelo5.anexos.name}}</a>
+                                    href="{{modelo5.anexos.url}}">{{modelo5.anexos.name|nombreFile}}</a>
                                 {% endif %}
     
                                 <div class="justify-content-end d-flex">
@@ -527,7 +528,7 @@
                                     id="anexoModelo5{{modelo5.id}}">
                                 {%if modelo5.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo5.anexos.url}}">{{modelo5.anexos.name}}</a>
+                                    href="{{modelo5.anexos.url}}">{{modelo5.anexos.name|nombreFile}}</a>
                                 {% endif %}
     
                                 <div class="justify-content-end d-flex">
@@ -641,7 +642,7 @@
                                     id="anexoModelo6{{modelo6.id}}">
                                 {%if modelo6.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo6.anexos.url}}">{{modelo6.anexos.name}}</a>
+                                    href="{{modelo6.anexos.url}}">{{modelo6.anexos.name|nombreFile}}</a>
                                 {% endif %}
     
                                 <div class="justify-content-end d-flex">
@@ -702,7 +703,7 @@
                                     id="anexoModelo16{{modelo16.id}}">
                                 {%if modelo16.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo16.anexos.url}}">{{modelo16.anexos.name}}</a>
+                                    href="{{modelo16.anexos.url}}">{{modelo16.anexos.name|nombreFile}}</a>
                                 {% endif %}
     
                                 <div class="justify-content-end d-flex">
@@ -825,7 +826,7 @@
                                     id="anexoModelo6{{modelo6.id}}">
                                 {%if modelo6.anexos %}
                                 <strong>Actualmente: </strong><a
-                                    href="{{modelo6.anexos.url}}">{{modelo6.anexos.name}}</a>
+                                    href="{{modelo6.anexos.url}}">{{modelo6.anexos.name|nombreFile}}</a>
                                 {% endif %}
     
                                 <div class="justify-content-end d-flex">
@@ -1128,7 +1129,7 @@
 
                         {%if modelo4.anexos %}
                             <strong>Actualmente: </strong><a
-                                href="{{modelo4.anexos.url}}">{{modelo4.anexos.name}}</a>
+                                href="{{modelo4.anexos.url}}">{{modelo4.anexos.name|nombreFile}}</a>
                         {% endif %}
 
                         <div class="justify-content-end d-flex">
@@ -1470,7 +1471,7 @@
 
                         {%if subModelo6.anexos %}
                             <strong>Actualmente: </strong><a
-                                href="{{Modelo6.anexos.url}}">{{Modelo6.anexos.name}}</a>
+                                href="{{Modelo6.anexos.url}}">{{Modelo6.anexos.name|nombreFile}}</a>
                         {% endif %}
     
     
@@ -1558,7 +1559,7 @@
 
                         {%if subModelo6.anexos %}
                             <strong>Actualmente: </strong><a
-                                href="{{Modelo6.anexos.url}}">{{Modelo6.anexos.name}}</a>
+                                href="{{Modelo6.anexos.url}}">{{Modelo6.anexos.name|nombreFile}}</a>
                         {% endif %}
     
     
@@ -1688,7 +1689,7 @@
                         id="anexoModelo16${response.id}">
                     {%if modelo16.anexos %}
                     <strong>Actualmente: </strong><a
-                        href="{{modelo16.anexos.url}}">{{modelo16.anexos.name}}</a>
+                        href="{{modelo16.anexos.url}}">{{modelo16.anexos.name|nombreFile}}</a>
                     {% endif %}
 
                     <div class="justify-content-end d-flex">
