@@ -10,6 +10,7 @@ from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.enum.table import WD_TABLE_DIRECTION
 from docx.enum.table import WD_ALIGN_VERTICAL
 from docx.enum.table import WD_ROW_HEIGHT_RULE
+from docx.enum.dml import MSO_THEME_COLOR_INDEX
 from docx.shared import Inches
 #Modelos 
 from investigadores.models import Numeral, Citas, ReporteEnviado, Modelo1, Modelo2, Modelo3, Modelo4, Modelo5, Modelo6, Modelo7, Modelo8, Modelo9, Modelo10
@@ -22,6 +23,35 @@ def nombreCorto(cadenaAutores,nombreC):
     nombre = nombreC.split(",")
     autores = cadenaAutores.replace(nombre[0],'<strong>{nombre}</strong>')
     return str(autores.format(nombre=nombre[0]))
+
+def add_hyperlink(paragraph, text, url):
+    # This gets access to the document.xml.rels file and gets a new relation id value
+    part = paragraph.part
+    r_id = part.relate_to(url, docx.opc.constants.RELATIONSHIP_TYPE.HYPERLINK, is_external=True)
+
+    # Create the w:hyperlink tag and add needed values
+    hyperlink = docx.oxml.shared.OxmlElement('w:hyperlink')
+    hyperlink.set(docx.oxml.shared.qn('r:id'), r_id, )
+
+    # Create a w:r element and a new w:rPr element
+    new_run = docx.oxml.shared.OxmlElement('w:r')
+    rPr = docx.oxml.shared.OxmlElement('w:rPr')
+
+    # Join all the xml elements together add add the required text to the w:r element
+    new_run.append(rPr)
+    new_run.text = text
+    hyperlink.append(new_run)
+
+    # Create a new Run object and add the hyperlink into it
+    r = paragraph.add_run ()
+    r._r.append (hyperlink)
+
+    # A workaround for the lack of a hyperlink style (doesn't go purple after using the link)
+    # Delete this if using a template that has the hyperlink style in it
+    r.font.color.theme_color = MSO_THEME_COLOR_INDEX.HYPERLINK
+    r.font.underline = True
+
+    return hyperlink
 
 def Reporte(request,periodo_id):
     document = Document()
@@ -558,241 +588,341 @@ def Reporte(request,periodo_id):
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
                     paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                        
-
-                    paragraph.add_run(item.autores)
-                    paragraph.add_run(",")
-                    paragraph.add_run(item.titulo).font.italic = True
-                    paragraph.add_run(",")
-                    paragraph.add_run(item.revistaPublicacion)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.paginas)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.volumen)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.estudiantesEnArticulo).font.color.rgb = RGBColor(255,0,0)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(str(item.fecha))
+                    
+                    if item.autores:
+                        paragraph.add_run(item.autores)
+                        paragraph.add_run(",")
+                    
+                    if item.titulo:
+                        paragraph.add_run(item.titulo).font.italic = True
+                        paragraph.add_run(",")
+                    
+                    if item.revistaPublicacion:
+                        paragraph.add_run(item.revistaPublicacion)
+                        paragraph.add_run(" ")
+                    
+                    if item.paginas:
+                        paragraph.add_run(item.paginas)
+                        paragraph.add_run(" ")
+                    
+                    if item.volumen:
+                        paragraph.add_run(item.volumen)
+                        paragraph.add_run(" ")
+                    
+                    if item.fecha:
+                        paragraph.add_run(item.fecha)
+                    
                     p = document.add_paragraph() 
-                    p.alignment = WD_ALIGN_PARAGRAPH.LEFT 
+                    p.alignment = WD_ALIGN_PARAGRAPH.LEFT
                     p.paragraph_format.left_indent = Inches(0.25)
+
                     if item.doi:
                         p.add_run("DOI: ")
                         p.add_run(item.doi).font.color.rgb = RGBColor(0x42, 0x24, 0xE9)
                         p.add_run(" \r")
-                    p.add_run("Bibcode: "+item.bibcode)
-                    p.add_run(" \r")
-                    p.add_run("URL: ")
-                    p.add_run(item.url).font.color.rgb = RGBColor(0x42, 0x24, 0xE9)
+                    
+                    if item.bibcode:
+                        p.add_run("Bibcode: "+item.bibcode)
+                        p.add_run(" \r")
+                    
+                    if item.estudiantesEnArticulo:
+                        p.add_run("Estudiante(s): ")
+                        p.add_run(item.estudiantesEnArticulo).font.color.rgb = RGBColor(255,0,0)
+                        p.add_run(" \r")
+                    
+                    if item.url:
+                        p.add_run("URL: ")
+                        add_hyperlink(p,item.url,item.url)
             
             for item in modelo1:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
                     paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.autores)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.titulo).font.italic = True
-                    paragraph.add_run(",")
-                    paragraph.add_run(item.revistaPublicacion)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.estudiantesEnArticulo).font.color.rgb = RGBColor(255,0,0)
+                    
+                    if item.autores:
+                        paragraph.add_run(item.autores)
+                        paragraph.add_run(" ")
+
+                    if item.titulo:
+                        paragraph.add_run(item.titulo).font.italic = True
+                        paragraph.add_run(",")
+
+                    if item.revistaPublicacion:
+                        paragraph.add_run(item.revistaPublicacion)
+                        paragraph.add_run(" ")
+                        
                     p = document.add_paragraph() 
                     p.alignment = WD_ALIGN_PARAGRAPH.LEFT 
                     p.paragraph_format.left_indent = Inches(0.25)
+
                     if item.doi:
                         p.add_run("DOI: ")
                         p.add_run(item.doi).font.color.rgb = RGBColor(0x42, 0x24, 0xE9)
                         p.add_run(" \r")
-                    p.add_run("URL: ")
-                    p.add_run(item.url).font.color.rgb = RGBColor(0x42, 0x24, 0xE9)
+                    
+                    if item.estudiantesEnArticulo:
+                        p.add_run("Estudiante(s): ")
+                        p.add_run(item.estudiantesEnArticulo).font.color.rgb = RGBColor(255,0,0)
+                        p.add_run(" \r")
+                    
+                    if item.url:
+                        p.add_run("URL: ")
+                        add_hyperlink(p,item.url,item.url)
             
             for item in modelo2:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.nombreProyecto)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.participantes)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.estudiantes)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.responsableTecParticipante)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.descripcion)
+                    
+                    if item.nombreProyecto:
+                        paragraph.add_run("Nombre del proyecto: " + item.nombreProyecto + "\n")
+
+                    if item.participantes:
+                        paragraph.add_run("Participantes: " + item.participantes + "\n")
+
+                    if item.responsableTecParticipante:
+                        paragraph.add_run("Responsable técnico o participante: ")
+                        paragraph.add_run(item.responsableTecParticipante + "\n")
+
+                    if item.descripcion:
+                        paragraph.add_run("Descripcion: " + item.descripcion + "\n")
+
+                    if item.estudiantes:
+                        paragraph.add_run("Estudiantes: ")
+                        paragraph.add_run(item.estudiantes + "\n").font.color.rgb = RGBColor(255,0,0)
+
+                    if item.anexos:
+                        paragraph.add_run("Anexo: " + item.anexos.name)
     
             for item in modelo3:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.tituloPresentacion)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.autores)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.nombreConferencia)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.fecha)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.presentacionPoster)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.estudiantes)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.doi)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.url)
+
+                    if item.tituloPresentacion:
+                        paragraph.add_run("Título de la presentación: " + item.tituloPresentacion + "\n")
+
+                    if item.autores:
+                        paragraph.add_run("Autor(es): " + item.autores + "\n")
+
+                    if item.nombreConferencia:
+                        paragraph.add_run("Nombre de la conferencia: " + item.nombreConferencia + "\n")
+
+                    if item.fecha:
+                        paragraph.add_run("Fecha: " + item.fecha + "\n")
+
+                    if item.presentacionPoster:
+                        paragraph.add_run("Tipo de presentación: " + item.presentacionPoster + "\n")
+
+                    if item.estudiantes:
+                        paragraph.add_run("Estudiantes: ")
+                        paragraph.add_run(item.estudiantes + "\n").font.color.rgb = RGBColor(255,0,0)
+
+                    if item.doi:
+                        paragraph.add_run("DOI/ISBN: " + item.doi + "\n")
+
+                    if item.url:
+                        paragraph.add_run("URL: ")
+                        add_hyperlink(paragraph,item.url,item.url)
                                 
             for item in modelo4:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.nombreCompleto)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.tituloTesis)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.fecha)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.url)
+                    
+                    if item.nombreCompleto:
+                        paragraph.add_run("Nombre completo: " + item.nombreCompleto + "\n")
+
+                    if item.tituloTesis:
+                        paragraph.add_run("Título de tesis: " + item.tituloTesis + "\n")
+
+                    if item.fecha:
+                        paragraph.add_run("Fecha: " + item.fecha + "\n")
+
+                    if item.url:
+                        paragraph.add_run("URL: ")
+                        add_hyperlink(paragraph,item.url,item.url)
 
             for item in modelo5:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.nombreCurso)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.periodoNumeral)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.notas)
+                    
+                    if item.nombreCurso:
+                        paragraph.add_run("Nombre del curso: " + item.nombreCurso + "\n")
+
+                    if item.periodoNumeral:
+                        paragraph.add_run("Periodo: " + item.periodoNumeral + "\n")
+
+                    if item.notas:
+                        paragraph.add_run("Notas: " + item.notas)
 
             for item in modelo6:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.nombre)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.tituloTesis)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.Grado)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.institucion)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.fecha)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.notas)
+                    
+                    if item.nombre:
+                        paragraph.add_run("Nombre: " + item.nombre + "\n")
+
+                    if item.tituloTesis:
+                        paragraph.add_run("Título de tesis: " + item.tituloTesis + "\n")
+
+                    if item.Grado:
+                        paragraph.add_run("Grado: " + item.Grado + "\n")
+
+                    if item.institucion:
+                        paragraph.add_run("Institución: " + item.institucion + "\n")
+
+                    if item.fecha:
+                        paragraph.add_run("Fecha: " + item.fecha + "\n")
+
+                    if item.notas:
+                        paragraph.add_run("Notas: " + item.notas)
 
             for item in modelo7:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.autores)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.descripcion)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.url)
+
+                    if item.autores:
+                        paragraph.add_run("Autor(es): " + item.autores + "\n")
+
+                    if item.descripcion:
+                        paragraph.add_run("Descripción: " + item.descripcion + "\n")
+                    
+                    if item.url:
+                        paragraph.add_run("URL: ")
+                        add_hyperlink(paragraph,item.url,item.url)
 
             for item in modelo8:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.nombre)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.descripcion)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.participantes)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.url)
+                    
+                    if item.nombre:
+                        paragraph.add_run("Nombre: " + item.nombre + "\n")
+
+                    if item.participantes:
+                        paragraph.add_run("Participantes: " + item.participantes + "\n")
+
+                    if item.descripcion:
+                        paragraph.add_run("Descripción: " + item.descripcion + "\n")
+
+                    if item.url:
+                        paragraph.add_run("URL: ")
+                        add_hyperlink(paragraph,item.url,item.url)
 
             for item in modelo9:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.titulo)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.autores)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.numeroReportes)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.fecha)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.url)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.revistaPublicacion)
+                    
+                    if item.titulo:
+                        paragraph.add_run("Titulo: " + item.titulo + "\n")
+                    
+                    if item.autores:
+                        paragraph.add_run("Autor(es): " + item.autores + "\n")
+                    
+                    if item.numeroReportes:
+                        paragraph.add_run("No. Reportes/ID: " + item.numeroReportes + "\n")
+                    
+                    if item.revistaPublicacion:
+                        paragraph.add_run("Revista o publicación: " + item.revistaPublicacion + "\n")
 
+                    if item.fecha:
+                        paragraph.add_run("Fecha: " + item.fecha + "\n")
+                    
+                    if item.url:
+                        paragraph.add_run("URL: ")
+                        add_hyperlink(paragraph,item.url,item.url)
+                    
             for item in modelo10:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.descripcion)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.fecha)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.url)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.periodoNumeral)
+                    
+                    
+                    if item.fecha:
+                        paragraph.add_run("Fecha: " + item.fecha + "\n")
+                    
+                    if item.periodoNumeral:
+                        paragraph.add_run("Periodo: " + item.periodoNumeral)
+                    
+                    if item.descripcion:
+                        paragraph.add_run("Descripción: " + item.descripcion + "\n")
+                    
+                    if item.url:
+                        paragraph.add_run("URL: ")
+                        add_hyperlink(paragraph,item.url,item.url)
                    
 
             for item in modelo11:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.nombreEstudiante)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.descripcion)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.fecha)
+
+                    if item.nombreEstudiante:
+                        paragraph.add_run("Nombre del estudiante: " + item.nombreEstudiante + "\n")
+       
+                    if item.fecha:
+                        paragraph.add_run("Fecha: " + item.fecha + "\n")
+                    
+                    if item.descripcion:
+                        paragraph.add_run("Descripción: " + item.descripcion)
 
 
             for item in modelo12:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.laboratorioTaller)
+                    
+                    if item.laboratorioTaller:
+                        paragraph.add_run("Laboratorio o taller:" + item.laboratorioTaller)
                    
 
             for item in modelo13:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.descripcion)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.agenciasFinancieras)
+                    
+                    if item.agenciasFinancieras:
+                        paragraph.add_run("Agencia(s) financiadora(s):" + item.agenciasFinancieras)
+                    
+                    if item.descripcion:
+                        paragraph.add_run("Descripción: " + item.descripcion + "\n")
                    
 
             for item in modelo14:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.descripcion)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.TelescopioInstrumentoInfra)
-                    paragraph.add_run(" ")
-                    paragraph.add_run(item.participantes)
+                    
+                    if item.TelescopioInstrumentoInfra:
+                        paragraph.add_run("Telescopio, instrumento, infraestructura: " + item.TelescopioInstrumentoInfra + "\n")
+                    
+                    if item.participantes:
+                        paragraph.add_run("Participante(s): " + item.participantes + "\n")
+                    
+                    if item.descripcion:
+                        paragraph.add_run("Descripción: " + item.descripcion)
 
             for item in modelo15:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.descripcion)
+                    
+                    if item.descripcion:
+                        paragraph.add_run("Descripción: " + item.descripcion)
             
             for item in modelo16:
                 if n.id == item.numeral_id  and inv.id == item.usuario_id:
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    paragraph.add_run(item.nombreEstudiante)
+                    
+                    if item.nombreEstudiante:
+                        paragraph.add_run("Nombre estudiante: " + item.nombreEstudiante)
 
 
     return document

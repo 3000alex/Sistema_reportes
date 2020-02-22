@@ -57,22 +57,17 @@
                 {% for biblioteca in biblioteca %} <!--Numerales 1, 2, 3, 4, 5, 7, 9, 11, 12, 13, 14 y 14a-->
                     {% if numeral.id == biblioteca.numeral_id %}
                     <ul>
-                        <li>
-                            <p class=".biblioteca" >
-                                
-                                {% if biblioteca.autores %}{{biblioteca.autores|nombreCorto:biblioteca.user.nombreCorto|safe }},{% endif %}
-                                {% if biblioteca.titulo %}<i>{{biblioteca.titulo}},</i>{% endif %}
-                                {% if biblioteca.revistaPublicacion %}{{biblioteca.revistaPublicacion}},{% endif %}
-                                {% if biblioteca.volumen %}{{biblioteca.volumen}},{% endif %} 
-                                {% if biblioteca.paginas %}{{biblioteca.paginas}},{% endif %}
-                                {% if biblioteca.fecha %}{{biblioteca.fecha}},{% endif %}
-                                {% if biblioteca.estudiantesEnArticulo%}<br>Estudiantes: <span style="color: red;">{{ biblioteca.estudiantesEnArticulo }}</span>{% endif %}
-                                {% if biblioteca.doi %}<br> DOI: <a target="blank" href="https://ui.adsabs.harvard.edu/link_gateway/{{biblioteca.bibcode}}/doi:{{biblioteca.doi}}">{{biblioteca.doi}}</a>{% endif %}
-                                {% if biblioteca.bibcode %}<br> Bibcode: {{biblioteca.bibcode}} <br> {% endif %}
-                                <span>URL: <a target="blank" href="{{biblioteca.url}}"> {{biblioteca.url}}</a></span>
-
-                            </p>
-                           
+                        <li>                                
+                            {% if biblioteca.autores %}{{biblioteca.autores|nombreCorto:biblioteca.user.nombreCorto|safe }},{% endif %}
+                            {% if biblioteca.titulo %}<i>{{biblioteca.titulo}},</i>{% endif %}
+                            {% if biblioteca.revistaPublicacion %}{{biblioteca.revistaPublicacion}},{% endif %}
+                            {% if biblioteca.volumen %}{{biblioteca.volumen}},{% endif %} 
+                            {% if biblioteca.paginas %}{{biblioteca.paginas}},{% endif %}
+                            {% if biblioteca.fecha %}{{biblioteca.fecha}},{% endif %}
+                            {% if biblioteca.estudiantesEnArticulo%}<br>Estudiantes: <span style="color: red;">{{ biblioteca.estudiantesEnArticulo }}</span>{% endif %}
+                            {% if biblioteca.doi %}<br> DOI: <a target="blank" href="https://ui.adsabs.harvard.edu/link_gateway/{{biblioteca.bibcode}}/doi:{{biblioteca.doi}}">{{biblioteca.doi}}</a>{% endif %}
+                            {% if biblioteca.bibcode %}<br> Bibcode: {{biblioteca.bibcode}} <br> {% endif %}
+                            {% if biblioteca.url %} <span>URL: <a target="blank" href="{{biblioteca.url}}"> {{biblioteca.url}}</a></span> {% endif %}                           
                         </li>
                     </ul>
                     {% endif %}
@@ -88,7 +83,6 @@
                                 {% if modelo1.estudiantesEnArticulo %}<br>Estudiante(s): <span style="color: red;">{{ modelo1.estudiantesEnArticulo }}<br></span>{% endif %}
                                 {% if modelo1.doi %}DOI: <a target="blank" href="#">{{modelo1.doi}}<br></a>{% endif %}
                                 {% if modelo1.url %}URL: <a target="blank" href="{{modelo1.url}}">{{modelo1.url}}<br></a>{% endif %}
-                                <br>
                             </li>
                         </ul>
                     {% endif %}
@@ -102,11 +96,9 @@
                                 {% if modelo2.nombreProyecto %}Nombre del proyecto: {{modelo2.nombreProyecto}} <br> {% endif %}
                                 {% if modelo2.participantes %}Participantes: {{modelo2.participantes}} <br> {% endif %}
                                 {% if modelo2.responsableTecParticipante %}Responsable técnico o participante: {{modelo2.responsableTecParticipante}} <br> {% endif %}
+                                {% if modelo2.descripcion %}Descripcion: {{modelo2.descripcion}} <br> {% endif %}
                                 {% if modelo2.estudiantes %}Estudiantes: <span style="color: red;">{{modelo2.estudiantes}}</span> <br>{% endif %}
-                                {% if modelo2.descripcion %}Descripcion: {{modelo2.descripcion}}{% endif %}
-                                {% if modelo2.anexos %}<br>Anexo: {{modelo2.anexos}}{% endif %}
-                                
-                                
+                                {% if modelo2.anexos %}<br>Anexo: {{modelo2.anexos}}{% endif %}    
                             </li>
                         </ul>
                     {% endif %}
@@ -118,7 +110,7 @@
                         <ul>
                             <li>
                                 {% if modelo3.tituloPresentacion %}Título de la presentación: {{modelo3.tituloPresentacion}} <br> {% endif %}
-                                {% if modelo3.autores %}Autores: {{modelo3.autores}} <br> {% endif %}
+                                {% if modelo3.autores %}Autor(es): {{modelo3.autores}} <br> {% endif %}
                                 {% if modelo3.nombreConferencia %}Nombre de la conferencia: {{modelo3.nombreConferencia}} <br> {% endif %}
                                 {% if modelo3.fecha %} Fecha: {{modelo3.fecha}} <br> {% endif %}
                                 {% if modelo3.presentacionPoster %}Tipo de presentación: {{modelo3.presentacionPoster}} <br> {% endif %}
@@ -182,9 +174,9 @@
                     {% if numeral.id == modelo7.numeral_id %}
                         <ul>
                             <li>
-                                {%  if modelo7.autores %}Autor(es): {{modelo7.autores}} <br> {% endif %}
-                                {%  if modelo7.url %} URL: <a href="{{modelo7.url}}">{{modelo7.url}}</a><br> {% endif %}
-                                {%  if modelo7.descripcion %}Descripción: {{modelo7.descripcion}}{% endif %}
+                                {% if modelo7.autores %}Autor(es): {{modelo7.autores}} <br> {% endif %}
+                                {% if modelo7.descripcion %}Descripción: {{modelo7.descripcion}}{% endif %}
+                                {% if modelo7.url %} URL: <a href="{{modelo7.url}}">{{modelo7.url}}</a><br> {% endif %}
                                 {% if modelo7.anexos %}<br>Anexo: {{modelo7.anexos}}{% endif %}
                             </li>
                         </ul>
@@ -198,8 +190,8 @@
                             <li>
                                 {% if modelo8.nombre %}Nombre: {{modelo8.nombre}} <br> {% endif %}
                                 {% if modelo8.participantes %}Participantes: {{modelo8.participantes}} <br> {% endif %}
+                                {% if modelo8.descripcion %}Descripción: {{modelo8.descripcion}} <br> {% endif %}
                                 {% if modelo8.url %}URL: <a href="{{modelo8.url}}">{{modelo8.url}}</a> <br> {% endif %}
-                                {% if modelo8.descripcion %}Descripción{{modelo8.descripcion}}{% endif %}
                                 {% if modelo8.anexos %}<br>Anexo: {{modelo8.anexos}}{% endif %}
                             </li>
                         </ul>
@@ -214,6 +206,7 @@
                                 {% if modelo9.titulo %}Título: {{modelo9.titulo}} <br> {% endif %}
                                 {% if modelo9.autores %}Autor(es): {{modelo9.autores}} <br> {% endif %}
                                 {% if modelo9.numeroReportes %}No. Reportes/ID: {{modelo9.numeroReportes}} <br> {% endif %}
+                                {% if modelo9.revistaPublicacion %}Revista o publicación: {{modelo9.revistaPublicacion}} <br> {% endif %}
                                 {% if modelo9.fecha %}Fecha: {{modelo9.fecha}} <br> {% endif %}
                                 {% if modelo9.url %}URL: <a href="{{modelo9.url}} ">{{modelo9.url}} </a><br> {% endif %}
                                 {% if modelo9.anexos %}<br>Anexo: {{modelo9.anexos}}{% endif %}
@@ -228,9 +221,9 @@
                         <ul>
                             <li>
                                 {% if modelo10.fecha %}Fecha: {{modelo10.fecha}} <br> {% endif %}
-                                {% if modelo10.url %}URL: {{modelo10.url}} <br> {% endif %}
+                                {% if modelo10.periodoNumeral %}Periodo: {{modelo10.periodoNumeral}} <br> {% endif %}
                                 {% if modelo10.descripcion %}Descripción {{modelo10.descripcion}} <br> {% endif %}
-                                {% if modelo10.periodoNumeral %}{{modelo10.periodoNumeral}}{% endif %}
+                                {% if modelo10.url %}URL: {{modelo10.url}} <br> {% endif %}
                                 {% if modelo10.anexos %}<br>Anexo: {{modelo10.anexos}}{% endif %}
                             </li>
                         </ul>
@@ -243,9 +236,8 @@
                         <ul>
                             <li>
                                 {% if modelo11.nombreEstudiante %}Nombre del estudiante: {{modelo11.nombreEstudiante}} <br> {%endif%}
-                                {% if modelo11.descripcion %}Descripción: {{modelo11.descripcion}} <br> {%endif%}
                                 {% if modelo11.fecha %}Fecha: {{modelo11.fecha}} <br> {% endif %}
-                                {% if modelo11.fechaPeriodo %}Fecha o periodo: {{modelo11.fechaPeriodo}}{% endif %}
+                                {% if modelo11.descripcion %}Descripción: {{modelo11.descripcion}} <br> {%endif%}
                                 {% if modelo11.anexos %}<br>Anexo: {{modelo11.anexos}}{% endif %}
                             </li>
                         </ul>
