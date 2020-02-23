@@ -269,6 +269,19 @@ class BibliotecaCrearNumeral(View):
             'numeral': numeral1,
         }
         return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorBiblioteca(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo14.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id)
+
+        data = {
+            'descripcion':datos.descripcion,
+        }
+        return  JsonResponse(data)
 # Fin Numerales Biblioteca
 
 # Operaciones Modelo1
@@ -342,6 +355,19 @@ class crearModelo1(View):
         }
         return JsonResponse(data)
 
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo1(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo1.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+
+        data = {
+            'descripcion':datos.descripcion,
+        }
+        return  JsonResponse(data)
+
 # Operaciones Modelo2
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo2(View):
@@ -394,7 +420,6 @@ class eliminarModelo2(View):
         }
         return JsonResponse(data)
 
-
 @method_decorator(login_required, name='dispatch')
 class crearModelo2(View):
     def get(self, request):
@@ -414,6 +439,23 @@ class crearModelo2(View):
             'numeral': numeral1,
         }
         return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo2(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo2.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id).last()
+
+        data = {
+            'nombreProyecto':datos.nombreProyecto,
+            'descripcion':datos.descripcion,
+            'participantes':datos.participantes,
+            'estudiantes':datos.estudiantes,
+            'responsableTecParticipantes':datos.responsableTecParticipante
+        }
+        return  JsonResponse(data)
 
 # Operaciones Modelo3
 @method_decorator(login_required, name='dispatch')
@@ -488,6 +530,26 @@ class crearModelo3(View):
             'numeral': numeral1,
         }
         return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo3(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo3.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+
+        data = {
+            'tituloPresentacion':datos.tituloPresentacion,
+            'autores':datos.autores,
+            'nombreConferencia':datos.nombreConferencia,
+            'fecha':datos.fecha,
+            'presentacionPoster':datos.presentacionPoster,
+            'estudiantes':datos.estudiantes,
+            'doi':datos.doi,
+            'url':datos.url,
+        }
+        return  JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
 class actualizarCitas(View):
@@ -603,6 +665,22 @@ class crearModelo4(View):
         return JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo4(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo4.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+
+        data = {
+            'nombreCompleto':datos.nombreCompleto,
+            'tituloTesis':datos.tituloTesis,
+            'fecha':datos.fecha,
+            'url':datos.url
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
 class actualizarModelo5(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
@@ -664,6 +742,21 @@ class crearModelo5(View):
             'numeral': numeral1,
         }
         return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo5(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo5.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+
+        data = {
+            'nombreCurso':datos.nombreCurso,
+            'periodoNumeral':datos.periodoNumeral,
+            'notas':datos.notas
+        }
+        return  JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo6(View):
@@ -733,6 +826,24 @@ class crearModelo6(View):
         }
         return JsonResponse(data)
 
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo6(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo6.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+
+        data = {
+            'nombre':datos.nombre,
+            'tituloTesis':datos.tituloTesis,
+            'Grado':datos.Grado,
+            'institucion':datos.institucion,
+            'fecha':datos.fecha,
+            'notas':datos.notas,
+        }
+        return  JsonResponse(data)
+
 # Desarrollo Tec. Innov. - CRUD
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo7(View):
@@ -796,6 +907,21 @@ class crearModelo7(View):
         return JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo7(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo7.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+
+        data = {
+            'descripcion':datos.descripcion,
+            'autores':datos.autores,
+            'url':datos.url,
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
 class actualizarModelo8(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
@@ -857,6 +983,22 @@ class crearModelo8(View):
             'numeral': numeral1,
         }
         return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo8(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo8.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+
+        data = {
+            'nombre':datos.nombre,
+            'descripcion':datos.descripcion,
+            'participantes':datos.participantes,
+            'url':datos.url,
+        }
+        return  JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo9(View):
@@ -925,6 +1067,24 @@ class crearModelo9(View):
         }
         return JsonResponse(data)
 
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo9(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        numeral_id = request.GET.get('numeral',None)
+        periodo_id = int(periodo_id) - 1
+        datos = Modelo9.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id).last()
+
+        data = {
+            'titulo':datos.titulo,
+            'autores':datos.autores,
+            'numeroReportes':datos.numeroReportes,
+            'fecha':datos.fecha,
+            'url':datos.url,
+            'revistaPublicacion':datos.revistaPublicacion
+        }
+        return  JsonResponse(data)
+
 # Apoyo institucional
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo10(View):
@@ -990,6 +1150,22 @@ class crearModelo10(View):
         return JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo10(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo10.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id).last()
+
+        data = {
+            'descripcion':datos.descripcion,
+            'fecha':datos.fecha,
+            'url':datos.url,
+            'periodoNumeral':datos.periodoNumeral,
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
 class actualizarModelo11(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
@@ -1052,6 +1228,21 @@ class crearModelo11(View):
         return JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo11(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo11.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id).last()
+
+        data = {
+            'descripcion':datos.descripcion,
+            'nombreEstudiante':datos.nombreEstudiante,
+            'fecha':datos.fecha   
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
 class actualizarModelo12(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
@@ -1108,6 +1299,18 @@ class crearModelo12(View):
             'numeral': numeral1,
         }
         return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo12(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo12.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id).last()
+        data = {
+            'laboratorioTaller':datos.laboratorioTaller,
+        }
+        return  JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo13(View):
@@ -1169,6 +1372,20 @@ class crearModelo13(View):
         return JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo13(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo13.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id).last()
+        
+        data = {
+            'descripcion':datos.descripcion,
+            'agencias':datos.agenciasFinancieras,
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
 class actualizarModelo14(View):
 
     def post(self, request):
@@ -1228,6 +1445,21 @@ class crearModelo14(View):
         return JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo14(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo14.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+
+        data = {
+            'descripcion':datos.descripcion,
+            'telescopio':datos.TelescopioInstrumentoInfra,
+            'participantes': datos.participantes
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
 class actualizarModelo15(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
@@ -1285,6 +1517,19 @@ class crearModelo15(View):
         return JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo15(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo15.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+
+        data = {
+            'descripcion':datos.descripcion,
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
 class actualizarModelo16(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
@@ -1340,6 +1585,19 @@ class crearModelo16(View):
             'numeral': numeral1,
         }
         return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo16(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo16.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id).last()
+
+        data = {
+            'nombreEstudiante':datos.nombreEstudiante,
+        }
+        return  JsonResponse(data)
 
 class enviarReporte(View): 
     def get(self, request, *args, **kwargs):

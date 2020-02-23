@@ -75,6 +75,8 @@
                                     <button type="button" class="btn btn-danger"
                                         onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                            
+                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo4({{modelo4.periodo_id}}, {{modelo4.id}}, {{modelo4.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
                                 </div>
                             </div>
     
@@ -173,6 +175,8 @@
                                     <button type="button" class="btn btn-danger"
                                         onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+
+                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo4({{modelo4.periodo_id}}, {{modelo4.id}}, {{modelo4.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
                                 </div>
                             </div>
     
@@ -272,6 +276,8 @@
                                     <button type="button" class="btn btn-danger"
                                         onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+
+                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo4({{modelo4.periodo_id}}, {{modelo4.id}}, {{modelo4.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
                                 </div>
                             </div>
     
@@ -370,6 +376,8 @@
                                     <button type="button" class="btn btn-danger"
                                         onclick="modelo4Eliminar('{{modelo4.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                    
+                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo4({{modelo4.periodo_id}}, {{modelo4.id}}, {{modelo4.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
                                 </div>
                             </div>
     
@@ -457,6 +465,8 @@
                                     <button type="button" class="btn btn-danger"
                                         onclick="modelo5Eliminar('{{modelo5.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                    
+                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo5({{modelo5.periodo_id}}, {{modelo5.id}}, {{modelo5.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
                                 </div>
     
                             </div>
@@ -544,6 +554,7 @@
                                     <button type="button" class="btn btn-danger"
                                         onclick="modelo5Eliminar('{{modelo5.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo5({{modelo5.periodo_id}}, {{modelo5.id}}, {{modelo5.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
                                 </div>
     
                             </div>
@@ -658,6 +669,8 @@
                                     <button type="button" class="btn btn-danger"
                                         onclick="modelo6Eliminar('{{modelo6.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                            
+                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo6({{modelo6.periodo_id}}, {{modelo6.id}}, {{modelo6.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -719,6 +732,7 @@
                                     <button type="button" class="btn btn-danger"
                                         onclick="modelo16Eliminar('{{modelo16.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo16({{modelo16.periodo_id}}, {{modelo16.id}}, {{modelo16.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
                                 </div>
     
                             </div>
@@ -842,6 +856,8 @@
                                     <button type="button" class="btn btn-danger"
                                         onclick="modelo6Eliminar('{{modelo6.id}}')" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                            
+                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo6({{modelo6.periodo_id}}, {{modelo6.id}}, {{modelo6.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
                                 </div>
     
                             </div>
@@ -1054,6 +1070,25 @@
             }
         });
     }
+    function infoAnteriorModelo4(periodo,id,numeral){
+     
+     $.ajax({
+         type: "GET",
+         url: "{% url 'investigadores:info-anteriorModelo4' %}",
+         data: {
+             'periodo':periodo,
+             'numeral':numeral,
+         },
+         dataType: "json",
+         success: function (response) {
+             $("#nombreCompletoModelo4"+id).val(response.nombreCompleto);
+             $("#tituloTesisModelo4"+id).val(response.tituloTesis);
+             $("#fechaModelo4"+id).val(response.fecha);
+             $("#urlModelo4"+id).val(response.url);
+             toastr.info("Operación exitosa","información copiada")
+         }
+     });
+ }
     function modelo4Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
         $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
@@ -1213,6 +1248,24 @@
             }
         });
     }
+    function infoAnteriorModelo5(periodo,id,numeral){
+     
+     $.ajax({
+         type: "GET",
+         url: "{% url 'investigadores:info-anteriorModelo5' %}",
+         data: {
+             'periodo':periodo,
+             'numeral':numeral,
+         },
+         dataType: "json",
+         success: function (response) {
+             $("#nombreCursoModelo5"+id).val(response.nombreCurso);
+             $("#periodoModelo5"+id).val(response.periodoNumeral);
+             $("#notasModelo5"+id).val(response.notas);
+             toastr.info("Operación exitosa","información copiada")
+         }
+     });
+ }
     function modelo5Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
         $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
@@ -1368,6 +1421,27 @@
             }
         });
     }
+    function infoAnteriorModelo6(periodo,id,numeral){
+     
+     $.ajax({
+         type: "GET",
+         url: "{% url 'investigadores:info-anteriorModelo6' %}",
+         data: {
+             'periodo':periodo,
+             'numeral':numeral,
+         },
+         dataType: "json",
+         success: function (response) {
+             $("#nombreModelo6"+id).val(response.nombre);
+             $("#tituloTesisModelo6"+id).val(response.tituloTesis);
+             $("#gradoModelo6"+id).val(response.Grado);
+             $("#institucionModelo6"+id).val(response.institucion);
+             $("#fechaModelo6"+id).val(response.fecha);
+             $("#notasModelo6"+id).val(response.notas);
+             toastr.info("Operación exitosa","información copiada")
+         }
+     });
+ }
     function modelo6Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
         $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
@@ -1672,6 +1746,22 @@
             }
         });
     }
+    function infoAnteriorModelo16(periodo,id,numeral){
+     
+     $.ajax({
+         type: "GET",
+         url: "{% url 'investigadores:info-anteriorModelo16' %}",
+         data: {
+             'periodo':periodo,
+             'numeral':numeral,
+         },
+         dataType: "json",
+         success: function (response) {
+             $("#nombreEstudianteModelo16"+id).val(response.nombreEstudiante);
+             toastr.info("Operación exitosa","información copiada")
+         }
+     });
+ }
     function dibujarmodelo16(response) {
 
         $("#modelo16Crear" + `${response.numeral}`).before(

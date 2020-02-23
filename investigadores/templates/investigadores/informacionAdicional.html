@@ -69,6 +69,8 @@
                                     <button type="button" class="btn btn-danger"
                                         onclick="modelo14Eliminar({{modelo14.id}})" title="Eliminar entrada"><i
                                             class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                    
+                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo14({{modelo14.periodo_id}}, {{modelo14.id}}, {{modelo14.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
                                 </div>
 
                             </div>
@@ -219,6 +221,25 @@
 </script>
 
 <script>
+
+    function infoAnteriorModelo14(periodo,id,numeral){
+     
+        $.ajax({
+            type: "GET",
+            url: "{% url 'investigadores:info-anteriorModelo14' %}",
+            data: {
+                'periodo':periodo,
+                'numeral':numeral,
+            },
+            dataType: "json",
+            success: function (response) {
+                $("#descripcionModelo14"+id).val(response.descripcion);
+                $("#participantesModelo14"+id).val(response.participantes);
+                $("#telescopioModelo14"+id).val(response.telescopio);
+                toastr.info("Operación exitosa","información copiada")
+            }
+        });
+    }
 
     //Modelo 14
     function modelo14Editar(id) {
