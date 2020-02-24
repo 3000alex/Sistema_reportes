@@ -338,20 +338,21 @@ class eliminarModelo1(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo1(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
         
         obj = Modelo1.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
         
         
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -423,20 +424,21 @@ class eliminarModelo2(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo2(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
         
         obj = Modelo2.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
         
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -514,20 +516,21 @@ class eliminarModelo3(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo3(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
         
         obj = Modelo3.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
         
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -648,19 +651,20 @@ class eliminarModelo4(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo4(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo4.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -727,19 +731,20 @@ class eliminarModelo5(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo5(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo5.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -810,19 +815,20 @@ class eliminarModelo6(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo6(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
        
         obj = Modelo6.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -890,19 +896,20 @@ class eliminarModelo7(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo7(View):
     def get(self, request):        
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo7.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -968,19 +975,20 @@ class eliminarModelo8(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo8(View):
     def get(self, request):        
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo8.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -1051,19 +1059,20 @@ class eliminarModelo9(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo9(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo9.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -1133,19 +1142,20 @@ class eliminarModelo10(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo10(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo10.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -1211,19 +1221,20 @@ class eliminarModelo11(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo11(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo11.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -1284,19 +1295,20 @@ class eliminarModelo12(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo12(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
     
         obj = Modelo12.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -1355,19 +1367,20 @@ class eliminarModelo13(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo13(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo13.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -1428,19 +1441,20 @@ class eliminarModelo14(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo14(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo14.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -1500,19 +1514,20 @@ class eliminarModelo15(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo15(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo15.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
@@ -1570,19 +1585,20 @@ class eliminarModelo16(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo16(View):
     def get(self, request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=id)
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo16.objects.create(
             usuario_id=request.user.id,
-            numeral_id=numeral1,
+            numeral_id=numeral,
             periodo_id=periodo.id,
         )
 
         data = {
             'id': obj.id,
-            'numeral': numeral1,
+            'numeral': numeral,
+            'periodo':periodo_id,
         }
         return JsonResponse(data)
 
