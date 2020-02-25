@@ -1726,58 +1726,58 @@ class enviarReporte(View):
             
             for anexo in anexoModelo1:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
             for anexo in anexoModelo2:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)            
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
             for anexo in anexoModelo3:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)            
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
             for anexo in anexoModelo4:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)            
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
             for anexo in anexoModelo5:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)            
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
             for anexo in anexoModelo6:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)            
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
             for anexo in anexoModelo7:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)            
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
             for anexo in anexoModelo8:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)            
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
             for anexo in anexoModelo9:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)            
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
             for anexo in anexoModelo10:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)            
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
             for anexo in anexoModelo11:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)            
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
             for anexo in anexoModelo12:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)            
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
             for anexo in anexoModelo13:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)            
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
             for anexo in anexoModelo14:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)            
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
             for anexo in anexoModelo15:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
             for anexo in anexoModelo16:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
             for anexo in anexoCitas:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
             for anexo in anexoBiblioteca:
                 if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, 'media/'+anexo.anexos.name)
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
         anexoZip.close()
 
         anexoZip = open(BASE_DIR + '/media/'+'anexos_zip/anexo.zip','rb') #Corregir este error
