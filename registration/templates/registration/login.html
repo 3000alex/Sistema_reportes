@@ -1,7 +1,7 @@
 {% extends 'core/header.html' %}
 
 {% block login %}
-<section class="container mx-auto" style="padding-top:210px;">
+<section class="container" style="padding-top:210px;">
 
 
     <div class=" card p-4 mx-auto col-sm-5 col-md-5 col-lg-5 col-xl-5">
@@ -31,11 +31,10 @@
                             </div>
                             <input type="password" class="form-control" name="password" placeholder="Ingrese su contraseña" aria-label="Password" aria-describedby="basic-addon1" required>
                         </div>
+                        <input type="submit" id="enviar" class="btn btn-success btn-block" value="Ingresar">
                     </div>
-
-                    <input type="submit" id="enviar" class="btn btn-success btn-block" value="Ingresar">
-
             </div>
+            
             <hr>
            
         </form>

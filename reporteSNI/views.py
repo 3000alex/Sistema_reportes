@@ -7,7 +7,7 @@ from django.views.generic import View, ListView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from biblioteca.models import Biblioteca
-from SNIads import SNIads
+#from SNIads import SNIads
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 token = "71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7"
@@ -21,12 +21,13 @@ class instruccionesSNI(View):
 @method_decorator(login_required, name='dispatch')
 class reporteSNI(View):
     def get(self,request):
+        biblioteca = ""
         try:
             biblioteca = Biblioteca.objects.filter(user_id = request.user.id)
         except:
             biblioteca = ""
-            
-        return HttpResponse(request, 'reporteSNI/reporteSNI.html',data={'biblioteca'})
+    
+        return render(request, 'reporteSNI/reporteSNI.html',{'biblioteca':biblioteca})
 
 @method_decorator(login_required, name='dispatch')
 class metodo1ReporteSNI(View):
