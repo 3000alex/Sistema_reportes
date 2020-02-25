@@ -1,27 +1,23 @@
 
 .btn-reporte {
     display:block;
-    width:70px;
-    height:70px;
+    width:50px;
+    height:50px;
     color:rgb(5, 5, 5);
     cursor: pointer;
     position: fixed;
-    right:50px;
-    bottom:20px;
-    font-size: 60px;
+    right:130px;
+    top:440px;
+    font-size: 40px;
+    z-index: 999;
 }
 
-.btn-biblioteca {
+#enviar {
     display:block;
     color: white;
-    border-radius: 100%;
-    width: 70px;
-    height: 70px;
-    background: green;
     cursor: pointer;
     position: fixed;
     right:30px;
-    bottom:50px;
-    font-size: 40px;
+    top:300px;
     z-index: 999;
 }

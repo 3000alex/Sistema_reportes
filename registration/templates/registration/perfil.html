@@ -2,7 +2,7 @@
 {% load static %}
 
 {%block perfil%}
-<section class="container" style="padding-top: 300px;">
+<section class="container" style="padding-top: 265px;">
 
   <form action="" id="infoPersonal">
     {% csrf_token %}
@@ -25,17 +25,22 @@
       </div>
 
       <div class="row">
-        <div class="col-6">
-          <p>Si desea cambiar contraseña, click <a href="{% url 'password_change' %}">aquí.</a></p>
+        <div class="col-5 col-sm-6">
+          <p>Si desea cambiar su contraseña, click <a href="{% url 'password_change' %}">aquí.</a></p>
         </div>
-        <div class="col-6">
-          <button disabled id="infoPersonal-btn" onclick="actualizarInfoPersonal()" type="button"
+        <div class="col-7 col-sm-6">
+          <div class="input-group justify-content-end">
+            <button id="cancelarInfoPersonal" class="btn btn-warning mr-2 text-white" type="reset">
+              <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i>
+          </button>
+            <button disabled id="infoPersonal-btn" onclick="actualizarInfoPersonal()" type="button"
             class="btn btn-success float-right"><i class="fas fa-save">&nbsp; Guardar</i>
           </button>
+         
+          </div>
+          
         </div>
       </div>
-      
-
       
 
     </fieldset>
@@ -84,10 +89,17 @@
           <label for="">ArXiv ID</label>
           <input disabled type="text" class="form-control mb-2" placeholder="Escriba su ArXiv ID"
             value="{% if perfil.arxivId %}{{perfil.arxivId}}{% endif %}" name="arxiv_id" id="arxiv_id">
+          
+           <div class="input-group justify-content-end mt-3">
 
-          <button disabled id="infoAcademica-btn" onclick="actualizarInfoAcademica()" type="button"
-            class="btn mt-2 mb-2 float-right btn-success"><i class="fas fa-save">
-              &nbsp; Guardar</i></button>
+            <button id="cancelarInfoAcademica" class="btn btn-warning mr-2 text-white" type="reset">
+              <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i>
+            </button>
+
+            <button disabled id="infoAcademica-btn" onclick="actualizarInfoAcademica()" type="button"
+              class="btn btn-success"><i class="fas fa-save">
+                &nbsp; Guardar</i></button>
+           </div>
         </div>
       </fieldset>
 
@@ -101,6 +113,69 @@
 
 {% block JsCode %}
 <script>
+
+$(document).ready(function () {
+    
+    $("#cancelarInfoPersonal").click(function(){
+        $("#nombreP").prop("disabled", true );
+        $("#apellidosP").prop("disabled", true );
+        $("#infoPersonal-btn").prop("disabled",true);
+    });
+
+    $("#cancelarInfoAcademica").click(function(){
+        $("#categoria").prop("disabled", true );
+        $("#nivel_sni").prop("disabled", true );
+        $("#orc_id").prop("disabled", true );
+        $("#arxiv_id").prop("disabled", true );
+        $("#infoAcademica-btn").prop("disabled", true);
+    })
+
+    $("#informacionPersonal-btn").click(function(){
+        $("#nombreP").prop("disabled", false );
+        $("#apellidosP").prop("disabled", false );
+        $("#infoPersonal-btn").prop("disabled",false);
+        $(this).prop("disabled",true);
+    });
+
+    $("#infoPersonal-btn").click(function(){
+        $("#nombreP").prop("disabled", true );
+        $("#apellidosP").prop("disabled", true );
+        $("#infoPersonal-btn").prop("disabled",true);
+        $(this).prop("disabled",true);
+    });
+
+    $("#informacionAcademica-btn").click(function(){
+        $("#categoria").prop("disabled", false );
+        $("#nivel_sni").prop("disabled", false );
+        $("#orc_id").prop("disabled", false );
+        $("#arxiv_id").prop("disabled", false );
+        $("#infoAcademica-btn").prop("disabled",false);
+        $(this).prop("disabled",true);
+    });
+
+    $("#infoAcademica-btn").click(function(){
+        $("#categoria").prop("disabled", true );
+        $("#nivel_sni").prop("disabled", true );
+        $("#orc_id").prop("disabled", true );
+        $("#arxiv_id").prop("disabled", true );
+        $("#infoAcademica-btn").prop("disabled", true);
+        $(this).prop("disabled",true);
+    });
+
+    $("#editarPerfilAdm").click(function(){
+        $('#correoAlternativo').prop('disabled',false);
+        $('#guardar').prop('disabled',false);
+        $(this).prop("disabled",true);
+    });
+
+    $("#guardar").click(function(){
+        $('#correoAlternativo').prop('disabled',true);
+        $('#editarPerfilAdm').prop('disabled',false);
+        $(this).prop("disabled",true);
+    });
+});
+
+
   function actualizarInfoPersonal() {
     var formData = new FormData(document.getElementById("infoPersonal"));
 

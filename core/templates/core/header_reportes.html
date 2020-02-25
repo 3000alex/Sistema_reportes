@@ -93,7 +93,7 @@
             <div class="row mb-3">
 
                 <div class="col-6 col-md-6">
-                    <h5>Bienvenido {{ user.first_name}} {{user.last_name}}</h5>
+                    <h5>{{ user.first_name}} {{user.last_name}}</h5>
                 </div>
 
                 <div class="col-6 col-md-6 d-flex justify-content-end">
@@ -120,7 +120,7 @@
                         <a href="{% url 'biblioteca:biblioteca_personal' %}"
                             class="btn btn-primary mr-2 btn-sm">Biblioteca personal</a>
                         <a href="{% url 'biblioteca:busqueda_biblioteca' %}"
-                            class="btn btn-primary mr-2 btn-sm">Busqueda ADS</a>
+                            class="btn btn-primary mr-2 btn-sm">Búsqueda ADS</a>
                         <a href="{% url 'investigadores:reporte-productividad' %}"
                             class="btn btn-primary btn-sm disabled">Reportes productividad</a>
                     </div>

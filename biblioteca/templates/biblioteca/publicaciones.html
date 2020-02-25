@@ -7,19 +7,18 @@
     <form action="{% url 'biblioteca:agregar-biblioteca' %}" id="formid" method="POST">
         {% csrf_token %} 
 
-        <div class="btn-biblioteca text-center" title="Agregar a biblioteca" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#loading" id="enviar">     
-            <i  class="fas fa-book bg-black"  onclick="enviar()"></i>
-        </div>
-        
+        <button data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#loading"
+            type="submit" onclick="mensaje()" id="enviar" class="btn btn-success"><i
+                class="fas fa-book"></i>&nbsp;&nbsp;Agregar a biblioteca</button>
 
         <table id="publicaciones" class="table table-bordered table-striped text-center" width=100%>
             <thead>
                 <tr>
-                    <th scope="col">Seleccion</th>
+                    <th scope="col">Agregar</th>
                     <th scope="col">OK</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Link ADS</th>
-                    <th scope="col">Titulo</th>
+                    <th scope="col">Título</th>
                     <th scope="col">Autor</th>
                     <th scope="col">Enlaces</th>
                 </tr>

@@ -67,7 +67,7 @@
             <div class="row">
 
                 <div class="col-12 col-md-6">
-                    <h5>Bienvenido {{ user.first_name}} {{user.last_name}}</h5>
+                    <h5>{{ user.first_name}} {{user.last_name}}</h5>
                 </div>
 
                 <div class="col-12 col-md-6">
@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </div>
-            {% if request.path == '/reportes/home/' %}
+            {% if request.path == '/reportes/home/' or request.path == '/' %}
             <p class="float-right btn btn-light" ><a href="http://bit.ly/Guía-Reportes-INAOE-Astro" target="blank">Guía rápida PDF</a></p>
             {% endif %}
         </div>
@@ -242,7 +242,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-        <script src="{% static 'core/js/editar_perfil.js'%}"></script>
+
         <!--Data table -->
         <script src="{% static 'core/js/DataTables/datatables.min.js'%}"></script>
         <link rel="stylesheet" href="{% static 'core/js/DataTables/datatables.min.css'%}">

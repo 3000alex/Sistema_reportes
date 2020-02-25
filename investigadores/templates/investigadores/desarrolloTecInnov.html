@@ -39,8 +39,9 @@
                                         id="descripcionModelo7{{modelo7.id}}" cols="30"
                                         rows="5">{%  if modelo7.descripcion %}{{modelo7.descripcion}}{% endif %}</textarea>
 
-                                    <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                    <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                         id="anexoModelo7{{modelo7.id}}">
+                                        <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
                                     {%if modelo7.anexos %}
                                     <strong>Actualmente: </strong><a
@@ -124,8 +125,9 @@
                                     id="descripcionModelo7{{modelo7.id}}" cols="30"
                                     rows="5">{%  if modelo7.descripcion %}{{modelo7.descripcion}}{% endif %}</textarea>
 
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo7{{modelo7.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
                                 {%if modelo7.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -209,8 +211,9 @@
                                     id="descripcionModelo7{{modelo7.id}}" cols="30"
                                     rows="5">{%  if modelo7.descripcion %}{{modelo7.descripcion}}{% endif %}</textarea>
 
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo7{{modelo7.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
                                 {%if modelo7.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -294,8 +297,9 @@
                                     id="descripcionModelo7{{modelo7.id}}" cols="30"
                                     rows="5">{%  if modelo7.descripcion %}{{modelo7.descripcion}}{% endif %}</textarea>
 
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo7{{modelo7.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
                                 {%if modelo7.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -379,8 +383,9 @@
                                     id="descripcionModelo7{{modelo7.id}}" cols="30"
                                     rows="5">{%  if modelo7.descripcion %}{{modelo7.descripcion}}{% endif %}</textarea>
 
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo7{{modelo7.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
                                 {%if modelo7.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -472,8 +477,9 @@
                                     rows="5">{% if modelo8.descripcion %}{{modelo8.descripcion}}{% endif %}</textarea>
 
 
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo8{{modelo8.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
                                 {%if modelo8.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -580,8 +586,9 @@
                                     </div>
                                 </div>
 
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo9{{modelo9.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
                                 {%if modelo9.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -710,9 +717,9 @@
         $('#glosario-btn').popover({
             trigger: 'hover',
             html: true,
-            title: "Glosario",
+            title: "Glosario:",
             content: `<small class="form-text text-muted mb-3">
-                                Glosario perteneciente a la seccion de Investigación Adicional
+                                Desarrollo Tecnológico e Innovación
                                 </small>`
         });
     });
@@ -872,7 +879,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Autor(es): </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="autores"
+                                <input class="form-control mb-1" type="text" name="autores"
                                     id="autoresModelo7${response.id}" value="">
                             </div>
                         </div>
@@ -881,18 +888,19 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Url: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="url"
+                                <input  class="form-control mb-1" type="text" name="url"
                                     id="urlModelo7${response.id}" value="">
                             </div>
                         </div>
     
                         <label for="">Descripción</label>
-                        <textarea disabled class="form-control mb-1" name="descripcion"
+                        <textarea  class="form-control mb-1" name="descripcion"
                             id="descripcionModelo7${response.id}" cols="30"
                             rows="5">{{Modelo7.descripcion}}</textarea>
     
-                        <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                        <input  class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                             id="anexoModelo7${response.id}">
+                            <small class="mb-4">Tamaño máximo: 5 Mb</small>
                                 
                         {%if Modelo7.anexos %}
                             <strong>Actualmente: </strong><a
@@ -1044,7 +1052,7 @@
                                 <div class="form-group row">
                                     <label for="" class="col-sm-2">Nombre: </label>
                                     <div class="col-sm-10">
-                                        <input disabled class="form-control mb-1" type="text" name="nombre"
+                                        <input  class="form-control mb-1" type="text" name="nombre"
                                             id="nombreModelo8${response.id}" value="">
                                     </div>
                                 </div>
@@ -1052,7 +1060,7 @@
                                 <div class="form-group row">
                                     <label for="" class="col-sm-2">Participante(s): </label>
                                     <div class="col-sm-10">
-                                        <input disabled class="form-control mb-1" type="text" name="participantes"
+                                        <input  class="form-control mb-1" type="text" name="participantes"
                                             id="participantesModelo8${response.id}" value="">
                                     </div>
                                 </div>
@@ -1060,19 +1068,20 @@
                                 <div class="form-group row">
                                     <label for="" class="col-sm-2">Url: </label>
                                     <div class="col-sm-10">
-                                        <input disabled class="form-control mb-1" type="url" name="url"
+                                        <input  class="form-control mb-1" type="url" name="url"
                                             id="urlModelo8${response.id}" value="">
                                     </div>
                                 </div>
     
                                 <label for="">Descripción: </label>
-                                <textarea disabled class="form-control mb-1" name="descripcion"
+                                <textarea  class="form-control mb-1" name="descripcion"
                                     id="descripcionModelo8${response.id}" cols="30"
                                     rows="5">{{Modelo8.descripcion}}</textarea>
     
     
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input  class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo8${response.id}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
     
     
                                 <div class="justify-content-end d-flex">
@@ -1226,7 +1235,7 @@
                         <div class="form-group row">
                             <label for=""  class="col-sm-2">Título: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="titulo"
+                                <input  class="form-control mb-1" type="text" name="titulo"
                                     id="tituloModelo9${response.id}" value="">
                             </div>
                         </div>
@@ -1234,7 +1243,7 @@
                         <div class="form-group row">
                             <label for=""  class="col-sm-2">Autor(es): </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="autores"
+                                <input  class="form-control mb-1" type="text" name="autores"
                                     id="autoresModelo9${response.id}" value="">
                             </div>
                         </div>
@@ -1242,7 +1251,7 @@
                         <div class="form-group row">
                             <label for=""  class="col-sm-2">No. Reportes/ID: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="Nreportes"
+                                <input  class="form-control mb-1" type="text" name="Nreportes"
                                     id="NreporteModelo9${response.id}" value="">
 
                             </div>
@@ -1251,21 +1260,22 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Fecha: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="fecha"  id="fechaModelo9${response.id}" value="">
+                                <input  class="form-control mb-1" type="text" name="fecha"  id="fechaModelo9${response.id}" value="">
                             </div>
                         </div>
     
                         <div class="form-group row">
                             <label for=""  class="col-sm-2">Url: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="url"
+                                <input  class="form-control mb-1" type="text" name="url"
                                     id="urlModelo9${response.id}" value="">
             
                             </div>
                         </div>
     
-                        <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                        <input  class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                             id="anexoModelo9${response.id}">
+                            <small class="mb-4">Tamaño máximo: 5 Mb</small>
                                 
                         {%if Modelo9.anexos %}
                             <strong>Actualmente: </strong><a

@@ -53,8 +53,9 @@
                                 </div>
     
     
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo4{{modelo4.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
     
                                 {%if modelo4.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -153,8 +154,9 @@
                                 </div>
     
     
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo4{{modelo4.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
     
                                 {%if modelo4.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -254,8 +256,9 @@
                                 </div>
     
     
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo4{{modelo4.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
     
                                 {%if modelo4.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -354,8 +357,9 @@
                                 </div>
     
     
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo4{{modelo4.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
     
                                 {%if modelo4.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -445,8 +449,9 @@
                                     </div>
                                 </div>
     
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo5{{modelo5.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
                                 {%if modelo5.anexos %}
                                 <strong>Actualmente: </strong><a
                                     href="{{modelo5.anexos.url}}">{{modelo5.anexos.name|nombreFile}}</a>
@@ -534,8 +539,9 @@
                                     </div>
                                 </div>
     
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo5{{modelo5.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
                                 {%if modelo5.anexos %}
                                 <strong>Actualmente: </strong><a
                                     href="{{modelo5.anexos.url}}">{{modelo5.anexos.name|nombreFile}}</a>
@@ -649,8 +655,9 @@
                                 </div>
     
     
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo6{{modelo6.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
                                 {%if modelo6.anexos %}
                                 <strong>Actualmente: </strong><a
                                     href="{{modelo6.anexos.url}}">{{modelo6.anexos.name|nombreFile}}</a>
@@ -712,8 +719,9 @@
                                     value="{% if modelo16.nombreEstudiante %}{{ modelo16.nombreEstudiante }}{% endif %}"
                                     name="nombreEstudiante" id="nombreEstudianteModelo16{{modelo16.id}}" rows="5"></input>
     
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo16{{modelo16.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
                                 {%if modelo16.anexos %}
                                 <strong>Actualmente: </strong><a
                                     href="{{modelo16.anexos.url}}">{{modelo16.anexos.name|nombreFile}}</a>
@@ -836,8 +844,9 @@
                                 </div>
     
     
-                                <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                     id="anexoModelo6{{modelo6.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
                                 {%if modelo6.anexos %}
                                 <strong>Actualmente: </strong><a
                                     href="{{modelo6.anexos.url}}">{{modelo6.anexos.name|nombreFile}}</a>
@@ -964,9 +973,9 @@
         $('#glosario-btn').popover({
             trigger: 'hover',
             html: true,
-            title: "Glosario",
+            title: "Glosario:",
             content: `<small class="form-text text-muted mb-3">
-                                Glosario perteneciente a la seccion de Investigación Adicional
+                                Formación de RRHH
                                 </small>`
         });
     });
@@ -1129,7 +1138,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Nombre completo:</label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="nombreCompleto"
+                                <input class="form-control mb-1" type="text" name="nombreCompleto"
                                     id="nombreCompletoModelo4${response.id}" value="{{modelo4.nombreCompleto}}">
                             </div>
                         </div>
@@ -1137,7 +1146,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Título de tesis:</label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="tituloTesis"
+                                <input  class="form-control mb-1" type="text" name="tituloTesis"
                                     id="tituloTesisModelo4${response.id}" value="{{modelo4.tituloTesis}}">
                             </div>
                         </div>
@@ -1145,7 +1154,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Fecha:</label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="fecha"
+                                <input  class="form-control mb-1" type="text" name="fecha"
                                     id="fechaModelo4${response.id}" value="{{modelo4.fecha}}">
 
                             </div>
@@ -1154,13 +1163,14 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Url:</label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="url" name="url"
+                                <input  class="form-control mb-1" type="url" name="url"
                                     id="urlModelo4${response.id}" value="{{modelo4.url}}">
                             </div>
                         </div>
 
-                        <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                        <input  class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                             id="anexoModelo4${response.id}">
+                            <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
                         {%if modelo4.anexos %}
                             <strong>Actualmente: </strong><a
@@ -1309,7 +1319,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Nombre del curso: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="nombreCurso"
+                                <input  class="form-control mb-1" type="text" name="nombreCurso"
                                     id="nombreCursoModelo5${response.id}" value="{{Modelo5.nombreCurso}}">
                             </div>
                         </div>
@@ -1317,7 +1327,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Periodo:</label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="periodo"
+                                <input  class="form-control mb-1" type="text" name="periodo"
                                     id="periodoModelo5${response.id}" value="{{Modelo5.periodoNumeral}}">
     
                             </div>
@@ -1326,13 +1336,14 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Notas: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="notas"
+                                <input  class="form-control mb-1" type="text" name="notas"
                                     id="notasModelo5${response.id}" value="{{Modelo5.notas}}">
                             </div>
                         </div>
     
-                        <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                        <input  class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                             id="anexoModelo5${response.id}">
+                            <small class="mb-4">Tamaño máximo: 5 Mb</small>
     
     
                         <div class="justify-content-end d-flex">
@@ -1487,7 +1498,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Nombre: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="nombre"
+                                <input  class="form-control mb-1" type="text" name="nombre"
                                     id="nombreModelo6${response.id}" value="">
                             </div>
                         </div>
@@ -1495,7 +1506,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Titulo de tesis: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="tituloTesis"
+                                <input  class="form-control mb-1" type="text" name="tituloTesis"
                                     id="tituloTesisModelo6${response.id}" value="">
                             </div>
                         </div>
@@ -1503,7 +1514,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Grado: </label>
                             <div class="col-sm-10">
-                                <select disabled class="form-control mb-1" name="grado" id="gradoModelo6${response.id}">
+                                <select  class="form-control mb-1" name="grado" id="gradoModelo6${response.id}">
                                     <option selected value="{{Modelo6.Grado}}">
                                         {% if Modelo6.Grado  %} 
                                         {{Modelo6.Grado}}
@@ -1522,7 +1533,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Institución: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="institucion"
+                                <input  class="form-control mb-1" type="text" name="institucion"
                                     id="institucionModelo6${response.id}" value="">
                             </div>
                         </div>
@@ -1530,7 +1541,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Fecha: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="fecha"
+                                <input  class="form-control mb-1" type="text" name="fecha"
                                     id="fechaModelo6${response.id}"
                                     value=" {% if modelo6.fecha %}{{modelo6.fecha}}{% endif %}">
                             </div>
@@ -1539,13 +1550,14 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Notas:</label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="notas"
+                                <input  class="form-control mb-1" type="text" name="notas"
                                     id="notasModelo6${response.id}" value="">
                             </div>
                         </div>
     
-                        <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                        <input  class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                             id="anexoModelo6${response.id}">
+                            <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
                         {%if subModelo6.anexos %}
                             <strong>Actualmente: </strong><a
@@ -1586,7 +1598,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Nombre: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="nombre"
+                                <input  class="form-control mb-1" type="text" name="nombre"
                                     id="nombreModelo6${response.id}" value="">
                             </div>
                         </div>
@@ -1594,7 +1606,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Titulo de tesis: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="tituloTesis"
+                                <input  class="form-control mb-1" type="text" name="tituloTesis"
                                     id="tituloTesisModelo6${response.id}" value="">
                             </div>
                         </div>
@@ -1602,7 +1614,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Grado: </label>
                             <div class="col-sm-10">
-                                <select disabled class="form-control mb-1" name="grado" id="gradoModelo6${response.id}">
+                                <select  class="form-control mb-1" name="grado" id="gradoModelo6${response.id}">
                                     <option selected value="{{Modelo6.Grado}}">
                                         {% if Modelo6.Grado  %} 
                                         {{Modelo6.Grado}}
@@ -1621,7 +1633,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Institución: </label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="institucion"
+                                <input  class="form-control mb-1" type="text" name="institucion"
                                     id="institucionModelo6${response.id}" value="">
                             </div>
                         </div>
@@ -1629,13 +1641,14 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Notas:</label>
                             <div class="col-sm-10">
-                                <input disabled class="form-control mb-1" type="text" name="notas"
+                                <input  class="form-control mb-1" type="text" name="notas"
                                     id="notasModelo6${response.id}" value="">
                             </div>
                         </div>
     
-                        <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                        <input  class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                             id="anexoModelo6${response.id}">
+                            <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
                         {%if subModelo6.anexos %}
                             <strong>Actualmente: </strong><a
@@ -1779,12 +1792,13 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="">Nombre estudiante:</label>
-                    <input type="text" disabled class="form-control mb-1"
+                    <input type="text"  class="form-control mb-1"
                         value="{% if modelo16.nombreEstudiante %}{{ modelo16.nombreEstudiante }}{% endif %}"
                         name="nombreEstudiante" id="nombreEstudianteModelo16${response.id}" rows="5"></input>
 
-                    <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                    <input  class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo16${response.id}">
+                        <small class="mb-4">Tamaño máximo: 5 Mb</small>
                     {%if modelo16.anexos %}
                     <strong>Actualmente: </strong><a
                         href="{{modelo16.anexos.url}}">{{modelo16.anexos.name|nombreFile}}</a>

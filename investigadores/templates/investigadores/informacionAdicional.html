@@ -44,8 +44,9 @@
                                     rows="5">{% if modelo14.descripcion %} Descripción: {{modelo14.descripcion}} {% endif %}</textarea>
 
 
-                                <input disabled class="form-control mb-4" accept=".pdf, image/*" type="file"
+                                <input disabled class="form-control" accept=".pdf, image/*" type="file"
                                     name="anexo" id="anexoModelo14{{modelo14.id}}">
+                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
                                 {%if modelo14.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -176,9 +177,9 @@
         $('#glosario-btn').popover({
             trigger: 'hover',
             html: true,
-            title: "Glosario",
+            title: "Glosario:",
             content: `<small class="form-text text-muted mb-3">
-                                Glosario perteneciente a la seccion de Investigación Adicional
+                                No aplica
                                 </small>`
         });
     });
@@ -340,7 +341,7 @@
                         <label for="telescopio" class="col-sm-2 col-form-label">Telescopio, instrumento,
                             infraestructura:</label>
                         <div class="col-sm-10">
-                            <input disabled class="form-control mb-1" type="text" name="telescopio"
+                            <input class="form-control mb-1" type="text" name="telescopio"
                                 id="telescopioModelo14${data.id}"
                                 value="">
                         </div>
@@ -350,7 +351,7 @@
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Participante(s): </label>
                         <div class="col-sm-10">
-                            <input disabled class="form-control mb-1" type="text" name="participantes"
+                            <input class="form-control mb-1" type="text" name="participantes"
                                 id="participantesModelo14${data.id}"
                                 value="">
                         </div>
@@ -358,13 +359,14 @@
                     </div>
 
                     <label for="">Descripción: </label>
-                    <textarea disabled class="form-control mb-1" name="descripcion"
+                    <textarea class="form-control mb-1" name="descripcion"
                         id="descripcionModelo14${data.id}" cols="30"
                         rows="5">{{Modelo14.descripcion}}</textarea>
 
 
-                    <input disabled class="form-control mb-4" type="file" name="anexo"
+                    <input class="form-control" type="file" name="anexo"
                         id="anexoModelo14${data.id}">
+                        <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
 
                     <div class="justify-content-end d-flex">

@@ -1,7 +1,8 @@
 {% extends 'core/header.html' %}
     {% load static %}
     {% block reporteSNI %}
-    <section class="container" style="padding-top: 300px;">
+    <section class="container" style="padding-top: 255px;">
+        <p class="text-center"><strong>Reporte citas SNI</strong></p>
         <p class="text-center">Esta sección genera el documento de citas que CONACyT solicita a los investigadores que <br>
             buscan entrar o renovar su distinción en el Sistema Nacional de Investigadores (SNI). </p>
         <p>En particular:</p>
@@ -17,11 +18,11 @@
                     mismo.”</p>
             </ul>
         
-            <p>NOTA: Se usa la API de ADS para buscar la información requirida.</p>
+            <p> <strong>Nota: </strong>El documento se genera con base en la Biblioteca personal definida en esta plataforma, favor de actualizarla.</p>
 
             <p><strong>Créditos:</strong></p>
-            <p>Esta sección utiliza el script “SNIads” desarrollado por Christophe Morisset: <a href="https://github.com/Morisset/SNI_ads">https://github.com/Morisset/SNI_ads</a></p>
-            <div class=" d-flex justify-content-center mt-2">
+            <p>Esta sección utiliza el script “SNIads” desarrollado por Christophe Morisset: <a target="_blank" href="https://github.com/Morisset/SNI_ads">https://github.com/Morisset/SNI_ads</a></p>
+            <div class=" d-flex justify-content-center mt-4">
                 <a href="{% url 'reporteSNI:reporteSNI' %}" class="btn btn-success btn-lg pr-4 pl-4" >Continuar</a>
             </div>
             

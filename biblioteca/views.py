@@ -115,9 +115,13 @@ class agregar_biblioteca(View):
         ads.config.token = '71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7' #Configuramos el token de ADS para las consultas
         articulos = Biblioteca.objects.filter(user_id = request.user.id)  #Obtenemos articulos guardados en base de datos
         consulta = [] #Se almacenan los bibcodes que no estan duplicados en la BD y que se agregaran a biblioteca
+        bibcodesBD = []
+
+        for a in articulos:
+            bibcodesBD.append(a.bibcode)
 
         for b in bibcodes:
-            if b not in articulos:
+            if b not in bibcodesBD:
                 consulta.append(b)
         
         for bibcode in consulta:
