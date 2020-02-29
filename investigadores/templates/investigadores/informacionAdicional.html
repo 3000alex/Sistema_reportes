@@ -29,11 +29,11 @@
 
 
                                 <div class="form-group row">
-                                    <label for="" class="col-sm-2 col-form-label">Participante(s): </label>
+                                    <label for="" class="col-sm-2 col-form-label">URL: </label>
                                     <div class="col-sm-10">
-                                        <input disabled class="form-control mb-1" type="text" name="participantes"
-                                            id="participantesModelo14{{modelo14.id}}"
-                                            value="{% if modelo14.participantes %} {{modelo14.participantes}}{% endif %}">
+                                        <input disabled class="form-control mb-1" type="text" name="url"
+                                            id="urlModelo14{{modelo14.id}}"
+                                            value="{% if modelo14.url %} {{modelo14.url}}{% endif %}">
                                     </div>
 
                                 </div>
@@ -235,7 +235,7 @@
             dataType: "json",
             success: function (response) {
                 $("#descripcionModelo14"+id).val(response.descripcion);
-                $("#participantesModelo14"+id).val(response.participantes);
+                $("#urlModelo14"+id).val(response.url);
                 $("#telescopioModelo14"+id).val(response.telescopio);
                 toastr.info("Operación exitosa","información copiada")
             }
@@ -246,13 +246,13 @@
     function modelo14Editar(id) {
         $("#telescopioModelo14" + id).prop("disabled", false);
         $("#descripcionModelo14" + id).prop("disabled", false);
-        $("#participantesModelo14" + id).prop("disabled", false);
+        $("#urlModelo14" + id).prop("disabled", false);
         $("#anexoModelo14" + id).prop("disabled", false);
     }
     function desactivarCamposModelo14(id) {
         $("#telescopioModelo14" + id).prop("disabled", true);
         $("#descripcionModelo14" + id).prop("disabled", true);
-        $("#participantesModelo14" + id).prop("disabled", true);
+        $("#urlModelo14" + id).prop("disabled", true);
         $("#anexoModelo14" + id).prop("disabled", true);
     }
     function modelo14Actualizar(id) {
@@ -349,10 +349,10 @@
 
 
                     <div class="form-group row">
-                        <label for="" class="col-sm-2 col-form-label">Participante(s): </label>
+                        <label for="" class="col-sm-2 col-form-label">URL: </label>
                         <div class="col-sm-10">
-                            <input class="form-control mb-1" type="text" name="participantes"
-                                id="participantesModelo14${data.id}"
+                            <input class="form-control mb-1" type="text" name="url"
+                                id="urlModelo14${data.id}"
                                 value="">
                         </div>
 

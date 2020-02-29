@@ -124,7 +124,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="" class="col-sm-2">Url: </label>
+                                    <label for="" class="col-sm-2">URL: </label>
                                     <div class="col-sm-10">
                                         <input disabled class="form-control mb-1" type="url" name="url"
                                             id="urlModelo9{{modelo9.id}}"
@@ -1691,7 +1691,7 @@
                         </div>
     
                         <div class="form-group row">
-                            <label for=""  class="col-sm-2">Url: </label>
+                            <label for=""  class="col-sm-2">URL: </label>
                             <div class="col-sm-10">
                                 <input  class="form-control mb-1" type="text" name="url"
                                     id="urlModelo9${response.id}" value="">
@@ -1773,7 +1773,7 @@
         return false;
     }
     function modelo10Crear(numeral,periodo) {
-        alert(numeral)
+        
         $.ajax({
             type: "GET",
             url: '{% url "investigadores:crear-modelo10" %}',
@@ -1864,7 +1864,7 @@
                             </div>
     
                             <div class="form-group row">
-                                <label for="" class="col-sm-2">Url: </label>
+                                <label for="" class="col-sm-2">URL: </label>
                                 <div class="col-sm-10">
                                      <input  class="form-control mb-1" type="url" name="url"
                                         id="urlModelo10${response.id}" value="">

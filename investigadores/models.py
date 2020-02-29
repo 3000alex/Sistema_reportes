@@ -79,6 +79,7 @@ class Modelo1(models.Model):
     numeral = models.ForeignKey(Numeral, on_delete=models.CASCADE)
     periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     autores = models.TextField(max_length=15000,verbose_name="Nombre de los autores", blank=True)
+    fecha = models.CharField(max_length=100, verbose_name="Fecha del articulo", blank=True)
     titulo = models.TextField(max_length=15000,verbose_name="Nombre del titulo", blank=True)
     revistaPublicacion = models.CharField(max_length=250,verbose_name="Nombre de la revista o publicacion", blank=True)
     url = models.CharField(max_length=100,verbose_name="url del articulo", blank=True)
@@ -346,7 +347,7 @@ class Modelo14(models.Model):
     periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     descripcion = models.TextField(max_length=15000,verbose_name="Descripcion", blank=True)
     TelescopioInstrumentoInfra = models.CharField(max_length=500,verbose_name="Opciones", blank=True)
-    participantes = models.CharField(max_length=500,verbose_name="Participaciones", blank=True)
+    url = models.CharField(max_length=100,verbose_name="url", blank=True)
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     

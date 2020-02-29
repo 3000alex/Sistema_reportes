@@ -229,7 +229,7 @@ class actualizarBiblioteca(View):
         obj = Biblioteca.objects.get(id=id1)
         obj.autores = autor
         obj.titulo = titulo
-        obj.revista_Publicacion = revista
+        obj.revistaPublicacion = revista
         obj.estudiantesEnArticulo = estudiantes
         obj.doi = doi
         obj.fecha = fecha
@@ -247,7 +247,7 @@ class actualizarBiblioteca(View):
         obj.save()
 
         user = {'id': obj.id, 'autores': obj.autores, 'titulo': obj.titulo,
-                'revista': obj.revista_Publicacion, 'estudiantes': obj.estudiantesEnArticulo}  # Json que se enviara a Data
+                'revista': obj.revistaPublicacion, 'estudiantes': obj.estudiantesEnArticulo}  # Json que se enviara a Data
 
         data = {
             'user': user  # Objeto de Json con los datos actualizados.
@@ -295,6 +295,7 @@ class actualizarModelo1(View):
         revista = request.POST.get('revista', None)
         url = request.POST.get('url', None)
         doi = request.POST.get('doi', None)
+        fecha = request.POST.get('fecha',None)
         estudiantes = request.POST.get('estudiantes', None)
 
         # Actualizamos Modelo1
@@ -302,6 +303,7 @@ class actualizarModelo1(View):
         obj.autores = autores
         obj.titulo = titulo
         obj.revistaPublicacion = revista
+        obj.fecha = fecha
         obj.estudiantesEnArticulo = estudiantes
         obj.doi = doi
         obj.url = url
@@ -1405,12 +1407,12 @@ class actualizarModelo14(View):
         id1 = request.POST.get('id', None)
         telescopio = request.POST.get('telescopio', None)
         descripcion = request.POST.get('descripcion', None)
-        participantes = request.POST.get('participantes', None)
+        url = request.POST.get('url', None)
 
         obj = Modelo14.objects.get(id=id1)
         obj.TelescopioInstrumentoInfra = telescopio
         obj.descripcion = descripcion
-        obj.participantes = participantes
+        obj.url = url
         
         if request.FILES:
             archivo = request.FILES['anexo']
@@ -1469,7 +1471,7 @@ class infoAnteriorModelo14(View):
         data = {
             'descripcion':datos.descripcion,
             'telescopio':datos.TelescopioInstrumentoInfra,
-            'participantes': datos.participantes
+            'url': datos.url
         }
         return  JsonResponse(data)
 
