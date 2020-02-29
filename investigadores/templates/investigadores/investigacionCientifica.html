@@ -133,7 +133,7 @@
                             <p class="text-center ">Sin entradas</p>
                         </strong>
                     </div>
-                    <button id="bibliotecaCrear" onclick="bibliotecaCrear({{numeral.id}})" type="button"
+                    <button id="bibliotecaCrear{{numeral.id}}" onclick="bibliotecaCrear({{numeral.id}})" type="button"
                         class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                     <p class="text-primary link float-right">Cerrar &nbsp; <i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
@@ -261,7 +261,7 @@
                             <p class="text-center ">Sin entradas</p>
                         </strong>
                     </div>
-                    <button id="bibliotecaCrear" onclick="bibliotecaCrear({{numeral.id}})" type="button"
+                    <button id="bibliotecaCrear{{numeral.id}}" onclick="bibliotecaCrear({{numeral.id}})" type="button"
                         class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                     <p class="text-primary float-right">Cerrar &nbsp; <i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
@@ -391,7 +391,7 @@
                             <p class="text-center ">Sin entradas</p>
                         </strong>
                     </div>
-                    <button id="bibliotecaCrear" onclick="bibliotecaCrear({{numeral.id}})" type="button"
+                    <button id="bibliotecaCrear{{numeral.id}}" onclick="bibliotecaCrear({{numeral.id}})" type="button"
                         class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                     <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
 
@@ -526,7 +526,7 @@
                             <p class="text-center ">Sin entradas</p>
                         </strong>
                     </div>
-                    <button id="bibliotecaCrear" onclick="bibliotecaCrear({{numeral.id}})" type="button"
+                    <button id="bibliotecaCrear{{numeral.id}}" onclick="bibliotecaCrear({{numeral.id}})" type="button"
                         class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                     <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
 
@@ -660,7 +660,7 @@
                             <p class="text-center ">Sin entradas</p>
                         </strong>
                     </div>
-                    <button id="bibliotecaCrear" onclick="bibliotecaCrear({{numeral.id}})" type="button"
+                    <button id="bibliotecaCrear{{numeral.id}}" onclick="bibliotecaCrear({{numeral.id}})" type="button"
                         class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                     <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
 
@@ -792,10 +792,10 @@
                     {% empty %}
                     <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
                         <strong>
-                            <p class="text-center ">Sin entradas</p>
+                            <p class="text-center">Sin entradas</p>
                         </strong>
                     </div>
-                    <button id="bibliotecaCrear" onclick="bibliotecaCrear({{numeral.id}})" type="button"
+                    <button id="bibliotecaCrear{{numeral.id}}" onclick="bibliotecaCrear({{numeral.id}})" type="button"
                         class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                     <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
 
@@ -905,7 +905,7 @@
                             <p class="text-center ">Sin entradas</p>
                         </strong>
                     </div>
-                    <button id="bibliotecaCrear" onclick="bibliotecaCrear({{numeral.id}})" type="button"
+                    <button id="bibliotecaCrear{{numeral.id}}" onclick="bibliotecaCrear({{numeral.id}})" type="button"
                         class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                     <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
 
@@ -1045,7 +1045,7 @@
                             <p class="text-center ">Sin entradas</p>
                         </strong>
                     </div>
-                    <button id="bibliotecaCrear" onclick="bibliotecaCrear({{numeral.id}})" type="button"
+                    <button id="bibliotecaCrear{{numeral.id}}" onclick="bibliotecaCrear({{numeral.id}})" type="button"
                         class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                     <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
@@ -1180,146 +1180,13 @@
                             <p class="text-center ">Sin entradas</p>
                         </strong>
                     </div>
-                    <button id="bibliotecaCrear" onclick="bibliotecaCrear({{numeral.id}})" type="button"
+                    <button id="bibliotecaCrear{{numeral.id}}" onclick="bibliotecaCrear({{numeral.id}})" type="button"
                         class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                     <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
                 </div>
                 {% endif %}
                 <!--Numeral 12 fin-->
-
-                <!--Numeral 14 desde biblioteca-->
-                {% if numeral.orden == 14 %}
-                <div>
-                    {% for biblioteca in numeral_14 %}
-
-                    <form class="pt-4 pr-4 pl-4" id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
-                        <div class="form-group">
-                            {% csrf_token %}
-
-                            <div class="form-group row">
-                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="mb-1 form-control" id="autores{{biblioteca.id}}"
-                                        name="autores" type="text"
-                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-
-                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="mb-1 form-control" id="titulo{{biblioteca.id}}" name="titulo"
-                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
-                                </div>
-
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="mb-1 form-control" id="revistaPublicacion{{biblioteca.id}}"
-                                        name="revista"
-                                        value="{% if biblioteca.revistaPublicacion %}{{biblioteca.revistaPublicacion}}{% endif %}"
-                                        type="text">
-                                </div>
-
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="url" class="col-sm-2 col-form-label"><a target="blank"
-                                        href="{{biblioteca.url}}">URL:</a></label>
-                                <div class="col-sm-10">
-                                    <input disabled class="mb-1 form-control" id="url{{biblioteca.id}}" name="url"
-                                        type="url" value="{{biblioteca.url}}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-1" type="text"
-                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
-                                        name="bibcode" id="bibcode{{biblioteca.id}}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2 col-form-label">DOI/ISBN:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-1" type="text"
-                                        value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
-                                        id="doi{{biblioteca.id}}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
-                                <div class="col-sm-10">
-                                    <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
-                                        id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
-                                        name="estudiantes" type="text"
-                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
-                                id="anexo{{biblioteca.id}}">
-                            <small class="mb-4">Tamaño máximo: 5 Mb</small>
-
-                            {%if biblioteca.anexos %}
-                            <strong>Actualmente: </strong><a
-                                href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
-                            {% endif %}
-
-                            <div class="justify-content-end d-flex">
-                                <button onclick="bibliotecaActualizar('{{biblioteca.id}}')" type="button"
-                                    class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
-                                        Guardar</i></button>
-
-                                <button onclick="desactivarCamposBiblioteca('{{biblioteca.id}}')"
-                                    class="btn btn-warning mr-2 text-white" type="reset">
-                                    <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-
-                                <button type="button" class="btn btn-primary  mr-2"
-                                    onclick="bibliotecaEditar('{{biblioteca.id}}')" title="Editar entrada"><i
-                                        class="fas fa-edit">&nbsp;Editar</i></button>
-                                <button type="button" class="btn btn-danger"
-                                    onclick="bibliotecaEliminar('{{biblioteca.id}}')" title="Eliminar entrada"><i
-                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                            </div>
-
-                        </div>
-                    </form>
-                    {% if forloop.last %}
-                    <button onclick="bibliotecaCrear({{numeral.id}})" type="button" class="btn btn-danger"
-                        id="bibliotecaCrear{{numeral.id}}">
-                        <i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                    <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
-                    {% endif %}
-
-                    {% empty %}
-                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                        <strong>
-                            <p class="text-center ">Sin entradas</p>
-                        </strong>
-                    </div>
-                    <button id="bibliotecaCrear" onclick="bibliotecaCrear({{numeral.id}})" type="button"
-                        class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                    <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
-                    {% endfor %}
-                </div>
-                {% endif %}
-                <!--Numeral 14 fin-->
 
                 <!--Numeral 13 desde biblioteca-->
                 {% if numeral.orden == 13 %}
@@ -1447,13 +1314,146 @@
                             <p class="text-center ">Sin entradas</p>
                         </strong>
                     </div>
-                    <button id="bibliotecaCrear" onclick="bibliotecaCrear({{numeral.id}})" type="button"
+                    <button id="bibliotecaCrear{{numeral.id}}" onclick="bibliotecaCrear({{numeral.id}})" type="button"
                         class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                     <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
                 </div>
                 {% endif %}
                 <!--Numeral 13 fin-->
+
+                <!--Numeral 14 desde biblioteca-->
+                {% if numeral.orden == 14 %}
+                <div>
+                    {% for biblioteca in numeral_14 %}
+
+                    <form class="pt-4 pr-4 pl-4" id="biblioteca{{biblioteca.id}}" enctype="multipart/form-data">
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-1 form-control" id="autores{{biblioteca.id}}"
+                                        name="autores" type="text"
+                                        value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-1 form-control" id="titulo{{biblioteca.id}}" name="titulo"
+                                        type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-1 form-control" id="revistaPublicacion{{biblioteca.id}}"
+                                        name="revista"
+                                        value="{% if biblioteca.revistaPublicacion %}{{biblioteca.revistaPublicacion}}{% endif %}"
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-2 col-form-label"><a target="blank"
+                                        href="{{biblioteca.url}}">URL:</a></label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-1 form-control" id="url{{biblioteca.id}}" name="url"
+                                        type="url" value="{{biblioteca.url}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">BibCode:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-1" type="text"
+                                        value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}"
+                                        name="bibcode" id="bibcode{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">DOI/ISBN:</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="form-control mb-1" type="text"
+                                        value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                        id="doi{{biblioteca.id}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7" disabled class="form-control mb-1" type="text"
+                                        value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
+                                        id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
+                                        name="estudiantes" type="text"
+                                        value="{% if biblioteca.estudiantesEnArticulo %}{{biblioteca.estudiantesEnArticulo}}{% endif %}">
+                                </div>
+                            </div>
+
+                            <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
+                                id="anexo{{biblioteca.id}}">
+                            <small class="mb-4">Tamaño máximo: 5 Mb</small>
+
+                            {%if biblioteca.anexos %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar('{{biblioteca.id}}')" type="button"
+                                    class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+
+                                <button onclick="desactivarCamposBiblioteca('{{biblioteca.id}}')"
+                                    class="btn btn-warning mr-2 text-white" type="reset">
+                                    <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+
+                                <button type="button" class="btn btn-primary  mr-2"
+                                    onclick="bibliotecaEditar('{{biblioteca.id}}')" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger"
+                                    onclick="bibliotecaEliminar('{{biblioteca.id}}')" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+                    </form>
+                    {% if forloop.last %}
+                    <button onclick="bibliotecaCrear({{numeral.id}})" type="button" class="btn btn-danger"
+                        id="bibliotecaCrear{{numeral.id}}">
+                        <i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                    {% endif %}
+
+                    {% empty %}
+                    <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                        <strong>
+                            <p class="text-center ">Sin entradas</p>
+                        </strong>
+                    </div>
+                    <button id="bibliotecaCrear{{numeral.id}}" onclick="bibliotecaCrear({{numeral.id}})" type="button"
+                        class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
+                    <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <!--Numeral 14 fin-->
 
                 <!--Numeral 14a desde biblioteca-->
                 {% if numeral.orden == 14.1 %}
@@ -1583,7 +1583,7 @@
                             <p class="text-center ">Sin entradas</p>
                         </strong>
                     </div>
-                    <button id="bibliotecaCrear" onclick="bibliotecaCrear({{numeral.id}})" type="button"
+                    <button id="bibliotecaCrear{{numeral.id}}" onclick="bibliotecaCrear({{numeral.id}})" type="button"
                         class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
                     <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
@@ -1729,12 +1729,12 @@
             success: function (response) {
                 toastr.success('Entrada creada', 'Operacion exitosa')
                 $("#sinEntradas" + numeral).remove()
-                $("#bibliotecaCrear").after(`
+                $("#bibliotecaCrear"+ numeral).after(`
                 <button onclick="bibliotecaCrear(${response.numeral})" type="button"
                     id="bibliotecaCrear${response.numeral}" class="btn btn-danger">
                     <i class="fas fa-plus-circle"></i>Agregar entrada</button>
                 `)
-                $("#bibliotecaCrear").remove()
+                $("#bibliotecaCrear"+ numeral).remove()
                 dibujarCamposBiblioteca(response)
             }
         });
