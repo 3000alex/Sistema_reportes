@@ -4364,6 +4364,15 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                            <div class="col-sm-10">
+                                <input maxlength="7" disabled class="form-control mb-1" type="text"
+                                    value="{% if modelo1.fecha %}{{modelo1.fecha}}{% endif %}" name="fecha"
+                                    id="fechaModelo1${response.id}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="estudiantes" class="col-sm-2 col-form-label">Estudiante(s):</label>
                             <div class="col-sm-10">
                                 <input  class="mb-1 form-control"
