@@ -757,12 +757,6 @@ def Reporte(request,periodo_id):
                     if item.tituloTesis:
                         paragraph.add_run("Título de tesis: " + item.tituloTesis + "\n")
 
-                    if item.conferenciaProyecto:
-                        paragraph.add_run("Conferencia: " + item.conferenciaProyecto + "\n")
-                    
-                    if item.rol:
-                        paragraph.add_run("Rol: " + item.rol + "\n")
-
                     if item.fecha:
                         paragraph.add_run("Fecha: " + item.fecha + "\n")
                     
@@ -964,12 +958,22 @@ def Reporte(request,periodo_id):
                     if item.TelescopioInstrumentoInfra:
                         paragraph.add_run("Telescopio, instrumento, infraestructura: " + item.TelescopioInstrumentoInfra + "\n")
                     
-                    if item.url:
-                        add_hyperlink(paragraph,item.url,item.url + "\n")
-                        paragraph.add_run(" \r")
+                    if item.conferenciaProyecto:
+                        paragraph.add_run("Conferencia: " + item.conferenciaProyecto + "\n")
                     
+                    if item.rol:
+                        paragraph.add_run("Rol: " + item.rol + "\n")
+                    
+                    if item.fecha:
+                        paragraph.add_run("Fecha: " + item.fecha + "\n")
+
                     if item.descripcion:
                         paragraph.add_run("Descripción: " + item.descripcion + "\n")
+
+                    if item.url:
+                        paragraph.add_run("URL: ")
+                        add_hyperlink(paragraph,item.url,item.url + "\n")
+                        paragraph.add_run(" \r")
                     
                     if item.anexos:
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
