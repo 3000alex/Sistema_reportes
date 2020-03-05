@@ -1022,7 +1022,6 @@
 
                         </div>
 
-
                     </form>
                     <hr>
                     {% if forloop.last %}
@@ -2836,7 +2835,7 @@
                 {% endif %}
                 <!--Fin Numerales 22 Modelo2 -->
 
-                <!-- Numeral 23 Modelo4-->
+                <!-- Numeral 23 Modelo14-->
                 {% if numeral.orden == 23 %}
                 <div>
                     {% for modelo14 in numeral_23 %}
@@ -2932,7 +2931,7 @@
 
                 </div>
                 {% endif %}
-                <!-- Fin Numeral 23 Modelo1 -->
+                <!-- Fin Numeral 23 Modelo14 -->
 
                 <!--Numeral 24 Modelo3-->
                 {% if numeral.orden == 24 %}
@@ -3148,15 +3147,6 @@
                                     <input disabled class="form-control mb-1" type="text" name="estudiantes"
                                         id="estudiantesModelo3{{modelo3.id}}"
                                         value="{% if modelo3.estudiantes %}{{modelo3.estudiantes}}{% endif %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2 col-form-label">DOI/ISBN:</label>
-                                <div class="col-sm-10">
-                                    <input disabled class="form-control mb-1" type="text" name="doi"
-                                        id="doiModelo3{{modelo3.id}}"
-                                        value="{% if modelo3.doi %}DOI/ISBN:{{modelo3.doi}}{% endif %}">
                                 </div>
                             </div>
 
@@ -4406,6 +4396,245 @@
             <hr>
             `);
         }
+        else if (response.numeral == '8'){
+            $("#modelo1Crear" + `${response.numeral}`).before(
+                `
+            <form id="modelo1${response.id}" enctype="multipart/form-data">
+                <div class="pt-4 pr-4 pl-4">
+
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                            <div class="col-sm-10">
+                                <input  class="mb-1 form-control" id="autoresModelo1${response.id}"
+                                    name="autores" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                            <div class="col-sm-10">
+                                <input  class="mb-1 form-control" id="tituloModelo1${response.id}"
+                                    name="titulo" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                            <div class="col-sm-10">
+                                <input  class="mb-1 form-control"
+                                    id="revistaPublicacionModelo1${response.id}" name="revista"
+                                    value="" type="text">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                            <div class="col-sm-10">
+                                <input  class="mb-1 form-control" id="urlModelo1${response.id}"
+                                    name="url" type="url" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                            <div class="col-sm-10">
+                                <input maxlength="7" class="form-control mb-1" type="text"
+                                    value="{% if modelo1.fecha %}{{modelo1.fecha}}{% endif %}" name="fecha"
+                                    id="fechaModelo1${response.id}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="estudiantes" class="col-sm-2 col-form-label">Estudiante(s):</label>
+                            <div class="col-sm-10">
+                                <input  class="mb-1 form-control"
+                                    id="estudiantesModelo1${response.id}" name="estudiantes" type="text"
+                                    value="">
+                            </div>
+                        </div>
+
+                        <input  class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                            id="anexoModelo1${response.id}">
+                            <small class="mb-4">Tamaño máximo: 5 Mb</small>
+
+
+                        <div class="justify-content-end d-flex">
+                            <button onclick="modelo1Actualizar('${response.id}')" type="button"
+                                class="btn btn-success  mr-2" title="Guardar cambios"><i
+                                    class="fas fa-save">&nbsp;
+                                    Guardar</i></button>
+                            <button onclick="desactivarCamposModelo1('{{modelo1.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                            <button type="button" class="btn btn-primary  mr-2"
+                                onclick="modelo1Editar('${response.id}')" id="${response.id}"
+                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                            <button type="button" class="btn btn-danger"
+                                onclick="modelo1Eliminar('${response.id}')" title="Eliminar entrada"><i
+                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <hr>
+            `);
+        }
+        else if(response.numeral == '9'){
+            $("#modelo1Crear" + `${response.numeral}`).before(
+                `
+            <form id="modelo1${response.id}" enctype="multipart/form-data">
+                <div class="pt-4 pr-4 pl-4">
+
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                            <div class="col-sm-10">
+                                <input  class="mb-1 form-control" id="autoresModelo1${response.id}"
+                                    name="autores" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                            <div class="col-sm-10">
+                                <input  class="mb-1 form-control" id="tituloModelo1${response.id}"
+                                    name="titulo" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                            <div class="col-sm-10">
+                                <input  class="mb-1 form-control"
+                                    id="revistaPublicacionModelo1${response.id}" name="revista"
+                                    value="" type="text">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                            <div class="col-sm-10">
+                                <input maxlength="7" class="form-control mb-1" type="text"
+                                    value="{% if modelo1.fecha %}{{modelo1.fecha}}{% endif %}" name="fecha"
+                                    id="fechaModelo1${response.id}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="estudiantes" class="col-sm-2 col-form-label">Estudiante(s):</label>
+                            <div class="col-sm-10">
+                                <input  class="mb-1 form-control"
+                                    id="estudiantesModelo1${response.id}" name="estudiantes" type="text"
+                                    value="">
+                            </div>
+                        </div>
+
+                        <input  class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                            id="anexoModelo1${response.id}">
+                            <small class="mb-4">Tamaño máximo: 5 Mb</small>
+
+
+                        <div class="justify-content-end d-flex">
+                            <button onclick="modelo1Actualizar('${response.id}')" type="button"
+                                class="btn btn-success  mr-2" title="Guardar cambios"><i
+                                    class="fas fa-save">&nbsp;
+                                    Guardar</i></button>
+                            <button onclick="desactivarCamposModelo1('{{modelo1.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                            <button type="button" class="btn btn-primary  mr-2"
+                                onclick="modelo1Editar('${response.id}')" id="${response.id}"
+                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                            <button type="button" class="btn btn-danger"
+                                onclick="modelo1Eliminar('${response.id}')" title="Eliminar entrada"><i
+                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <hr>
+            `);
+        }
+        else if (response.numeral == '10'){
+            $("#modelo1Crear" + `${response.numeral}`).before(
+                `
+            <form id="modelo1${response.id}" enctype="multipart/form-data">
+                <div class="pt-4 pr-4 pl-4">
+
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                            <div class="col-sm-10">
+                                <input  class="mb-1 form-control" id="autoresModelo1${response.id}"
+                                    name="autores" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                            <div class="col-sm-10">
+                                <input  class="mb-1 form-control" id="tituloModelo1${response.id}"
+                                    name="titulo" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                            <div class="col-sm-10">
+                                <input  class="mb-1 form-control"
+                                    id="revistaPublicacionModelo1${response.id}" name="revista"
+                                    value="" type="text">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                            <div class="col-sm-10">
+                                <input maxlength="7" class="form-control mb-1" type="text"
+                                    value="{% if modelo1.fecha %}{{modelo1.fecha}}{% endif %}" name="fecha"
+                                    id="fechaModelo1${response.id}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="estudiantes" class="col-sm-2 col-form-label">Estudiante(s):</label>
+                            <div class="col-sm-10">
+                                <input  class="mb-1 form-control"
+                                    id="estudiantesModelo1${response.id}" name="estudiantes" type="text"
+                                    value="">
+                            </div>
+                        </div>
+
+                        <input  class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                            id="anexoModelo1${response.id}">
+                            <small class="mb-4">Tamaño máximo: 5 Mb</small>
+
+
+                        <div class="justify-content-end d-flex">
+                            <button onclick="modelo1Actualizar('${response.id}')" type="button"
+                                class="btn btn-success  mr-2" title="Guardar cambios"><i
+                                    class="fas fa-save">&nbsp;
+                                    Guardar</i></button>
+                            <button onclick="desactivarCamposModelo1('{{modelo1.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                            <button type="button" class="btn btn-primary  mr-2"
+                                onclick="modelo1Editar('${response.id}')" id="${response.id}"
+                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                            <button type="button" class="btn btn-danger"
+                                onclick="modelo1Eliminar('${response.id}')" title="Eliminar entrada"><i
+                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <hr>
+            `);
+        }
         else {
 
             $("#modelo1Crear" + `${response.numeral}`).before(
@@ -4824,6 +5053,78 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Nombre conferencia:</label>
+                                <div class="col-sm-10">
+                                    <input  class="form-control mb-1" type="text" name="nombreConferencia"
+                                        id="nombreConferenciaModelo3${response.id}"
+                                        value="{{Modelo3.nombreConferencia}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input  class="form-control mb-1" type="text" name="fecha"
+                                        id="fechaModelo3${response.id}" value="{{Modelo3.fecha}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">URL:</label>
+                                <div class="col-sm-10">
+                                    <input  class="form-control mb-1" type="url" name="url" id="urlModelo3${response.id}" value="{{Modelo3.url}}">
+                                </div>
+                            </div>
+
+                            <input  class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                                id="anexoModelo3${response.id}">
+                                <small class="mb-4">Tamaño máximo: 5 Mb</small>
+                            {%if Modelo3.anexos %}
+                                <strong>Actualmente: </strong><a
+                                    href="{{Modelo3.anexos.url}}">{{Modelo3.anexos.name|nombreFile}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="modelo3Actualizar(${response.id})" type="button"
+                                    class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button onclick="desactivarCamposModelo3('{{modelo3.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                                <button type="button" class="btn btn-primary  mr-2"
+                                    onclick="modelo3Editar(${response.id})" id="${response.id}"
+                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger   mr-2"
+                                    onclick="modelo3Eliminar(${response.id})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                       
+                                <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo3(${response.periodo}, ${response.id}, ${response.numeral})"><i class="fas fa-undo-alt"></i></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+                <hr>
+                `);
+        }
+        if(response.numeral == '25' || response.numeral == '26'){
+            $("#modelo3Crear" + `${response.numeral}`).before(
+                `
+                <form id="modelo3${response.id}" enctype="multipart/form-data">
+                    <div class="pt-4 pr-4 pl-4">
+
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Título de la presentación:</label>
+                                <div class="col-sm-10">
+                                    <input  class="form-control mb-1" type="text" name="tituloPresentacion"
+                                        id="tituloPresentacionModelo3${response.id}"
+                                        value="{{Modelo3.tituloPresentacion}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="" class="col-sm-2 col-form-label">Autores:</label>
                                 <div class="col-sm-10">
                                     <input  class="form-control mb-1" type="text" name="autores"
@@ -4853,14 +5154,6 @@
                                 <div class="col-sm-10">
                                     <input  class="form-control mb-1" type="text" name="estudiantes"
                                         id="estudiantesModelo3${response.id}" value="{{Modelo3.estudiantes}}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="" class="col-sm-2 col-form-label">DOI/ISBN:</label>
-                                <div class="col-sm-10">
-                                    <input  class="form-control mb-1" type="url" name="doi"
-                                        id="doiModelo3${response.id}" value="{{Modelo3.doi}}">
                                 </div>
                             </div>
 
