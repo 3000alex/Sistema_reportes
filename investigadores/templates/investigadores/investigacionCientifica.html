@@ -3917,7 +3917,94 @@
 
     }
     function dibujarCamposBiblioteca(response) {
-        $("#bibliotecaCrear" + `${response.numeral}`).before(
+        if(response.numeral == '9'){
+            $("#bibliotecaCrear" + `${response.numeral}`).before(
+            `<form id="biblioteca${response.id}" enctype="multipart/form-data">
+                    <div class="pt-4 pr-4 pl-4">
+                        <div class="form-group">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label for="autores" class="col-sm-2 col-form-label">Autor(es):</label>
+                                <div class="col-sm-10">
+                                    <input class="mb-1 form-control" id="autores${response.id}"
+                                        name="autores" type="text"
+                                        value="">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="titulo" class="col-sm-2 col-form-label">Titulo:</label>
+                                <div class="col-sm-10">
+                                    <input  class="mb-1 form-control" id="titulo${response.id}" name="titulo"
+                                        type="text" value="">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="revista" class="col-sm-2 col-form-label">Revista o Publicación:</label>
+                                <div class="col-sm-10">
+                                    <input  class="mb-1 form-control" id="revistaPublicacion${response.id}"
+                                        name="revista"
+                                        value=""
+                                        type="text">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label">Fecha:</label>
+                                <div class="col-sm-10">
+                                    <input maxlength="7"  class="form-control mb-1" type="text"
+                                        value=""
+                                        name="fecha" id="fecha${response.id}"
+                                        placeholder="Ingrese la fecha en formato YYYY/MM">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="estudiantes" class="col-sm-2">Estudiante(s):</label>
+                                <div class="col-sm-10">
+                                    <input  class="mb-1 form-control" id="estudiantes${response.id}"
+                                        name="estudiantes" type="text"
+                                        value="">
+                                </div>
+                            </div>
+
+                            <input  class="form-control" type="file" accept=".pdf, image/*" name="anexo"
+                                id="anexo${response.id}">
+                                <small class="mb-4">Tamaño máximo: 5 Mb</small>
+                                
+
+                            {%if biblioteca.anexos %}
+                            <strong>Actualmente: </strong><a
+                                href="{{biblioteca.anexos.url}}">{{biblioteca.anexos.name|nombreFile}}</a>
+                            {% endif %}
+
+                            <div class="justify-content-end d-flex">
+                                <button onclick="bibliotecaActualizar(${response.id})" type="button"
+                                    class="btn btn-success  mr-2" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
+                                        Guardar</i></button>
+                                <button onclick="desactivarCamposBiblioteca(${response.id})" class="btn btn-warning mr-2 text-white" type="reset">
+                                    <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                                <button type="button" class="btn btn-primary  mr-2"
+                                    onclick="bibliotecaEditar(${response.id})" title="Editar entrada"><i
+                                        class="fas fa-edit">&nbsp;Editar</i></button>
+                                <button type="button" class="btn btn-danger"
+                                    onclick="bibliotecaEliminar(${response.id})" title="Eliminar entrada"><i
+                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>`
+        );
+        }
+        else{
+            $("#bibliotecaCrear" + `${response.numeral}`).before(
             `<form id="biblioteca${response.id}" enctype="multipart/form-data">
                     <div class="pt-4 pr-4 pl-4">
                         <div class="form-group">
@@ -4026,7 +4113,8 @@
                         </div>
                     </div>
                 </form>`
-        )
+        );
+        }
     }
     function bibliotecaEditar(id) {
         $("#autores" + id).prop("disabled", false);
