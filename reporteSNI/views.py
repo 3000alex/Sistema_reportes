@@ -23,7 +23,7 @@ class reporteSNI(View):
     def get(self,request):
         biblioteca = ""
         try:
-            biblioteca = Biblioteca.objects.filter(user_id = request.user.id)
+            biblioteca = Biblioteca.objects.filter(user_id = request.user.id).exclude(numeral_id = 9)
         except:
             biblioteca = ""
     

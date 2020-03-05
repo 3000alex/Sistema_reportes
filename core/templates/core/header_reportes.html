@@ -22,13 +22,13 @@
                 padding-top: 350px;
             }
 
-            .btn-reporte{
-                width:50px;
-                height:50px;
+            .btn-reporte {
+                width: 50px;
+                height: 50px;
                 font-size: 40px;
-                right:20px;
+                right: 20px;
                 top: 310px;
-                
+
             }
         }
 
@@ -252,6 +252,7 @@
         <script src="{% static 'core/js/toastConfig.js' %}"></script>
         <script>
             //Control de sesion
+            let timer;
             $(document).ready(function () {
                 var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
                 var periodo = $('select[name="periodoActual"]').val().trim();
@@ -270,15 +271,42 @@
                     }
                 });
 
-                setInterval(function () {
+                timer = new Timer(function () {
                     $("#accionModal").text("Sesión por caducar");
                     $("#textoModal").html(`Su sesión expira en 60 seg. <br> ¿Desea ampliarla?`);
                     $("#icono").addClass('far fa-clock text-danger')
                     $("#footer").html('<button type="button" onclick="AmpliarSesion()" class="btn btn-primary">Aceptar</button> <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button> ')
                     $("#modalDinamico").modal('show');
-                }, 540000);
+                }, 540000)
 
             });
+
+            function Timer(fn, t) {
+                var timerObj = setInterval(fn, t);
+
+                this.stop = function () {
+                    if (timerObj) {
+                        clearInterval(timerObj);
+                        timerObj = null;
+                    }
+                    return this;
+                }
+
+                // start timer using current settings (if it's not already running)
+                this.start = function () {
+                    if (!timerObj) {
+                        this.stop();
+                        timerObj = setInterval(fn, t);
+                    }
+                    return this;
+                }
+
+                // start with new or original interval, stop current interval
+                this.reset = function (newT = t) {
+                    t = newT;
+                    return this.stop().start();
+                }
+            }
 
             function AmpliarSesion() {
                 $.ajax({

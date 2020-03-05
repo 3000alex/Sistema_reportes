@@ -82,7 +82,7 @@
                                 {% if modelo1.autores %}{{modelo1.autores|nombreCorto:modelo1.usuario.nombreCorto|safe }},{% endif %}
                                 {% if modelo1.titulo %}<i>{{modelo1.titulo}},</i>{% endif %}
                                 {% if modelo1.revistaPublicacion %}{{modelo1.revistaPublicacion}},{% endif %}
-
+                                {% if modelo1.fecha %}{{modelo1.fecha}},{% endif %}
                                 {% if modelo1.estudiantesEnArticulo %}<br>Estudiante(s): <span style="color: red;">{{ modelo1.estudiantesEnArticulo }}</span>{% endif %}
                                 {% if modelo1.doi %}<br>DOI: <a target="blank" href="#">{{modelo1.doi}}</a>{% endif %}
                                 {% if modelo1.url %}<br>URL: <a target="blank" href="{{modelo1.url}}">{{modelo1.url}}</a>{% endif %}
@@ -195,7 +195,7 @@
                                 {% if modelo8.nombre %}Nombre: {{modelo8.nombre}}  {% endif %}
                                 {% if modelo8.participantes %}<br>Participantes: {{modelo8.participantes}}  {% endif %}
                                 {% if modelo8.descripcion %}<br>Descripción: {{modelo8.descripcion}}  {% endif %}
-                                {% if modelo8.url %}<br>URL: <a href="{{modelo8.url}}">{{modelo8.url}}</a>  {% endif %}
+                                {% if modelo8.financiamiento %}<br>Financiamiento: {{modelo8.financiamiento}} {% endif %}
                                 {% if modelo8.anexos %}<br>Anexo: {{modelo8.anexos.name|nombreFile}}{% endif %}
                             </li>
                         </ul>
@@ -212,6 +212,7 @@
                                 {% if modelo9.numeroReportes %}<br>No. Reportes/ID: {{modelo9.numeroReportes}}  {% endif %}
                                 {% if modelo9.revistaPublicacion %}<br>Revista o publicación: {{modelo9.revistaPublicacion}}  {% endif %}
                                 {% if modelo9.fecha %}<br>Fecha: {{modelo9.fecha}}  {% endif %}
+                                {% if modelo9.doi %}<br>DOI/ISBN: {{modelo9.doi}}  {% endif %}
                                 {% if modelo9.url %}<br>URL: <a href="{{modelo9.url}} ">{{modelo9.url}} </a> {% endif %}
                                 {% if modelo9.anexos %}<br>Anexo: {{modelo9.anexos.name|nombreFile}}{% endif %}
                             </li>
@@ -279,7 +280,10 @@
                         <ul>
                             <li>
                                 {% if modelo14.TelescopioInstrumentoInfra %}Telescopio, instrumento, infraestructura: {{modelo14.TelescopioInstrumentoInfra}}  {% endif %}
-                                {% if modelo14.participantes %}<br>Participante(s): {{modelo14.participantes}}  {% endif %}
+                                {% if modelo14.conferenciaProyecto %}<br>Conferencia: {{modelo14.conferenciaProyecto}}  {% endif %}
+                                {% if modelo14.rol %}<br>Rol: {{modelo14.rol}} {% endif %}
+                                {% if modelo14.url %}<br>URL: <a href="{{modelo14.url}}">{{modelo14.url}}</a>  {% endif %}
+                                {% if modelo14.fecha %}<br>Fecha: {{modelo14.fecha}}  {% endif %}
                                 {% if modelo14.descripcion %}<br>Descripción: {{modelo14.descripcion}}{% endif %}
                                 {% if modelo14.anexos %}<br>Anexo: {{modelo14.anexos.name|nombreFile}}{% endif %}
                             </li>

@@ -660,6 +660,9 @@ def Reporte(request,periodo_id):
                     if item.revistaPublicacion:
                         paragraph.add_run(item.revistaPublicacion)
                         paragraph.add_run(" ")
+
+                    if item.fecha:
+                        paragraph.add_run(item.fecha)
                         
                     p = document.add_paragraph() 
                     p.alignment = WD_ALIGN_PARAGRAPH.LEFT 
@@ -695,7 +698,7 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Participantes: " + item.participantes + "\n")
 
                     if item.responsableTecParticipante:
-                        paragraph.add_run("Responsable técnico o participante: ")
+                        paragraph.add_run("Rol: ")
                         paragraph.add_run(item.responsableTecParticipante + "\n")
 
                     if item.descripcion:
@@ -754,9 +757,15 @@ def Reporte(request,periodo_id):
                     if item.tituloTesis:
                         paragraph.add_run("Título de tesis: " + item.tituloTesis + "\n")
 
+                    if item.conferenciaProyecto:
+                        paragraph.add_run("Conferencia: " + item.conferenciaProyecto + "\n")
+                    
+                    if item.rol:
+                        paragraph.add_run("Rol: " + item.rol + "\n")
+
                     if item.fecha:
                         paragraph.add_run("Fecha: " + item.fecha + "\n")
-
+                    
                     if item.url:
                         paragraph.add_run("URL: ")
                         add_hyperlink(paragraph,item.url,item.url)
@@ -841,10 +850,8 @@ def Reporte(request,periodo_id):
                     if item.descripcion:
                         paragraph.add_run("Descripción: " + item.descripcion + "\n")
 
-                    if item.url:
-                        paragraph.add_run("URL: ")
-                        add_hyperlink(paragraph,item.url,item.url)
-                        paragraph.add_run(" \r")
+                    if item.financiamiento:
+                        paragraph.add_run("Financiamiento: " + item.financiamiento + "\n")
                     
                     if item.anexos:
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
@@ -861,13 +868,16 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Autor(es): " + item.autores + "\n")
                     
                     if item.numeroReportes:
-                        paragraph.add_run("No. Reportes/ID: " + item.numeroReportes + "\n")
+                        paragraph.add_run("No. Reporte/ID: " + item.numeroReportes + "\n")
                     
                     if item.revistaPublicacion:
                         paragraph.add_run("Revista o publicación: " + item.revistaPublicacion + "\n")
 
                     if item.fecha:
                         paragraph.add_run("Fecha: " + item.fecha + "\n")
+                    
+                    if item.doi:
+                        paragraph.add_run("DOI/ISBN: " + item.doi + "\n")
                     
                     if item.url:
                         paragraph.add_run("URL: ")
@@ -954,8 +964,9 @@ def Reporte(request,periodo_id):
                     if item.TelescopioInstrumentoInfra:
                         paragraph.add_run("Telescopio, instrumento, infraestructura: " + item.TelescopioInstrumentoInfra + "\n")
                     
-                    if item.participantes:
-                        paragraph.add_run("Participante(s): " + item.participantes + "\n")
+                    if item.url:
+                        add_hyperlink(paragraph,item.url,item.url + "\n")
+                        paragraph.add_run(" \r")
                     
                     if item.descripcion:
                         paragraph.add_run("Descripción: " + item.descripcion + "\n")
@@ -981,6 +992,12 @@ def Reporte(request,periodo_id):
                     
                     if item.nombreEstudiante:
                         paragraph.add_run("Nombre estudiante: " + item.nombreEstudiante + "\n")
+                    
+                    if item.coordinacion:
+                        paragraph.add_run("Coordinacion: " + item.coordinacion + "\n")
+
+                    if item.grado:
+                        paragraph.add_run("Grado: " + item.grado + "\n")
                     
                     if item.anexos:
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))

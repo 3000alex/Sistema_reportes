@@ -100,14 +100,14 @@ class investigacion_cientifica(View):
             'numeral_20':Modelo2.objects.filter(usuario_id=request.user.id, numeral_id=21, periodo__fechaInicio__year = yearPeriodo),
             'numeral_21':Modelo2.objects.filter(usuario_id=request.user.id, numeral_id=22, periodo__fechaInicio__year = yearPeriodo),
             'numeral_22':Modelo2.objects.filter(usuario_id=request.user.id, numeral_id=23, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_23':Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=24, periodo__fechaInicio__year = yearPeriodo),
+            'numeral_23':Modelo14.objects.filter(usuario_id=request.user.id, numeral_id=24, periodo__fechaInicio__year = yearPeriodo),
             'numeral_24':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=25, periodo__fechaInicio__year = yearPeriodo),
             'numeral_25':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=26, periodo__fechaInicio__year = yearPeriodo),
             'numeral_26':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=27, periodo__fechaInicio__year = yearPeriodo),
             'numeral_27':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=28, periodo__fechaInicio__year = yearPeriodo),
             'numeral_28':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=29, periodo__fechaInicio__year = yearPeriodo),
             'numeral_29':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=30, periodo__fechaInicio__year = yearPeriodo),
-            'citas': Citas.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo), #Id - 31
+            'citas': Citas.objects.filter(usuario_id=request.user.id), #Id - 31
             'glosario': Glosario.objects.filter(seccion="I. INVESTIGACIÓN CIENTÍFICA"),
             'periodoActual': periodoActual,'periodos':periodos
         }
@@ -612,6 +612,7 @@ class actualizarModelo4(View):
         tituloTesis = request.POST.get('tituloTesis', None)
         fecha = request.POST.get('fecha', None)
         url = request.POST.get('url', None)
+       
 
         # Actualizamos modelo4
         obj = Modelo4.objects.get(id=id1)
@@ -619,6 +620,7 @@ class actualizarModelo4(View):
         obj.tituloTesis = tituloTesis
         obj.fecha = fecha
         obj.url = url
+
 
         # Subir archivos
         if request.FILES:
@@ -937,13 +939,13 @@ class actualizarModelo8(View):
         nombre = request.POST.get('nombre', None)
         descripcion = request.POST.get('descripcion', None)
         participantes = request.POST.get('participantes', None)
-        url = request.POST.get('url', None)
+        financiamiento = request.POST.get('financiamiento', None)
 
         obj = Modelo8.objects.get(id=id1)
         obj.nombre = nombre
         obj.descripcion = descripcion
         obj.participantes = participantes
-        obj.url = url
+        obj.financiamiento = financiamiento
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
@@ -1020,6 +1022,7 @@ class actualizarModelo9(View):
         fecha = request.POST.get('fecha', None)
         url = request.POST.get('url', None)
         revista = request.POST.get('revistaPublicacion', None)
+        doi = request.POST.get('doi',None)
 
         obj = Modelo9.objects.get(id=id1)
         obj.titulo = titulo
@@ -1028,6 +1031,7 @@ class actualizarModelo9(View):
         obj.fecha = fecha
         obj.url = url
         obj.revistaPublicacion = revista
+        obj.doi = doi
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
@@ -1092,7 +1096,8 @@ class infoAnteriorModelo9(View):
             'numeroReportes':datos.numeroReportes,
             'fecha':datos.fecha,
             'url':datos.url,
-            'revistaPublicacion':datos.revistaPublicacion
+            'revistaPublicacion':datos.revistaPublicacion,
+            'doi':datos.doi
         }
         return  JsonResponse(data)
 
@@ -1408,11 +1413,17 @@ class actualizarModelo14(View):
         telescopio = request.POST.get('telescopio', None)
         descripcion = request.POST.get('descripcion', None)
         url = request.POST.get('url', None)
+        conferenciaProyecto = request.POST.get('conferenciaProyecto',None)
+        rol = request.POST.get('rol',None)
+        fecha = request.POST.get('fecha',None)
 
         obj = Modelo14.objects.get(id=id1)
         obj.TelescopioInstrumentoInfra = telescopio
         obj.descripcion = descripcion
         obj.url = url
+        obj.conferenciaProyecto = conferenciaProyecto
+        obj.rol = rol
+        obj.fecha = fecha
         
         if request.FILES:
             archivo = request.FILES['anexo']
@@ -1471,7 +1482,11 @@ class infoAnteriorModelo14(View):
         data = {
             'descripcion':datos.descripcion,
             'telescopio':datos.TelescopioInstrumentoInfra,
-            'url': datos.url
+            'url': datos.url,
+            'conferenciaProyecto': datos.conferenciaProyecto,
+            'rol':datos.rol,
+            'url':datos.url,
+            'fecha':datos.fecha,
         }
         return  JsonResponse(data)
 
@@ -1551,9 +1566,13 @@ class actualizarModelo16(View):
     def post(self, request):
         id1 = request.POST.get('id', None)
         estudiantes = request.POST.get('nombreEstudiante', None)
-
+        coordinacion = request.POST.get('coordinacion',None)
+        grado = request.POST.get('grado',None)
+        
         obj = Modelo16.objects.get(id=id1)
         obj.nombreEstudiante = estudiantes
+        obj.coordinacion = coordinacion
+        obj.grado = grado
         # Subir archivos
         if request.FILES:
             archivo = request.FILES['anexo']
@@ -1614,6 +1633,8 @@ class infoAnteriorModelo16(View):
 
         data = {
             'nombreEstudiante':datos.nombreEstudiante,
+            'coordinacion':datos.coordinacion,
+            'grado':datos.grado,
         }
         return  JsonResponse(data)
 
