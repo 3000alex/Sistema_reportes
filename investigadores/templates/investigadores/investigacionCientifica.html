@@ -5195,7 +5195,7 @@
                 <hr>
                 `);
         }
-        if(response.numeral == '25' || response.numeral == '26'){
+        else if(response.numeral == '25' || response.numeral == '26'){
             $("#modelo3Crear" + `${response.numeral}`).before(
                 `
                 <form id="modelo3${response.id}" enctype="multipart/form-data">
