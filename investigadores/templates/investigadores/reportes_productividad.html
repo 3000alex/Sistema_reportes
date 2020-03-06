@@ -1,7 +1,7 @@
 {% extends 'core/header_reportes.html' %}
 <!-- Secciones de la documentación-->
 {%block contenido%}
-<section class="container mb-4">
+<section class="container mb-2">
 
     <nav class="nav nav-tabs d-flex justify-content-between text-center">
 
@@ -27,7 +27,7 @@
     
 </div>
 
-<ul class="pagination   justify-content-center">
+<ul class="pagination justify-content-center">
 
     <li id="investigacionCientificaPag" class="page-item active"><a class="page-link"
             onclick="investigacionCientifica({{periodoActual.id}})">1</a></li>
@@ -45,10 +45,6 @@
 {%  endblock %}
 
 {% block JsCode %}
-
-<script>
-
-</script>
 
 <script>
 
@@ -215,7 +211,6 @@
             }
         });
     }
-
 
 </script>
 {% endblock %}
