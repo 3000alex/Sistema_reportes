@@ -1035,6 +1035,7 @@
         $("#fechaModelo4" + id).prop("disabled", false);
         $("#urlModelo4" + id).prop("disabled", false);
         $("#anexoModelo4" + id).prop("disabled", false);
+        timer.reset(540000);
     }
     function desactivarCamposModelo4(id) {
         $("#nombreCompletoModelo4" + id).prop("disabled", true);
@@ -1059,6 +1060,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo4(id)
+                timer.reset(540000);
             }
         });
 
@@ -1084,6 +1086,7 @@
                 `)
                 $("#modelo4Crear" + numeral).remove()
                 dibujarmodelo4(response)
+                timer.reset(540000);
             }
         });
     }
@@ -1103,6 +1106,7 @@
                 $("#fechaModelo4" + id).val(response.fecha);
                 $("#urlModelo4" + id).val(response.url);
                 toastr.info("Operación exitosa", "información copiada")
+                timer.reset(540000);
             }
         });
     }
@@ -1128,6 +1132,7 @@
                     $("#modelo4" + id).remove();
                     $("#modelo4Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });
@@ -1216,6 +1221,7 @@
         $("#periodoModelo5" + id).prop("disabled", false);
         $("#notasModelo5" + id).prop("disabled", false);
         $("#anexoModelo5" + id).prop("disabled", false);
+        timer.reset(540000);
     }
     function desactivarCamposModelo5(id) {
         $("#nombreCursoModelo5" + id).prop("disabled", true);
@@ -1239,6 +1245,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo5(id)
+                timer.reset(540000);
             }
         });
 
@@ -1265,6 +1272,7 @@
                 `)
                 $("#modelo5Crear" + numeral).remove()
                 dibujarmodelo5(response)
+                timer.reset(540000);
             }
         });
     }
@@ -1283,6 +1291,7 @@
                 $("#periodoModelo5" + id).val(response.periodoNumeral);
                 $("#notasModelo5" + id).val(response.notas);
                 toastr.info("Operación exitosa", "información copiada")
+                timer.reset(540000);
             }
         });
     }
@@ -1308,6 +1317,7 @@
                     $("#modelo5" + id).remove();
                     $("#modelo5Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });
@@ -1388,6 +1398,7 @@
         $("#fechaModelo6" + id).prop("disabled", false);
         $("#notasModelo6" + id).prop("disabled", false);
         $("#anexoModelo6" + id).prop("disabled", false);
+        timer.reset(540000);
 
     }
     function desactivarCamposModelo6(id) {
@@ -1416,6 +1427,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo6(id)
+                timer.reset(540000);
             }
         });
 
@@ -1441,6 +1453,7 @@
                 `)
                 $("#modelo6Crear" + numeral).remove()
                 dibujarmodelo6(response)
+                timer.reset(540000);
             }
         });
     }
@@ -1462,6 +1475,7 @@
                 $("#fechaModelo6" + id).val(response.fecha);
                 $("#notasModelo6" + id).val(response.notas);
                 toastr.info("Operación exitosa", "información copiada")
+                timer.reset(540000);
             }
         });
     }
@@ -1487,6 +1501,7 @@
                     $("#modelo6" + id).remove();
                     $("#modelo6Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });
@@ -1696,6 +1711,7 @@
         $("#coordinacionModelo16" + id).prop("disabled", false);
         $("#gradoModelo16" + id).prop("disabled", false);
         $("#anexoModelo16" + id).prop("disabled", false);
+        timer.reset(540000);
     }
     function desactivarCamposModelo16(id) {
         $("#nombreEstudianteModelo16" + id).prop("disabled", true);
@@ -1719,6 +1735,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo16(id)
+                timer.reset(540000);
             }
         });
 
@@ -1746,6 +1763,7 @@
                     $("#modelo16" + id).remove();
                     $("#modelo16Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });
@@ -1773,6 +1791,7 @@
                 `)
                 $("#modelo16Crear" + numeral).remove()
                 dibujarmodelo16(response)
+                timer.reset(540000);
             }
         });
     }
@@ -1791,6 +1810,7 @@
                 $("#coordinacionModelo16" + id).val(response.coordinacion);
                 $("#gradoModelo16" + id).val(response.grado);
                 toastr.info("Operación exitosa", "información copiada")
+                timer.reset(540000);
             }
         });
     }

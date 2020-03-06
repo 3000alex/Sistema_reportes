@@ -4164,6 +4164,7 @@
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     toastr.error('Code error: ' + jqXHR.status + " " + errorThrown, 'Imposible Proceder')
+                    timer.reset(540000);
                 }
             });
         }
@@ -5622,7 +5623,6 @@
         $('#modalDinamico').modal('hide');//cierra modal
         return false;
     }
-
     //Fin modelo14
 
     //citas
@@ -5642,10 +5642,12 @@
         timer.reset(540000);
 
     }
+
     function prueba(id){
         alert("Entre")
         //document.getElementById("campo"+id).reset()
     }
+
     function citasActualizar(id) {
         var formData = new FormData(document.getElementById("campo" + id))
         formData.append("id", id);
@@ -5674,6 +5676,5 @@
 
         return false;
     }
-
     //Fin citas
 </script>

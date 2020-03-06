@@ -235,6 +235,7 @@
                 $("#urlModelo14"+id).val(response.url);
                 $("#telescopioModelo14"+id).val(response.telescopio);
                 toastr.info("Operación exitosa","información copiada")
+                timer.reset(540000);
             }
         });
     }
@@ -245,6 +246,7 @@
         $("#descripcionModelo14" + id).prop("disabled", false);
         $("#urlModelo14" + id).prop("disabled", false);
         $("#anexoModelo14" + id).prop("disabled", false);
+        timer.reset(540000);
     }
     function desactivarCamposModelo14(id) {
         $("#telescopioModelo14" + id).prop("disabled", true);
@@ -270,6 +272,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo14(id);
+                timer.reset(540000);
             }
         });
         return false;
@@ -293,6 +296,7 @@
                 `)
                 $("#modelo14Crear" + numeral).remove()
                 dibujarmodelo14(response)
+                timer.reset(540000);
             }
         });
     }
@@ -318,6 +322,7 @@
                     $("#modelo14" + id).remove();
                     $("#modelo14Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });

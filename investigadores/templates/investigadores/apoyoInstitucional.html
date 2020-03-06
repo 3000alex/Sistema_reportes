@@ -1565,6 +1565,7 @@
         $("#revistaPublicacionModelo9" + id).prop("disabled", false);
         $("#doiModelo9" + id).prop("disabled", false);
         $("#anexoModelo9" + id).prop("disabled", false);
+        timer.reset(540000);
     }
     function desactivarCamposModelo9(id) {
         $("#tituloModelo9" + id).prop("disabled", true);
@@ -1593,6 +1594,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo9(id)
+                timer.reset(540000);
             }
         });
 
@@ -1618,6 +1620,7 @@
                 `)
                 $("#modelo9Crear" + numeral).remove()
                 dibujarmodelo9(response)
+                timer.reset(540000);
             }
         });
     }
@@ -1640,6 +1643,7 @@
                 $("#revistaPublicacionModelo9" + id).val(response.revistaPublicacion);
                 $("#doiModelo9" + id).val(response.doi);
                 toastr.info("Operación exitosa", "información copiada")
+                timer.reset(540000);
             }
         });
     }
@@ -1665,6 +1669,7 @@
                     $("#modelo9" + id).remove();
                     $("#modelo9Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });
@@ -1777,6 +1782,7 @@
         $("#urlModelo10" + id).prop("disabled", false);
         $("#periodoModelo10" + id).prop("disabled", false);
         $("#anexoModelo10" + id).prop("disabled", false);
+        timer.reset(540000);
     }
     function desactivarCamposModelo10(id) {
         $("#descripcionModelo10" + id).prop("disabled", true);
@@ -1802,6 +1808,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo10(id)
+                timer.reset(540000);
             }
         });
 
@@ -1827,6 +1834,7 @@
                 `)
                 $("#modelo10Crear" + numeral).remove()
                 dibujarmodelo10(response)
+                timer.reset(540000);
             }
         });
     }
@@ -1846,6 +1854,7 @@
                 $("#urlModelo10" + id).val(response.url);
                 $("#periodoModelo10" + id).val(response.periodoNumeral);
                 toastr.info("Operación exitosa", "información copiada")
+                timer.reset(540000);
             }
         });
     }
@@ -1871,6 +1880,7 @@
                     $("#modelo10" + id).remove();
                     $("#modelo10Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });
@@ -1993,6 +2003,7 @@
         $("#anexoModelo11" + id).prop("disabled", false);
         $("#fechaModelo11" + id).prop("disabled", false);
         $("#fechaPeriodoModelo11" + id).prop("disabled", false);
+        timer.reset(540000);
 
     }
     function desactivarCamposModelo11(id) {
@@ -2020,6 +2031,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo11(id)
+                timer.reset(540000);
             }
         });
 
@@ -2045,6 +2057,7 @@
                 `)
                 $("#modelo11Crear" + numeral).remove()
                 dibujarmodelo11(response)
+                timer.reset(540000);
             }
         });
     }
@@ -2063,6 +2076,7 @@
                 $("#nombreEstudianteModelo11" + id).val(response.nombreEstudiante);
                 $("#fechaModelo11" + id).val(response.fecha);
                 toastr.info("Operación exitosa", "información copiada")
+                timer.reset(540000);
             }
         });
     }
@@ -2088,6 +2102,7 @@
                     $("#modelo11" + id).remove();
                     $("#modelo11Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });
@@ -2270,6 +2285,7 @@
     function modelo12Editar(id) {
         $("#laboratorioTallerModelo12" + id).prop("disabled", false);
         $("#anexoModelo12" + id).prop("disabled", false);
+        timer.reset(540000);
     }
     function desactivarCamposModelo12(id) {
         $("#laboratorioTallerModelo12" + id).prop("disabled", true);
@@ -2292,6 +2308,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo12(id)
+                timer.reset(540000);
             }
         });
 
@@ -2317,6 +2334,7 @@
                 `)
                 $("#modelo12Crear" + numeral).remove()
                 dibujarmodelo12(response)
+                timer.reset(540000);
             }
         });
     }
@@ -2333,6 +2351,7 @@
             success: function (response) {
                 $("#laboratorioTallerModelo12" + id).val(response.laboratorioTaller);
                 toastr.info("Operación exitosa", "información copiada")
+                timer.reset(540000);
             }
         });
     }
@@ -2358,6 +2377,7 @@
                     $("#modelo12" + id).remove();
                     $("#modelo12Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });
@@ -2419,6 +2439,7 @@
         $("#descripcionModelo13" + id).prop("disabled", false);
         $("#agenciaFinanciadoraModelo13" + id).prop("disabled", false);
         $("#anexoModelo13" + id).prop("disabled", false);
+        timer.reset(540000);
 
     }
     function desactivarCamposModelo13(id) {
@@ -2444,6 +2465,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo13(id)
+                timer.reset(540000);
             }
         });
 
@@ -2469,6 +2491,7 @@
                 `)
                 $("#modelo13Crear" + numeral).remove()
                 dibujarmodelo13(response)
+                timer.reset(540000);
             }
         });
     }
@@ -2487,6 +2510,7 @@
                 $("#descripcionModelo13" + id).val(response.descripcion);
                 $("#agenciaFinanciadoraModelo13" + id).val(response.agencias);
                 toastr.info("Operación exitosa", "información copiada")
+                timer.reset(540000);
             }
         });
     }
@@ -2512,6 +2536,7 @@
                     $("#modelo13" + id).remove();
                     $("#modelo13Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });
@@ -2578,10 +2603,9 @@
 
     //Modelo 15
     function modelo15Editar(id) {
-        //Formacion RHH
         $("#descripcionModelo15" + id).prop("disabled", false);
-        //Apoyo institucional
         $("#anexoModelo15" + id).prop("disabled", false);
+        timer.reset(540000);
     }
     function desactivarCamposModelo15(id) {
         //Formacion RHH
@@ -2605,6 +2629,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo15(id)
+                timer.reset(540000);
             }
         });
 
@@ -2630,6 +2655,7 @@
                 `)
                 $("#modelo15Crear" + numeral).remove()
                 dibujarmodelo15(response)
+                timer.reset(540000);
             }
         });
     }
@@ -2646,6 +2672,7 @@
             success: function (response) {
                 $("#descripcionModelo15" + id).val(response.descripcion);
                 toastr.info("Operación exitosa", "información copiada")
+                timer.reset(540000);
             }
         });
     }
@@ -2671,6 +2698,7 @@
                     $("#modelo15" + id).remove();
                     $("#modelo15Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });

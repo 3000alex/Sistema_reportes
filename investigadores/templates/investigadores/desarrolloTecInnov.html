@@ -768,6 +768,7 @@
         $("#descripcionModelo7" + id).prop("disabled", false);
         $("#urlModelo7" + id).prop("disabled", false);
         $("#anexoModelo7" + id).prop("disabled", false);
+        timer.reset(540000);
     }
     function desactivarCamposModelo7(id) {
         $("#autoresModelo7" + id).prop("disabled", true);
@@ -792,6 +793,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo7(id);
+                timer.reset(540000);
             }
         });
 
@@ -817,6 +819,7 @@
                 `)
                 $("#modelo7Crear"+numeral).remove()
                 dibujarmodelo7(response)
+                timer.reset(540000);
             }
         });
     }
@@ -835,6 +838,7 @@
              $("#descripcionModelo7"+id).val(response.descripcion);
              $("#urlModelo7"+id).val(response.url);
              toastr.info("Operación exitosa","información copiada")
+             timer.reset(540000);
          }
      });
  }
@@ -860,6 +864,7 @@
                     $("#modelo7" + id).remove();
                     $("#modelo7Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });
@@ -939,6 +944,7 @@
         $("#participantesModelo8" + id).prop("disabled", false);
         $("#financiamientoModelo8" + id).prop("disabled", false);
         $("#anexoModelo8" + id).prop("disabled", false);
+        timer.reset(540000);
     }
     function desactivarCamposModelo8(id) {
         $("#nombreModelo8" + id).prop("disabled", true);
@@ -964,6 +970,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo8(id);
+                timer.reset(540000);
             }
         });
 
@@ -989,6 +996,7 @@
                 `)
                 $("#modelo8Crear"+numeral).remove()
                 dibujarmodelo8(response)
+                timer.reset(540000);
             }
         });
     }
@@ -1008,6 +1016,7 @@
              $("#participantesModelo8"+id).val(response.participantes);
              $("#financiamientoModelo8"+id).val(response.financiamiento);
              toastr.info("Operación exitosa","información copiada")
+             timer.reset(540000);
          }
      });
  }
@@ -1033,6 +1042,7 @@
                     $("#modelo8" + id).remove();
                     $("#modelo8Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });
@@ -1119,6 +1129,7 @@
         $("#urlModelo9" + id).prop("disabled", false);
         $("#revistaPublicacionModelo9" + id).prop("disabled", false);
         $("#anexoModelo9" + id).prop("disabled", false);
+        timer.reset(540000);
     }
     function desactivarCamposModelo9(id) {
         $("#tituloModelo9" + id).prop("disabled", true);
@@ -1146,6 +1157,7 @@
             success: function (data) {
                 toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
                 desactivarCamposModelo9(id);
+                timer.reset(540000);
             }
         });
 
@@ -1171,6 +1183,7 @@
                 `)
                 $("#modelo9Crear"+numeral).remove()
                 dibujarmodelo9(response)
+                timer.reset(540000);
             }
         });
     }
@@ -1192,6 +1205,7 @@
              $("#urlModelo9"+id).val(response.url);
              $("#revistaPublicacionModelo9"+id).val(response.revistaPublicacion);
              toastr.info("Operación exitosa","información copiada")
+             timer.reset(540000);
          }
      });
  }
@@ -1217,6 +1231,7 @@
                     $("#modelo9" + id).remove();
                     $("#modelo9Crear" + id).remove();
                     toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
                 }
             }
         });
