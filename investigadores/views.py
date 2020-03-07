@@ -47,6 +47,8 @@ from email import encoders
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #Reporte final
 from .generarReporteCoordinacion import generarPdf
+#Time zone
+import datetime
 
 @method_decorator(login_required, name='dispatch')
 class reporte_productividad(View):
@@ -1863,8 +1865,13 @@ class ampliarSesion(View):
     def get(self, request):
         sesion_expiry = request.session.set_expiry(600)
         sesion = request.session.get_expiry_date()
-
+        #print(sesion.hours)
+        timeNow = datetime.datetime.now() + datetime.timedelta(minutes=10)
+        hora = timeNow.hour
+        minutos = timeNow.minute
+        nuevaSesion = str(hora) + ":" + str(minutos)
+    
         data = {
-            'sesion': sesion
+            'nuevaSesion': nuevaSesion
         }
         return JsonResponse(data)

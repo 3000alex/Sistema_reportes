@@ -157,7 +157,7 @@
         <!--  FINModal -->
 
         <!--Modal Multiple.-->
-        <div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        <div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-backdrop="static"n
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -214,16 +214,43 @@
     {% if request.user.is_authenticated %}
     <script>
         //Control de sesion
+        let timer;
         $(document).ready(function () {
-            setInterval(function () {
-                $("#accionModal").text("Sesión por caducar");
-                $("#textoModal").html(`Su sesión expira en 60 seg. <br> ¿Desea ampliarla?`);
-                $("#icono").addClass('far fa-clock text-danger')
-                $("#footer").html('<button type="button" onclick="AmpliarSesion()" class="btn btn-primary">Aceptar</button> <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button> ')
-                $("#modalDinamico").modal('show');
-
-            }, 540000);
+            timer = new Timer(function () {
+                    $("#accionModal").text("Sesión por caducar");
+                    $("#textoModal").html(`Su sesión expira en 60 seg. <br> ¿Desea ampliarla?`);
+                    $("#icono").addClass('far fa-clock text-danger')
+                    $("#footer").html('<button type="button" onclick="AmpliarSesion()" class="btn btn-primary">Aceptar</button> <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button> ')
+                    $("#modalDinamico").modal('show');
+                }, 540000)
         })
+
+        function Timer(fn, t) {
+            var timerObj = setInterval(fn, t);
+
+            this.stop = function () {
+                if (timerObj) {
+                    clearInterval(timerObj);
+                    timerObj = null;
+                }
+                return this;
+            }
+
+            // start timer using current settings (if it's not already running)
+            this.start = function () {
+                if (!timerObj) {
+                    this.stop();
+                    timerObj = setInterval(fn, t);
+                }
+                return this;
+            }
+
+            // start with new or original interval, stop current interval
+            this.reset = function (newT = t) {
+                t = newT;
+                return this.stop().start();
+            }
+        }
 
         function AmpliarSesion() {
             $.ajax({
@@ -234,15 +261,20 @@
                 },
                 dataType: "Json",
                 success: function (data) {
-                    momentoActual = new Date()
-                    hora = momentoActual.getHours()
-                    minuto = momentoActual.getMinutes() + 10
                     $("#modalDinamico").modal('hide');
-                    toastr.info('Sesion ampliada a las ' + hora + ':' + minuto, 'Operación exitosa')
+                    toastr.info('Sesion ampliada a las ' + data.nuevaSesion, 'Operación exitosa')
                 },
                 error: function (error, tipoError) {
                     toastr.error('Sesión terminada redireccionando', 'Error en la operación')
-                    window.location.href = '{% url "logout" %}'
+                    $("#accionModal").text("Sesión terminada");
+                    $("#textoModal").html(`Su sesión caduco, en breve se redireccionara al login`);
+                    $("#icono").addClass('fas fa-sign-out-alt')
+                    $("#footer").html('<button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Aceptar</button> ')
+                    $("#modalDinamico").attr('data-backdrop', "static");
+                    $("#modalDinamico").modal('show');
+                    setInterval(() => {
+                        window.location.href = '{% url "logout" %}'
+                    }, 6000);
                 }
             });
         }
