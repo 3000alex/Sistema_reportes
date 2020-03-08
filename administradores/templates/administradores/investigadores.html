@@ -30,13 +30,13 @@
                 <td class="userNombreCorto userData" name="nombreCorto">{{inv.nombreCorto}}</td>
 
                 <td>
-                    <button class="btn btn-success" onClick="editUser({{inv.id}})" data-toggle="modal"
+                    <button class="btn btn-success sesion" onClick="editUser({{inv.id}})" data-toggle="modal"
                         data-target="#myModal" title="Editar perfil"><i class="fas fa-user-edit"></i></button>
 
-                    <button class="btn btn-danger" onClick="EliminarUsuarioModal({{inv.id}})"><i
+                    <button class="btn btn-danger sesion" onClick="EliminarUsuarioModal({{inv.id}})"><i
                             class="fas fa-user-times" title="Eliminar perfil"></i></button>
 
-                    <button class="btn btn-secondary" title="Mensaje de bienvenida"
+                    <button class="btn btn-secondary sesion" title="Mensaje de bienvenida"
                         onClick="mensajeBienvenida( '{{inv.id}}', '{{inv.first_name}}', '{{inv.last_name}}' )"><i
                             class="fas fa-envelope"></i></button>
                 </td>
@@ -260,14 +260,9 @@
     function EliminarUsuarioModal(id) {
         $('#eliminarUsuario').modal('show'); // abrir
         $('#usuarioEliminar-id').val(id);
+        timer.reset(540000);
     }
 
-    $("#CrearPeriodoForm").submit(function () {
-
-        toastr.success("Periodo creado", 'Operacion exitosa')
-        $('#Crear-Periodo').modal('hide');//cierra modal
-        return false;
-    });
 
     $("#EliminarUsuarioModal").submit(function () {
         var id = $('input[name="usuarioEliminarId"]').val().trim();
@@ -285,6 +280,7 @@
                 if (data.deleted) {
                     $("#usuarios #user-" + id).remove();
                     toastr.error('Perfil eliminado exitosamente')
+                    timer.reset(540000);  
                 }
 
             }
@@ -319,6 +315,7 @@
                     if (data.user) {
                         appendToUsrTable(data.user);
                         toastr.info('Perfil creado correctamente', 'Operacion exitosa')
+                        
                     }
                 }
             });
@@ -327,6 +324,7 @@
         }
         $('form#addUser').trigger("reset");
         $('#modal-add').modal('hide');//cierra modal
+        timer.reset(540000);  
         return false;
     });
 
@@ -348,6 +346,7 @@
                 </td>
             </tr>
         `);
+        timer.reset(540000);  
     }
 
     //UPADATE Item - Funcion de actualizar desde modal.
@@ -384,7 +383,9 @@
 
         $('form#updateUser').trigger("reset");
         $('#myModal').modal('hide');
+        timer.reset(540000);  
         return false;
+        
     });
 
     // Modal Update
@@ -404,6 +405,7 @@
             $('#form-Email').val(email);
             $('#form-NombreCorto').val(nombre_corto);
         }
+        timer.reset(540000);  
     }
 
     function updateToUserTabel(user) {
@@ -424,6 +426,7 @@
             }
 
         });
+        timer.reset(540000);  
     }
 
     function mensajeBienvenida(id, nombre, apellidos) {
@@ -432,6 +435,7 @@
         $("#icono").addClass('far fa-question-circle text-danger')
         $("#footer").html(`<button type="button" onclick="mensajeBienvenidaConfirm('${id}','${nombre}', '${apellidos}')" class="btn btn-primary">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
         $("#modalDinamico").modal('show');  
+        timer.reset(540000);  
     }
 
     function mensajeBienvenidaConfirm(id, nombre, apellidos) {
@@ -454,7 +458,7 @@
                 
             }
         });
-        
+        timer.reset(540000);  
         
     }
 

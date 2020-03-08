@@ -35,7 +35,7 @@
                     <input class="form-control col-12" type="text" name="author" id="busquedaGeneral" class="form-control"
                         id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
                     <div class="input-group-append">
-                            <button class="text-white btn btn-primary" >Buscar &nbsp;<i class="fas fa-search"></i></button>
+                            <button class="text-white btn btn-primary sesion" >Buscar &nbsp;<i class="fas fa-search"></i></button>
                     </div>
                         
                 </div>  
@@ -76,7 +76,7 @@
                 <div class="input-group">
                     <input placeholder="ejemplo: 2018MNRAS.479..917G" class="form-control" type="text" name="bibcode" id="bibcode">
                     <div class="input-group-append">
-                        <button class="text-white btn btn-primary" >Buscar &nbsp;<i class="fas fa-search"></i></button>
+                        <button class="text-white btn btn-primary sesion" >Buscar &nbsp;<i class="fas fa-search"></i></button>
                     </div>
                 </div>   
             </form>
@@ -91,7 +91,7 @@
                     <input placeholder="0000-0002-1825-0097" class="form-control" value="{{user.orcId}}" type="text"
                     name="orcid" id="orcid">
                     <div class="input-group-append">
-                        <button class="text-white btn btn-primary" >Buscar &nbsp;<i class="fas fa-search"></i></button>
+                        <button class="text-white btn btn-primary sesion" >Buscar &nbsp;<i class="fas fa-search"></i></button>
                     </div>
                 </div>
                 
@@ -115,29 +115,39 @@
 
 {% block JsCode %}
 <script>
+    $(".sesion").click(function () {
+        timer.reset(540000);    
+    });
+
     $("#autor").click(function () {
         $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'author:"" ')
+        timer.reset(540000);
 
     });
 
     $("#primer_autor").click(function () {
         $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'author:"^" ')
+        timer.reset(540000);
     });
 
     $("#año").click(function () {
         $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'year:')
+        timer.reset(540000);
     });
 
     $("#abstract").click(function () {
         $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'abs:"" ')
+        timer.reset(540000);
     });
 
     $("#title").click(function () {
         $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'title:"" ')
+        timer.reset(540000);
     });
 
     $("#database").click(function () {
         $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'database:"astronomy" ')
+        timer.reset(540000);
     });
 
 

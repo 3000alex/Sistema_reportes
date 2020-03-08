@@ -48,6 +48,7 @@
       dataType: "JSON",
       success: function (response) {
         toastr.success('Correo cambiado','Operación exitosa');
+        timer.reset(540000);  
       }
     });
   });

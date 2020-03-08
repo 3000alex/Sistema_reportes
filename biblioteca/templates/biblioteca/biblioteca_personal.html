@@ -213,7 +213,7 @@
             }
 
             $("#form-Numeral").text(numeral);
-            //$("#form-Numeral").val(numeral);            
+            timer.reset(540000);           
         }
     }
    
@@ -238,7 +238,7 @@
             }
         });
         
-       
+        timer.reset(540000);
         return false;
     });
 
@@ -271,12 +271,14 @@
                
             }
         });
+        timer.reset(540000);
     }
       
     //Biblioteca Elimninar
     function eliminarItemBiblioteca(id) {
         $('#eliminarItemBiblioteca').modal('show'); // abrir
         $('#ItemEliminar-id').val(id);
+        timer.reset(540000);
     }
 
     $("#EliminarItemBibliotecaForm").submit(function () {
@@ -303,6 +305,7 @@
         $('#ItemEliminar-id').trigger("reset");
         $('#eliminarItemBiblioteca').modal('hide');//cierra modal
         return false;
+        timer.reset(540000);
     });
     //Fin Biblioteca Eliminar
 

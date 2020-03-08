@@ -5,11 +5,11 @@
 <div class="container-fluid mb-4" style="padding-top: 250px;">
 
     <form action="{% url 'biblioteca:agregar-biblioteca' %}" id="formid" method="POST">
-        {% csrf_token %} 
+        {% csrf_token %}
 
-        <button data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#loading"
-            type="submit" onclick="mensaje()" id="enviar" class="btn btn-success"><i
-                class="fas fa-book"></i>&nbsp;&nbsp;Agregar a biblioteca</button>
+        <button data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#loading" type="submit"
+            onclick="mensaje()" id="enviar" class="btn btn-success"><i class="fas fa-book"></i>&nbsp;&nbsp;Agregar a
+            biblioteca</button>
 
         <table id="publicaciones" class="table table-bordered table-striped text-center" width=100%>
             <thead>
@@ -30,15 +30,16 @@
                 <tr>
 
                     <td>
-                        <input style="transform: scale(1.5);"  class="center" type="checkbox" id="seleccion" name="seleccion[]" value="{{datos.bibcode}}">
+                        <input style="transform: scale(1.5);" class="center sesion" type="checkbox" id="seleccion"
+                            name="seleccion[]" value="{{datos.bibcode}}">
                     </td>
 
                     <td>
                         {%for article in articulos%}
-                            {% if  article.bibcode == datos.bibcode %} 
-                                <i style="color:green;" class="fas fa-check-circle">
+                        {% if  article.bibcode == datos.bibcode %}
+                        <i style="color:green;" class="fas fa-check-circle">
                             {%endif%}
-                        {% endfor %}
+                            {% endfor %}
                     </td>
 
                     <td>
@@ -107,10 +108,18 @@
 </div>
 
 
+{% endblock %}
+
+{% block JsCode %}
+
 <script>
-    function enviar() {
+    $('.sesion').click(function () {
+        timer.reset(540000);
+    });
+
+    function mensaje() {
         toastr.success("Selecciones añadidas a su biblioteca personal");
-        $("#formid").submit()
+        timer.reset(540000);
     }
 </script>
 
