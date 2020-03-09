@@ -221,6 +221,7 @@
                     $("#textoModal").html(`Su sesión expira en 60 seg. <br> ¿Desea ampliarla?`);
                     $("#icono").addClass('far fa-clock text-danger')
                     $("#footer").html('<button type="button" onclick="AmpliarSesion()" class="btn btn-primary">Aceptar</button> <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button> ')
+                    $("#modalDinamico").attr('data-backdrop',"static");
                     $("#modalDinamico").modal('show');
                 }, 540000)
         })
