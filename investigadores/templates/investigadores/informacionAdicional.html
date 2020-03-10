@@ -81,7 +81,7 @@
                     <button onclick="modelo14Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                         id="modelo14Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                         Agregar entrada</button>
-                    <p class="link float-right">Cerrar &nbsp;<i class="fa fa-chevron-up"></i></p>
+                    <p style="cursor: pointer;" class="text-primary link float-right">Cerrar &nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endif %}
 
                     {% empty %}
@@ -95,7 +95,7 @@
                         Agregar entrada</button>
                     
                     <button title="Asignar informacion anterior" type="button" class="btn btn-link" onclick="infoAnteriorModelo14({{periodoActual.id}}, {{numeral.id}})">Importar periodo anterior</button>
-                    <p class="link float-right">Cerrar &nbsp;<i class="fa fa-chevron-up"></i></p>
+                    <p style="cursor: pointer;" class="text-primary link float-right">Cerrar &nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
                 </div>
                 {% endif %}
