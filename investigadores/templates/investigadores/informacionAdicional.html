@@ -45,7 +45,7 @@
 
                                 <input disabled class="form-control" accept=".pdf, image/*" type="file"
                                     name="anexo" id="anexoModelo14{{modelo14.id}}">
-                                    <small class="mb-4">Tamaño máximo: 5 Mb</small>
+                                    <small class="mb-2">Tamaño máximo: 5 Mb</small>
 
                                 {%if modelo14.anexos %}
                                 <strong>Actualmente: </strong><a
@@ -53,24 +53,25 @@
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
-                                    <button onclick="modelo14Actualizar({{modelo14.id}})" type="button"
-                                        class="btn btn-success  mr-2" title="Guardar cambios"><i
-                                            class="fas fa-save">&nbsp;
-                                            Guardar</i></button>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button onclick="modelo14Actualizar({{modelo14.id}})" type="button" class="btn btn-success" title="Guardar cambios">
+                                                <i class="fas fa-save">&nbsp;Guardar</i>
+                                            </button>
 
-                                    <button onclick="desactivarCamposModelo14('{{modelo14.id}}')"
-                                        class="btn btn-warning mr-2 text-white" type="reset">
-                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                                            <button onclick="desactivarCamposModelo14('{{modelo14.id}}')" class="btn btn-warning text-white" type="reset">
+                                                <i class="fas fa-ban text-white">&nbsp;Cancelar</i>
+                                            </button>
+    
+                                            <button type="button" class="btn btn-primary" onclick="modelo14Editar({{modelo14.id}})" id="{{modelo14.id}}" title="Editar entrada">
+                                                <i class="fas fa-edit">&nbsp;Editar</i>
+                                            </button>
 
-                                    <button type="button" class="btn btn-primary  mr-2"
-                                        onclick="modelo14Editar({{modelo14.id}})" id="{{modelo14.id}}"
-                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-
-                                    <button type="button" class="btn btn-danger"
-                                        onclick="modelo14Eliminar({{modelo14.id}})" title="Eliminar entrada"><i
-                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                                    
-                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo14({{modelo14.periodo_id}}, {{modelo14.id}}, {{modelo14.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
+                                            <button type="button" class="btn btn-danger" onclick="modelo14Eliminar({{modelo14.id}})" title="Eliminar entrada">
+                                                <i class="fas fa-trash-alt">&nbsp;Eliminar</i>
+                                            </button>
+                                        </div>
+                                    </div>   
                                 </div>
 
                             </div>
@@ -80,7 +81,7 @@
                     <button onclick="modelo14Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                         id="modelo14Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                         Agregar entrada</button>
-                    <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                    <p class="link float-right">Cerrar &nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endif %}
 
                     {% empty %}
@@ -92,7 +93,9 @@
                     <button onclick="modelo14Crear({{numeral.id}}, {{periodoActual.id}})" type="button"
                         id="modelo14Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                         Agregar entrada</button>
-                    <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                    
+                    <button title="Asignar informacion anterior" type="button" class="btn btn-link" onclick="infoAnteriorModelo14({{periodoActual.id}}, {{numeral.id}})">Importar periodo anterior</button>
+                    <p class="link float-right">Cerrar &nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -102,6 +105,7 @@
 
         {% endfor %}
     </div>
+
     <!-- Modal glosario -->
     <div class="modal fade" id="glosario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
         aria-hidden="true">
@@ -220,7 +224,7 @@
 
 <script>
 
-    function infoAnteriorModelo14(periodo,id,numeral){
+    function infoAnteriorModelo14(periodo,numeral){
      
         $.ajax({
             type: "GET",
@@ -231,9 +235,22 @@
             },
             dataType: "json",
             success: function (response) {
-                $("#descripcionModelo14"+id).val(response.descripcion);
-                $("#urlModelo14"+id).val(response.url);
-                $("#telescopioModelo14"+id).val(response.telescopio);
+                $('#sinEntradas' + numeral).remove()
+                data = {'id':1,'numeral':numeral}
+                switch (numeral) {
+                    case 65:
+                        
+                        
+                        dibujarmodelo14(data)
+                        $("#telescopioModelo14"+data.id).val('Pruebaaaa');
+                        $("#urlModelo14" + data.id).val('prueba2');
+                        $("#descripcionModelo14" +data.id).val('prueba3');                
+                        
+                        break;
+                
+                    default:
+                        break;
+                }
                 toastr.info("Operación exitosa","información copiada")
                 timer.reset(540000);
             }
@@ -371,21 +388,27 @@
                         <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
 
-                    <div class="justify-content-end d-flex">
-                        <button onclick="modelo14Actualizar('${data.id}')" type="button"
-                            class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
-                                Guardar</i></button>
-                        <button onclick="desactivarCamposModelo14('{{modelo14.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
-                            <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-                        <button type="button" class="btn btn-primary  mr-2"
-                            onclick="modelo14Editar('${data.id}')" id="${data.id}"
-                            title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                        <button id="crearSubModelo14${data.id}" type="button" class="btn btn-danger"
-                            onclick="modelo14Eliminar('${data.id}')" title="Eliminar entrada"><i
-                                class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                        <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo14(${data.periodo}, ${data.id}, ${data.numeral})"><i class="fas fa-undo-alt"></i></button>
-                    </div>
+                        <div class="justify-content-end d-flex">
+                            <div class="row">
+                                <div class="col-12">
+                                    <button onclick="modelo14Actualizar(${data.id})" type="button" class="btn btn-success" title="Guardar cambios">
+                                        <i class="fas fa-save">&nbsp;Guardar</i>
+                                    </button>
 
+                                    <button onclick="desactivarCamposModelo14(${data.id})" class="btn btn-warning text-white" type="reset">
+                                        <i class="fas fa-ban text-white">&nbsp;Cancelar</i>
+                                    </button>
+    
+                                    <button type="button" class="btn btn-primary" onclick="modelo14Editar(${data.id})" id="{{modelo14.id}}" title="Editar entrada">
+                                        <i class="fas fa-edit">&nbsp;Editar</i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-danger" onclick="modelo14Eliminar(${data.id})" title="Eliminar entrada">
+                                        <i class="fas fa-trash-alt">&nbsp;Eliminar</i>
+                                    </button>
+                                </div>
+                            </div>   
+                        </div>
                 </div>
 
             </div>

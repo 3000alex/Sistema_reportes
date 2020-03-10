@@ -49,20 +49,21 @@
                                     {% endif %}
 
                                     <div class="justify-content-end d-flex">
-                                        <button onclick="modelo7Actualizar('{{modelo7.id}}')" type="button"
-                                            class="btn btn-success  mr-2" title="Guardar cambios"><i
-                                                class="fas fa-save">&nbsp;
-                                                Guardar</i></button>
-                                        <button onclick="desactivarCamposModelo7('{{modelo7.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
-                                            <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-                                        <button type="button" class="btn btn-primary  mr-2"
-                                            onclick="modelo7Editar('{{modelo7.id}}')" id="{{modelo7.id}}"
-                                            title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                        <button type="button" class="btn btn-danger"
-                                            onclick="modelo7Eliminar('{{modelo7.id}}')" title="Eliminar entrada"><i
-                                                class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                                                
-                                        <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo7({{modelo7.periodo_id}}, {{modelo7.id}}, {{modelo7.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button onclick="modelo7Actualizar('{{modelo7.id}}')" type="button"
+                                                    class="btn btn-success" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                                        Guardar</i></button>
+                                                <button onclick="desactivarCamposModelo7('{{modelo7.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                                    <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                                                <button type="button" class="btn btn-primary"
+                                                    onclick="modelo7Editar('{{modelo7.id}}')" id="{{modelo7.id}}"
+                                                    title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                                <button type="button" class="btn btn-danger"
+                                                    onclick="modelo7Eliminar('{{modelo7.id}}')" title="Eliminar entrada"><i
+                                                        class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                            </div>
+                                        </div>     
                                     </div>
 
                                 </div>
@@ -74,7 +75,7 @@
                         <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})"
                             type="button" id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i
                                 class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                                <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                                <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                         {% endif %}        
                         
                     {% empty %}
@@ -86,7 +87,8 @@
                         <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})"
                             type="button" id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i
                                 class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                                <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                        <button title="Asignar informacion anterior" type="button" class="btn btn-link" onclick="infoAnteriorModelo7({{periodoActual.id}}, {{numeral.id}})">Importar periodo anterior</button>
+                        <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -135,20 +137,22 @@
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
-                                    <button onclick="modelo7Actualizar('{{modelo7.id}}')" type="button"
-                                        class="btn btn-success  mr-2" title="Guardar cambios"><i
-                                            class="fas fa-save">&nbsp;
-                                            Guardar</i></button>
-                                    <button onclick="desactivarCamposModelo7('{{modelo7.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
-                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-                                    <button type="button" class="btn btn-primary  mr-2"
-                                        onclick="modelo7Editar('{{modelo7.id}}')" id="{{modelo7.id}}"
-                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger"
-                                        onclick="modelo7Eliminar('{{modelo7.id}}')" title="Eliminar entrada"><i
-                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                                            
-                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo7({{modelo7.periodo_id}}, {{modelo7.id}}, {{modelo7.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button onclick="modelo7Actualizar('{{modelo7.id}}')" type="button"
+                                                class="btn btn-success" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                                    Guardar</i></button>
+                                            <button onclick="desactivarCamposModelo7('{{modelo7.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="modelo7Editar('{{modelo7.id}}')" id="{{modelo7.id}}"
+                                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                            <button type="button" class="btn btn-danger"
+                                                onclick="modelo7Eliminar('{{modelo7.id}}')" title="Eliminar entrada"><i
+                                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                        </div>
+                                    </div>   
+                                        
                                 </div>
 
                             </div>
@@ -160,7 +164,7 @@
                     <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                            <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                            <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endif %}        
                     
                     {% empty %}
@@ -172,7 +176,8 @@
                     <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                            <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                    <button title="Asignar informacion anterior" type="button" class="btn btn-link" onclick="infoAnteriorModelo7({{periodoActual.id}}, {{numeral.id}})">Importar periodo anterior</button>        
+                    <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -221,20 +226,22 @@
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
-                                    <button onclick="modelo7Actualizar('{{modelo7.id}}')" type="button"
-                                        class="btn btn-success  mr-2" title="Guardar cambios"><i
-                                            class="fas fa-save">&nbsp;
-                                            Guardar</i></button>
-                                    <button onclick="desactivarCamposModelo7('{{modelo7.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
-                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-                                    <button type="button" class="btn btn-primary  mr-2"
-                                        onclick="modelo7Editar('{{modelo7.id}}')" id="{{modelo7.id}}"
-                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger"
-                                        onclick="modelo7Eliminar('{{modelo7.id}}')" title="Eliminar entrada"><i
-                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                                    
-                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo7({{modelo7.periodo_id}}, {{modelo7.id}}, {{modelo7.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button onclick="modelo7Actualizar('{{modelo7.id}}')" type="button"
+                                                class="btn btn-success" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                                    Guardar</i></button>
+                                            <button onclick="desactivarCamposModelo7('{{modelo7.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="modelo7Editar('{{modelo7.id}}')" id="{{modelo7.id}}"
+                                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                            <button type="button" class="btn btn-danger"
+                                                onclick="modelo7Eliminar('{{modelo7.id}}')" title="Eliminar entrada"><i
+                                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                        </div>
+                                    </div>   
+                                        
                                 </div>
 
                             </div>
@@ -246,7 +253,7 @@
                     <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                            <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                            <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endif %}        
                     
                     {% empty %}
@@ -258,7 +265,8 @@
                     <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                            <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                    <button title="Asignar informacion anterior" type="button" class="btn btn-link" onclick="infoAnteriorModelo7({{periodoActual.id}}, {{numeral.id}})">Importar periodo anterior</button>
+                    <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -307,20 +315,22 @@
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
-                                    <button onclick="modelo7Actualizar('{{modelo7.id}}')" type="button"
-                                        class="btn btn-success  mr-2" title="Guardar cambios"><i
-                                            class="fas fa-save">&nbsp;
-                                            Guardar</i></button>
-                                    <button onclick="desactivarCamposModelo7('{{modelo7.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
-                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-                                    <button type="button" class="btn btn-primary  mr-2"
-                                        onclick="modelo7Editar('{{modelo7.id}}')" id="{{modelo7.id}}"
-                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger"
-                                        onclick="modelo7Eliminar('{{modelo7.id}}')" title="Eliminar entrada"><i
-                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                                    
-                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo7({{modelo7.periodo_id}}, {{modelo7.id}}, {{modelo7.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button onclick="modelo7Actualizar('{{modelo7.id}}')" type="button"
+                                                class="btn btn-success" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                                    Guardar</i></button>
+                                            <button onclick="desactivarCamposModelo7('{{modelo7.id}}')" class="btn btn-warning text-white" type="reset">
+                                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="modelo7Editar('{{modelo7.id}}')" id="{{modelo7.id}}"
+                                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                            <button type="button" class="btn btn-danger"
+                                                onclick="modelo7Eliminar('{{modelo7.id}}')" title="Eliminar entrada"><i
+                                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                        </div>
+                                    </div>   
+                                        
                                 </div>
 
                             </div>
@@ -332,7 +342,7 @@
                     <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                            <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                            <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endif %}        
                     
                     {% empty %}
@@ -344,7 +354,8 @@
                     <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                            <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                    <button title="Asignar informacion anterior" type="button" class="btn btn-link" onclick="infoAnteriorModelo7({{periodoActual.id}}, {{numeral.id}})">Importar periodo anterior</button>
+                    <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -393,18 +404,22 @@
                                 {% endif %}
 
                                 <div class="justify-content-end d-flex">
-                                    <button onclick="modelo7Actualizar('{{modelo7.id}}')" type="button" class="btn btn-success  mr-2" title="Guardar cambios"><i
-                                        class="fas fa-save">&nbsp;Guardar</i></button>
-                                    <button onclick="desactivarCamposModelo7('{{modelo7.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
-                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-                                    <button type="button" class="btn btn-primary  mr-2"
-                                        onclick="modelo7Editar('{{modelo7.id}}')" id="{{modelo7.id}}"
-                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger"
-                                        onclick="modelo7Eliminar('{{modelo7.id}}')" title="Eliminar entrada"><i
-                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                                    
-                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo7({{modelo7.periodo_id}}, {{modelo7.id}}, {{modelo7.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button onclick="modelo7Actualizar('{{modelo7.id}}')" type="button"
+                                                class="btn btn-success" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                                    Guardar</i></button>
+                                            <button onclick="desactivarCamposModelo7('{{modelo7.id}}')" class="btn btn-warning text-white" type="reset">
+                                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="modelo7Editar('{{modelo7.id}}')" id="{{modelo7.id}}"
+                                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                            <button type="button" class="btn btn-danger"
+                                                onclick="modelo7Eliminar('{{modelo7.id}}')" title="Eliminar entrada"><i
+                                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                        </div>
+                                    </div>   
+                                        
                                 </div>
 
                             </div>
@@ -416,7 +431,7 @@
                     <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                            <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                            <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endif %}        
                     
                     {% empty %}
@@ -428,7 +443,8 @@
                     <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                            <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                    <button title="Asignar informacion anterior" type="button" class="btn btn-link" onclick="infoAnteriorModelo7({{periodoActual.id}}, {{numeral.id}})">Importar periodo anterior</button>
+                    <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -488,20 +504,21 @@
 
 
                                 <div class="justify-content-end d-flex">
-                                    <button onclick="modelo8Actualizar('{{modelo8.id}}')" type="button"
-                                        class="btn btn-success  mr-2" title="Guardar cambios"><i
-                                            class="fas fa-save">&nbsp;
-                                            Guardar</i></button>
-                                    <button onclick="desactivarCamposModelo8('{{modelo8.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
-                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-                                    <button type="button" class="btn btn-primary  mr-2"
-                                        onclick="modelo8Editar('{{modelo8.id}}')" id="{{modelo8.id}}"
-                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger"
-                                        onclick="modelo8Eliminar('{{modelo8.id}}')" title="Eliminar entrada"><i
-                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                                            
-                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo8({{modelo8.periodo_id}}, {{modelo8.id}}, {{modelo8.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button onclick="modelo8Actualizar('{{modelo8.id}}')" type="button"
+                                            class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                                Guardar</i></button>
+                                            <button onclick="desactivarCamposModelo8('{{modelo8.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                                            <button type="button" class="btn btn-primary  mr-2"
+                                                onclick="modelo8Editar('{{modelo8.id}}')" id="{{modelo8.id}}"
+                                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                            <button type="button" class="btn btn-danger"
+                                                onclick="modelo8Eliminar('{{modelo8.id}}')" title="Eliminar entrada"><i
+                                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -512,7 +529,7 @@
                     <button onclick="modelo8Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo8Crear{{numeral.id}}" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                            <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                            <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endif %}        
                     
                     {% empty %}
@@ -524,7 +541,8 @@
                     <button onclick="modelo8Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo8Crear{{numeral.id}}" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                            <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                    <button title="Asignar informacion anterior" type="button" class="btn btn-link" onclick="infoAnteriorModelo8({{periodoActual.id}}, {{numeral.id}})">Importar periodo anterior</button>
+                    <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -597,20 +615,22 @@
 
 
                                 <div class="justify-content-end d-flex">
-                                    <button onclick="modelo9Actualizar('{{modelo9.id}}')" type="button"
-                                        class="btn btn-success  mr-2" title="Guardar cambios"><i
-                                            class="fas fa-save">&nbsp;
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button onclick="modelo9Actualizar('{{modelo9.id}}')" type="button"
+                                                class="btn btn-success" title="Guardar cambios"><i
+                                                class="fas fa-save">&nbsp;
                                             Guardar</i></button>
-                                    <button onclick="desactivarCamposModelo9('{{modelo9.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
-                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-                                    <button type="button" class="btn btn-primary  mr-2"
-                                        onclick="modelo9Editar('{{modelo9.id}}')" id="{{modelo9.id}}"
-                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger"
-                                        onclick="modelo9Eliminar('{{modelo9.id}}')" title="Eliminar entrada"><i
-                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                                        
-                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo9({{modelo9.periodo_id}}, {{modelo9.id}}, {{modelo9.numeral_id}})"><i class="fas fa-undo-alt"></i></button>
+                                            <button onclick="desactivarCamposModelo9('{{modelo9.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
+                                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="modelo9Editar('{{modelo9.id}}')" id="{{modelo9.id}}"
+                                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                            <button type="button" class="btn btn-danger"
+                                                onclick="modelo9Eliminar('{{modelo9.id}}')" title="Eliminar entrada"><i
+                                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                        </div>
+                                    </div>   
                                 </div>
 
                             </div>
@@ -622,7 +642,7 @@
                     <button onclick="modelo9Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo9Crear{{numeral.id}}" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                            <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                            <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endif %}        
                     
                     {% empty %}
@@ -634,7 +654,8 @@
                     <button onclick="modelo9Crear({{numeral.id}},{{periodoActual.id}})"
                         type="button" id="modelo9Crear{{numeral.id}}" class="btn btn-danger"><i
                             class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-                            <p class="link float-right">Cerrar<i class="fa fa-chevron-up"></i></p>
+                    <button title="Asignar informacion anterior" type="button" class="btn btn-link" onclick="infoAnteriorModelo9({{periodoActual.id}}, {{numeral.id}})">Importar periodo anterior</button>
+                    <p class="text-primary link float-right">Cerrar&nbsp;<i class="fa fa-chevron-up"></i></p>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -677,7 +698,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar&nbsp;</button>
                 </div>
             </div>
         </div>
@@ -762,6 +783,7 @@
 </script>
 
 <script>
+
     //Modelo 7
     function modelo7Editar(id) {
         $("#autoresModelo7" + id).prop("disabled", false);
@@ -912,20 +934,22 @@
                                 href="{{Modelo7.anexos.url}}">{{Modelo7.anexos.name|nombreFile}}</a>
                         {% endif %}
     
-    
                         <div class="justify-content-end d-flex">
-                            <button onclick="modelo7Actualizar(${response.id})" type="button"
-                                class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
-                                    Guardar</i></button>
-                            <button onclick="desactivarCamposModelo7('{{modelo7.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
-                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-                            <button type="button" class="btn btn-primary  mr-2"
-                                onclick="modelo7Editar(${response.id})" id="${response.id}"
-                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                            <button type="button" class="btn btn-danger"
-                                onclick="modelo7Eliminar(${response.id})" title="Eliminar entrada"><i
-                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo7(${response.periodo}, ${response.id}, ${response.numeral})"><i class="fas fa-undo-alt"></i></button>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button onclick="modelo7Actualizar(${response.id})" type="button"
+                                        class="btn btn-success" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                            Guardar</i></button>
+                                    <button onclick="desactivarCamposModelo7(${response.id})" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="modelo7Editar(${response.id})" id="{{modelo7.id}}"
+                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-danger"
+                                        onclick="modelo7Eliminar(${response.id})" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                </div>
+                            </div>     
                         </div>
 
                     </div>
@@ -1094,22 +1118,24 @@
                                     id="anexoModelo8${response.id}">
                                     <small class="mb-4">Tamaño máximo: 5 Mb</small>
     
-    
                                 <div class="justify-content-end d-flex">
-                                    <button onclick="modelo8Actualizar(${response.id})" type="button"
-                                        class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
-                                            Guardar</i></button>
-                                    <button onclick="desactivarCamposModelo8('{{modelo8.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
-                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-                                    <button type="button" class="btn btn-primary  mr-2"
-                                        onclick="modelo8Editar(${response.id})" id="${response.id}"
-                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                                    <button type="button" class="btn btn-danger"
-                                        onclick="modelo8Eliminar(${response.id})" title="Eliminar entrada"><i
-                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                                    
-                                    <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo8(${response.periodo}, ${response.id}, ${response.numeral})"><i class="fas fa-undo-alt"></i></button>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button onclick="modelo8Actualizar(${response.id})" type="button"
+                                            class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                                Guardar</i></button>
+                                            <button onclick="desactivarCamposModelo8(${response.id})" class="btn btn-warning mr-2 text-white" type="reset">
+                                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                                            <button type="button" class="btn btn-primary  mr-2"
+                                                onclick="modelo8Editar(${response.id})" id="{{modelo8.id}}"
+                                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                            <button type="button" class="btn btn-danger"
+                                                onclick="modelo8Eliminar(${response.id})" title="Eliminar entrada"><i
+                                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                        </div>
+                                    </div>
                                 </div>
+                                
 
                             </div>
     
@@ -1298,21 +1324,23 @@
                                 href="{{Modelo9.anexos.url}}">{{Modelo9.anexos.name|nombreFile}}</a>
                         {% endif %}
     
-    
                         <div class="justify-content-end d-flex">
-                            <button onclick="modelo9Actualizar(${response.id})" type="button"
-                                class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                            <div class="row">
+                                <div class="col-12">
+                                    <button onclick="modelo9Actualizar(${response.id})" type="button"
+                                        class="btn btn-success" title="Guardar cambios"><i
+                                        class="fas fa-save">&nbsp;
                                     Guardar</i></button>
-                            <button onclick="desactivarCamposModelo9('{{modelo9.id}}')" class="btn btn-warning mr-2 text-white" type="reset">
-                                <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-                            <button type="button" class="btn btn-primary  mr-2"
-                                onclick="modelo9Editar(${response.id})" id="${response.id}"
-                                title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
-                            <button type="button" class="btn btn-danger"
-                                onclick="modelo9Eliminar(${response.id})" title="Eliminar entrada"><i
-                                    class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
-                                    
-                            <button title="Asignar informacion anterior" type="button" class="btn" onclick="infoAnteriorModelo9(${response.periodo}, ${response.id}, ${response.numeral})"><i class="fas fa-undo-alt"></i></button>
+                                    <button onclick="desactivarCamposModelo9(${response.id})" class="btn btn-warning mr-2 text-white" type="reset">
+                                        <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="modelo9Editar(${response.id})" id="{{modelo9.id}}"
+                                        title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
+                                    <button type="button" class="btn btn-danger"
+                                        onclick="modelo9Eliminar(${response.id})" title="Eliminar entrada"><i
+                                            class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
+                                </div>
+                            </div>   
                         </div>
 
                     </div>

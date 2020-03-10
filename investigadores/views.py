@@ -2,6 +2,7 @@
 from django.urls import reverse
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core import serializers
 # Vistas genericas
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView
@@ -1479,18 +1480,11 @@ class infoAnteriorModelo14(View):
         periodo_id = request.GET.get('periodo',None)
         periodo_id = int(periodo_id) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo14.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+        datos = Modelo14.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
 
-        data = {
-            'descripcion':datos.descripcion,
-            'telescopio':datos.TelescopioInstrumentoInfra,
-            'url': datos.url,
-            'conferenciaProyecto': datos.conferenciaProyecto,
-            'rol':datos.rol,
-            'url':datos.url,
-            'fecha':datos.fecha,
-        }
-        return  JsonResponse(data)
+        data = serializers.serialize('json',datos)    
+        
+        return  HttpResponse(data)
 
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo15(View):
