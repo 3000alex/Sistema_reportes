@@ -73,13 +73,13 @@
                 <div class="col-12 col-md-6">
                     <div class="d-flex justify-content-end text-white">
                         <a href="{% url 'biblioteca:biblioteca_personal' %}"
-                            class="btn btn-primary mr-2 btn-sm {% if request.path == '/reportes/biblioteca-personal/' %}disabled{% endif %} ">Biblioteca
+                            class="btn btn-primary mr-2 btn-sm {% if request.path == '/reportes/biblioteca-personal/' %}disabled{% endif %} "><i class="fas fa-book"></i> Biblioteca
                             personal</a>
                         <a href="{% url 'biblioteca:busqueda_biblioteca' %}"
-                            class="btn btn-primary mr-2 btn-sm {% if request.path == '/reportes/busqueda-biblioteca/' %}disabled{% endif %}">Búsqueda
+                            class="btn btn-primary mr-2 btn-sm {% if request.path == '/reportes/busqueda-biblioteca/' %}disabled{% endif %}"><i class="fas fa-search"></i> Búsqueda
                             ADS</a>
                         <a href="{% url 'investigadores:reporte-productividad' %}"
-                            class="btn btn-primary btn-sm">Reportes productividad</a>
+                            class="btn btn-primary btn-sm"><i class="far fa-file-alt"></i> Reportes productividad</a>
                     </div>
                 </div>
             </div>

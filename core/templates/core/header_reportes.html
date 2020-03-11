@@ -118,11 +118,11 @@
                 <div class="col-12 col-md-4">
                     <div class="d-flex justify-content-start text-white">
                         <a href="{% url 'biblioteca:biblioteca_personal' %}"
-                            class="btn btn-primary mr-2 btn-sm">Biblioteca personal</a>
+                            class="btn btn-primary mr-2 btn-sm"><i class="fas fa-book"></i> Biblioteca personal </a>
                         <a href="{% url 'biblioteca:busqueda_biblioteca' %}"
-                            class="btn btn-primary mr-2 btn-sm">Búsqueda ADS</a>
+                            class="btn btn-primary mr-2 btn-sm"><i class="fas fa-search"></i> Búsqueda ADS</a>
                         <a href="{% url 'investigadores:reporte-productividad' %}"
-                            class="btn btn-primary btn-sm disabled">Reportes productividad</a>
+                            class="btn btn-primary btn-sm disabled"><i class="far fa-file-alt"></i> Reportes productividad</a>
                     </div>
                 </div>
 
@@ -138,13 +138,13 @@
                         <div class="btn-group" role="group">
                             <form action="{% url 'investigadores:generarReporte' %}">
                                 <input type="hidden" value="{{periodoActual.id}}" name="periodo">
-                                <button onclick="this.form.submit()" class="btn btn-success btn-sm mr-2">Vista
+                                <button onclick="this.form.submit()" class="btn btn-success btn-sm mr-2"><i class="far fa-eye"></i> Vista
                                     Previa</button>
                             </form>
 
                             <a class="btn btn-info btn-sm mr-2"
-                                href="{% url 'investigadores:reportesEnviados' %}">Historico</a>
-                            <button class="btn btn-danger btn-sm" onclick="finalizarReporte()">Finalizar Reporte
+                                href="{% url 'investigadores:reportesEnviados' %}"><i class="fas fa-history"></i> Historico</a>
+                            <button class="btn btn-danger btn-sm" onclick="finalizarReporte()"><i class="fas fa-check"></i> Finalizar Reporte
                             </button>
 
                         </div>
