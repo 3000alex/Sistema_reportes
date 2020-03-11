@@ -6,7 +6,7 @@
         <div class="link card-header p-4" onclick="icono({{numeral.id}})">
             <span class="text-primary" style="cursor: pointer;">{{numeral}}&nbsp;<i
                     class="fa fa-chevron-down numeral{{numeral.id}}"></i></span>
-            <i onclick="glosario()" style="font-size: 30px;" data-toggle="modal" class="far fa-question-circle float-right"></i>
+            <i onclick="glosario()" style="font-size: 30px; cursor: pointer;" data-toggle="modal" class="far fa-question-circle float-right"></i>
         </div>
 
         <div class="submenu card-body">
@@ -996,7 +996,7 @@
 
                         </tbody>
                     </table>`) //¿Desea eliminar este Item?
-        $("#icono").removeClass('far fa-question-circle text-danger')
+        $("#icono").html("")
         $("#footer").html(`<button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
@@ -1160,9 +1160,10 @@
     }
     function modelo4Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
-        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
-        $("#icono").addClass('far fa-question-circle text-danger')
-        $("#footer").html(`<button class="btn btn-primary" onclick="modelo4EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $("#textoModal").html(`<h5>¿Desea eliminar este Item de su biblioteca?</h5>`) //¿Desea eliminar este Item?
+        $("#icono").html(`<i class="far fa-question-circle text-danger"></i>`)
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo4EliminarConfirm(${id})"><i class="fas fa-check"></i> Aceptar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
     function modelo4EliminarConfirm(id) {
@@ -1349,9 +1350,10 @@
     }
     function modelo5Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
-        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
-        $("#icono").addClass('far fa-question-circle text-danger')
-        $("#footer").html(`<button class="btn btn-primary" onclick="modelo5EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $("#textoModal").html(`<h5>¿Desea eliminar este Item de su biblioteca?</h5>`) //¿Desea eliminar este Item?
+        $("#icono").html(`<i class="far fa-question-circle text-danger"></i>`)
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo5EliminarConfirm(${id})"><i class="fas fa-check"></i> Aceptar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
     function modelo5EliminarConfirm(id) {
@@ -1536,9 +1538,10 @@
     }
     function modelo6Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
-        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
-        $("#icono").addClass('far fa-question-circle text-danger')
-        $("#footer").html(`<button class="btn btn-primary" onclick="modelo6EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $("#textoModal").html(`<h5>¿Desea eliminar este Item de su biblioteca?</h5>`) //¿Desea eliminar este Item?
+        $("#icono").html(`<i class="far fa-question-circle text-danger"></i>`)
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo6EliminarConfirm(${id})"><i class="fas fa-check"></i> Aceptar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
     function modelo6EliminarConfirm(id) {
@@ -1800,9 +1803,10 @@
     }
     function modelo16Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
-        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
-        $("#icono").addClass('far fa-question-circle text-danger')
-        $("#footer").html(`<button class="btn btn-primary" onclick="modelo16EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $("#textoModal").html(`<h5>¿Desea eliminar este Item de su biblioteca?</h5>`) //¿Desea eliminar este Item?
+        $("#icono").html(`<i class="far fa-question-circle text-danger"></i>`)
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo16EliminarConfirm(${id})"><i class="fas fa-check"></i> Aceptar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
     function modelo16EliminarConfirm(id) {

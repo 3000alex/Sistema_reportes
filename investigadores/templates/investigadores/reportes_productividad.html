@@ -5,20 +5,20 @@
 
     <nav class="nav nav-tabs d-flex justify-content-between text-center">
 
-        <a id="investigacionCientifica" class="nav-item nav-link disabled active"
-            onclick="investigacionCientifica({{periodoActual.id}})" href="#">I. Investigación<br> Cientifica.</a>
+        <a id="investigacionCientifica" class="nav-item nav-link disabled active text-primary" onclick="investigacionCientifica({{periodoActual.id}})" 
+            style="cursor: pointer;">I. Investigación<br> Cientifica.</a>
 
-        <a id="formacionRH" class="nav-item nav-link" onclick="formacion_RH({{periodoActual.id}})" href="#">II.
-            Formación de<br> RRHH.</a>
+        <a id="formacionRH" class="nav-item nav-link" onclick="formacion_RH({{periodoActual.id}})" 
+            style="cursor: pointer;">II. Formación de<br> RRHH.</a>
 
         <a id="desarrolloTec" class="nav-item nav-link" onclick="desarrollo_tec_innov({{periodoActual.id}})"
-            href="#">III. Desarrollo<br> Tec. e Innov.</a>
+            style="cursor: pointer;">III. Desarrollo<br> Tec. e Innov.</a>
 
         <a id="apoyoInstitucional" class="nav-item nav-link" onclick="apoyoInstitucional({{periodoActual.id}})"
-            href="#">IV. Apoyo<br> Institucional</a>
+            style="cursor: pointer;">IV. Apoyo<br> Institucional</a>
 
         <a id="informacionAdicional" class="nav-item nav-link" onclick="informacionAdicional({{periodoActual.id}})"
-            href="#">V. Información <br>Adicional.</a>
+            style="cursor: pointer;">V. Información <br>Adicional.</a>
 
     </nav>
 </section>
@@ -63,11 +63,11 @@
                 $("#numerales").remove()
                 $("#contenido").html(response);
                 //Navbar
-                $("#investigacionCientifica").addClass('disabled active')
-                $("#formacionRH").removeClass('disabled active')
-                $("#desarrolloTec").removeClass('disabled active')
-                $("#apoyoInstitucional").removeClass('disabled active')
-                $("#informacionAdicional").removeClass('disabled active')
+                $("#investigacionCientifica").addClass('disabled active text-primary')
+                $("#formacionRH").removeClass('disabled active text-primary')
+                $("#desarrolloTec").removeClass('disabled active text-primary')
+                $("#apoyoInstitucional").removeClass('disabled active text-primary')
+                $("#informacionAdicional").removeClass('disabled active text-primary')
 
                 //Paginador
                 $("#investigacionCientificaPag").addClass('active')
@@ -95,11 +95,11 @@
                 $("#numerales").remove()
                 $("#contenido").html(response);
                 //Navbar
-                $("#investigacionCientifica").removeClass('disabled active')
-                $("#formacionRH").addClass('disabled active')
-                $("#desarrolloTec").removeClass('disabled active')
-                $("#apoyoInstitucional").removeClass('disabled active')
-                $("#informacionAdicional").removeClass('disabled active')
+                $("#investigacionCientifica").removeClass('disabled active text-primary')
+                $("#formacionRH").addClass('disabled active text-primary')
+                $("#desarrolloTec").removeClass('disabled active text-primary')
+                $("#apoyoInstitucional").removeClass('disabled active text-primary')
+                $("#informacionAdicional").removeClass('disabled active text-primary')
 
                 //Paginador
                 $("#investigacionCientificaPag").removeClass('active')
@@ -128,11 +128,11 @@
                 $("#numerales").remove()
                 $("#contenido").html(response);
                 //Navbar
-                $("#investigacionCientifica").removeClass('disabled active')
-                $("#formacionRH").removeClass('disabled active')
-                $("#desarrolloTec").addClass('disabled active')
-                $("#apoyoInstitucional").removeClass('disabled active')
-                $("#informacionAdicional").removeClass('disabled active')
+                $("#investigacionCientifica").removeClass('disabled active text-primary')
+                $("#formacionRH").removeClass('disabled active text-primary')
+                $("#desarrolloTec").addClass('disabled active text-primary')
+                $("#apoyoInstitucional").removeClass('disabled active text-primary')
+                $("#informacionAdicional").removeClass('disabled active text-primary')
 
                 //Paginador
                 $("#investigacionCientificaPag").removeClass('active')
@@ -161,11 +161,11 @@
                 $("#numerales").remove()
                 $("#contenido").html(response);
                 //Navbar
-                $("#investigacionCientifica").removeClass('disabled active')
-                $("#formacionRH").removeClass('disabled active')
-                $("#desarrolloTec").removeClass('disabled active')
-                $("#apoyoInstitucional").addClass('disabled active')
-                $("#informacionAdicional").removeClass('disabled active')
+                $("#investigacionCientifica").removeClass('disabled active text-primary')
+                $("#formacionRH").removeClass('disabled active text-primary')
+                $("#desarrolloTec").removeClass('disabled active text-primary')
+                $("#apoyoInstitucional").addClass('disabled active text-primary')
+                $("#informacionAdicional").removeClass('disabled active text-primary')
 
                 //Paginador
                 $("#investigacionCientificaPag").removeClass('active')
@@ -195,11 +195,11 @@
                 $("#contenido").html(response);
 
                 //Navbar
-                $("#investigacionCientifica").removeClass('disabled active')
-                $("#formacionRH").removeClass('disabled active')
-                $("#desarrolloTec").removeClass('disabled active')
-                $("#apoyoInstitucional").removeClass('disabled active')
-                $("#informacionAdicional").addClass('disabled active')
+                $("#investigacionCientifica").removeClass('disabled active text-primary')
+                $("#formacionRH").removeClass('disabled active text-primary')
+                $("#desarrolloTec").removeClass('disabled active text-primary')
+                $("#apoyoInstitucional").removeClass('disabled active text-primary')
+                $("#informacionAdicional").addClass('disabled active text-primary')
 
                 //Paginador
                 $("#investigacionCientificaPag").removeClass('active')

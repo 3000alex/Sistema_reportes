@@ -6,7 +6,7 @@
         <div class="link card-header p-4" onclick="icono({{numeral.id}})">
             <span class="text-primary" style="cursor: pointer;">{{numeral}}&nbsp;<i
                     class="fa fa-chevron-down numeral{{numeral.id}}"></i></span>
-            <i onclick="glosario()" style="font-size: 30px;" data-toggle="modal" class="far fa-question-circle float-right"></i>
+            <i onclick="glosario()" style="font-size: 30px; cursor: pointer;" data-toggle="modal" class="far fa-question-circle float-right"></i>
         </div>
 
         <div class="submenu card-body">
@@ -60,7 +60,7 @@
                                                 class="fas fa-save">&nbsp;
                                                 Guardar</i></button>
                                         <button onclick="desactivarCamposModelo7('{{modelo7.id}}')"
-                                            class="btn btn-warning mr-2 text-white" type="reset">
+                                            class="btn btn-warning  text-white" type="reset">
                                             <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                         <button type="button" class="btn btn-primary"
                                             onclick="modelo7Editar('{{modelo7.id}}')" id="{{modelo7.id}}"
@@ -154,7 +154,7 @@
                                                 class="fas fa-save">&nbsp;
                                                 Guardar</i></button>
                                         <button onclick="desactivarCamposModelo7('{{modelo7.id}}')"
-                                            class="btn btn-warning mr-2 text-white" type="reset">
+                                            class="btn btn-warning  text-white" type="reset">
                                             <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                         <button type="button" class="btn btn-primary"
                                             onclick="modelo7Editar('{{modelo7.id}}')" id="{{modelo7.id}}"
@@ -249,7 +249,7 @@
                                                 class="fas fa-save">&nbsp;
                                                 Guardar</i></button>
                                         <button onclick="desactivarCamposModelo7('{{modelo7.id}}')"
-                                            class="btn btn-warning mr-2 text-white" type="reset">
+                                            class="btn btn-warning  text-white" type="reset">
                                             <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                         <button type="button" class="btn btn-primary"
                                             onclick="modelo7Editar('{{modelo7.id}}')" id="{{modelo7.id}}"
@@ -541,13 +541,13 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <button onclick="modelo8Actualizar('{{modelo8.id}}')" type="button"
-                                            class="btn btn-success  mr-2" title="Guardar cambios"><i
+                                            class="btn btn-success  " title="Guardar cambios"><i
                                                 class="fas fa-save">&nbsp;
                                                 Guardar</i></button>
                                         <button onclick="desactivarCamposModelo8('{{modelo8.id}}')"
-                                            class="btn btn-warning mr-2 text-white" type="reset">
+                                            class="btn btn-warning  text-white" type="reset">
                                             <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-                                        <button type="button" class="btn btn-primary  mr-2"
+                                        <button type="button" class="btn btn-primary  "
                                             onclick="modelo8Editar('{{modelo8.id}}')" id="{{modelo8.id}}"
                                             title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
                                         <button type="button" class="btn btn-danger"
@@ -662,7 +662,7 @@
                                                 class="fas fa-save">&nbsp;
                                                 Guardar</i></button>
                                         <button onclick="desactivarCamposModelo9('{{modelo9.id}}')"
-                                            class="btn btn-warning mr-2 text-white" type="reset">
+                                            class="btn btn-warning  text-white" type="reset">
                                             <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                         <button type="button" class="btn btn-primary"
                                             onclick="modelo9Editar('{{modelo9.id}}')" id="{{modelo9.id}}"
@@ -735,7 +735,7 @@
 
                         </tbody>
                     </table>`) //¿Desea eliminar este Item?
-        $("#icono").removeClass('far fa-question-circle text-danger')
+        $("#icono").html("")
         $("#footer").html(`<button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>`)
         $('#modalDinamico').modal('show'); // abrir      
     }
@@ -895,9 +895,10 @@
     }
     function modelo7Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
-        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
-        $("#icono").addClass('far fa-question-circle text-danger')
-        $("#footer").html(`<button class="btn btn-primary" onclick="modelo7EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $("#textoModal").html(`<h5>¿Desea eliminar este Item de su biblioteca?</h5>`) //¿Desea eliminar este Item?
+        $("#icono").html(`<i class="far fa-question-circle text-danger"></i>`)
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo7EliminarConfirm(${id})"><i class="fas fa-check"></i> Aceptar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
     function modelo7EliminarConfirm(id) {
@@ -969,7 +970,7 @@
                                     <button onclick="modelo7Actualizar(${response.id})" type="button"
                                         class="btn btn-success" title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                             Guardar</i></button>
-                                    <button onclick="desactivarCamposModelo7(${response.id})" class="btn btn-warning mr-2 text-white" type="reset">
+                                    <button onclick="desactivarCamposModelo7(${response.id})" class="btn btn-warning  text-white" type="reset">
                                         <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary"
                                         onclick="modelo7Editar(${response.id})" id="{{modelo7.id}}"
@@ -1075,9 +1076,10 @@
     }
     function modelo8Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
-        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
-        $("#icono").addClass('far fa-question-circle text-danger')
-        $("#footer").html(`<button class="btn btn-primary" onclick="modelo8EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $("#textoModal").html(`<h5>¿Desea eliminar este Item de su biblioteca?</h5>`) //¿Desea eliminar este Item?
+        $("#icono").html(`<i class="far fa-question-circle text-danger"></i>`)
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo8EliminarConfirm(${id})"><i class="fas fa-check"></i> Aceptar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
     function modelo8EliminarConfirm(id) {
@@ -1151,11 +1153,11 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <button onclick="modelo8Actualizar(${response.id})" type="button"
-                                            class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                            class="btn btn-success  " title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                                 Guardar</i></button>
-                                            <button onclick="desactivarCamposModelo8(${response.id})" class="btn btn-warning mr-2 text-white" type="reset">
+                                            <button onclick="desactivarCamposModelo8(${response.id})" class="btn btn-warning  text-white" type="reset">
                                                 <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
-                                            <button type="button" class="btn btn-primary  mr-2"
+                                            <button type="button" class="btn btn-primary  "
                                                 onclick="modelo8Editar(${response.id})" id="{{modelo8.id}}"
                                                 title="Editar entrada"><i class="fas fa-edit">&nbsp;Editar</i></button>
                                             <button type="button" class="btn btn-danger"
@@ -1266,9 +1268,10 @@
     }
     function modelo9Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
-        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
-        $("#icono").addClass('far fa-question-circle text-danger')
-        $("#footer").html(`<button class="btn btn-primary" onclick="modelo9EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $("#textoModal").html(`<h5>¿Desea eliminar este Item de su biblioteca?</h5>`) //¿Desea eliminar este Item?
+        $("#icono").html(`<i class="far fa-question-circle text-danger"></i>`)
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo9EliminarConfirm(${id})"><i class="fas fa-check"></i> Aceptar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
     function modelo9EliminarConfirm(id) {
@@ -1360,7 +1363,7 @@
                                         class="btn btn-success" title="Guardar cambios"><i
                                         class="fas fa-save">&nbsp;
                                     Guardar</i></button>
-                                    <button onclick="desactivarCamposModelo9(${response.id})" class="btn btn-warning mr-2 text-white" type="reset">
+                                    <button onclick="desactivarCamposModelo9(${response.id})" class="btn btn-warning  text-white" type="reset">
                                         <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                                     <button type="button" class="btn btn-primary"
                                         onclick="modelo9Editar(${response.id})" id="{{modelo9.id}}"

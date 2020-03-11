@@ -6,7 +6,7 @@
 
             <div class="link card-header p-4" onclick="icono({{numeral.id}})">
                 <span class="text-primary" style="cursor: pointer;">{{numeral}}&nbsp;<i  class="fa fa-chevron-down numeral{{numeral.id}}"></i></span>
-                <i onclick="glosario()" style="font-size: 30px;" data-toggle="modal" class="far fa-question-circle float-right"></i>
+                <i onclick="glosario()" style="font-size: 30px; cursor: pointer;" data-toggle="modal" class="far fa-question-circle float-right"></i>
             </div>
               
             <div class="submenu card-body">
@@ -138,7 +138,7 @@
 
                         </tbody>
                     </table>`) //¿Desea eliminar este Item?
-        $("#icono").removeClass('far fa-question-circle text-danger')
+        $("#icono").html("")
         $("#footer").html(`<button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
@@ -217,40 +217,6 @@
 </script>
 
 <script>
-
-    function infoAnteriorModelo14(periodo,numeral){
-     
-        $.ajax({
-            type: "GET",
-            url: "{% url 'investigadores:info-anteriorModelo14' %}",
-            data: {
-                'periodo':periodo,
-                'numeral':numeral,
-            },
-            dataType: "json",
-            success: function (response) {
-                $('#sinEntradas' + numeral).remove()
-                data = {'id':1,'numeral':numeral}
-                switch (numeral) {
-                    case 65:
-                        
-                        
-                        dibujarmodelo14(data)
-                        $("#telescopioModelo14"+data.id).val('Pruebaaaa');
-                        $("#urlModelo14" + data.id).val('prueba2');
-                        $("#descripcionModelo14" +data.id).val('prueba3');                
-                        
-                        break;
-                
-                    default:
-                        break;
-                }
-                toastr.info("Operación exitosa","información copiada")
-                timer.reset(540000);
-            }
-        });
-    }
-
     //Modelo 14
     function modelo14Editar(id) {
         $("#telescopioModelo14" + id).prop("disabled", false);
@@ -311,11 +277,44 @@
             }
         });
     }
+    function infoAnteriorModelo14(periodo,numeral){
+     
+     $.ajax({
+         type: "GET",
+         url: "{% url 'investigadores:info-anteriorModelo14' %}",
+         data: {
+             'periodo':periodo,
+             'numeral':numeral,
+         },
+         dataType: "json",
+         success: function (response) {
+             $('#sinEntradas' + numeral).remove()
+             data = {'id':1,'numeral':numeral}
+             switch (numeral) {
+                 case 65:
+                     
+                     
+                     dibujarmodelo14(data)
+                     $("#telescopioModelo14"+data.id).val('Pruebaaaa');
+                     $("#urlModelo14" + data.id).val('prueba2');
+                     $("#descripcionModelo14" +data.id).val('prueba3');                
+                     
+                     break;
+             
+                 default:
+                     break;
+             }
+             toastr.info("Operación exitosa","información copiada")
+             timer.reset(540000);
+         }
+     });
+ }
     function modelo14Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
-        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
-        $("#icono").addClass('far fa-question-circle text-danger')
-        $("#footer").html(`<button class="btn btn-primary" onclick="modelo14EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $("#textoModal").html(`<h5>¿Desea eliminar este Item de su biblioteca?</h5>`) //¿Desea eliminar este Item?
+        $("#icono").html(`<i class="far fa-question-circle text-danger"></i>`)
+        $("#footer").html(`<button class="btn btn-primary" onclick="modelo14EliminarConfirm(${id})"><i class="fas fa-check"></i> Aceptar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
     function modelo14EliminarConfirm(id) {
