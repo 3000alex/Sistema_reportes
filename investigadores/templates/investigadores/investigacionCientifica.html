@@ -1,13 +1,15 @@
 {% load name %}
-<div id="numerales" class="mb-4">
-    <div id="accordion" class="container">
-        <small class="form-text text-muted mb-2">NOTA: Los numerales 1-5, 7, 9, 11-14 y 14a son generados con base en su
-            biblioteca, favor de actualizarla.</small>
-
+<div id="numerales" class="mb-4 container">
+    <small class="form-text text-muted mb-2">NOTA: Los numerales 1-5, 7, 9, 11-14 y 14a son generados con base en su
+        biblioteca, favor de actualizarla.</small>
+    <div id="accordion" class="card">
+    
         {% for numeral in numeralName %}
-        <div class="card">
-            <div class="text-primary link card-header col-12 p-4">{{numeral}}<i class="fa fa-chevron-down"></i></div>
-
+            <div class="link card-header p-4" onclick="icono({{numeral.id}})">
+                <span class="text-primary" style="cursor: pointer;">{{numeral}}&nbsp;<i  class="fa fa-chevron-down numeral{{numeral.id}}"></i></span>
+                <i onclick="glosario()" style="font-size: 30px;" data-toggle="modal"  class="far fa-question-circle float-right"></i>
+            </div>
+            
             <div class="submenu card-body">
                 <!-- Numeral 1 - Q1 Biblioteca-->
                 {% if numeral.orden == 1 %}
@@ -3750,7 +3752,7 @@
                                 </div>
                             </div>
 
-                            <input disabled class="form-control mb-4" type="file" accept=".pdf, image/*" name="anexo"
+                            <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                                 id="anexoModelo3{{modelo3.id}}">
                             <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
@@ -4021,48 +4023,9 @@
 
             </div>
 
-        </div>
         {% endfor %}
     </div>
 
-    <!-- Modal glosario -->
-    <div class="modal fade" id="glosario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Glosario</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="text-center" colspan="2">Investigación Cientifica</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for glosario in glosario %}
-                            <tr>
-                                <td width=50%>{{ glosario.numerales|safe }}</td>
-                                <td width=50%>{{ glosario.explicacion|safe }}</td>
-                            </tr>
-                            {% endfor %}
-
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar&nbsp;</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Fin Modal glosario-->
-    <i data-toggle="modal" id="glosario-btn" data-placement="top" data-target="#glosario"
-        class="far fa-question-circle btn-reporte"></i>
 </div>
 
 <script>
@@ -4092,7 +4055,7 @@
 
         var accordion = new Accordion($('#accordion'), false);
 
-        $('#glosario-btn').popover({
+        $('[data-toggle="modal"]').popover({
             trigger: 'hover',
             html: true,
             title: "Glosario:",
@@ -4140,7 +4103,32 @@
 </script>
 
 <script>
+    function icono(id){
+        $(".numeral"+id).toggleClass('fas fa-chevron-up')
+    }
+    function glosario(){
+        $("#accionModal").text("Glosario");
+        $("#textoModal").html(`<table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center" colspan="2">II. FORMACIÓN DE RECURSOS HUMANOS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for glosario in glosario %}
+                            <tr>
+                                <td width=50%>{{ glosario.numerales|safe }}</td>
+                                <td width=50%>{{ glosario.explicacion|safe }}</td>
+                            </tr>
+                            {% endfor %}
 
+                        </tbody>
+                    </table>`) //¿Desea eliminar este Item?
+        $("#icono").html("")
+        $("#footer").html(`<button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
+    
     //Inicio Biblioteca
     function bibliotecaCrear(numeral) {
 
@@ -4168,6 +4156,97 @@
         });
 
     }
+    function bibliotecaEditar(id) {
+        $("#autores" + id).prop("disabled", false);
+        $("#titulo" + id).prop("disabled", false);
+        $("#revistaPublicacion" + id).prop("disabled", false);
+        $("#url" + id).prop("disabled", false);
+        $("#estudiantes" + id).prop("disabled", false);
+        $("#doi" + id).prop("disabled", false);
+        $("#fecha" + id).prop("disabled", false);
+        $("#bibcode" + id).prop("disabled", false);
+        $("#anexo" + id).prop("disabled", false);
+        timer.reset(540000);
+    }
+    function desactivarCamposBiblioteca(id) {
+        $("#autores" + id).prop("disabled", true);
+        $("#titulo" + id).prop("disabled", true);
+        $("#revistaPublicacion" + id).prop("disabled", true);
+        $("#url" + id).prop("disabled", true);
+        $("#estudiantes" + id).prop("disabled", true);
+        $("#doi" + id).prop("disabled", true);
+        $("#fecha" + id).prop("disabled", true);
+        $("#bibcode" + id).prop("disabled", true);
+        $("#anexo" + id).prop("disabled", true);
+    }
+    function bibliotecaActualizar(id) {
+
+        var formData = new FormData(document.getElementById("biblioteca" + id))
+        formData.append("id", id);
+        expresion = /[1-2][0][1-9][0-9][/][0-1][0-9]/;
+        fecha = $("#fecha" + id).val().trim()
+        mes = fecha[5] + fecha[6]
+
+        if (expresion.test(fecha) && mes <= 12 && mes != 00) {
+            $.ajax({
+                url: '{% url "investigadores:actualizar-Biblioteca" %}',
+                type: 'POST',
+                data: formData,
+                enctype: "multipart/form-data",
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: 'html',
+                success: function (data) {
+                    toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
+                    desactivarCamposBiblioteca(id)
+                    timer.reset(540000);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastr.error('Code error: ' + jqXHR.status + " " + errorThrown, 'Imposible Proceder')
+                    timer.reset(540000);
+                }
+            });
+        }
+        else {
+            $("#accionModal").text("Fecha Incorrecta o faltante");
+            $("#textoModal").html(`<h5>Ingrese la fecha en formato YYYY/MM</h5>`) //¿Desea eliminar este Item?
+            $("#icono").html(`<i class="fas fa-exclamation text-danger"></i>`)
+            $("#footer").html('<button type="button" class="btn btn-primary btn-block " data-dismiss="modal">Aceptar</button>')
+            $("#modalDinamico").modal('show');
+        }
+        return false;
+    }
+    function bibliotecaEliminar(id) {
+        $("#accionModal").text("Eliminar Item");
+        $("#textoModal").html(`<h5>¿Desea eliminar este Item de su biblioteca?</h5>`) //¿Desea eliminar este Item?
+        $("#icono").html(`<i class="far fa-question-circle text-danger"></i>`)
+        $("#footer").html(`<button class="btn btn-primary" onclick="bibliotecaEliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
+    function bibliotecaEliminarConfirm(id) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            url: '{% url "biblioteca:eliminar-biblioteca" %}',
+            type: "POST",
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.deleted) {
+                    $("#biblioteca" + id).remove();
+                    $("#bibliotecaCrear" + id).remove();
+                    toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
+                    timer.reset(540000);
+                }
+            }
+        });
+
+        $('#modalDinamico').modal('hide');//cierra modal
+        return false;
+    };
     function dibujarCamposBiblioteca(response) {
         if (response.numeral == '9') {
             $("#bibliotecaCrear" + `${response.numeral}`).before(
@@ -4382,97 +4461,6 @@
             );
         }
     }
-    function bibliotecaEditar(id) {
-        $("#autores" + id).prop("disabled", false);
-        $("#titulo" + id).prop("disabled", false);
-        $("#revistaPublicacion" + id).prop("disabled", false);
-        $("#url" + id).prop("disabled", false);
-        $("#estudiantes" + id).prop("disabled", false);
-        $("#doi" + id).prop("disabled", false);
-        $("#fecha" + id).prop("disabled", false);
-        $("#bibcode" + id).prop("disabled", false);
-        $("#anexo" + id).prop("disabled", false);
-        timer.reset(540000);
-    }
-    function desactivarCamposBiblioteca(id) {
-        $("#autores" + id).prop("disabled", true);
-        $("#titulo" + id).prop("disabled", true);
-        $("#revistaPublicacion" + id).prop("disabled", true);
-        $("#url" + id).prop("disabled", true);
-        $("#estudiantes" + id).prop("disabled", true);
-        $("#doi" + id).prop("disabled", true);
-        $("#fecha" + id).prop("disabled", true);
-        $("#bibcode" + id).prop("disabled", true);
-        $("#anexo" + id).prop("disabled", true);
-    }
-    function bibliotecaActualizar(id) {
-
-        var formData = new FormData(document.getElementById("biblioteca" + id))
-        formData.append("id", id);
-        expresion = /[1-2][0][1-9][0-9][/][0-1][1-9]/;
-        fecha = $("#fecha" + id).val().trim()
-        mes = fecha[5] + fecha[6]
-
-        if (expresion.test(fecha) && mes <= 12) {
-            $.ajax({
-                url: '{% url "investigadores:actualizar-Biblioteca" %}',
-                type: 'POST',
-                data: formData,
-                enctype: "multipart/form-data",
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: 'html',
-                success: function (data) {
-                    toastr.success('Entrada actualizada correctamente', 'Operacion exitosa')
-                    desactivarCamposBiblioteca(id)
-                    timer.reset(540000);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    toastr.error('Code error: ' + jqXHR.status + " " + errorThrown, 'Imposible Proceder')
-                    timer.reset(540000);
-                }
-            });
-        }
-        else {
-            $("#accionModal").text("Fecha Incorrecta o faltante");
-            $("#textoModal").text("Ingrese la fecha en formato YYYY/MM")
-            $("#icono").addClass('fas fa-exclamation text-danger')
-            $("#footer").html('<button type="button" class="btn btn-primary btn-block " data-dismiss="modal">Aceptar</button>')
-            $("#modalDinamico").modal('show');
-        }
-        return false;
-    }
-    function bibliotecaEliminar(id) {
-        $("#accionModal").text("Eliminar Item");
-        $("#textoModal").text("¿Desea eliminar este Item de su biblioteca?") //¿Desea eliminar este Item?
-        $("#icono").addClass('far fa-question-circle text-danger')
-        $("#footer").html(`<button class="btn btn-primary" onclick="bibliotecaEliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
-        $('#modalDinamico').modal('show'); // abrir
-    }
-    function bibliotecaEliminarConfirm(id) {
-        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
-        $.ajax({
-            url: '{% url "biblioteca:eliminar-biblioteca" %}',
-            type: "POST",
-            data: {
-                'id': id,
-                'csrfmiddlewaretoken': csrfmiddlewaretoken,
-            },
-            dataType: 'json',
-            success: function (data) {
-                if (data.deleted) {
-                    $("#biblioteca" + id).remove();
-                    $("#bibliotecaCrear" + id).remove();
-                    toastr.error('Entrada eliminada exitosamente', 'Operación exitosa')
-                    timer.reset(540000);
-                }
-            }
-        });
-
-        $('#modalDinamico').modal('hide');//cierra modal
-        return false;
-    };
     //FIN BIBLIOTECA
 
     //Modelo 1
@@ -4500,8 +4488,8 @@
     }
     function modelo1Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
-        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
-        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#textoModal").html(`<h5>¿Desea eliminar este Item de su biblioteca?</h5>`) //¿Desea eliminar este Item?
+        $("#icono").html(`<i class="far fa-question-circle text-danger"></i>`)
         $("#footer").html(`<button class="btn btn-primary" onclick="modelo1EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
@@ -5314,8 +5302,8 @@
     }
     function modelo2Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
-        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
-        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#textoModal").html(`<h5>¿Desea eliminar este Item de su biblioteca?</h5>`) //¿Desea eliminar este Item?
+        $("#icono").html(`<i class="far fa-question-circle text-danger"></i>`)
         $("#footer").html(`<button class="btn btn-primary" onclick="modelo2EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
@@ -5740,8 +5728,8 @@
     }
     function modelo3Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
-        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
-        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#textoModal").html(`<h5>¿Desea eliminar este Item de su biblioteca?</h5>`) //¿Desea eliminar este Item?
+        $("#icono").html(`<i class="far fa-question-circle text-danger"></i>`)
         $("#footer").html(`<button class="btn btn-primary" onclick="modelo3EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
@@ -5939,8 +5927,8 @@
     }
     function modelo14Eliminar(id) {
         $("#accionModal").text("Eliminar Item");
-        $("#textoModal").text("¿Desea eliminar este Item?") //¿Desea eliminar este Item?
-        $("#icono").addClass('far fa-question-circle text-danger')
+        $("#textoModal").html(`<h5>¿Desea eliminar este Item de su biblioteca?</h5>`) //¿Desea eliminar este Item?
+        $("#icono").html(`<i class="far fa-question-circle text-danger"></i>`)
         $("#footer").html(`<button class="btn btn-primary" onclick="modelo14EliminarConfirm(${id})">Aceptar</button><button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>`)
         $('#modalDinamico').modal('show'); // abrir
     }
@@ -5987,8 +5975,6 @@
         timer.reset(540000);
 
     }
-
-
     function citasActualizar(id) {
         var formData = new FormData(document.getElementById("campo" + id))
         formData.append("id", id);

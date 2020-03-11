@@ -1,18 +1,22 @@
 {% load name %}
-<div id="numerales" class="mb-4">
+<div id="numerales" class="mb-4 container">
 
-    <div id="accordion" class="container mt-2">
+    <div id="accordion"  class="card">
         {% for numeral in numeralName %}
-        <div class="card">
-            <div class="text-primary link card-header col-12 p-4">{{numeral}}<i class="fa fa-chevron-down"></i></div>
+
+            <div class="link card-header p-4" onclick="icono({{numeral.id}})">
+                <span class="text-primary" style="cursor: pointer;">{{numeral}}&nbsp;<i  class="fa fa-chevron-down numeral{{numeral.id}}"></i></span>
+                <i onclick="glosario()" style="font-size: 30px;" data-toggle="modal" class="far fa-question-circle float-right"></i>
+            </div>
+              
             <div class="submenu card-body">
 
                 <!--modelo 14 numeral 61-->
                 {% if numeral.orden == 61 %}
-                <div>
+                <div class="card-body">
                     {% for modelo14 in numeral_61 %}
 
-                    <form class="pt-4 pr-4 pl-4" id="modelo14{{modelo14.id}}" name="numeral61" type="post" enctype="multipart/form-data">
+                    <form class="pt-2 pr-4 pl-4" id="modelo14{{modelo14.id}}" name="numeral61" type="post" enctype="multipart/form-data">
 
                             <div class="form-group">
                                 {% csrf_token %}
@@ -101,24 +105,24 @@
                 {% endif %}
                 <!--Fin Numeral 61 Modelo14-->
             </div>
-        </div>
-
+    
         {% endfor %}
     </div>
 
-    <!-- Modal glosario -->
-    <div class="modal fade" id="glosario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Glosario</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered">
+
+  
+</div>
+
+
+{% block JsCode %}
+
+<script>
+    function icono(id){
+        $(".numeral"+id).toggleClass('fas fa-chevron-up')
+    }
+    function glosario(){
+        $("#accionModal").text("Glosario");
+        $("#textoModal").html(`<table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th class="text-center" colspan="2">V. INFORMACIÓN ADICIONAL</th>
@@ -133,23 +137,12 @@
                             {% endfor %}
 
                         </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Fin Modal glosario-->
+                    </table>`) //¿Desea eliminar este Item?
+        $("#icono").removeClass('far fa-question-circle text-danger')
+        $("#footer").html(`<button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>`)
+        $('#modalDinamico').modal('show'); // abrir
+    }
 
-    <i data-toggle="modal" data-placement="top" id="glosario-btn" data-target="#glosario" class="far fa-question-circle btn-reporte"></i>
-</div>
-
-
-{% block JsCode %}
-
-<script>
     $(function () {
         var Accordion = function (el, multiple) {
             this.el = el || {};
@@ -164,8 +157,8 @@
         Accordion.prototype.dropdown = function (e) {
             var $el = e.data.el;
             $this = $(this),
-                $next = $this.next();
-
+            $next = $this.next();
+            
             $next.slideToggle();
             $this.parent().toggleClass('open');
 
@@ -175,7 +168,8 @@
         }
 
         var accordion = new Accordion($('#accordion'), false);
-        $('#glosario-btn').popover({
+
+        $('[data-toggle="modal"]').popover({
             trigger: 'hover',
             html: true,
             title: "Glosario:",
