@@ -19,7 +19,7 @@ urlpatterns = [
     path('reportes/',include(bibliotecapatterns)),
     path('reportes/',include(administradorespatterns)),
     path('reportes/',include(metricaspatterns)),
-    path('reportes/',include(reporteSNIpatterns)),
+    path('',include(reporteSNIpatterns)),
     path('admin/', admin.site.urls),
 
     # Paths de Auth
