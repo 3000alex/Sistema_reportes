@@ -13,7 +13,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 token = "71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7"
 # Create your views here.
 
-@method_decorator(login_required, name='dispatch')
 class instruccionesSNI(View):
     def get(self,request):
         return render(request, 'reporteSNI/instrucciones.html')
