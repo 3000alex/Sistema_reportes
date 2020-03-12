@@ -18,7 +18,7 @@ class instruccionesSNI(View):
     def get(self,request):
         return render(request, 'reporteSNI/instrucciones.html')
 
-@method_decorator(login_required, name='dispatch')
+
 class reporteSNI(View):
     def get(self,request):
         biblioteca = ""
