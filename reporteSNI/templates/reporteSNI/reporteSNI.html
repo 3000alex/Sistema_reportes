@@ -23,7 +23,7 @@
 
     </div>
 
-    <div class="col-6 text-center disabled">
+    <div class="col-6 text-center">
       <p><Strong class="">Método 2</Strong></p>
       <small>Utiliza los bibcodes de los artículos registrados en su <a
           href="{% url 'biblioteca:biblioteca_personal' %}">Biblioteca personal.</a></small>
@@ -34,10 +34,10 @@
         <input class="form-control mb-4" type="text" placeholder="Apellido, N." name="autor" required>
         {% if biblioteca %}
         <button type="submit" data-toggle="modal" data-target="#reporteSNI"
-          class="btn btn-success btn-lg pr-4 pl-4 sesion">Enviar</button>
+          class="btn btn-success btn-lg pr-4 pl-4 sesion disabled">Enviar</button>
         {% else %}
         <button type="button" data-toggle="modal" data-target="#bibliotecaVacia"
-          class="btn btn-success btn-lg pr-4 pl-4 sesion">Enviar</button>
+          class="btn btn-success btn-lg pr-4 pl-4 sesion disabled">Enviar</button>
         {% endif %}
       </form>
 
