@@ -94,8 +94,8 @@
                 <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
-                    onclick="infoAnteriorModelo7({{periodoActual.id}}, {{numeral.id}})">Importar periodo
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo7{{numeral.id}}"
+                    onclick="infoAnteriorModelo7({{periodoActual.id}}, {{numeral.id}})">Importar periodo 
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
                         class="fa fa-chevron-up"></i></p>
@@ -189,7 +189,7 @@
                 <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo7{{numeral.id}}"
                     onclick="infoAnteriorModelo7({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -284,7 +284,7 @@
                 <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo7{{numeral.id}}"
                     onclick="infoAnteriorModelo7({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -379,7 +379,7 @@
                 <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo7{{numeral.id}}"
                     onclick="infoAnteriorModelo7({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -474,7 +474,7 @@
                 <button onclick="modelo7Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo7Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo7{{numeral.id}}"
                     onclick="infoAnteriorModelo7({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -578,7 +578,7 @@
                 <button onclick="modelo8Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo8Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo8{{numeral.id}}"
                     onclick="infoAnteriorModelo8({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -696,7 +696,7 @@
                 <button onclick="modelo9Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo9Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo9{{numeral.id}}"
                     onclick="infoAnteriorModelo9({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -874,7 +874,7 @@
             }
         });
     }
-    function infoAnteriorModelo7(periodo, id, numeral) {
+    function infoAnteriorModelo7(periodo, numeral) {
 
         $.ajax({
             type: "GET",
@@ -885,9 +885,19 @@
             },
             dataType: "json",
             success: function (response) {
-                $("#autoresModelo7" + id).val(response.autores);
-                $("#descripcionModelo7" + id).val(response.descripcion);
-                $("#urlModelo7" + id).val(response.url);
+                $('#sinEntradas' + numeral).remove()
+                for (var i = 0; i < response.autores.length; i++) {    
+                    data = {}
+                    data['numeral'] = numeral;
+                    data['id'] = response.ids[i];
+                    
+                    dibujarmodelo7(data)
+                    $("#autoresModelo7" + response.ids[i]).val(response.autores[i]);
+                    $("#descripcionModelo7" + response.ids[i]).val(response.descripcion[i]);
+                    $("#urlModelo7" + response.ids[i]).val(response.url[i]);
+                    }
+                
+                    $("#infoAnteriorModelo7"+numeral).prop('disabled','true');
                 toastr.info("Operación exitosa", "información copiada")
                 timer.reset(540000);
             }
@@ -1054,7 +1064,7 @@
             }
         });
     }
-    function infoAnteriorModelo8(periodo, id, numeral) {
+    function infoAnteriorModelo8(periodo, numeral) {
 
         $.ajax({
             type: "GET",
@@ -1065,10 +1075,21 @@
             },
             dataType: "json",
             success: function (response) {
-                $("#nombreModelo8" + id).val(response.nombre);
-                $("#descripcionModelo8" + id).val(response.descripcion);
-                $("#participantesModelo8" + id).val(response.participantes);
-                $("#financiamientoModelo8" + id).val(response.financiamiento);
+                $('#sinEntradas' + numeral).remove()
+                for (var i = 0; i < response.nombre.length; i++) {  
+                        data = {}
+                        data['numeral'] = numeral;
+                        data['id'] = response.ids[i];
+                        
+                        dibujarmodelo8(data)
+                        $("#nombreModelo8" + response.ids[i]).val(response.nombre[i]);
+                        $("#descripcionModelo8" + response.ids[i]).val(response.descripcion[i]);
+                        $("#participantesModelo8" + response.ids[i]).val(response.participantes[i]);
+                        $("#financiamientoModelo8" + response.ids[i]).val(response.financiamiento[i]);
+                    }
+                
+                
+                $("#infoAnteriorModelo8"+numeral).prop('disabled','true');
                 toastr.info("Operación exitosa", "información copiada")
                 timer.reset(540000);
             }
@@ -1244,7 +1265,7 @@
             }
         });
     }
-    function infoAnteriorModelo9(periodo, id, numeral) {
+    function infoAnteriorModelo9(periodo, numeral) {
 
         $.ajax({
             type: "GET",
@@ -1255,12 +1276,23 @@
             },
             dataType: "json",
             success: function (response) {
-                $("#tituloModelo9" + id).val(response.titulo);
-                $("#autoresModelo9" + id).val(response.autores);
-                $("#NreporteModelo9" + id).val(response.numeroReportes);
-                $("#fechaModelo9" + id).val(response.fecha);
-                $("#urlModelo9" + id).val(response.url);
-                $("#revistaPublicacionModelo9" + id).val(response.revistaPublicacion);
+
+                $('#sinEntradas' + numeral).remove()
+                for (var i = 0; i < response.titulo.length; i++) {    
+                    data = {}
+                    data['numeral'] = numeral;
+                    data['id'] = response.ids[i];
+                    
+                    dibujarmodelo9(data)
+                    $("#tituloModelo9" + response.ids[i]).val(response.titulo[i]);
+                    $("#autoresModelo9" + response.ids[i]).val(response.autores[i]);
+                    $("#NreporteModelo9" + response.ids[i]).val(response.numeroReportes[i]);
+                    $("#fechaModelo9" + response.ids[i]).val(response.fecha[i]);
+                    $("#urlModelo9" + response.ids[i]).val(response.url[i]);
+                    $("#revistaPublicacionModelo9" + response.ids[i]).val(response.revistaPublicacion[i]);
+                }
+
+                $("#infoAnteriorModelo9"+numeral).prop('disabled','true');
                 toastr.info("Operación exitosa", "información copiada")
                 timer.reset(540000);
             }

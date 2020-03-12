@@ -3294,6 +3294,9 @@
                     <button onclick="modelo3Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                         id="modelo3Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                         Agregar entrada</button>
+                    <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                        onclick="infoAnteriorModelo3({{periodoActual.id}}, {{numeral.id}})">Importar periodo
+                        anterior</button>
                     <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
                             class="fa fa-chevron-up"></i></p>
                     {% endfor %}
@@ -3438,6 +3441,9 @@
                     <button onclick="modelo3Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                         id="modelo3Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                         Agregar entrada</button>
+                    <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                        onclick="infoAnteriorModelo3({{periodoActual.id}}, {{numeral.id}})">Importar periodo
+                        anterior</button>
                     <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
                             class="fa fa-chevron-up"></i></p>
                     {% endfor %}
@@ -3543,6 +3549,9 @@
                     <button onclick="modelo3Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                         id="modelo3Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                         Agregar entrada</button>
+                    <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                        onclick="infoAnteriorModelo3({{periodoActual.id}}, {{numeral.id}})">Importar periodo
+                        anterior</button>
                     <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
                             class="fa fa-chevron-up"></i></p>
                     {% endfor %}
@@ -3648,6 +3657,9 @@
                     <button onclick="modelo3Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                         id="modelo3Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                         Agregar entrada</button>
+                    <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                        onclick="infoAnteriorModelo3({{periodoActual.id}}, {{numeral.id}})">Importar periodo
+                        anterior</button>
                     <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
                             class="fa fa-chevron-up"></i></p>
                     {% endfor %}
@@ -3803,6 +3815,9 @@
                     <button onclick="modelo3Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                         id="modelo3Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                         Agregar entrada</button>
+                    <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                        onclick="infoAnteriorModelo3({{periodoActual.id}}, {{numeral.id}})">Importar periodo
+                        anterior</button>
                     <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
                             class="fa fa-chevron-up"></i></p>
                     {% endfor %}
@@ -3956,6 +3971,9 @@
                     <button onclick="modelo3Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                         id="modelo3Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                         Agregar entrada</button>
+                    <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                        onclick="infoAnteriorModelo3({{periodoActual.id}}, {{numeral.id}})">Importar periodo
+                        anterior</button>
                     <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
                             class="fa fa-chevron-up"></i></p>
                     {% endfor %}
@@ -5181,7 +5199,7 @@
         });
 
     }
-    function infoAnteriorModelo2(periodo, id, numeral) {
+    function infoAnteriorModelo2(periodo, numeral) {
 
         $.ajax({
             type: "GET",
@@ -5192,11 +5210,21 @@
             },
             dataType: "json",
             success: function (response) {
-                $("#NombreProyectoModelo2" + id).val(response.nombreProyecto);
-                $("#descripcionModelo2" + id).val(response.descripcion);
-                $("#participantesModelo2" + id).val(response.participantes);
-                $("#responsableModelo2" + id).val(response.responsableTecParticipantes);
-                $("#estudiantesModelo2" + id).val(response.estudiantes);
+                $('#sinEntradas' + numeral).remove()
+                for (let i = 0; i < response.descripcion.length; i++) {
+                    data = {}
+                    data['numeral'] = numeral;
+                    data['id'] = response.ids[i];
+                    dibujarmodelo2(data)
+                    $("#NombreProyectoModelo2" + response.ids[i]).val(response.nombreProyecto[i]);
+                    $("#descripcionModelo2" + response.ids[i]).val(response.descripcion[i]);
+                    $("#participantesModelo2" + response.ids[i]).val(response.participantes[i]);
+                    $("#responsableModelo2" + response.ids[i]).val(response.responsableTecParticipantes[i]);
+                    $("#estudiantesModelo2" + response.ids[i]).val(response.estudiantes[i]);
+                    
+                }
+                
+                $("#infoAnteriorModelo2"+numeral).prop('disabled','true');
                 toastr.info("Operación exitosa", "información copiada")
                 timer.reset(540000);
             }
@@ -5408,7 +5436,7 @@
         });
 
     }
-    function infoAnteriorModelo3(periodo, id, numeral) {
+    function infoAnteriorModelo3(periodo, numeral) {
 
         $.ajax({
             type: "GET",
@@ -5419,14 +5447,25 @@
             },
             dataType: "json",
             success: function (response) {
-                $("#tituloPresentacionModelo3" + id).val(response.tituloPresentacion);
-                $("#autoresModelo3" + id).val(response.autores);
-                $("#nombreConferenciaModelo3" + id).val(response.nombreConferencia);
-                $("#fechaModelo3" + id).val(response.fecha);
-                $("#estudiantesModelo3" + id).val(response.estudiantes);
-                $("#doiModelo3" + id).val(response.doi);
-                $("#presentacionPosterModelo3" + id).val(response.presentacionPoster);
-                $("#urlModelo3" + id).val(response.url);
+                $('#sinEntradas' + numeral).remove()
+
+                for (let i = 0; i < response.fecha.length; i++) {
+
+                    data = {}
+                    data['numeral'] = numeral;
+                    data['id'] = response.ids[i];
+        
+                    dibujarmodelo3(data)
+                    $("#tituloPresentacionModelo3" + response.ids[i]).val(response.tituloPresentacion[i]);
+                    $("#autoresModelo3" + response.ids[i]).val(response.autores[i]);
+                    $("#nombreConferenciaModelo3" + response.ids[i]).val(response.nombreConferencia[i]);
+                    $("#fechaModelo3" + response.ids[i]).val(response.fecha[i]);
+                    $("#estudiantesModelo3" + response.ids[i]).val(response.estudiantes[i]);
+                    $("#doiModelo3" + response.ids[i]).val(response.doi[i]);
+                    $("#presentacionPosterModelo3" + response.ids[i]).val(response.presentacionPoster[i]);
+                    $("#urlModelo3" + response.ids[i]).val(response.url[i]);    
+                }
+                
                 toastr.info("Operación exitosa", "información copiada")
                 timer.reset(540000);
             }
@@ -5828,7 +5867,7 @@
         });
 
     }
-    function infoAnteriorModelo14(periodo, id, numeral) {
+    function infoAnteriorModelo14(periodo, numeral) {
 
         $.ajax({
             type: "GET",
@@ -5839,10 +5878,19 @@
             },
             dataType: "json",
             success: function (response) {
-                $("#conferenciaProyectoModelo14" + id).val(response.conferenciaProyecto)
-                $("#rolModelo14" + id).val(response.rol)
-                $("#urlModelo14" + id).val(response.url)
-                $("#fechaModelo14" + id).val(response.fecha)
+                $('#sinEntradas' + numeral).remove()
+                for (var i = 0; i < response.descripcion.length; i++) {    
+                    data = {}
+                    data['numeral'] = numeral;
+                    data['id'] = response.ids[i];
+                    dibujarmodelo14(data)
+                    $("#conferenciaProyectoModelo14" + response.ids[i]).val(response.conferenciaProyecto[i])
+                    $("#rolModelo14" + response.ids[i]).val(response.rol[i])
+                    $("#urlModelo14" + response.ids[i]).val(response.urls[i])
+                    $("#fechaModelo14" + response.ids[i]).val(response.fecha[i])
+                }
+                
+                $("#infoAnteriorModelo14"+numeral).prop('disabled','true');
                 toastr.info("Operación exitosa", "información copiada")
                 timer.reset(540000);
             }

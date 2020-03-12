@@ -106,7 +106,7 @@
                 <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo4{{numeral.id}}"
                     onclick="infoAnteriorModelo4({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -211,7 +211,7 @@
                 <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo4{{numeral.id}}"
                     onclick="infoAnteriorModelo4({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -316,7 +316,7 @@
                 <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo4{{numeral.id}}"
                     onclick="infoAnteriorModelo4({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -421,7 +421,7 @@
                 <button onclick="modelo4Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo4{{numeral.id}}"
                     onclick="infoAnteriorModelo4({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -516,7 +516,7 @@
                 <button onclick="modelo5Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo5Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo5{{numeral.id}}"
                     onclick="infoAnteriorModelo5({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -611,7 +611,7 @@
                 <button onclick="modelo5Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo5Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo5{{numeral.id}}"
                     onclick="infoAnteriorModelo5({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -732,7 +732,7 @@
                 <button onclick="modelo6Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo6Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo6{{numeral.id}}"
                     onclick="infoAnteriorModelo6({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -828,7 +828,7 @@
                 <button onclick="modelo16Crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo16Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link" id="infoAnteriorModelo16{{numeral.id}}"
                     onclick="infoAnteriorModelo16({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -1138,7 +1138,7 @@
             }
         });
     }
-    function infoAnteriorModelo4(periodo, id, numeral) {
+    function infoAnteriorModelo4(periodo, numeral) {
 
         $.ajax({
             type: "GET",
@@ -1149,10 +1149,21 @@
             },
             dataType: "json",
             success: function (response) {
-                $("#nombreCompletoModelo4" + id).val(response.nombreCompleto);
-                $("#tituloTesisModelo4" + id).val(response.tituloTesis);
-                $("#fechaModelo4" + id).val(response.fecha);
-                $("#urlModelo4" + id).val(response.url);
+                $('#sinEntradas' + numeral).remove()
+                for (let i = 0; i < response.nombreCompleto.length; i++) {
+                    data = {}
+                    data['numeral'] = numeral;
+                    data['id'] = response.ids[i];
+                    dibujarmodelo4(data)
+                    $("#nombreCompletoModelo4" + response.ids[i]).val(response.nombreCompleto[i]);
+                    $("#tituloTesisModelo4" + response.ids[i]).val(response.tituloTesis[i]);
+                    $("#fechaModelo4" + response.ids[i]).val(response.fecha[i]);
+                    $("#urlModelo4" + response.ids[i]).val(response.url[i]);
+                    
+                    
+                }
+
+                $("#infoAnteriorModelo4"+numeral).prop('disabled','true');
                 toastr.info("Operación exitosa", "información copiada")
                 timer.reset(540000);
             }
@@ -1329,7 +1340,7 @@
             }
         });
     }
-    function infoAnteriorModelo5(periodo, id, numeral) {
+    function infoAnteriorModelo5(periodo, numeral) {
 
         $.ajax({
             type: "GET",
@@ -1340,9 +1351,20 @@
             },
             dataType: "json",
             success: function (response) {
-                $("#nombreCursoModelo5" + id).val(response.nombreCurso);
-                $("#periodoModelo5" + id).val(response.periodoNumeral);
-                $("#notasModelo5" + id).val(response.notas);
+                $('#sinEntradas' + numeral).remove()
+                for (let i = 0; i < response.nombreCurso.length; i++) {        
+                    data = {}
+                    data['numeral'] = numeral;
+                    data['id'] = response.ids[i];
+
+                    dibujarmodelo5(data)
+                    $("#nombreCursoModelo5" + response.ids[i]).val(response.nombreCurso[i]);
+                    $("#periodoModelo5" + response.ids[i]).val(response.periodoNumeral[i]);
+                    $("#notasModelo5" + response.ids[i]).val(response.notas[i]);
+                }
+                
+                
+                $("#infoAnteriorModelo5"+numeral).prop('disabled','true');
                 toastr.info("Operación exitosa", "información copiada")
                 timer.reset(540000);
             }
@@ -1514,7 +1536,7 @@
             }
         });
     }
-    function infoAnteriorModelo6(periodo, id, numeral) {
+    function infoAnteriorModelo6(periodo, numeral) {
 
         $.ajax({
             type: "GET",
@@ -1525,12 +1547,25 @@
             },
             dataType: "json",
             success: function (response) {
-                $("#nombreModelo6" + id).val(response.nombre);
-                $("#tituloTesisModelo6" + id).val(response.tituloTesis);
-                $("#gradoModelo6" + id).val(response.Grado);
-                $("#institucionModelo6" + id).val(response.institucion);
-                $("#fechaModelo6" + id).val(response.fecha);
-                $("#notasModelo6" + id).val(response.notas);
+                $('#sinEntradas' + numeral).remove()
+
+                for (let i = 0; i < response.nombre.length; i++) {
+
+                    data = {}
+                    data['numeral'] = numeral;
+                    data['id'] = response.ids[i];
+
+                    dibujarmodelo6(data)
+                    $("#nombreModelo6" + response.ids[i]).val(response.nombre[i]);
+                    $("#tituloTesisModelo6" + response.ids[i]).val(response.tituloTesis[i]);
+                    $("#gradoModelo6" + response.ids[i]).val(response.Grado[i]);
+                    $("#institucionModelo6" + response.ids[i]).val(response.institucion[i]);
+                    $("#fechaModelo6" + response.ids[i]).val(response.fecha[i]);
+                    $("#notasModelo6" + response.ids[i]).val(response.notas[i]);
+                    
+                }
+
+                $("#infoAnteriorModelo6"+numeral).prop('disabled','true');
                 toastr.info("Operación exitosa", "información copiada")
                 timer.reset(540000);
             }
@@ -1856,7 +1891,7 @@
             }
         });
     }
-    function infoAnteriorModelo16(periodo, id, numeral) {
+    function infoAnteriorModelo16(periodo, numeral) {
 
         $.ajax({
             type: "GET",
@@ -1867,9 +1902,18 @@
             },
             dataType: "json",
             success: function (response) {
-                $("#nombreEstudianteModelo16" + id).val(response.nombreEstudiante);
-                $("#coordinacionModelo16" + id).val(response.coordinacion);
-                $("#gradoModelo16" + id).val(response.grado);
+                $('#sinEntradas' + numeral).remove()
+                for (let i = 0; i < response.nombreEstudiante.length; i++) {
+                    data = {}
+                    data['numeral'] = numeral;
+                    data['id'] = response.ids[i];
+
+                    dibujarmodelo16(data)
+                    $("#nombreEstudianteModelo16" + response.ids[i]).val(response.nombreEstudiante[i]);
+                    $("#coordinacionModelo16" + response.ids[i]).val(response.coordinacion[i]);
+                    $("#gradoModelo16" + response.ids[i]).val(response.grado[i]);
+                }
+                $("#infoAnteriorModelo16"+numeral).prop('disabled','true');
                 toastr.info("Operación exitosa", "información copiada")
                 timer.reset(540000);
             }
@@ -1922,17 +1966,17 @@
                     <div class="justify-content-end d-flex">
                         <div class="row">
                             <div class="col-12">
-                                <button onclick="modelo16Actualizar('{{modelo16.id}}')" type="button"
+                                <button onclick="modelo16Actualizar(${response.id})" type="button"
                                 class="btn btn-success  mr-2" title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                     Guardar</i></button>
-                            <button onclick="desactivarCamposModelo16('{{modelo16.id}}')"
+                            <button onclick="desactivarCamposModelo16(${response.id})"
                                 class="btn btn-warning mr-2 text-white" type="reset">
                                 <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
                             <button type="button" class="btn btn-primary  mr-2"
-                                onclick="modelo16Editar('{{modelo16.id}}')" title="Editar entrada"><i
+                                onclick="modelo16Editar(${response.id})" title="Editar entrada"><i
                                     class="fas fa-edit">&nbsp;Editar</i></button>
                             <button type="button" class="btn btn-danger"
-                                onclick="modelo16Eliminar('{{modelo16.id}}')" title="Eliminar entrada"><i
+                                onclick="modelo16Eliminar(${response.id})" title="Eliminar entrada"><i
                                     class="fas fa-trash-alt">&nbsp;Eliminar</i></button>
                             </div>
                         </div>  

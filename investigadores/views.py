@@ -450,18 +450,44 @@ class crearModelo2(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo2(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo2.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id).last()
+        datos = Modelo2.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id)
+        nombreProyecto = []
+        descripcion = []
+        participantes = []
+        estudiantes = []
+        responsableTecParticipantes = []
+        ids = []
+
+        for d in datos:
+            data = Modelo2.objects.create(
+                nombreProyecto = d.nombreProyecto,
+                descripcion = d.descripcion,
+                participantes = d.participantes,
+                estudiantes = d.estudiantes,
+                responsableTecParticipante = d.responsableTecParticipante,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            nombreProyecto.append(data.nombreProyecto)
+            descripcion.append(data.descripcion)
+            participantes.append(data.participantes)
+            estudiantes.append(data.estudiantes)
+            responsableTecParticipantes.append(data.responsableTecParticipante)
+            ids.append(data.id)
 
         data = {
-            'nombreProyecto':datos.nombreProyecto,
-            'descripcion':datos.descripcion,
-            'participantes':datos.participantes,
-            'estudiantes':datos.estudiantes,
-            'responsableTecParticipantes':datos.responsableTecParticipante
+            'nombreProyecto':nombreProyecto,
+            'descripcion':descripcion,
+            'participantes':participantes,
+            'estudiantes':estudiantes,
+            'responsableTecParticipantes':responsableTecParticipantes,
+            'ids':ids
         }
+
         return  JsonResponse(data)
 
 # Operaciones Modelo3
@@ -542,20 +568,54 @@ class crearModelo3(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo3(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo3.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+        datos = Modelo3.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        tituloPresentacion = []
+        autores = []
+        nombreConferencia = []
+        fecha = []
+        presentacionPoster = []
+        estudiantes = []
+        doi = []
+        url = []
+        ids = []
 
+        for d in datos:
+            data = Modelo3.objects.create(
+                tituloPresentacion = d.tituloPresentacion,
+                autores = d.autores,
+                nombreConferencia = d.nombreConferencia,
+                fecha = d.fecha,
+                presentacionPoster = d.presentacionPoster,
+                estudiantes = d.estudiantes,
+                doi = d.doi,
+                url = d.url,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            tituloPresentacion.append(data.tituloPresentacion)
+            autores.append(data.autores)
+            nombreConferencia.append(data.nombreConferencia)
+            fecha.append(data.fecha)
+            presentacionPoster.append(data.presentacionPoster)
+            estudiantes.append(data.estudiantes)
+            doi.append(data.doi)
+            url.append(data.url)
+            ids.append(data.id)
+        
         data = {
-            'tituloPresentacion':datos.tituloPresentacion,
-            'autores':datos.autores,
-            'nombreConferencia':datos.nombreConferencia,
-            'fecha':datos.fecha,
-            'presentacionPoster':datos.presentacionPoster,
-            'estudiantes':datos.estudiantes,
-            'doi':datos.doi,
-            'url':datos.url,
+            'tituloPresentacion':tituloPresentacion,
+            'autores':autores,
+            'nombreConferencia':nombreConferencia,
+            'fecha':fecha,
+            'presentacionPoster':presentacionPoster,
+            'estudiantes':estudiantes,
+            'doi':doi,
+            'url':url,
+            'ids':ids
         }
         return  JsonResponse(data)
 
@@ -678,16 +738,39 @@ class crearModelo4(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo4(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo4.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+        datos = Modelo4.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        nombreCompleto = []
+        tituloTesis = []
+        fecha = []
+        url = []
+        ids = []
+
+        for d in datos:
+            data = Modelo4.objects.create(
+                nombreCompleto = d.nombreCompleto,
+                tituloTesis = d.tituloTesis,
+                fecha = d.fecha,
+                url = d.url,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+        
+            nombreCompleto.append(data.nombreCompleto)
+            tituloTesis.append(data.tituloTesis)
+            fecha.append(data.fecha)
+            url.append(data.url)
+            ids.append(data.id)
 
         data = {
-            'nombreCompleto':datos.nombreCompleto,
-            'tituloTesis':datos.tituloTesis,
-            'fecha':datos.fecha,
-            'url':datos.url
+            'nombreCompleto': nombreCompleto,
+            'tituloTesis': tituloTesis,
+            'fecha': fecha,
+            'url': url,
+            'ids':ids
         }
         return  JsonResponse(data)
 
@@ -758,15 +841,35 @@ class crearModelo5(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo5(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo5.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+        datos = Modelo5.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        nombreCurso = []
+        periodoNumeral = []
+        notas = []
+        ids = []
+
+        for d in datos:
+            data = Modelo5.objects.create(
+                nombreCurso = d.nombreCurso,
+                periodoNumeral = d.periodoNumeral,
+                notas = d.notas,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+        
+            nombreCurso.append(data.nombreCurso)
+            periodoNumeral.append(data.periodoNumeral)
+            notas.append(data.notas)
+            ids.append(data.id)
 
         data = {
-            'nombreCurso':datos.nombreCurso,
-            'periodoNumeral':datos.periodoNumeral,
-            'notas':datos.notas
+            'nombreCurso':nombreCurso,
+            'periodoNumeral':periodoNumeral,
+            'notas':notas,
+            'ids':ids
         }
         return  JsonResponse(data)
 
@@ -842,18 +945,46 @@ class crearModelo6(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo6(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo6.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+        datos = Modelo6.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        nombre = []
+        tituloTesis = []
+        Grado = []
+        institucion = []
+        fecha = []
+        notas = []
+        ids = []
+
+        for d in datos:
+            data = Modelo6.objects.create(
+                nombre = d.nombre,
+                tituloTesis = d.tituloTesis,
+                Grado = d.Grado,
+                institucion = d.institucion,
+                fecha = d.fecha,
+                notas = d.notas,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            nombre.append(data.nombre)
+            tituloTesis.append(data.tituloTesis)
+            Grado.append(data.Grado)
+            institucion.append(data.institucion)
+            fecha.append(data.fecha)
+            notas.append(data.notas)
+            ids.append(data.id)
 
         data = {
-            'nombre':datos.nombre,
-            'tituloTesis':datos.tituloTesis,
-            'Grado':datos.Grado,
-            'institucion':datos.institucion,
-            'fecha':datos.fecha,
-            'notas':datos.notas,
+            'nombre':nombre,
+            'tituloTesis':tituloTesis,
+            'Grado':Grado,
+            'institucion':institucion,
+            'fecha':fecha,
+            'notas':notas,
+            'ids':ids
         }
         return  JsonResponse(data)
 
@@ -923,15 +1054,33 @@ class crearModelo7(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo7(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo7.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+        datos = Modelo7.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        descripcion = []
+        autores = []
+        url = []
+        ids = []
+        for d in datos:
+            data = Modelo7.objects.create(
+                descripcion = d.descripcion,
+                autores = d.autores,
+                url = d.url,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            descripcion.append(data.descripcion)
+            autores.append(data.autores)
+            url.append(data.url)
+            ids.append(data.id)
 
         data = {
-            'descripcion':datos.descripcion,
-            'autores':datos.autores,
-            'url':datos.url,
+            'descripcion':descripcion,
+            'autores':autores,
+            'url':url,
+            'ids':ids
         }
         return  JsonResponse(data)
 
@@ -1002,16 +1151,38 @@ class crearModelo8(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo8(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo8.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+        datos = Modelo8.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        nombre = []
+        descripcion = []
+        participantes = []
+        financiamiento = []
+        ids = []
+
+        for d in datos:
+            data = Modelo8.objects.create(
+                nombre = d.nombre,
+                descripcion = d.descripcion,
+                participantes = d.participantes,
+                financiamiento = d.financiamiento,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            nombre.append(data.nombre)
+            descripcion.append(data.descripcion)
+            participantes.append(data.participantes)
+            financiamiento.append(data.financiamiento)
+            ids.append(data.id)
 
         data = {
-            'nombre':datos.nombre,
-            'descripcion':datos.descripcion,
-            'participantes':datos.participantes,
-            'url':datos.url,
+            'nombre':nombre,
+            'descripcion':descripcion,
+            'participantes':participantes,
+            'financiamiento':financiamiento,
+            'ids':ids
         }
         return  JsonResponse(data)
 
@@ -1088,19 +1259,51 @@ class crearModelo9(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo9(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo',None)
         numeral_id = request.GET.get('numeral',None)
-        periodo_id = int(periodo_id) - 1
-        datos = Modelo9.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id).last()
+        periodo_id = int(periodo) - 1
+        datos = Modelo9.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id)
+        titulo = []
+        autores = []
+        numeroReportes = []
+        fecha = []
+        url = []
+        revistaPublicacion = []
+        doi = []
+        ids = []
+
+        for d in datos:
+            data = Modelo9.objects.create(
+                titulo = d.titulo,
+                autores = d.autores,
+                numeroReportes = d.numeroReportes,
+                fecha = d.fecha,
+                url = d.url,
+                revistaPublicacion = d.revistaPublicacion,
+                doi = d.doi,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+
+            )
+            titulo.append(data.titulo)
+            autores.append(data.autores)
+            numeroReportes.append(data.numeroReportes)
+            fecha.append(data.fecha)
+            url.append(data.url)
+            revistaPublicacion.append(data.revistaPublicacion)
+            doi.append(data.doi)
+            ids.append(data.id)
 
         data = {
-            'titulo':datos.titulo,
-            'autores':datos.autores,
-            'numeroReportes':datos.numeroReportes,
-            'fecha':datos.fecha,
-            'url':datos.url,
-            'revistaPublicacion':datos.revistaPublicacion,
-            'doi':datos.doi
+            'titulo':titulo,
+            'autores':autores,
+            'numeroReportes':numeroReportes,
+            'fecha':fecha,
+            'url':url,
+            'revistaPublicacion':revistaPublicacion,
+            'doi':doi,
+            'ids':ids
         }
         return  JsonResponse(data)
 
@@ -1172,16 +1375,38 @@ class crearModelo10(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo10(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo10.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id).last()
+        datos = Modelo10.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id)
+        descripcion = []
+        fecha = []
+        url = []
+        periodoNumeral = []
+        ids = []
+
+        for d in datos:
+            data = Modelo10.objects.create(
+                descripcion = d.descripcion,
+                fecha = d.fecha,
+                url = d.url,
+                periodoNumeral = d.periodoNumeral,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            descripcion.append(data.descripcion)
+            fecha.append(data.fecha)
+            url.append(data.url)
+            periodoNumeral.append(data.periodoNumeral)
+            ids.append(data.id)
 
         data = {
-            'descripcion':datos.descripcion,
-            'fecha':datos.fecha,
-            'url':datos.url,
-            'periodoNumeral':datos.periodoNumeral,
+            'descripcion':descripcion,
+            'fecha':fecha,
+            'url':url,
+            'periodoNumeral':periodoNumeral,
+            'ids':ids
         }
         return  JsonResponse(data)
 
@@ -1251,15 +1476,34 @@ class crearModelo11(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo11(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo11.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id).last()
+        datos = Modelo11.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id)
+        descripcion = []
+        nombreEstudiante = []
+        fecha = []
+        ids =  []
+
+        for d in datos:
+            data = Modelo11.objects.create(
+                descripcion = d.descripcion,
+                nombreEstudiante = d.nombreEstudiante,
+                fecha = d.fecha,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            descripcion.append(data.descripcion)
+            nombreEstudiante.append(data.nombreEstudiante)
+            fecha.append(data.fecha)
+            ids.append(data.id)
 
         data = {
-            'descripcion':datos.descripcion,
-            'nombreEstudiante':datos.nombreEstudiante,
-            'fecha':datos.fecha   
+            'descripcion':descripcion,
+            'nombreEstudiante':nombreEstudiante,
+            'fecha':fecha,
+            'ids':ids
         }
         return  JsonResponse(data)
 
@@ -1325,12 +1569,25 @@ class crearModelo12(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo12(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo12.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id).last()
+        datos = Modelo12.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id)
+        laboratorioTaller = []
+        ids  = []
+        for d in datos:
+            data = Modelo12.objects.create(
+                laboratorioTaller = d.laboratorioTaller,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            laboratorioTaller.append(data.laboratorioTaller)
+            ids.append(data.id)
+
         data = {
-            'laboratorioTaller':datos.laboratorioTaller,
+            'laboratorioTaller':laboratorioTaller,
+            'ids':ids
         }
         return  JsonResponse(data)
 
@@ -1397,14 +1654,30 @@ class crearModelo13(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo13(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo13.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id).last()
-        
+        datos = Modelo13.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id)
+        descripcion = []
+        agenciasFinancieras = []
+        ids = []
+
+        for d in datos:
+            data = Modelo13.objects.create(
+                descripcion = d.descripcion,
+                agenciasFinancieras = d.agenciasFinancieras,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            descripcion.append(data.descripcion)
+            agenciasFinancieras.append(data.agenciasFinancieras)
+            ids.append(data.id)
+
         data = {
-            'descripcion':datos.descripcion,
-            'agencias':datos.agenciasFinancieras,
+            'descripcion':descripcion,
+            'agencias':agenciasFinancieras,
+            'ids':ids
         }
         return  JsonResponse(data)
 
@@ -1477,14 +1750,50 @@ class crearModelo14(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo14(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
         datos = Modelo14.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        telescopio = []
+        descripcion = []
+        rol = []
+        conferencia = []
+        fecha = []
+        ids = []
+        urls = []
 
-        data = serializers.serialize('json',datos)    
+        for d in datos:
+            data = Modelo14.objects.create(
+                descripcion = d.descripcion,
+                TelescopioInstrumentoInfra = d.TelescopioInstrumentoInfra,
+                url = d.url,
+                rol = d.rol,
+                fecha = d.fecha,
+                conferenciaProyecto = d.conferenciaProyecto,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            telescopio.append(data.TelescopioInstrumentoInfra)
+            descripcion.append(data.descripcion)
+            rol.append(data.rol)
+            conferencia.append(data.conferenciaProyecto)
+            fecha.append(data.fecha)
+            urls.append(data.url)
+            ids.append(data.id)
+            
         
-        return  HttpResponse(data)
+        data = {
+            'telescopio':telescopio,
+            'descripcion':descripcion,
+            'urls':urls,
+            'conferenciaProyecto':conferencia,
+            'rol':rol,
+            'fecha':fecha,
+            'ids':ids
+        }
+        
+        return  JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo15(View):
@@ -1547,13 +1856,25 @@ class crearModelo15(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo15(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo15.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+        datos = Modelo15.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        descripcion = []
+        ids = []
 
+        for d in datos:
+            data = Modelo15.objects.create(
+                descripcion = d.descripcion,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            descripcion.append(data.descripcion)
+            ids.append(data.id)
         data = {
-            'descripcion':datos.descripcion,
+            'descripcion':descripcion,
+            'ids':ids
         }
         return  JsonResponse(data)
 
@@ -1622,15 +1943,36 @@ class crearModelo16(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo16(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral',None)
-        datos = Modelo16.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id).last()
+        datos = Modelo16.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id)
+        nombreEstudiante = []
+        coordinacion = []
+        grado = []
+        ids = []
+
+        for d in datos:
+            data = Modelo16.objects.create(
+                nombreEstudiante = d.nombreEstudiante,
+                coordinacion = d.coordinacion,
+                grado = d.grado,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+
+            nombreEstudiante.append(data.nombreEstudiante)
+            coordinacion.append(data.coordinacion)
+            grado.append(data.grado)
+            ids.append(data.id)
+
 
         data = {
-            'nombreEstudiante':datos.nombreEstudiante,
-            'coordinacion':datos.coordinacion,
-            'grado':datos.grado,
+            'nombreEstudiante':nombreEstudiante,
+            'coordinacion':coordinacion,
+            'grado':grado,
+            'ids':ids
         }
         return  JsonResponse(data)
 
