@@ -36,13 +36,13 @@ class metodo1ReporteSNI(View):
         author = request.GET.get('autor','None')
         articulos = SNIads.get_papers(author, token=token)
         citas = SNIads.get_citations(articulos, token=token)
-        f = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'w')
+        f = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(author), 'w')
         SNIads.print_results(author,articulos,citas,f)
         f.close()
 
-        f = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'r')
+        f = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(author), 'r')
         response = HttpResponse(f, content_type="application/octet-stream" )
-        filename = 'refs_{}.tex'.format(SNIads.clean_author(author))
+        filename = 'refs_{}.tex'.format(author)
         content = "attachment; filename='%s'" %(filename)
         response['content-Disposition'] = content
         f.close()
