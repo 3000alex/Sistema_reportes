@@ -33,10 +33,10 @@
       <form action="{% url 'reporteSNI:metodo2SNI' %}">
         <input class="form-control mb-4" type="text" placeholder="Apellido, N." name="autor" required>
         {% if biblioteca %}
-        <button type="submit" data-toggle="modal" data-target="#reporteSNI"
+        <button disabled type="submit" data-toggle="modal" data-target="#reporteSNI"
           class="btn btn-success btn-lg pr-4 pl-4 sesion disabled">Enviar</button>
         {% else %}
-        <button type="button" data-toggle="modal" data-target="#bibliotecaVacia"
+        <button disabled type="button" data-toggle="modal" data-target="#bibliotecaVacia"
           class="btn btn-success btn-lg pr-4 pl-4 sesion disabled">Enviar</button>
         {% endif %}
       </form>
