@@ -1,0 +1,83 @@
+{% extends 'core/base.html' %}
+
+{% block contenido %}
+
+<section class="container mx-auto" style="margin-top: 100px;">
+  <div class="row">
+    <form action="" class="col-12" method="post">
+      {% csrf_token %}
+      <h4 class="text-center"><strong>
+          <p>Todos los reportes se enviarán a: <span class="text-secondary">astrofi@inaoep.mx</span> </p>
+        </strong></h4>
+
+
+      <fieldset>
+        <legend>Campos de perfil:</legend>
+        <div class="form-group">
+          <label for="correoAlternativo">Correo Alternativo</label>
+          <input disabled placeholder="Ingrese un correo alternativo" type="email" class="form-control"
+            id="correoAlternativo" value="{{perfil.correoAlternativo}}">
+          <br>Si deseas cambiar la contraseña haz click <a href="{% url 'password_change' %}">aquí.</a></p>
+        </div>
+      </fieldset>
+
+
+      <div class="form-group">
+        <button disabled id="guardar" type="button" class="btn ml-2 float-right btn-success"><i class="fas fa-save">
+            &nbsp; Guardar Cambios</i></button>
+        <button type="button" class="btn btn-primary" id="editarPerfilAdm"><i
+            class="fas fa-edit">&nbsp;Editar</i></button>
+      </div>
+
+    </form>
+  </div>
+  <div class="w-100 pb-2"></div>
+
+</section>
+{% endblock %}
+
+
+{% block JSCode %}
+<script>
+  $("#editarPerfilAdm").click(function () {
+    $("#correoAlternativo").prop('disabled', false);
+    $("#guardar").prop('disabled', false);
+    $(this).prop('disabled', true);
+  });
+  $('#guardar').click(function () {
+    var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+    var correo = $('#correoAlternativo').val().trim();
+    $.ajax({
+      type: "POST",
+      url: "{% url 'administradores:perfil_adm' %}",
+      data: {
+        'csrfmiddlewaretoken': csrfmiddlewaretoken,
+        'correoAlternativo': correo,
+
+      },
+      dataType: "JSON",
+    })
+    .done(function(response){
+      Swal.fire({
+                title: 'Actualizado',
+                text: 'Perfil actualizado exitosamente',
+                icon: 'success',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 2000
+            });
+      timer.reset(540000);
+      $("#correoAlternativo").prop('disabled', true);
+      $("#editarPerfilAdm").prop('disabled', false);
+      $("#guardar").prop('disabled', true);
+    })
+    .fail(function(response){
+      Swal.fire({
+                title: 'Error en la solicitud',
+                text: 'Algo salio mal [Code: ' + response.statusText + " ]",
+                icon: 'error',
+            });
+    });
+  });
+</script>
+{% endblock %}

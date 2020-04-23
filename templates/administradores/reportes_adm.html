@@ -1,0 +1,122 @@
+{% extends 'core/base.html' %}
+
+{% block contenido %}
+{% load static %} {# Archivos #}
+
+<div class="container mt-4">
+
+    <div class="row">
+        <div class="col-10">
+            <form action="{%  url 'administradores:reporteMaestro' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" value="{{periodoActual.id}}" name="periodoActual">
+                <button onclick="this.form.submit()" class="btn btn-success"><i style="font-size: 20px;"
+                        class="far fa-file-word"></i>&nbsp; Reporte Maestro</button>
+            </form>
+
+        </div>
+        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 mt-2">
+
+            <form action="" method="POST">
+                <label for="periodos">
+                    <strong>Periodos</strong>
+                </label>
+                {% csrf_token %}
+                <select onchange="this.form.submit()" class="form-control" name="periodo_id" id="periodo">
+                    <option value="{{periodoActual.id}}">{{periodoActual}}</option>
+                    {% for periodo in periodos %}
+                    <option value="{{periodo.id}}">{{ periodo }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+    </div>
+</div>
+
+<section class="container">
+
+    {% csrf_token %}
+    <table id="reportes" class="table table-bordered table-striped text-center dt-responsive" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Apellido(s)</th>
+                <th>Nombre(s)</th>
+                <th>PDF</th>
+                <th>Anexos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <div class="reportes">
+                {% for reporte in reportes %}
+                <tr>
+                    <td>{{reporte.fechaCreacion|date:"d-M-Y"}}</td>
+                    <td>{{reporte.usuario.last_name}}</td>
+                    <td> {{reporte.usuario.first_name}}</td>
+
+                    <td><a download href="{{reporte.reporte.url}}"><i style="font-size:35px; color:red;"
+                                class="far fa-file-pdf"></i></a></td>
+                    <td><a download href="{{reporte.anexo.url}}"><i style="font-size:35px;"
+                                class="far fa-file-archive"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </div>
+
+        </tbody>
+    </table>
+
+</section>
+
+{% endblock %}
+
+<!--JS Code-->
+{% block JSCode %}
+<!--Data table -->
+<script src="{% static 'DataTables/datatables.min.js'%}"></script>
+<link rel="stylesheet" href="{% static 'DataTables/datatables.min.css'%}">
+<script>
+    $('#reportes').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ usuarios",
+            "zeroRecords": "No se encontraron resultados",
+            "info": "Mostrando usuarios del _START_ al _END_ de un total de _TOTAL_ registros",
+            "infoEmpty": "No existen usuarios",
+            "infoFiltered": "(filtrado de un total de _MAX_ usuarios",
+            "sSearch": "Buscar:",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Ultimo",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior",
+            },
+            "sProcessing": "Procesando..."
+        },
+        dom: 'lifBtp',
+        "pageLength": 20,
+        "lengthMenu": [[5, 10, 20, 25, 50, -1], [5, 10, 20, 25, 50, "Todos"]],
+        "order": [[0, "asc"]],
+        responsive: true,
+
+    }); // Fin Reportes DataTable
+</script>
+<!--Fin datatables-->
+<script>
+
+    function reporteMaestro(periodo) {
+        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+        $.ajax({
+            type: "POST",
+            url: "{%  url 'administradores:reporteMaestro' %}",
+            data: {
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+                'periodoActual': periodo,
+            },
+            dataType: "Json"
+        });
+        timer.reset(540000);
+    }
+
+
+</script>
+{% endblock %}

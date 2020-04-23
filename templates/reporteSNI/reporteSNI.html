@@ -1,0 +1,99 @@
+{% load static %}
+<section class="container">
+  <p class="text-center pb-4 mt-4">Esta sección genera el documento de citas que CONACyT solicita a los investigadores
+    que<br>buscan entrar o renovar su distinción en el Sistema Nacional de Investigadores (SNI).</p>
+
+
+  <div class="row " style="margin-top: 100px;">
+    <div class="col-12 text-center">
+      <p><Strong class="">Método 1</Strong></p>
+      <small>Basado en el Apellido, Nombre de publicación</small>
+
+      <p><small>Introduzca el Apellido, Nombre con el que suele publicar<br>
+          en el siguiente formato: González, María</small></p>
+
+      <form action="{% url 'reporteSNI:metodo1SNI' %}">
+        <input class="form-control mb-4" type="text" placeholder="Apellido, Nombre" name="autor" id="author1" required>
+        <button type="button" onclick=" generarSNI()" class="btn btn-success btn-lg pr-4 pl-4">Enviar</button>
+      </form>
+
+    </div>
+    <!--
+    <div class="col-6 text-center">
+      <p><Strong class="">Método 2</Strong></p>
+      <small>Utiliza los bibcodes de los artículos registrados en su <a
+          href="{% url 'biblioteca:biblioteca_personal' %}">Biblioteca personal.</a></small>
+      <p><small>Introduzca el Apellido, Nombre con el que suele publicar<br>en el siguiente formato: González,
+          M.</small></p>
+
+      <form action="{% url 'reporteSNI:metodo2SNI' %}">
+        <input class="form-control mb-4" type="text" placeholder="Apellido, N." name="autor" required>
+        {% if biblioteca %}
+        <button disabled type="submit" data-toggle="modal" data-target="#reporteSNI"
+          class="btn btn-success btn-lg pr-4 pl-4 sesion disabled">Enviar</button>
+        {% else %}
+        <button disabled type="button" data-toggle="modal" data-target="#bibliotecaVacia"
+          class="btn btn-success btn-lg pr-4 pl-4 sesion disabled">Enviar</button>
+        {% endif %}
+      </form>
+
+
+    </div>
+-->
+  </div>
+
+  <div class="mt-4">
+    <p>NOTA: Los archivos que se generan TIENEN QUE SER VERIFICADOS ya que puede contener errores, por ejemplo:</p>
+    <ul>
+      <li>Duplicidad de artículos, uno de ArXiv, otro de la publicación arbitrada (quitar el ArXiv).</li>
+      <li>Errores por codificación de acentos y caracteres especiales.</li>
+    </ul>
+  </div>
+
+
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="bibliotecaVacia" tabindex="-1" role="dialog" aria-labelledby="Articulo" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Reporte SNI</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">Biblioteca vacia, favor de actualizarla para utilizar esta opcion</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Aceptar</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% block JsCode %}
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script src="{% static 'js/sweetalert.js' %}"></script>
+<script>
+  function generarSNI() {
+    var author = $('#author1').val();
+    Swal.fire({
+      title: 'Reporte SNI',
+      html: `Por favor no salga de la pagina hasta que finalice el proceso. <br>Generando Reporte SNI
+          ${author}.tex`,
+      icon: 'info',
+      allowOutsideClick: false,
+      timerProgressBar: true,
+      onBeforeOpen: () => {
+        Swal.showLoading()
+      },
+    })
+    timer.reset(540000);
+  }
+</script>
+
+{% endblock %}

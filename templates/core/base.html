@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {% load static %} {# Archivos #}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de control</title>
+    <link rel="shortcut icon" href="{% static 'media/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body>
+    <header class="container-fluid sticky-top bg-white">
+        {% if user.is_authenticated %}
+        {% if request.path == '/reporte-productividad' %}
+
+        <div class="row shadow-sm pt-1">
+            <div class="col-3">
+
+                <div class="justify-content-start"><img src="{% static 'media/logo.png' %}" width="55px;"
+                        class="img-responsive" alt="Logo"></div>
+
+            </div>
+            <div class="col-6">
+                <div class="justify-content-center text-center">
+                    <p>Coordinación de Astrofísica<br>Sistema de Reportes</p>
+                </div>
+            </div>
+
+
+            <div class="col-3">
+                <div class="justify-content-end"><img src="{% static 'media/conacyt.png' %}" width="55px"
+                        class="float-right img-responsive" alt=""></div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-6 d-flex align-items-center">
+                <div class="navbar-light">
+                    <a class="navbar-brand" href="{% url 'investigadores:home'  %}">
+                        <i class="fas fa-home">&nbsp; Inicio</i></a>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="navbar-light float-right">
+                    <a onclick="cerrarSesion()" class="nav-link text-secondary" style="cursor: pointer;">
+                        <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar Sesión</a>
+
+                    <a class="nav-link text-secondary" href="javascript:history.back()">
+                        <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row mt-2">
+
+            <div class="col-6 col-md-6">
+                <h5>{{ user.first_name}} {{user.last_name}}</h5>
+            </div>
+
+            <div class="col-6 col-md-6 d-flex justify-content-end">
+                <!--<p>Periodo:<br><strong>{{periodoActual}}</strong></p> !-->
+                <label class="mr-2" for="periodo">Periodo: </label>
+                <form  method="POST">
+                    <select  class="form-control" name="periodoActual" id="periodoActual">
+                        <option selected value="{{periodoActual.id}}">{{periodoActual.nombrePeriodo}}</option>
+                        {% for periodos in periodos %}
+                        <option value="{{periodos.id}}">{{periodos.nombrePeriodo}}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="row mt-2">
+
+            <div class="col-12 col-md-4">
+                <div class="d-flex justify-content-start text-white">
+                    <a href="{% url 'biblioteca:biblioteca_personal' %}"
+                        class="btn btn-light text-primary mr-2 btn-sm"><i class="fas fa-book"></i> Biblioteca personal
+                    </a>
+                    <a href="{% url 'biblioteca:busqueda_biblioteca' %}"
+                        class="btn btn-light text-primary mr-2 btn-sm"><i class="fas fa-search"></i> Búsqueda ADS</a>
+                    <a href="{% url 'investigadores:reporte-productividad' %}"
+                        class="btn btn-light text-primary btn-sm disabled"><i class="far fa-file-alt"></i> Reportes
+                        productividad</a>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="d-flex justify-content-center mt-md-0 mt-4">
+                    <p><strong>Periodo: <span id="nombrePeriodo">{{periodoActual.nombrePeriodo}}</span> </strong></p>
+                </div>
+
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="d-flex justify-content-center justify-content-sm-end mb-2">
+                    <div class="btn-group" role="group">
+                        <form action="{% url 'investigadores:generarReporte' %}">
+                            <input type="hidden" value="{{periodoActual.id}}" name="periodo">
+                            <button onclick="notificacion.vistaPrevia()" class="btn btn-success btn-sm mr-2"><i
+                                    class="far fa-eye"></i> Vista Previa</button>
+                        </form>
+
+                        <a class="btn btn-info btn-sm mr-2" href="{% url 'investigadores:reportesEnviados' %}"><i
+                                class="fas fa-history"></i> Historico</a>
+                        <button class="btn btn-danger btn-sm" onclick="finalizarReporte()"><i class="fas fa-check"></i>
+                            Finalizar Reporte
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {% else %}
+        {% if request.user.is_superuser %}
+        <div class="row shadow-sm pt-1">
+            <div class="col-3">
+
+                <div class="justify-content-start"><img src="{% static 'media/logo.png' %}" width="55px;"
+                        class="img-responsive" alt="Logo"></div>
+
+            </div>
+            <div class="col-6">
+                <div class="justify-content-center text-center">
+                    <p>Coordinación de Astrofísica<br>Sistema de Reportes</p>
+                </div>
+            </div>
+
+
+            <div class="col-3">
+                <div class="justify-content-end"><img src="{% static 'media/conacyt.png' %}" width="55px"
+                        class="float-right img-responsive" alt=""></div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-6 d-flex align-items-center">
+                <div class="navbar-light">
+                    <a class="navbar-brand" href="{% url 'administradores:home-adm'  %}">
+                        <i class="fas fa-home">&nbsp; Inicio</i></a>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="navbar-light float-right">
+                    <a onclick="cerrarSesion()" class="nav-link text-secondary" style="cursor: pointer;">
+                        <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar Sesión</a>
+
+                    <a class="nav-link text-secondary" href="javascript:history.back()">
+                        <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-6 col-md-6">
+                <h5>Administrador</h5>
+            </div>
+
+            <div class="col-6 col-md-6">
+                {% if request.path != '/home-adm' %}
+
+                <div class="d-flex justify-content-end text-white">
+                    <a href="{% url 'administradores:perfil_adm' %}"
+                        class="btn btn-light text-primary btn-sm mr-2 {% if request.path == '/perfil_adm' %}disabled{% endif %}">
+                        <i class="fas fa-user">&nbsp;</i> Administrador
+                    </a>
+
+                    <a href="{% url 'administradores:investigadores' %}"
+                        class="btn btn-light text-primary mr-2 btn-sm {% if request.path == '/investigadores' %}disabled{% endif %}">
+                        <i class="fas fa-users">&nbsp;</i>Usuarios
+                    </a>
+                    <a href="{% url 'administradores:reportes_adm' %}"
+                        class="btn btn-light text-primary btn-sm {% if request.path == '/reportes-adm/' %}disabled{% endif %}">
+                        <i class="far fa-file-alt"></i>&nbsp;Reportes</a>
+                </div>
+                {% endif %}
+
+
+            </div>
+
+        </div>
+
+        {% else %}
+        <div class="row shadow-sm pt-1">
+            <div class="col-3">
+
+                <div class="justify-content-start"><img src="{% static 'media/logo.png' %}" width="55px;"
+                        class="img-responsive" alt="Logo"></div>
+
+            </div>
+            <div class="col-6">
+                <div class="justify-content-center text-center">
+                    <p>Coordinación de Astrofísica<br>Sistema de Reportes</p>
+                </div>
+            </div>
+
+
+            <div class="col-3">
+                <div class="justify-content-end"><img src="{% static 'media/conacyt.png' %}" width="55px"
+                        class="float-right img-responsive" alt=""></div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-6 d-flex align-items-center">
+                <div class="navbar-light">
+                    <a class="navbar-brand" href="{% url 'investigadores:home'  %}">
+                        <i class="fas fa-home">&nbsp; Inicio</i></a>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="navbar-light float-right">
+                    <a onclick="cerrarSesion()" class="nav-link text-secondary" style="cursor: pointer;">
+                        <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar Sesión</a>
+
+                    <a class="nav-link text-secondary" href="javascript:history.back()">
+                        <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-12 col-md-6">
+                <h5>{{ user.first_name}} {{user.last_name}}</h5>
+
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="d-flex justify-content-end text-white">
+                    {% if request.path == '/home' %}
+                    <a href="http://bit.ly/Guía-Reportes-INAOE-Astro" target="blank"
+                        class="btn btn-light text-primary btn-sm"><i class="fas fa-book-open"></i> Guía rápida PDF</a>
+                    {% else %}
+                    <a href="{% url 'biblioteca:biblioteca_personal' %}"
+                        class="btn btn-light text-primary mr-2 btn-sm {% if request.path == '/biblioteca-personal' %}disabled{% endif %} "><i
+                            class="fas fa-book"></i> Biblioteca
+                        personal</a>
+                    <a href="{% url 'biblioteca:busqueda_biblioteca' %}"
+                        class="btn btn-light text-primary mr-2 btn-sm {% if request.path == '/busqueda-biblioteca' %}disabled{% endif %}"><i
+                            class="fas fa-search"></i> Búsqueda
+                        ADS</a>
+                    <a href="{% url 'investigadores:reporte-productividad' %}"
+                        class="btn btn-light text-primary btn-sm mr-2"><i class="far fa-file-alt"></i> Reportes
+                        productividad</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+
+        {% else %}
+
+        <div class="row shadow-sm pt-1">
+            <div class="col-3">
+
+                <div class="justify-content-start"><img src="{% static 'media/logo.png' %}" width="55px;"
+                        class="img-responsive" alt="Logo"></div>
+
+            </div>
+            <div class="col-6">
+                <div class="justify-content-center text-center">
+                    <p>Coordinación de Astrofísica<br>Sistema de Reportes</p>
+                </div>
+            </div>
+
+
+            <div class="col-3">
+                <div class="justify-content-end"><img src="{% static 'media/conacyt.png' %}" width="55px"
+                        class="float-right img-responsive" alt=""></div>
+            </div>
+        </div>
+
+        {% endif %}
+    </header>
+    {% block contenido %}
+
+    {% endblock %}
+
+    <footer>
+    </footer>
+
+
+    {% if request.user.is_authenticated %}
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script>
+        let timer;
+
+        //Control de sesion
+        $(document).ready(function () {
+            timer = new Timer(function () {
+                let timerInterval
+                Swal.fire({
+                    title: 'Sesión por caducar',
+                    html: 'Su sesión expira en <b></b> seg. <br> ¿Desea ampliarla? <br> <br> <i style="font-size:100px" class="far fa-clock text-danger"></i>',
+                    allowOutsideClick: false,
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '<i class="fas fa-check"> Aceptar</i>',
+                    cancelButtonText: '<i class="fas fa-times"> Cancelar</i>',
+                    timer: 60000,
+                    timerProgressBar: true,
+
+                    onBeforeOpen: () => {
+                        timerInterval = setInterval(() => {
+                            const content = Swal.getContent()
+                            if (content) {
+                                const b = content.querySelector('b')
+                                if (b) {
+                                    b.textContent = parseInt(Swal.getTimerLeft() / 1000)
+                                }     
+                            }
+                        }, 100)
+                    },
+                    onClose: () => {
+                        clearInterval(timerInterval);
+                        Swal.fire({
+                            title: 'Sesión terminada',
+                            icon: 'error',
+                            text: 'Su sesión caduco, en breve se redireccionara al login',
+                            allowOutsideClick: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            onClose: () => {
+                                $(location).attr('href', '{% url "logout" %}');
+                            },
+
+                        }).then((result) => {
+                            $(location).attr('href', '{% url "logout" %}');
+                        });
+
+                    },
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            type: "GET",
+                            url: '{% url "investigadores:Ampliar-sesion" %}'
+                        })
+                            .done(function (response) {
+                                Swal.fire({
+                                    icon: 'info',
+                                    title: 'Sesión ampliada',
+
+                                    text: 'Su sesión terminara a las ' + response.nuevaSesion,
+                                    timer: 5000,
+                                    timerProgressBar: true,
+                                })
+                                clearInterval(timerInterval);
+                            })
+                            .fail(function () {
+                                sesionTerminada();
+                            });
+                    }
+
+                });
+            }, 540000)
+
+        });
+
+        function Timer(fn, t) {
+            var timerObj = setInterval(fn, t);
+
+            this.stop = function () {
+                if (timerObj) {
+                    clearInterval(timerObj);
+                    timerObj = null;
+                }
+                return this;
+            }
+
+            // start timer using current settings (if it's not already running)
+            this.start = function () {
+                if (!timerObj) {
+                    this.stop();
+                    timerObj = setInterval(fn, t);
+                }
+                return this;
+            }
+
+            // start with new or original interval, stop current interval
+            this.reset = function (newT = t) {
+                t = newT;
+                return this.stop().start();
+            }
+        }
+
+        function cerrarSesion() {
+            Swal.fire({
+                title: 'Finalizar sesión',
+                text: '¿Realmente quiere finalizar su sesión?',
+                icon: 'question',
+                allowOutsideClick: false,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '<i class="fas fa-check"> Aceptar</i>',
+                cancelButtonText: '<i class="fas fa-times"> Cancelar</i>'
+            }).then((result) => {
+                if (result.value) {
+                    $(location).attr('href', '{% url "logout" %}');
+                }
+
+            });
+        }
+
+
+    </script>
+    <script src="{% static 'js/sweetalert.js' %}"></script>
+
+    {% endif %}
+    {% block JSCode %}
+
+    {% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,473 @@
+{% extends 'core/base.html' %}
+<!-- Secciones de la documentación-->
+{% load static %}
+
+{% block contenido %}
+<div class="container mt-2 mb-2">
+
+    <nav class="nav nav-tabs d-flex justify-content-between text-center">
+
+        <a id="investigacionCientifica" class="nav-item nav-link disabled active text-primary"
+            onclick="investigacionCientifica({{periodoActual.id}})" style="cursor: pointer;">I. Investigación<br>
+            Cientifica.</a>
+
+        <a id="formacionRH" class="nav-item nav-link" onclick="formacion_RH({{periodoActual.id}})"
+            style="cursor: pointer;">II. Formación de<br> RRHH.</a>
+
+        <a id="desarrolloTec" class="nav-item nav-link" onclick="desarrollo_tec_innov({{periodoActual.id}})"
+            style="cursor: pointer;">III. Desarrollo<br> Tec. e Innov.</a>
+
+        <a id="apoyoInstitucional" class="nav-item nav-link" onclick="apoyoInstitucional({{periodoActual.id}})"
+            style="cursor: pointer;">IV. Apoyo<br> Institucional</a>
+
+        <a id="informacionAdicional" class="nav-item nav-link" onclick="informacionAdicional({{periodoActual.id}})"
+            style="cursor: pointer;">V. Información <br>Adicional.</a>
+
+    </nav>
+
+    <div id="contenido" class="mb-4">
+
+    </div>
+
+    <ul class="pagination justify-content-center">
+
+        <li id="investigacionCientificaPag" class="page-item active"><a class="page-link"
+                onclick="investigacionCientifica({{periodoActual.id}})">1</a></li>
+        <li id="formacionRHPag" class="page-item"><a class="page-link"
+                onclick="formacion_RH({{periodoActual.id}})">2</a>
+        </li>
+        <li id="desarrolloTecPag" class="page-item"><a class="page-link"
+                onclick="desarrollo_tec_innov({{periodoActual.id}})">3</a></li>
+        <li id="apoyoInstitucionalPag" class="page-item"><a class="page-link"
+                onclick="apoyoInstitucional({{periodoActual.id}})">4</a></li>
+        <li id="informacionAdicionalPag" class="page-item"><a class="page-link"
+                onclick="informacionAdicional({{periodoActual.id}})">5</a></li>
+
+    </ul>
+</div>
+{%  endblock %}
+
+{% block JSCode %}
+
+<script>
+    $(document).ready(function () {
+        var periodo = $('select[name="periodoActual"]').val().trim();
+        investigacionCientifica(periodo);
+    });
+
+    function investigacionCientifica(periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: "{% url 'investigadores:investigacion_cientifica' %}",
+            data: { 'periodoActual': periodo },
+            dataType: "html",
+        })
+            .done(function (response) {
+                $("#numeral").remove()
+                $("#contenido").html(response);
+                //Navbar
+                $("#investigacionCientifica").addClass('disabled active text-primary')
+                $("#formacionRH").removeClass('disabled active text-primary')
+                $("#desarrolloTec").removeClass('disabled active text-primary')
+                $("#apoyoInstitucional").removeClass('disabled active text-primary')
+                $("#informacionAdicional").removeClass('disabled active text-primary')
+
+                //Paginador
+                $("#investigacionCientificaPag").addClass('active')
+                $("#formacionRHPag").removeClass('active')
+                $("#desarrolloTecPag").removeClass('active')
+                $("#apoyoInstitucionalPag").removeClass('active')
+                $("#informacionAdicionalPag").removeClass('active')
+                $('[data-toggle="modal"]').popover({
+                    trigger: 'hover',
+                    html: true,
+                    title: "Glosario:",
+                    content: `<small class="form-text text-muted mb-3">
+                                        Investigación Científica.
+                                        </small>`
+                });
+            })
+            .fail(function (response) {
+                notificacion.error(response);
+            });
+
+    }
+
+    function formacion_RH(periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: "{% url 'investigadores:formacion_RH' %}",
+            data: { 'periodoActual': periodo },
+            dataType: "html",
+        })
+            .done(function (response) {
+                $("#numerales").remove()
+                $("#contenido").html(response);
+                //Navbar
+                $("#investigacionCientifica").removeClass('disabled active text-primary')
+                $("#formacionRH").addClass('disabled active text-primary')
+                $("#desarrolloTec").removeClass('disabled active text-primary')
+                $("#apoyoInstitucional").removeClass('disabled active text-primary')
+                $("#informacionAdicional").removeClass('disabled active text-primary')
+
+                //Paginador
+                $("#investigacionCientificaPag").removeClass('active')
+                $("#formacionRHPag").addClass('active')
+                $("#desarrolloTecPag").removeClass('active')
+                $("#apoyoInstitucionalPag").removeClass('active')
+                $("#informacionAdicionalPag").removeClass('active')
+                $('[data-toggle="modal"]').popover({
+                    trigger: 'hover',
+                    html: true,
+                    title: "Glosario:",
+                    content: `<small class="form-text text-muted mb-3">
+                            Formación de RRHH </small>`});
+            })
+            .fail(function (response) {
+                notificacion.error(response);
+            });
+    }
+
+    function desarrollo_tec_innov(periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: "{% url 'investigadores:DTI' %}",
+            data: { 'periodoActual': periodo },
+            dataType: "html",
+        })
+            .done(function (response) {
+                $("#numerales").remove()
+                $("#contenido").html(response);
+                //Navbar
+                $("#investigacionCientifica").removeClass('disabled active text-primary')
+                $("#formacionRH").removeClass('disabled active text-primary')
+                $("#desarrolloTec").addClass('disabled active text-primary')
+                $("#apoyoInstitucional").removeClass('disabled active text-primary')
+                $("#informacionAdicional").removeClass('disabled active text-primary')
+
+                //Paginador
+                $("#investigacionCientificaPag").removeClass('active')
+                $("#formacionRHPag").removeClass('active')
+                $("#desarrolloTecPag").addClass('active')
+                $("#apoyoInstitucionalPag").removeClass('active')
+                $("#informacionAdicionalPag").removeClass('active')
+                $('[data-toggle="modal"]').popover({
+                    trigger: 'hover',
+                    html: true,
+                    title: "Glosario:",
+                    content: `<small class="form-text text-muted mb-3">
+                                Desarrollo Tecnológico e Innovación </small>`});
+            })
+            .fail(function (response) {
+                notificacion.error(response);
+            });
+    }
+
+    function apoyoInstitucional(periodo) {
+        $.ajax({
+            type: "GET",
+            url: "{% url 'investigadores:apoyo_institucional' %}",
+            data: { 'periodoActual': periodo },
+            dataType: "html",
+        })
+            .done(function (response) {
+                $("#numerales").remove()
+                $("#contenido").html(response);
+                //Navbar
+                $("#investigacionCientifica").removeClass('disabled active text-primary')
+                $("#formacionRH").removeClass('disabled active text-primary')
+                $("#desarrolloTec").removeClass('disabled active text-primary')
+                $("#apoyoInstitucional").addClass('disabled active text-primary')
+                $("#informacionAdicional").removeClass('disabled active text-primary')
+
+                //Paginador
+                $("#investigacionCientificaPag").removeClass('active')
+                $("#formacionRHPag").removeClass('active')
+                $("#desarrolloTecPag").removeClass('active')
+                $("#apoyoInstitucionalPag").addClass('active')
+                $("#informacionAdicionalPag").removeClass('active')
+                $('[data-toggle="modal"]').popover({
+                    trigger: 'hover',
+                    html: true,
+                    title: "Glosario:",
+                    content: `<small class="form-text text-muted mb-3">
+                            Apoyo Institucional </small>`});
+            })
+            .fail(function (response) {
+                notificacion.error(response);
+            });
+    }
+
+    function informacionAdicional(periodo) {
+
+        $.ajax({
+            type: "GET",
+            url: "{% url 'investigadores:informacion_adicional' %}",
+            data: { 'periodoActual': periodo },
+            dataType: "html",
+            success: function (response) {
+
+
+            }
+        })
+            .done(function (response) {
+                $("#numerales").remove()
+                $("#contenido").html(response);
+
+                //Navbar
+                $("#investigacionCientifica").removeClass('disabled active text-primary')
+                $("#formacionRH").removeClass('disabled active text-primary')
+                $("#desarrolloTec").removeClass('disabled active text-primary')
+                $("#apoyoInstitucional").removeClass('disabled active text-primary')
+                $("#informacionAdicional").addClass('disabled active text-primary')
+
+                //Paginador
+                $("#investigacionCientificaPag").removeClass('active')
+                $("#formacionRHPag").removeClass('active')
+                $("#desarrolloTecPag").removeClass('active')
+                $("#apoyoInstitucionalPag").removeClass('active')
+                $("#informacionAdicionalPag").addClass('active')
+                $('[data-toggle="modal"]').popover({
+                    trigger: 'hover',
+                    html: true,
+                    title: "Glosario:",
+                    content: `<small class="form-text text-muted mb-3">No aplica</small>`
+                });
+            })
+            .fail(function (response) {
+                notificacion.error(response);
+            });
+    }
+
+    function finalizarReporte() {
+        notificacion.finalizarR($('#nombrePeriodo').text())
+    }
+
+    function icono(id) {
+        $(".numeral" + id).toggleClass('fas fa-chevron-up')
+    }
+
+    $('#periodoActual').change(function () {
+        if ($('#investigacionCientifica').hasClass('disabled')) {
+            investigacionCientifica(this.value);
+        }
+        else if ($('#formacionRH').hasClass('disabled')) {
+            formacion_RH(this.value);
+        }
+        else if ($('#desarrolloTec').hasClass('disabled')) {
+            desarrollo_tec_innov(this.value);
+        }
+        else if ($('#apoyoInstitucional').hasClass('disabled')) {
+            apoyoInstitucional(this.value);
+        }
+        else {
+            informacionAdicional(this.value)
+        }
+        var index = this.options['selectedIndex']
+        var nombreP = this.options[index].text;
+
+        notificacion.periodo(nombreP)
+        $("#nombrePeriodo").html(nombreP)
+    })
+
+    $(document).on('change', 'input[type="file"]', function () {
+        var fileName = this.files[0].name;
+        var fileSize = this.files[0].size;
+
+        if (fileSize > 5242880) {
+            $("#accionModal2").text("Archivo invalido");
+            $("#textoModal2").text("El archivo no debe superar los 5MB") //¿Desea eliminar este Item?
+            $("#icono2").addClass('fas fa-exclamation text-danger')
+            $("#footer2").html(`<button class="btn btn-primary" data-dismiss="modal">Aceptar</button>`)
+            $('#modalDinamico2').modal('show'); // abrir
+            this.value = '';
+        } else {
+            // recuperamos la extensión del archivo
+            var ext = fileName.split('.').pop();
+
+            // Convertimos en minúscula porque 
+            // la extensión del archivo puede estar en mayúscula
+            ext = ext.toLowerCase();
+
+            // console.log(ext);
+            switch (ext) {
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                case 'pdf': break;
+                default:
+                    $("#accionModal2").text("Archivo invalido");
+                    $("#textoModal2").text("El archivo no tiene la extensión adecuada") //¿Desea eliminar este Item?
+                    $("#icono2").addClass('fas fa-exclamation text-danger')
+                    $("#footer2").html(`<button class="btn btn-primary" data-dismiss="modal">Aceptar</button>`)
+                    $('#modalDinamico2').modal('show'); // abrir
+                    this.value = ''; // reset del valor
+            }
+        }
+    });
+
+    var notificacion = {
+        eliminar: function (eliminar) {
+            Swal.fire({
+                title: 'Eliminar entrada',
+                text: "¿Desea eliminar esta entrada?",
+                icon: 'question',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonText: '<i class="fas fa-check"></i> Aceptar',
+                cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
+
+            }).then((result) => {
+                if (result.value) {
+                    eliminar();
+                    Swal.fire({
+                        title: 'Eliminada',
+                        text: 'Entrada eliminada exitosamente',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        timer: 2000
+                    });
+                    timer.reset(540000);
+                }
+            });
+        },
+        actualizado: function () {
+            Swal.fire({
+                title: 'Actualizado',
+                text: 'Entrada actualizada exitosamente',
+                icon: 'success',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 2000
+            });
+            timer.reset(540000);
+        },
+        fecha: function (id) {
+            var formData = new FormData(document.getElementById("biblioteca" + id))
+            formData.append("id", id);
+            expresion = /[1-2][0][1-9][0-9][/][0-1][0-9]/;
+            fecha = $("#fecha" + id).val().trim()
+            mes = fecha[5] + fecha[6]
+            if (expresion.test(fecha) && mes <= 12 && mes != 00) {
+                var resultado = []
+                resultado[0] = true;
+                resultado[1] = formData;
+                return resultado;
+            }
+            else {
+                Swal.fire({
+                    title: 'Fecha incorrecta o faltante',
+                    text: 'Ingrese la fecha en formato YYYY/MM',
+                    icon: 'info',
+                });
+                return false;
+            }
+        },
+        error: function (message) {
+            Swal.fire({
+                title: 'Error en la solicitud',
+                text: 'Algo salio mal [Code: ' + message.statusText + " ]",
+                icon: 'error',
+            });
+        },
+        creado: function () {
+            Swal.fire({
+                title: 'Creada',
+                text: 'Entrada creada exitosamente',
+                icon: 'success',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 2000
+            });
+            timer.reset(540000);
+        },
+        periodo: function (periodo) {
+            Swal.fire({
+                title: 'Periodo cambiado',
+                text: 'se cambio al periodo ' + periodo,
+                icon: 'info',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 2000
+            });
+            timer.reset(540000);
+        },
+        finalizarR: function (periodo) {
+            Swal.fire({
+                title: 'Finalizar Reporte',
+                html: '¿Está seguro(a) de finalizar su reporte correspondiente al periodo ' + periodo + ' ?' + '<br><i style="font-size:100px" class="fas fa-envelope text-muted"></i>',
+                showCancelButton: true,
+                allowOutsideClick: false,
+                cancelButtonColor: '#d33',
+                confirmButtonText: '<i class="fas fa-check"></i> Aceptar',
+                cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
+            }).then((result) => {
+                if (result.value) {
+                    periodoActual = $("select[name='periodoActual']").val().trim()
+                    $.ajax({
+                        type: "GET",
+                        url: '{% url "investigadores:enviar-Reporte" %}',
+                        data: { 'periodoActual': periodoActual },
+                        dataType: "Json",
+                        beforeSend: function (response) {
+                            Swal.fire({
+                                title: 'Procesando',
+                                html: 'Espere unos segundos ..',
+                                icon: 'info',
+                                allowOutsideClick: false,
+                                timerProgressBar: true,
+                                onBeforeOpen: () => {
+                                    Swal.showLoading()
+                                },
+                            })
+                        },
+
+                    })
+                        .done(function (response) {
+                            if (response.actualizado) {
+                                Swal.fire({
+                                    title: 'Reporte Finalizado',
+                                    html: `<small><p>El reporte <strong>${response.periodo}</strong> fue actualizado y enviado a la coordinación exitosamente.</p>
+                                            <p>En breve recibira un correo adjuntando una copia del reporte.</p></small><i style="font-size:100px" class="fas fa-check-circle text-info"></i>`,
+
+                                    allowOutsideClick: false,
+                                });
+                            }
+                            else {
+                                Swal.fire({
+                                    title: 'Reporte Finalizado',
+                                    html: `El reporte ${response.periodo} fue enviado a la coordinación exitosamente.<br>
+                                    En breve recibira un correo adjuntando una copia del reporte <br> <i style="font-size:100px" class="fas fa-check-circle text-success"></i>`,
+                                    allowOutsideClick: false,
+                                });
+                            }
+                        })
+                        .fail(function (response) {
+                            notificacion.error(response);
+                        });
+                }
+
+            }).catch((err) => {
+
+            });;
+        },
+        vistaPrevia: function () {
+            
+            Swal.fire({
+                title: 'Generando vista previa',
+                html: 'espere unos segundos...',
+                icon: 'info',
+                allowOutsideClick: false,
+                timerProgressBar: true,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                },
+            })
+        }
+    }
+</script>
+{% endblock %}

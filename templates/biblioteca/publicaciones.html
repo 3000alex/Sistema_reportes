@@ -1,0 +1,163 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block head %}
+<style>
+    #enviar {
+        display: block;
+        color: white;
+        cursor: pointer;
+        position: fixed;
+        right: 12px;
+        top: 250px;
+        z-index: 999;
+    }
+</style>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="container-fluid mb-4 mt-4">
+
+    <form action="{% url 'biblioteca:agregar-biblioteca' %}" id="formid" method="POST">
+        {% csrf_token %}
+
+        <button type="submit" id="enviar" class="btn btn-success"><i class="fas fa-book"></i>&nbsp;&nbsp;Agregar a biblioteca</button>
+
+        <table id="publicaciones" class="table table-bordered table-striped text-center" width=100%>
+            <thead>
+                <tr>
+                    <th>Agregar</th>
+                    <th>OK</th>
+                    <th>Fecha</th>
+                    <th>Link ADS</th>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Enlaces</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for datos in data %}
+                <tr>
+
+                    <td>
+                        <input style="transform: scale(1.5);" class="center sesion" type="checkbox" id="seleccion"
+                            name="seleccion[]" value="{{datos.bibcode}}">
+                    </td>
+
+                    <td>
+                        {%for article in articulos%}
+                        {% if  article.bibcode == datos.bibcode %}
+                        <i style="color:green;" class="fas fa-check-circle">
+                            {%endif%}
+                            {% endfor %}
+                    </td>
+
+                    <td>
+                        <p>{{datos.year}}</p>
+                    </td>
+
+                    <td>
+                        <a target="blank" href="https://ui.adsabs.harvard.edu/abs/{{datos.bibcode}}/abstract">
+                            <p>{{datos.bibcode}}</p>
+                        </a>
+                    </td>
+
+                    <td style="width:450px;">{% for title in datos.title %}{{title}}{% endfor %}</td>
+
+                    <td style="width:450px;">{% for author in datos.author %} {% if forloop.counter <= 7 %} {{author}}
+                        {% endif %}{% endfor %}</td>
+
+                    <td style="width:180px;">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"> <i style="font-size:25px; color:black;"
+                                    class="fas fa-file-alt"></i></a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a target="blank" class="dropdown-item"
+                                    href="https://ui.adsabs.harvard.edu/link_gateway/{{datos.bibcode}}/PUB_HTML/">Publisher
+                                    HTML</a>
+                                <a target="blank" class="dropdown-item"
+                                    href="https://ui.adsabs.harvard.edu/link_gateway/{{datos.bibcode}}/PUB_PDF/">Publisher
+                                    PDF</a>
+                                <a target="blank" class="dropdown-item"
+                                    href="https://ui.adsabs.harvard.edu/link_gateway/{{datos.bibcode}}/EPRINT_HTML/">arXiv
+                                    HTML</a>
+                                <a target="blank" class="dropdown-item"
+                                    href="https://ui.adsabs.harvard.edu/link_gateway/{{datos.bibcode}}/EPRINT_PDF/">arXiv
+                                    PDF</a>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+    </form>
+
+</div>
+{% endblock %}
+
+{% block JSCode %}
+<!--Data tables-->
+<script src="{% static 'DataTables/datatables.min.js'%}"></script>
+<link rel="stylesheet" href="{% static 'DataTables/datatables.min.css'%}">
+<script>
+    $('#publicaciones').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ entradas",
+            "zeroRecords": "No se encontraron resultados",
+            "info": "Mostrando entradas del _START_ al _END_ de un total de _TOTAL_ entradas",
+            "infoEmpty": "Sin resultados",
+            "infoFiltered": "(filtrado de un total de _MAX_ entradas)",
+            "sSearch": "Buscar:",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Ultimo",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior",
+            },
+            "sProcessing": "Procesando..."
+        },
+        dom: 'li<"toolbar">fBtp',
+        "pageLength": 50,
+        "lengthMenu": [[5, 10, 20, 25, 50, -1], [5, 10, 20, 25, 50, "Todos"]],
+        "order": [[2, "desc"]],
+        columnDefs: [
+            { width: "10px", targets: 0 },
+            { width: "20px", targets: 1 },
+            { width: "80px", targets: 2 },
+            { width: "5px", targets: 3 },
+            { width: "70px", targets: 4 },
+            { width: "70px", targets: 5 },
+            { width: "70px", targets: 6 },
+        ],
+        responsive: true
+    });
+    $("div.toolbar").html('<small>Favor de seleccionar los artículos para agregar a su biblioteca</small>');
+</script>
+<!--End data tables -->
+<script>
+    $('.sesion').click(function () {
+        timer.reset(540000);
+    });
+
+    $('#formid').submit(function(){
+        Swal.fire({
+            title: 'Obteniendo Metadatos ADS',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            text: 'Espere un momento, por favor',
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+        });
+    });
+</script>
+
+{% endblock %}
