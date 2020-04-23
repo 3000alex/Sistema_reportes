@@ -41,11 +41,10 @@ class metodo1ReporteSNI(View):
 
         f = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'r')
         response = HttpResponse(f, content_type="application/octet-stream" )
-        """
+        
         filename = 'refs_{}.tex'.format(SNIads.clean_author(author))
         content = "attachment; filename= %s" %(filename)
         response['content-Disposition'] = content
-        """
         f.close()
         return response
 
