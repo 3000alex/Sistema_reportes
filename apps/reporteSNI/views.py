@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from apps.biblioteca.models import Biblioteca
 from SNIads import SNIads
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from sistema_reportes.settings import BASE_DIR
 token = "71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7"
 # Create your views here.
 
