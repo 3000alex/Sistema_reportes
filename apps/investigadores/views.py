@@ -2,6 +2,7 @@
 from django.urls import reverse
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import FileResponse
 from django.core import serializers
 # Vistas genericas
 from django.views.generic.base import TemplateView
@@ -2149,7 +2150,7 @@ class enviarReporte(View):
 @method_decorator(login_required, name='dispatch')
 class generarReporte(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
+        periodo_id = 1 #request.GET.get('periodo',None)
 
         html = generarPdf(request,periodo_id)
         options = {
@@ -2161,7 +2162,7 @@ class generarReporte(View):
             'encoding': "UTF-8",
             'no-outline': None
         }
-        pdf = pdfkit.from_string(html,False,configuration=config,options=options)
+        pdf  = pdfkit.from_string(html,False,configuration=config,options=options)
         return HttpResponse(pdf,content_type='application/pdf')
         
     
