@@ -14,104 +14,34 @@
 
     <div id="numeral{{numeral.id}}" class="collapse" data-parent="#numeral">
 
-        <div class="card-body" style="font-size: 14px;">
             <!--modelo 14 numeral 61-->
             {% if numeral.orden == 61 %}
-            <div>
-                {% for modelo14 in numeral_61 %}
-
-                <form id="modelo14{{modelo14.id}}">
-
-                    {% csrf_token %}
-                    <div class="form-group row">
-                        <label for="telescopio" class="col-sm-2 col-form-label">Telescopio, instrumento,
-                            infraestructura:</label>
-                        <div class="col-sm-10">
-                            <input disabled class="form-control mb-1" type="text" name="telescopio"
-                                id="telescopioModelo14{{modelo14.id}}"
-                                value="{% if modelo14.TelescopioInstrumentoInfra %}{{modelo14.TelescopioInstrumentoInfra}}{% endif %}">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="" class="col-sm-2 col-form-label">URL: </label>
-                        <div class="col-sm-10">
-                            <input disabled class="form-control mb-1" type="text" name="url"
-                                id="urlModelo14{{modelo14.id}}"
-                                value="{% if modelo14.url %} {{modelo14.url}}{% endif %}">
-                        </div>
-
-                    </div>
-
-                    <label for="">Descripción: </label>
-                    <textarea disabled class="form-control mb-1" name="descripcion"
-                        id="descripcionModelo14{{modelo14.id}}" cols="30"
-                        rows="5">{% if modelo14.descripcion %}{{modelo14.descripcion}}{% endif %}</textarea>
-
-
-                    <input disabled class="form-control" accept=".pdf, image/*" type="file" name="anexo"
-                        id="anexoModelo14{{modelo14.id}}">
-                    <small class="mb-2">Tamaño máximo: 5 Mb</small>
-
-                    {%if modelo14.anexos %}
-                    <strong>Actualmente: </strong><a href="{{modelo14.anexos.url}}">{{modelo14.anexos.name|nombreFile}}</a>
-                    {% endif %}
-
-                    <div class="justify-content-end d-flex">
-                        <div class="row">
-                            <div class="col-12">
-                                <button onclick="Modelo14.actualizar({{modelo14.id}})" type="button"
-                                    class="btn btn-success" title="Guardar cambios">
-                                    <i class="fas fa-save">&nbsp;Guardar</i>
-                                </button>
-
-                                <button onclick="Modelo14.editar('modelo14{{modelo14.id}}', false)"
-                                    class="btn btn-warning text-white" type="reset">
-                                    <i class="fas fa-ban text-white">&nbsp;Cancelar</i>
-                                </button>
-
-                                <button type="button" class="btn btn-primary" onclick="Modelo14.editar('modelo14{{modelo14.id}}')"
-                                    title="Editar entrada">
-                                    <i class="fas fa-edit">&nbsp;Editar</i>
-                                </button>
-
-                                <button type="button" class="btn btn-danger"
-                                    onclick="Modelo14.eliminar({{modelo14.id}})" title="Eliminar entrada">
-                                    <i class="fas fa-trash-alt">&nbsp;Eliminar</i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                </form>
-
-                {% if forloop.last %}
-                <button onclick="Modelo14.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo14Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary float-right">Cerrar &nbsp;<i class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
-                {% empty %}
-                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
-                </div>
-                <button onclick="Modelo14.crear({{numeral.id}}, {{periodoActual.id}})" type="button"
-                    id="modelo14Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
-                    id="infoAnteriorModelo14{{numeral.id}}"
-                    onclick="Modelo14.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
-                    anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar &nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endfor %}
-            </div>
+            <table class="table text-center" style="font-size: 14px;">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Telescopio, instrumento, infraestructura</th>
+                        <th>URL:</th>
+                        <th>Descripción:</th>
+                        <th>Anexo</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+            
+                    {% for modelo14 in numeral_61 %}
+                    <tr>
+                        <td>{{modelo14.TelescopioInstrumentoInfra}}</td>
+                        <td>{{modelo14.url}}</td>
+                        <td>{{modelo14.descripcion}}</td>
+                        <td>{{modelo14.anexos.name|nombreFile}}</td>
+                        <td><button onclick="" class="btn btn-success">Editar</button>
+                            <button onclick="" class="btn btn-danger">Eliminar</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
             {% endif %}
             <!--Fin Numeral 61 Modelo14-->
-        </div>
     </div>
     {% endfor %}
 </div>

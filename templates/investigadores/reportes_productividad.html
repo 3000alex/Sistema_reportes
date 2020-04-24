@@ -8,19 +8,19 @@
     <nav class="nav nav-tabs d-flex justify-content-between text-center">
 
         <a id="investigacionCientifica" class="nav-item nav-link disabled active text-primary"
-            onclick="investigacionCientifica({{periodoActual.id}})" style="cursor: pointer;">I. Investigación<br>
+            onclick="investigacionCientifica()" style="cursor: pointer;">I. Investigación<br>
             Cientifica.</a>
 
-        <a id="formacionRH" class="nav-item nav-link" onclick="formacion_RH({{periodoActual.id}})"
+        <a id="formacionRH" class="nav-item nav-link" onclick="formacion_RH()"
             style="cursor: pointer;">II. Formación de<br> RRHH.</a>
 
-        <a id="desarrolloTec" class="nav-item nav-link" onclick="desarrollo_tec_innov({{periodoActual.id}})"
+        <a id="desarrolloTec" class="nav-item nav-link" onclick="desarrollo_tec_innov()"
             style="cursor: pointer;">III. Desarrollo<br> Tec. e Innov.</a>
 
-        <a id="apoyoInstitucional" class="nav-item nav-link" onclick="apoyoInstitucional({{periodoActual.id}})"
+        <a id="apoyoInstitucional" class="nav-item nav-link" onclick="apoyoInstitucional()"
             style="cursor: pointer;">IV. Apoyo<br> Institucional</a>
 
-        <a id="informacionAdicional" class="nav-item nav-link" onclick="informacionAdicional({{periodoActual.id}})"
+        <a id="informacionAdicional" class="nav-item nav-link" onclick="informacionAdicional()"
             style="cursor: pointer;">V. Información <br>Adicional.</a>
 
     </nav>
@@ -55,8 +55,8 @@
         investigacionCientifica(periodo);
     });
 
-    function investigacionCientifica(periodo) {
-
+    function investigacionCientifica() {
+        var periodo = $('select[name="periodoActual"]').val().trim();
         $.ajax({
             type: "GET",
             url: "{% url 'investigadores:investigacion_cientifica' %}",
@@ -94,8 +94,8 @@
 
     }
 
-    function formacion_RH(periodo) {
-
+    function formacion_RH() {
+        var periodo = $('select[name="periodoActual"]').val().trim();
         $.ajax({
             type: "GET",
             url: "{% url 'investigadores:formacion_RH' %}",
@@ -130,8 +130,8 @@
             });
     }
 
-    function desarrollo_tec_innov(periodo) {
-
+    function desarrollo_tec_innov() {
+        var periodo = $('select[name="periodoActual"]').val().trim();
         $.ajax({
             type: "GET",
             url: "{% url 'investigadores:DTI' %}",
@@ -166,7 +166,8 @@
             });
     }
 
-    function apoyoInstitucional(periodo) {
+    function apoyoInstitucional() {
+        var periodo = $('select[name="periodoActual"]').val().trim();
         $.ajax({
             type: "GET",
             url: "{% url 'investigadores:apoyo_institucional' %}",
@@ -201,8 +202,8 @@
             });
     }
 
-    function informacionAdicional(periodo) {
-
+    function informacionAdicional() {
+        var periodo = $('select[name="periodoActual"]').val().trim();
         $.ajax({
             type: "GET",
             url: "{% url 'investigadores:informacion_adicional' %}",
@@ -251,26 +252,32 @@
     }
 
     $('#periodoActual').change(function () {
+
         if ($('#investigacionCientifica').hasClass('disabled')) {
-            investigacionCientifica(this.value);
+            investigacionCientifica(this.options['selectedIndex']);
         }
         else if ($('#formacionRH').hasClass('disabled')) {
-            formacion_RH(this.value);
+            formacion_RH(this.options['selectedIndex']);
         }
         else if ($('#desarrolloTec').hasClass('disabled')) {
-            desarrollo_tec_innov(this.value);
+            desarrollo_tec_innov(this.options['selectedIndex']);
         }
         else if ($('#apoyoInstitucional').hasClass('disabled')) {
-            apoyoInstitucional(this.value);
+            apoyoInstitucional(this.options['selectedIndex']);
         }
         else {
-            informacionAdicional(this.value)
+            informacionAdicional(this.options['selectedIndex'])
         }
+        
+        //Notificar del cambio de periodo
         var index = this.options['selectedIndex']
         var nombreP = this.options[index].text;
+        notificacion.periodo(nombreP) 
+        $("#nombrePeriodo").html(nombreP) //Cambiar etiqueta central
 
-        notificacion.periodo(nombreP)
-        $("#nombrePeriodo").html(nombreP)
+        /*
+        var periodoID = $('select[name="periodoActual"] option:selected').val();
+        $('input[name="periodo"]').val(periodoID);*/
     })
 
     $(document).on('change', 'input[type="file"]', function () {
@@ -456,8 +463,9 @@
             });;
         },
         vistaPrevia: function () {
+            var periodoActual = $('select[name="periodoActual"] option:selected').text() //ID
             Swal.fire({
-                title: 'Generando vista previa',
+                title: 'Generando vista previa <br>'+`[${periodoActual}]`,
                 html: 'espere unos segundos...',
                 icon: 'info',
                 allowOutsideClick: false,

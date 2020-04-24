@@ -69,7 +69,7 @@
                 <!--<p>Periodo:<br><strong>{{periodoActual}}</strong></p> !-->
                 <label class="mr-2" for="periodo">Periodo: </label>
                 <form  method="POST">
-                    <select  class="form-control" name="periodoActual" id="periodoActual">
+                    <select class="form-control" name="periodoActual" id="periodoActual">
                         <option selected value="{{periodoActual.id}}">{{periodoActual.nombrePeriodo}}</option>
                         {% for periodos in periodos %}
                         <option value="{{periodos.id}}">{{periodos.nombrePeriodo}}</option>

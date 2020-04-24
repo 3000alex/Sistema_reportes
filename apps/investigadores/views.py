@@ -2150,7 +2150,7 @@ class enviarReporte(View):
 @method_decorator(login_required, name='dispatch')
 class generarReporte(View):
     def get(self,request):
-        periodo_id = 1 #request.GET.get('periodo',None)
+        periodo_id = request.GET.get('periodo',None)
 
         html = generarPdf(request,periodo_id)
         options = {

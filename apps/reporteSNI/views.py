@@ -7,7 +7,7 @@ from django.views.generic import View, ListView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from apps.biblioteca.models import Biblioteca
-from SNIads import SNIads
+#from SNIads import SNIads
 import os
 from sistema_reportes.settings import BASE_DIR
 token = "71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7"
