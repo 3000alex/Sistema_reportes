@@ -21,6 +21,9 @@ from .models import ReporteEnviado
 from datetime import date
 from datetime import datetime
 from django.http import JsonResponse
+#forms
+from .forms import informacionAdicionalF
+from django.urls import reverse_lazy
 
 # Manejo Archivos
 from django.shortcuts import redirect
@@ -54,6 +57,13 @@ from .generarReporteCoordinacion import generarPdf
 #Time zone
 import datetime
 
+
+class infoUpdateView(UpdateView):
+    model = Modelo14
+    template_name = "investigadores/prueba.html"
+    form_class = informacionAdicionalF
+    success_url = reverse_lazy('investigadores:reporte-productividad')
+
 @method_decorator(login_required, name='dispatch')
 class reporte_productividad(View):
     def get(self,request):
@@ -63,49 +73,52 @@ class reporte_productividad(View):
             'periodoActual': periodoActual,'periodos':periodos
         }
         return render(request, 'investigadores/reportes_productividad.html',data)
+    def post(self,request):
+        return HttpResponse('HOLA')
 
 @method_decorator(login_required, name='dispatch')
 class investigacion_cientifica(View):
 
     def get(self,request):
         id1 = request.GET.get('periodoActual')
+        id_usuario = request.user.id
         periodoActual = Periodo.objects.get(id = id1)
         periodos = Periodo.objects.all()
         yearPeriodo = periodoActual.fechaInicio.year
         data = {
             "numeralName": Numeral.objects.filter(nombreDeSeccion="Investigacion Cientifica"),
-            'numeral_1': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=1, fecha_ano=yearPeriodo),
-            'numeral_2': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=2, fecha_ano=yearPeriodo), 
-            'numeral_3': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=3, fecha_ano=yearPeriodo),
-            'numeral_4': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=4, fecha_ano=yearPeriodo),
-            'numeral_5': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=5, fecha_ano=yearPeriodo), 
-            'numeral_6': Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=6, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_7': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=7, fecha_ano=yearPeriodo), 
-            'numeral_8': Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=8, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_9': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=9, fecha_ano=yearPeriodo),
-            "numeral_10": Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=10, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_11': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=11, fecha_ano=yearPeriodo), 
-            'numeral_12': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=12, fecha_ano=yearPeriodo),
-            'numeral_13': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=13, fecha_ano=yearPeriodo), 
-            'numeral_14': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=14, fecha_ano=yearPeriodo), 
-            'numeral_14a': Biblioteca.objects.filter(user_id=request.user.id, numeral_id=15, fecha_ano=yearPeriodo),
-            'numeral_15': Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=16, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_16':Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=17, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_17':Modelo1.objects.filter(usuario_id=request.user.id, numeral_id=18, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_18':Modelo2.objects.filter(usuario_id=request.user.id, numeral_id=19, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_19':Modelo2.objects.filter(usuario_id=request.user.id, numeral_id=20, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_20':Modelo2.objects.filter(usuario_id=request.user.id, numeral_id=21, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_21':Modelo2.objects.filter(usuario_id=request.user.id, numeral_id=22, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_22':Modelo2.objects.filter(usuario_id=request.user.id, numeral_id=23, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_23':Modelo14.objects.filter(usuario_id=request.user.id, numeral_id=24, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_24':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=25, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_25':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=26, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_26':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=27, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_27':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=28, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_28':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=29, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_29':Modelo3.objects.filter(usuario_id=request.user.id, numeral_id=30, periodo__fechaInicio__year = yearPeriodo),
-            'citas': Citas.objects.filter(usuario_id=request.user.id), #Id - 31
-            'glosario': Glosario.objects.filter(seccion="I. INVESTIGACIÓN CIENTÍFICA"),
+            'numeral_1': Biblioteca.objects.reporteProductividad(id_usuario,1,yearPeriodo),
+            'numeral_2': Biblioteca.objects.reporteProductividad(id_usuario,2,yearPeriodo), 
+            'numeral_3': Biblioteca.objects.reporteProductividad(id_usuario,3,yearPeriodo),
+            'numeral_4': Biblioteca.objects.reporteProductividad(id_usuario,4,yearPeriodo),
+            'numeral_5': Biblioteca.objects.reporteProductividad(id_usuario,5,yearPeriodo), 
+            'numeral_6': Modelo1.objects.reporteProductividad(id_usuario,6,yearPeriodo),
+            'numeral_7': Biblioteca.objects.reporteProductividad(id_usuario,7,yearPeriodo), 
+            'numeral_8': Modelo1.objects.reporteProductividad(id_usuario,8,yearPeriodo),
+            'numeral_9': Biblioteca.objects.reporteProductividad(id_usuario,9,yearPeriodo),
+            "numeral_10": Modelo1.objects.reporteProductividad(id_usuario,10,yearPeriodo),
+            'numeral_11': Biblioteca.objects.reporteProductividad(id_usuario,11,yearPeriodo), 
+            'numeral_12': Biblioteca.objects.reporteProductividad(id_usuario,12,yearPeriodo),
+            'numeral_13': Biblioteca.objects.reporteProductividad(id_usuario,13,yearPeriodo), 
+            'numeral_14': Biblioteca.objects.reporteProductividad(id_usuario,14,yearPeriodo), 
+            'numeral_14a': Biblioteca.objects.reporteProductividad(id_usuario,15,yearPeriodo),
+            'numeral_15':Modelo1.objects.reporteProductividad(id_usuario,16,yearPeriodo),
+            'numeral_16':Modelo1.objects.reporteProductividad(id_usuario,17,yearPeriodo),
+            'numeral_17':Modelo1.objects.reporteProductividad(id_usuario,18,yearPeriodo),
+            'numeral_18':Modelo2.objects.reporteProductividad(id_usuario, 19,yearPeriodo),
+            'numeral_19':Modelo2.objects.reporteProductividad(id_usuario, 20,yearPeriodo),
+            'numeral_20':Modelo2.objects.reporteProductividad(id_usuario, 21,yearPeriodo),
+            'numeral_21':Modelo2.objects.reporteProductividad(id_usuario, 22,yearPeriodo),
+            'numeral_22':Modelo2.objects.reporteProductividad(id_usuario, 23,yearPeriodo),
+            'numeral_23':Modelo14.objects.reporteProductividad(id_usuario,24,yearPeriodo),
+            'numeral_24':Modelo3.objects.reporteProductividad(id_usuario, 25,yearPeriodo),
+            'numeral_25':Modelo3.objects.reporteProductividad(id_usuario, 26,yearPeriodo),
+            'numeral_26':Modelo3.objects.reporteProductividad(id_usuario, 27,yearPeriodo),
+            'numeral_27':Modelo3.objects.reporteProductividad(id_usuario, 28,yearPeriodo),
+            'numeral_28':Modelo3.objects.reporteProductividad(id_usuario, 29,yearPeriodo),
+            'numeral_29':Modelo3.objects.reporteProductividad(id_usuario, 30,yearPeriodo),
+            'citas': Citas.objects.reporteProductividad(id_usuario), #Id - 31
+            'glosario': Glosario.objects.reporteProductividad("I. INVESTIGACIÓN CIENTÍFICA"),
             'periodoActual': periodoActual,'periodos':periodos
         }
         return render(request, "investigadores/investigacionCientifica.html", data)
@@ -115,21 +128,22 @@ class formacion_RH(View):
     
     def get(self,request):
         id1 = request.GET.get('periodoActual')
+        id_usuario = request.user.id
         periodoActual = Periodo.objects.get(id = id1)
         periodos = Periodo.objects.all()
         yearPeriodo = periodoActual.fechaInicio.year
         data = {
             'numeralName': Numeral.objects.filter(nombreDeSeccion="Formacion de Recursos Humanos"),
-            'numeral_31': Modelo4.objects.filter(usuario_id=request.user.id, numeral_id=32, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_32': Modelo4.objects.filter(usuario_id=request.user.id, numeral_id=33, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_33': Modelo4.objects.filter(usuario_id=request.user.id, numeral_id=34, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_34': Modelo4.objects.filter(usuario_id=request.user.id, numeral_id=35, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_35': Modelo5.objects.filter(usuario_id=request.user.id, numeral_id=36, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_36': Modelo5.objects.filter(usuario_id=request.user.id, numeral_id=37, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_37': Modelo6.objects.filter(usuario_id=request.user.id, numeral_id=38, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_38': Modelo16.objects.filter(usuario_id=request.user.id,numeral_id=39, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_39': Modelo6.objects.filter(usuario_id=request.user.id, numeral_id=40, periodo__fechaInicio__year = yearPeriodo),
-            "glosario": Glosario.objects.filter(seccion="II. FORMACIÓN DE RECURSOS HUMANOS"),
+            'numeral_31': Modelo4.objects.reporteProductividad(id_usuario,32,yearPeriodo),
+            'numeral_32': Modelo4.objects.reporteProductividad(id_usuario,33,yearPeriodo),
+            'numeral_33': Modelo4.objects.reporteProductividad(id_usuario,34,yearPeriodo),
+            'numeral_34': Modelo4.objects.reporteProductividad(id_usuario,35,yearPeriodo),
+            'numeral_35': Modelo5.objects.reporteProductividad(id_usuario,36,yearPeriodo),
+            'numeral_36': Modelo5.objects.reporteProductividad(id_usuario,37,yearPeriodo),
+            'numeral_37': Modelo6.objects.reporteProductividad(id_usuario,38,yearPeriodo),
+            'numeral_38': Modelo16.objects.reporteProductividad(id_usuario,39,yearPeriodo),
+            'numeral_39': Modelo6.objects.reporteProductividad(id_usuario,40,yearPeriodo),
+            "glosario": Glosario.objects.reporteProductividad("II. FORMACIÓN DE RECURSOS HUMANOS"),
             "periodoActual": periodoActual,'periodos':periodos
             }
         return render(request, "investigadores/formacionRRHH.html", data)
@@ -139,19 +153,20 @@ class desarrollo_tec_inovacion(View):
     
     def get(self,request):
         id1 = request.GET.get('periodoActual')
+        id_usuario = request.user.id
         periodoActual = Periodo.objects.get(id = id1)
         periodos = Periodo.objects.all()
         yearPeriodo = periodoActual.fechaInicio.year
         data = {
             "numeralName": Numeral.objects.filter(nombreDeSeccion="Desarrollo Tecnologico e Innovacion"), 
-            'numeral_40': Modelo7.objects.filter(usuario_id=request.user.id,numeral_id=41, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_41': Modelo7.objects.filter(usuario_id=request.user.id,numeral_id=42, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_42': Modelo7.objects.filter(usuario_id=request.user.id,numeral_id=43, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_43': Modelo7.objects.filter(usuario_id=request.user.id,numeral_id=44, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_44': Modelo7.objects.filter(usuario_id=request.user.id,numeral_id=45, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_45': Modelo8.objects.filter(usuario_id=request.user.id,numeral_id=46, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_46': Modelo9.objects.filter(usuario_id=request.user.id,numeral_id=47, periodo__fechaInicio__year = yearPeriodo),
-            'glosario':  Glosario.objects.filter(seccion="III. DESARROLLO TECNOLÓGICO E INNOVACIÓN(agregar patentes en REGISTRO)"),
+            'numeral_40': Modelo7.objects.reporteProductividad(id_usuario,41,yearPeriodo),
+            'numeral_41': Modelo7.objects.reporteProductividad(id_usuario,42,yearPeriodo),
+            'numeral_42': Modelo7.objects.reporteProductividad(id_usuario,43,yearPeriodo),
+            'numeral_43': Modelo7.objects.reporteProductividad(id_usuario,44,yearPeriodo),
+            'numeral_44': Modelo7.objects.reporteProductividad(id_usuario,45,yearPeriodo),
+            'numeral_45': Modelo8.objects.reporteProductividad(id_usuario,46,yearPeriodo),
+            'numeral_46': Modelo9.objects.reporteProductividad(id_usuario,47,yearPeriodo),
+            'glosario':  Glosario.objects.reporteProductividad("III. DESARROLLO TECNOLÓGICO E INNOVACIÓN(agregar patentes en REGISTRO)"),
             'periodoActual': periodoActual,'periodos':periodos
             }
         return render(request, "investigadores/desarrolloTecInnov.html", data)
@@ -161,46 +176,49 @@ class apoyo_institucional(View):
     
     def get(self,request):
         id1 = request.GET.get('periodoActual')
+        id_usuario = request.user.id
         periodoActual = Periodo.objects.get(id = id1)
         periodos = Periodo.objects.all()
         yearPeriodo = periodoActual.fechaInicio.year
         data = {
             "numeralName": Numeral.objects.filter(nombreDeSeccion="Apoyo Institucional"),
-            'numeral_47': Modelo15.objects.filter(usuario_id=request.user.id, numeral_id=48, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_48': Modelo9.objects.filter(usuario_id=request.user.id ,numeral_id=49, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_49': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=50, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_49a': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=51, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_49b': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=52, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_50': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=53, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_51': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=54, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_52': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=55, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_52a': Modelo10.objects.filter(usuario_id=request.user.id, numeral_id=56, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_53': Modelo11.objects.filter(usuario_id=request.user.id, numeral_id=57, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_54': Modelo11.objects.filter(usuario_id=request.user.id, numeral_id=58, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_55': Modelo11.objects.filter(usuario_id=request.user.id, numeral_id=59, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_56': Modelo11.objects.filter(usuario_id=request.user.id, numeral_id=60, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_57': Modelo15.objects.filter(usuario_id=request.user.id, numeral_id=61, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_58': Modelo12.objects.filter(usuario_id=request.user.id, numeral_id=62, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_59': Modelo13.objects.filter(usuario_id=request.user.id, numeral_id=63, periodo__fechaInicio__year = yearPeriodo),
-            'numeral_60': Modelo15.objects.filter(usuario_id=request.user.id, numeral_id=64, periodo__fechaInicio__year = yearPeriodo),
-            'glosario': Glosario.objects.filter(seccion="IV. APOYO INSTITUCIONAL"), 
+            'numeral_47': Modelo15.objects.reporteProductividad(id_usuario,48,yearPeriodo),
+            'numeral_48': Modelo9.objects.reporteProductividad(id_usuario ,49,yearPeriodo),
+            'numeral_49': Modelo10.objects.reporteProductividad(id_usuario,50,yearPeriodo),
+            'numeral_49a': Modelo10.objects.reporteProductividad(id_usuario,51,yearPeriodo),
+            'numeral_49b': Modelo10.objects.reporteProductividad(id_usuario,52,yearPeriodo),
+            'numeral_50': Modelo10.objects.reporteProductividad(id_usuario,53,yearPeriodo),
+            'numeral_51': Modelo10.objects.reporteProductividad(id_usuario,54,yearPeriodo),
+            'numeral_52': Modelo10.objects.reporteProductividad(id_usuario,55,yearPeriodo),
+            'numeral_52a': Modelo10.objects.reporteProductividad(id_usuario,56,yearPeriodo),
+            'numeral_53': Modelo11.objects.reporteProductividad(id_usuario,57,yearPeriodo),
+            'numeral_54': Modelo11.objects.reporteProductividad(id_usuario,58,yearPeriodo),
+            'numeral_55': Modelo11.objects.reporteProductividad(id_usuario,59,yearPeriodo),
+            'numeral_56': Modelo11.objects.reporteProductividad(id_usuario,60,yearPeriodo),
+            'numeral_57': Modelo15.objects.reporteProductividad(id_usuario,61,yearPeriodo),
+            'numeral_58': Modelo12.objects.reporteProductividad(id_usuario,62,yearPeriodo),
+            'numeral_59': Modelo13.objects.reporteProductividad(id_usuario,63,yearPeriodo),
+            'numeral_60': Modelo15.objects.reporteProductividad(id_usuario,64,yearPeriodo),
+            'glosario': Glosario.objects.reporteProductividad("IV. APOYO INSTITUCIONAL"), 
             'periodoActual': periodoActual,'periodos':periodos
             }
         return render(request, "investigadores/apoyoInstitucional.html", data)
 
 @method_decorator(login_required, name='dispatch')
 class informacion_adicional(FormView):
-
+    form_class = informacionAdicionalF
     def get(self,request):
+        id_usuario = request.user.id
         id1 = request.GET.get('periodoActual')
         periodoActual = Periodo.objects.get(id = id1)
         periodos = Periodo.objects.all()
         yearPeriodo = periodoActual.fechaInicio.year
         data = {
             'numeralName': Numeral.objects.filter(nombreDeSeccion="Informacion Adicional"),
-            'numeral_61': Modelo14.objects.filter(usuario_id=request.user.id,numeral_id=65, periodo__fechaInicio__year = yearPeriodo),
-            'glosario': Glosario.objects.filter(seccion="V. INFORMACIÖN ADICIONAL"), 
-            'periodoActual': periodoActual,'periodos':periodos
+            'numeral_61': Modelo14.objects.reporteProductividad(id_usuario,65,yearPeriodo),
+            'glosario': Glosario.objects.reporteProductividad("V. INFORMACIÖN ADICIONAL"), 
+            'periodoActual': periodoActual,'periodos':periodos,
+            'form':self.form_class,
             }
         return render(request, "investigadores/informacionAdicional.html", data)
 
@@ -257,7 +275,7 @@ class BibliotecaCrearNumeral(View):
         numeral1 = request.POST.get('numeral', None)
         
         obj = Biblioteca.objects.create(
-            user_id=request.user.id,
+            usuario_id=request.user.id,
             numeral_id=numeral1
         )
         
@@ -1676,7 +1694,7 @@ class infoAnteriorModelo13(View):
         return  JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
-class actualizarModelo14(View):
+class actualizarModelo14(FormView):
 
     def post(self, request):
         id1 = request.POST.get('id', None)
@@ -1726,14 +1744,31 @@ class eliminarModelo14(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo14(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
-        periodo = Periodo.objects.get(id=periodo_id)
-
+        print("llegue")
+        #Create
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
+        #Update
+        telescopio = request.GET.get('TelescopioInstrumentoInfra')
+        descripcion = request.GET.get('descripcion')
+        url = request.GET.get('url')
+        conferenciaProyecto = request.GET.get('conferenciaProyecto')
+        rol = request.GET.get('rol')
+        fecha = request.GET.get('fecha')
+        anexos = request.GET.get('anexos')
+        #Validate update or create
+        
         obj = Modelo14.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
+            TelescopioInstrumentoInfra = telescopio,
+            descripcion = descripcion,
+            url = url,
+            conferenciaProyecto = conferenciaProyecto,
+            rol = rol,
+            fecha = fecha,
+            anexos = anexos,
         )
 
         data = {
@@ -1745,6 +1780,7 @@ class crearModelo14(View):
 
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo14(View):
+    
     def get(self,request):
         periodo = request.GET.get('periodo',None)
         periodo_id = int(periodo) - 1
@@ -1994,7 +2030,7 @@ class enviarReporte(View):
         anexoModelo14 = Modelo14.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fechaInicio__year = yearPeriodo)
         anexoModelo15 = Modelo15.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fechaInicio__year = yearPeriodo)
         anexoModelo16 = Modelo16.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fechaInicio__year = yearPeriodo)
-        anexoBiblioteca = Biblioteca.objects.exclude(anexos = "").filter(user_id = request.user.id, fecha_ano=yearPeriodo)
+        anexoBiblioteca = Biblioteca.objects.exclude(anexos = "").filter(usuario_id = request.user.id, fecha_ano=yearPeriodo)
         anexoCitas = Citas.objects.exclude(anexos = "").filter(usuario_id = request.user.id,periodo__fechaInicio__year = yearPeriodo)
 
         html = generarPdf(request,periodo_id)

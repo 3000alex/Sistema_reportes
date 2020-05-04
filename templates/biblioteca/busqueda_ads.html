@@ -28,9 +28,8 @@
 
         <hr>
         <div class="row">
-            <form class="col-12" method="POST" action="{% url 'biblioteca:publicaciones_generales' %}"
+            <form class="col-12" method="GET" action="{% url 'biblioteca:publicaciones_generales' %}"
                 id="formBusquedaGeneral">
-                {% csrf_token %}
                 <label for="autor">Búsqueda general:</label>
                 <div class="input-group">
 
@@ -72,9 +71,8 @@
         <hr>
 
         <div class="row">
-            <form class="col-12" method="POST" action="{% url 'biblioteca:publicaciones_bidcode' %}"
+            <form class="col-12" method="GET" action="{% url 'biblioteca:publicaciones_bidcode' %}"
                 id="formBusquedaBibcode">
-                {% csrf_token %}
                 <label for="bibcode">BibCode:</label>
                 <div class="input-group">
                     <input placeholder="ejemplo: 2018MNRAS.479..917G" class="form-control" type="text" name="bibcode"
@@ -89,9 +87,8 @@
         <hr>
 
         <div class="row">
-            <form class="col-12" method="POST" action="{% url 'biblioteca:publicaciones_orcid' %}"
+            <form class="col-12" method="GET" action="{% url 'biblioteca:publicaciones_orcid' %}"
                 id="formBusquedaOrcid">
-                {% csrf_token %}
                 <label for="orcid">ORCID:</label>
                 <div class="input-group">
                     <input placeholder="0000-0002-1825-0097" class="form-control" value="{{user.orcId}}" type="text"
@@ -102,18 +99,14 @@
                     </div>
                 </div>
 
-
                 {% if user.orcId == "" %}
                 <small> &nbsp;&nbsp; No tiene asignado un ORCID iD en su <a
                         href="{% url 'registration:actualizar-perfil' %}">perfil.</a></small>
 
                 {% endif %}
-
-
             </form>
         </div>
         <hr>
-
     </div>
 </div>
 

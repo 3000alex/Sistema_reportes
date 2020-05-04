@@ -1,6 +1,8 @@
 from django.db import models
 from apps.registration.models import User
 from datetime import *
+from .managers import (modelo1Manager,modelo2Manager,modelo3Manager,modelo4Manager,modelo5Manager,modelo6Manager,modelo7Manager,modelo8Manager,modelo9Manager,modelo10Manager
+,modelo11Manager,modelo12Manager,modelo13Manager,modelo14Manager,modelo15Manager,modelo16Manager,citasManager,glosarioManager)
 # Create your models here.
 Seccionselect = (
         ('Investigacion Cientifica','Investigacion Cientifica'),
@@ -10,6 +12,12 @@ Seccionselect = (
         ('Informacion Adicional','Informacion Adicional'),
 
     )
+
+TelescopioChoise = (
+    ('Telescopio','Telescopio'),
+    ('Instrumento','Instrumento'),
+    ('Infraestructura','Infraestructura')
+)
 
 Presentacionselect = (
     ('presentacion oral','presentacion oral'),
@@ -54,6 +62,8 @@ class Glosario(models.Model):
     numerales = models.TextField(max_length=5000, verbose_name="Nombre del numeral")
     explicacion = models.TextField(max_length=5000, verbose_name="Explicación")
     
+    objects = glosarioManager()
+
     class Meta:
         verbose_name = "glosario"
         verbose_name_plural = "Glosarios"
@@ -82,12 +92,13 @@ class Modelo1(models.Model):
     fecha = models.CharField(max_length=100, verbose_name="Fecha del articulo", blank=True,null=True)
     titulo = models.TextField(max_length=15000,verbose_name="Nombre del titulo", blank=True,null=True)
     revistaPublicacion = models.CharField(max_length=250,verbose_name="Nombre de la revista o publicacion", blank=True,null=True)
-    url = models.CharField(max_length=100,verbose_name="url del articulo", blank=True,null=True)
+    url = models.URLField(max_length=100,verbose_name="url del articulo", blank=True,null=True)
     estudiantesEnArticulo = models.CharField(max_length=250,verbose_name="Nombre de los estudiantes en el articulo", blank=True,null=True)
     doi = models.CharField(max_length=150,verbose_name="Nombre de doi", blank=True,null=True)
     anexos = models.FileField(verbose_name="archivo PDF",  upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects  = modelo1Manager()
 
     class Meta:
         verbose_name="Campo Modelo 1"
@@ -110,6 +121,7 @@ class Modelo2(models.Model):
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects = modelo2Manager()
 
     class Meta:
         verbose_name="campo Modelo 2"
@@ -135,6 +147,8 @@ class Modelo3(models.Model):
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects = modelo3Manager()
+
     class Meta:
         verbose_name="campo Modelo 3"
         verbose_name_plural = "Campos del Modelo 3"
@@ -155,6 +169,8 @@ class Modelo4(models.Model):
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects  = modelo4Manager()
+
     class Meta:
         verbose_name="campo Modelo 4"
         verbose_name_plural = "Campos del Modelo 4"
@@ -174,6 +190,8 @@ class Modelo5(models.Model):
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', blank=True,null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects  = modelo5Manager()
+
     class Meta:
         verbose_name="campo Modelo 5"
         verbose_name_plural = "Campos del Modelo 5"
@@ -196,6 +214,7 @@ class Modelo6(models.Model):
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/',null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects  = modelo6Manager()
 
     class Meta:
         verbose_name="campo Modelo 6"
@@ -216,6 +235,8 @@ class Modelo7(models.Model):
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects  = modelo7Manager()
+
     class Meta:
         verbose_name="campo Modelo 7"
         verbose_name_plural = "Campos del Modelo 7"
@@ -236,6 +257,8 @@ class Modelo8(models.Model):
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/',null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects  = modelo8Manager()
+
     class Meta:
         verbose_name="campo Modelo 8"
         verbose_name_plural = "Campos del Modelo 8"
@@ -259,6 +282,8 @@ class Modelo9(models.Model):
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects  = modelo9Manager()
+
     class Meta:
         verbose_name="campo Modelo 9"
         verbose_name_plural = "Campos del Modelo 9"
@@ -279,6 +304,8 @@ class Modelo10(models.Model):
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/',null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects  = modelo10Manager()
+
     class Meta:
         verbose_name="campo Modelo 10"
         verbose_name_plural = "Campos del Modelo 10"
@@ -298,6 +325,8 @@ class Modelo11(models.Model):
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects  = modelo11Manager()
+
     class Meta:
         verbose_name="campo Modelo 11"
         verbose_name_plural = "Campos del Modelo 11"
@@ -315,6 +344,8 @@ class Modelo12(models.Model):
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/',null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion", blank=True)
     
+    objects  = modelo12Manager()
+
     class Meta:
         verbose_name="campo Modelo 12"
         verbose_name_plural = "Campos del Modelo 12"
@@ -333,6 +364,8 @@ class Modelo13(models.Model):
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects  = modelo13Manager()
+
     class Meta:
         verbose_name="campo Modelo 13"
         verbose_name_plural = "Campos del Modelo 13"
@@ -347,14 +380,16 @@ class Modelo14(models.Model):
     numeral = models.ForeignKey(Numeral, null=True,blank=True, on_delete=models.CASCADE)
     periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     descripcion = models.TextField(max_length=15000,verbose_name="Descripcion", blank=True,null=True)
-    TelescopioInstrumentoInfra = models.CharField(max_length=500,verbose_name="Opciones", blank=True,null=True)
+    TelescopioInstrumentoInfra = models.CharField(max_length=500,verbose_name="Telescopio, instrumento, infraestructura", blank=True,null=True, choices=TelescopioChoise)
     url = models.CharField(max_length=100,verbose_name="url", blank=True,null=True)
     conferenciaProyecto = models.CharField(max_length=500,  verbose_name="Conferencia o proyecto", blank=True,null=True)
     rol = models.CharField(max_length=500,  verbose_name="rol", blank=True,null=True)
     fecha = models.CharField(max_length=200,  verbose_name="fecha", blank=True,null=True)
-    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
+    anexos = models.FileField(verbose_name="anexo", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects  = modelo14Manager()
+
     class Meta:
         verbose_name="campo Modelo 14"
         verbose_name_plural = "Campos del Modelo 14"
@@ -369,9 +404,11 @@ class Modelo15(models.Model):
     numeral = models.ForeignKey(Numeral, null=True,blank=True, on_delete=models.CASCADE)
     periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     descripcion = models.TextField(max_length=15000,verbose_name="descripcion", blank=True,null=True)
-    anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
+    anexos = models.FileField(verbose_name="anexo", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion", blank=True)
     
+    objects  = modelo15Manager()
+
     class Meta:
         verbose_name="campo Modelo 15"
         verbose_name_plural = "Campos del Modelo 15"
@@ -390,6 +427,8 @@ class Modelo16(models.Model):
     grado = models.CharField(max_length=500,  verbose_name="Grado", blank=True,null=True)
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/', null=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion", blank=True)
+
+    objects  = modelo16Manager()
 
     class Meta:
         verbose_name="campo Modelo 16"
@@ -410,6 +449,8 @@ class Citas(models.Model):
     anexos = models.FileField(verbose_name="archivo PDF",  null=True, upload_to='anexos/')
     fechaCreacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     
+    objects = citasManager()
+
     class Meta:
         verbose_name ="cita del periodo"
         verbose_name_plural = "Citas del periodo"

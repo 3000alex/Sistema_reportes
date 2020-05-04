@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block contenido %}
-<div class="container mt-2 mb-2">
+<div class="container-fluid mt-2 mb-2">
 
     <nav class="nav nav-tabs d-flex justify-content-between text-center">
 
@@ -271,48 +271,13 @@
         var index = this.options['selectedIndex']
         var nombreP = this.options[index].text;
         notificacion.periodo(nombreP) 
+        $("input[name='periodo']").val(index)
         $("#nombrePeriodo").html(nombreP) //Cambiar etiqueta central
 
         /*
         var periodoID = $('select[name="periodoActual"] option:selected').val();
         $('input[name="periodo"]').val(periodoID);*/
     })
-
-    $(document).on('change', 'input[type="file"]', function () {
-        var fileName = this.files[0].name;
-        var fileSize = this.files[0].size;
-
-        if (fileSize > 5242880) {
-            $("#accionModal2").text("Archivo invalido");
-            $("#textoModal2").text("El archivo no debe superar los 5MB") //¿Desea eliminar este Item?
-            $("#icono2").addClass('fas fa-exclamation text-danger')
-            $("#footer2").html(`<button class="btn btn-primary" data-dismiss="modal">Aceptar</button>`)
-            $('#modalDinamico2').modal('show'); // abrir
-            this.value = '';
-        } else {
-            // recuperamos la extensión del archivo
-            var ext = fileName.split('.').pop();
-
-            // Convertimos en minúscula porque 
-            // la extensión del archivo puede estar en mayúscula
-            ext = ext.toLowerCase();
-
-            // console.log(ext);
-            switch (ext) {
-                case 'jpg':
-                case 'jpeg':
-                case 'png':
-                case 'pdf': break;
-                default:
-                    $("#accionModal2").text("Archivo invalido");
-                    $("#textoModal2").text("El archivo no tiene la extensión adecuada") //¿Desea eliminar este Item?
-                    $("#icono2").addClass('fas fa-exclamation text-danger')
-                    $("#footer2").html(`<button class="btn btn-primary" data-dismiss="modal">Aceptar</button>`)
-                    $('#modalDinamico2').modal('show'); // abrir
-                    this.value = ''; // reset del valor
-            }
-        }
-    });
 
     var notificacion = {
         eliminar: function (eliminar) {
@@ -324,7 +289,7 @@
                 cancelButtonColor: '#d33',
                 confirmButtonText: '<i class="fas fa-check"></i> Aceptar',
                 cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
-
+                
             }).then((result) => {
                 if (result.value) {
                     eliminar();

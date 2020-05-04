@@ -12,6 +12,14 @@
         top: 250px;
         z-index: 999;
     }
+    .autor {
+        transition: all .5s;
+        max-width: 120px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        overflow: hidden;
+    }
 </style>
 {% endblock %}
 
@@ -19,12 +27,12 @@
 
 <div class="container-fluid mb-4 mt-4">
 
-    <form action="{% url 'biblioteca:agregar-biblioteca' %}" id="formid" method="POST">
+    <form id="formid">
         {% csrf_token %}
 
-        <button type="submit" id="enviar" class="btn btn-success"><i class="fas fa-book"></i>&nbsp;&nbsp;Agregar a biblioteca</button>
+        <button type="button" id="enviar" class="btn btn-success"><i class="fas fa-book"></i>&nbsp;&nbsp;Agregar a biblioteca</button>
 
-        <table id="publicaciones" class="table table-bordered table-striped text-center" width=100%>
+        <table id="publicaciones" class="table table-bordered table-striped text-center dt-responsive" width=100%>
             <thead>
                 <tr>
                     <th>Agregar</th>
@@ -34,6 +42,10 @@
                     <th>Título</th>
                     <th>Autor</th>
                     <th>Enlaces</th>
+                    <th>Doi</th>
+                    <th>Page</th>
+                    <th>Volume</th>
+                    <th>Pub</th>
                 </tr>
             </thead>
 
@@ -43,9 +55,11 @@
                 <tr>
 
                     <td>
-                        <input style="transform: scale(1.5);" class="center sesion" type="checkbox" id="seleccion"
-                            name="seleccion[]" value="{{datos.bibcode}}">
-                    </td>
+                        <input {%for article in articulos%}
+                        {% if  article.bibcode == datos.bibcode %}disabled{%endif%}{% endfor %}
+                         style="transform: scale(1.5);" class="center sesion" type="checkbox"
+                            name="seleccion[]" id="{{forloop.counter}}" value="">
+                    </td> <!--Checkbox-->
 
                     <td>
                         {%for article in articulos%}
@@ -53,24 +67,17 @@
                         <i style="color:green;" class="fas fa-check-circle">
                             {%endif%}
                             {% endfor %}
-                    </td>
+                    </td> <!--Ok-->
+
+                    <td id="fecha{{forloop.counter}}">{{datos.pubdate|slice:":7"}}</td>
+
+                    <td id="bibcode{{forloop.counter}}"><a target="blank" href="https://ui.adsabs.harvard.edu/abs/{{datos.bibcode}}/abstract">{{datos.bibcode}}</a></td>
+
+                    <td id="titulo{{forloop.counter}}"><div style="width:400px;">{% for title in datos.title %}{{title}}{% endfor %}</div></td>
+
+                    <td id="autor{{forloop.counter}}" ><div style="height:70px; overflow: hidden;">{% for author in datos.author %}{{author}};{% endfor %}</div></td>
 
                     <td>
-                        <p>{{datos.year}}</p>
-                    </td>
-
-                    <td>
-                        <a target="blank" href="https://ui.adsabs.harvard.edu/abs/{{datos.bibcode}}/abstract">
-                            <p>{{datos.bibcode}}</p>
-                        </a>
-                    </td>
-
-                    <td style="width:450px;">{% for title in datos.title %}{{title}}{% endfor %}</td>
-
-                    <td style="width:450px;">{% for author in datos.author %} {% if forloop.counter <= 7 %} {{author}}
-                        {% endif %}{% endfor %}</td>
-
-                    <td style="width:180px;">
                         <div class="dropdown">
                             <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false"> <i style="font-size:25px; color:black;"
@@ -90,16 +97,16 @@
                                     PDF</a>
                             </div>
                         </div>
-
-                    </td>
+                    </td><!--Enlaces-->
+                    <td id="doi{{forloop.counter}}">{%for d in datos.doi %}{{d}}{% endfor %}</td>
+                    <td id="page{{forloop.counter}}">{% for d in datos.page %}{{d}}{% endfor %}</td>
+                    <td id="volume{{forloop.counter}}">{{datos.volume}}</td>
+                    <td id="pub{{forloop.counter}}">{{datos.pub}}</td>
                 </tr>
                 {% endfor %}
-
             </tbody>
-
         </table>
     </form>
-
 </div>
 {% endblock %}
 
@@ -128,15 +135,6 @@
         "pageLength": 50,
         "lengthMenu": [[5, 10, 20, 25, 50, -1], [5, 10, 20, 25, 50, "Todos"]],
         "order": [[2, "desc"]],
-        columnDefs: [
-            { width: "10px", targets: 0 },
-            { width: "20px", targets: 1 },
-            { width: "80px", targets: 2 },
-            { width: "5px", targets: 3 },
-            { width: "70px", targets: 4 },
-            { width: "70px", targets: 5 },
-            { width: "70px", targets: 6 },
-        ],
         responsive: true
     });
     $("div.toolbar").html('<small>Favor de seleccionar los artículos para agregar a su biblioteca</small>');
@@ -147,7 +145,22 @@
         timer.reset(540000);
     });
 
-    $('#formid').submit(function(){
+    $('#enviar').click(function(){
+        
+        var articulos = []
+        $("input:checkbox:checked").each(function() {
+            id = $(this)[0].id;
+            articulos.push({
+                "fecha":$("#fecha"+id).text().replace('-','/').trim(),
+                "bibcode":$("#bibcode"+id).text().trim(),
+                "titulo": $("#titulo"+id).text().trim(),
+                "autores":$("#autor"+id).text().trim(),
+                "doi":$("#doi"+id).text().trim(),
+                "page":$("#page"+id).text().trim(),
+                "volume":$("#volume"+id).text().trim(),
+                "pub":$("#pub"+id).text().trim(),
+            }); 
+        });
         Swal.fire({
             title: 'Obteniendo Metadatos ADS',
             allowOutsideClick: false,
@@ -156,6 +169,15 @@
             onBeforeOpen: () => {
                 Swal.showLoading()
             },
+        });
+        $.ajax({
+            type: "POST",
+            url: "{% url 'biblioteca:agregar-biblioteca' %}",
+            data: {"articulos[]":JSON.stringify(articulos),csrfmiddlewaretoken: '{{ csrf_token }}'},
+            dataType: "json",
+        })
+        .done(function(){
+            $(location).attr('href',"{% url 'biblioteca:biblioteca_personal' %}");
         });
     });
 </script>

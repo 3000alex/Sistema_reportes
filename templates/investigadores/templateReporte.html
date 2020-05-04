@@ -58,7 +58,7 @@
                     {% if numeral.id == biblioteca.numeral_id %}
                     <ul>
                         <li>                                
-                            {% if biblioteca.autores %}{{biblioteca.autores|nombreCorto:biblioteca.user.nombreCorto|safe }},{% endif %}
+                            {% if biblioteca.autores %}{{biblioteca.autores|nombreCorto:biblioteca.usuario.nombreCorto|safe }},{% endif %}
                             {% if biblioteca.titulo %}<i>{{biblioteca.titulo}},</i>{% endif %}
                             {% if biblioteca.revistaPublicacion %}{{biblioteca.revistaPublicacion}},{% endif %}
                             {% if biblioteca.volumen %}{{biblioteca.volumen}},{% endif %} 

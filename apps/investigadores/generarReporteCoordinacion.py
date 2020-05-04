@@ -24,7 +24,7 @@ def generarPdf(request,periodo_id):
         'datosInvestigador': User.objects.get(id=request.user.id),
         'numeral': Numeral.objects.all(),
         'citas': Citas.objects.filter(usuario_id=request.user.id,periodo__fechaInicio__year = yearPeriodo),
-        'biblioteca': Biblioteca.objects.filter( user_id=request.user.id, fecha_ano=yearPeriodo),
+        'biblioteca': Biblioteca.objects.filter( usuario_id=request.user.id, fecha_ano=yearPeriodo),
         'modelo1': Modelo1.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
         'modelo2': Modelo2.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),
         'modelo3': Modelo3.objects.filter(usuario_id=request.user.id, periodo__fechaInicio__year = yearPeriodo),

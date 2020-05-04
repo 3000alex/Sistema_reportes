@@ -5,7 +5,7 @@ from . import views
 bibliotecapatterns = ([ 
     #Rutas biblioteca
     path('biblioteca-personal', views.biblioteca_personal.as_view(), name="biblioteca_personal"),
-    path('busqueda-biblioteca', views.busqueda_biblioteca.as_view(), name="busqueda_biblioteca"),
+    path('busqueda-ads', views.busqueda_ads.as_view(), name="busqueda_biblioteca"),
     path('editar-biblioteca', views.editar_biblioteca.as_view(), name="editar-biblioteca"),
     path('eliminar-biblioteca', views.eliminar_biblioteca.as_view(), name="eliminar-biblioteca"),
     #Rutas de API ADS
