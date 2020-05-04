@@ -10,37 +10,53 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 import os
+from django.core.exceptions import ImproperlyConfigured
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+with open("secret.json") as f:
+    secret = json.loads(f.read())
 
+def get_secret(secret_name, mode, secrets=secret):
+    try:
+        return secrets[mode][secret_name]
+    except:
+        msg = "La variable %s no existe " % secret_name
+        raise ImproperlyConfigured(msg)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0pzh4!ao%k5)hi3xx9j=-op=(+_0g4pok0s6g#07#xxcyuyq8z'
+SECRET_KEY = get_secret("SECRET_KEY","LOCAL")
 
 ALLOWED_HOSTS = ['*','califa.inaoep.mx']
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = (
     'apps.registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles', 
+)
+
+LOCAL_APPS = (
     'apps.core',
     'apps.administradores',
     'apps.investigadores',
     'apps.biblioteca',
     'apps.metricas',
     'apps.reporteSNI',
-    'django_crontab',
-]
+)
+
+THIRD_PARTY_APPS = ('django_crontab',)
+
+INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
 CRONJOBS = [
     ('*/2 * * * *', 'administradores.nuevoPeriodo.nuevoPeriodo')

@@ -6,13 +6,12 @@ from .settings import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sistema_reportes',
-        'USER': 'root',
-        'PASSWORD':'',
+        'NAME': get_secret('DB_NAME',"LOCAL"),
+        'USER': get_secret('USER',"LOCAL"),
+        'PASSWORD':get_secret('PASSWORD',"LOCAL"),
         'HOST': 'localhost',
         'PORT': '3306',
         'TIME_ZONE':'America/Mexico_City',
-        
     }
 }
 # SECURITY WARNING: don't run with debug turned on in production!
