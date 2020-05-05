@@ -29,7 +29,7 @@ def get_secret(secret_name, mode, secrets=secret):
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_secret("SECRET_KEY","LOCAL")
+SECRET_KEY = "0pzh4!ao%k5)hi3xx9j=-op=(+_0g4pok0s6g#07#xxcyuyq8z"
 
 ALLOWED_HOSTS = ['*','califa.inaoep.mx']
 

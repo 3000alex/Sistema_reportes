@@ -5,9 +5,9 @@ DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': get_secret('DB_NAME','PRODUCCION'),
-        'USER': get_secret('USER','PRODUCCION'),
-        'PASSWORD':get_secret('PASSWORD','PRODUCCION'),
+        'NAME': 'sistema_reportes',
+        'USER': 'FernandoFabian',
+        'PASSWORD':'(s(n+k{D#c{}%/[*S0n3',
         'HOST': 'localhost',
         'PORT': '3306',
         'TIME_ZONE':'America/Mexico_City',
