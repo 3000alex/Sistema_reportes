@@ -10,20 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 import os
-from django.core.exceptions import ImproperlyConfigured
-import json
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-with open("secret.json") as f:
-    secret = json.loads(f.read())
 
-def get_secret(secret_name, mode, secrets=secret):
-    try:
-        return secrets[mode][secret_name]
-    except:
-        msg = "La variable %s no existe " % secret_name
-        raise ImproperlyConfigured(msg)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
