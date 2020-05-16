@@ -98,10 +98,10 @@
                             </div>
                         </div>
                     </td><!--Enlaces-->
-                    <td id="doi{{forloop.counter}}">{%for d in datos.doi %}{{d}}{% endfor %}</td>
-                    <td id="page{{forloop.counter}}">{% for d in datos.page %}{{d}}{% endfor %}</td>
-                    <td id="volume{{forloop.counter}}">{{datos.volume}}</td>
-                    <td id="pub{{forloop.counter}}">{{datos.pub}}</td>
+                    <td id="doi{{forloop.counter}}">{%for d in datos.doi %}{% if d %}{{d}}{% endif %}{% endfor %}</td>
+                    <td id="page{{forloop.counter}}">{% for d in datos.page %}{% if d %}{{d}}{% endif %}{% endfor %}</td>
+                    <td id="volume{{forloop.counter}}">{% if datos.volume %} {{datos.volume}}{% endif %}</td>
+                    <td id="pub{{forloop.counter}}"> {% if datos.pub %}{{datos.pub}}{% endif %}</td>
                 </tr>
                 {% endfor %}
             </tbody>

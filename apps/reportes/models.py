@@ -441,10 +441,9 @@ class Modelo16(models.Model):
 class Citas(models.Model):
     usuario = models.ForeignKey(User,on_delete=models.CASCADE)
     numeral = models.ForeignKey(Numeral, on_delete=models.CASCADE)
-    periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
-    citas = models.IntegerField(verbose_name="Citas",  blank=True)
-    citas_en_periodo = models.IntegerField(verbose_name="Citas durante periodo del reporte", blank=True)
-    indiceH = models.IntegerField(verbose_name="Indice H",  blank=True,)
+    citas = models.IntegerField(verbose_name="Citas", default=0)
+    citas_en_periodo = models.IntegerField(verbose_name="Citas durante periodo del reporte", default=0)
+    indiceH = models.IntegerField(verbose_name="Indice H",  default=0)
     anexos = models.FileField(verbose_name="archivo PDF", upload_to='anexos/',blank=True)
     fecha_de_creacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha y Hora de creacion")
     

@@ -2093,7 +2093,7 @@ class enviarReporte(View):
                 os.remove(os.path.join(BASE_DIR + '/media/'+reporte.anexo.name))
             
         reporte.reporte.save('Reporte '+periodo+' '+str(reporte.id)+'.pdf', ContentFile(pdf), save=False)
-        print(BASE_DIR + '/media/'+'anexos_zip/anexo.zip')
+
         #Genera Zip con anexos
         with zipfile.ZipFile(BASE_DIR + '/media/'+'anexos_zip/anexo.zip', mode='w', compression=zipfile.ZIP_DEFLATED) as anexoZip:
             
@@ -2211,8 +2211,8 @@ class perfil(TemplateView):
 @method_decorator(login_required, name='dispatch')
 class ampliarSesion(View):
     def get(self, request):
-        sesion_expiry = request.session.set_expiry(600)
-        sesion = request.session.get_expiry_date()
+        request.session.set_expiry(600)
+        request.session.get_expiry_date()
 
         timeNow = datetime.datetime.now() + datetime.timedelta(minutes=10)
         hora = timeNow.hour

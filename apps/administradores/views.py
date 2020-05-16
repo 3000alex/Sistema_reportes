@@ -46,7 +46,7 @@ class StaffRequiredMixin(object):
 
 class UsuariosListado(StaffRequiredMixin, ListView):
     model = User  # Llamamos a la clase Users que es la que contiene nuestros usuarios
-    template_name = "administradores/reportes.html"
+    template_name = "administradores/investigadores.html"
     context_object_name = 'users'
 
 
@@ -84,10 +84,9 @@ class UsuarioAgregar(StaffRequiredMixin, View):
         # Crear objeto
         userNew = User.objects.create_user(email=email1, password=password1, nombre=nombre1, apellido=lastName1, nombreCorto=nombreCorto1)
         
-        for p in periodos:
-            Citas.objects.create(
-                numeral_id = 31, periodo_id = p.id, usuario_id = userNew.id
-            )
+        Citas.objects.create(
+            numeral_id = 31,  usuario_id = userNew.id
+        )
 
         body = render_to_string(
             'administradores/templateBienvenida.html', {

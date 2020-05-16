@@ -25,7 +25,7 @@
                         <label for="autores" class="col-md-2">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="form-control" id="autores{{biblioteca.id}}" name="autores"
-                                type="text" value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                type="text" value="{{biblioteca.autores}}">
                         </div>
                     </div>
 
@@ -33,7 +33,7 @@
                         <label for="titulo" class="col-md-2">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control" id="titulo{{biblioteca.id}}" name="titulo" type="text"
-                                value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                value="{{biblioteca.titulo}}">
                         </div>
                     </div>
 
@@ -42,7 +42,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacion{{biblioteca.id}}"
                                 name="revista"
-                                value="{% if biblioteca.revista_publicacion %}{% if biblioteca.revista_publicacion %}{{biblioteca.revista_publicacion}}{% endif %}{% endif %}"
+                                value="{{biblioteca.revista_publicacion}}"
                                 type="text">
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                         <label for="" class="col-md-2 ">DOI/ISBN:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.doi %}{{biblioteca.doi}}{% endif %}" name="doi"
+                                value="{{biblioteca.doi}}" name="doi"
                                 id="doi{{biblioteca.id}}">
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                         <label for="" class="col-md-2 ">BibCode:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}" name="bibcode"
+                                value="{{biblioteca.bibcode}}" name="bibcode"
                                 id="bibcode{{biblioteca.id}}">
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
+                                value="{{biblioteca.fecha}}" name="fecha"
                                 id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if biblioteca.estudiantes_en_articulo %}{{biblioteca.estudiantes_en_articulo}}{% endif %}">
+                                value="{{biblioteca.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -158,7 +158,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autores{{biblioteca.id}}" name="autores"
-                                type="text" value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                type="text" value="{{biblioteca.autores}}">
                         </div>
                     </div>
 
@@ -166,7 +166,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="titulo{{biblioteca.id}}" name="titulo"
-                                type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                type="text" value="{{biblioteca.titulo}}">
                         </div>
                     </div>
 
@@ -175,7 +175,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacion{{biblioteca.id}}"
                                 name="revista"
-                                value="{% if biblioteca.revista_publicacion %}{% if biblioteca.revista_publicacion %}{{biblioteca.revista_publicacion}}{% endif %}{% endif %}"
+                                value="{{biblioteca.revista_publicacion}}"
                                 type="text">
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                         <label for="" class="col-md-2 ">BibCode:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}" name="bibcode"
+                                value="{{biblioteca.bibcode}}" name="bibcode"
                                 id="bibcode{{biblioteca.id}}">
                         </div>
                     </div>
@@ -201,7 +201,7 @@
                         <label for="" class="col-md-2 ">DOI/ISBN:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                value="{{biblioteca.doi}}" name="doi"
                                 id="doi{{biblioteca.id}}">
                         </div>
                     </div>
@@ -210,7 +210,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
+                                value="{{biblioteca.fecha}}" name="fecha"
                                 id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
                         </div>
                     </div>
@@ -220,7 +220,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if biblioteca.estudiantes_en_articulo %}{{biblioteca.estudiantes_en_articulo}}{% endif %}">
+                                value="{{biblioteca.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -290,7 +290,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autores{{biblioteca.id}}" name="autores"
-                                type="text" value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                type="text" value="{{biblioteca.autores}}">
                         </div>
                     </div>
 
@@ -298,7 +298,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="titulo{{biblioteca.id}}" name="titulo"
-                                type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                type="text" value="{{biblioteca.titulo}}">
                         </div>
                     </div>
 
@@ -307,7 +307,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacion{{biblioteca.id}}"
                                 name="revista"
-                                value="{% if biblioteca.revista_publicacion %}{% if biblioteca.revista_publicacion %}{{biblioteca.revista_publicacion}}{% endif %}{% endif %}"
+                                value="{{biblioteca.revista_publicacion}}"
                                 type="text">
                         </div>
                     </div>
@@ -324,7 +324,7 @@
                         <label for="" class="col-md-2 ">BibCode:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}" name="bibcode"
+                                value="{{biblioteca.bibcode}}" name="bibcode"
                                 id="bibcode{{biblioteca.id}}">
                         </div>
                     </div>
@@ -333,7 +333,7 @@
                         <label for="" class="col-md-2 ">DOI/ISBN:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.doi %}{{biblioteca.doi}}{% endif %}" name="doi"
+                                value="{{biblioteca.doi}}" name="doi"
                                 id="doi{{biblioteca.id}}">
                         </div>
                     </div>
@@ -342,7 +342,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
+                                value="{{biblioteca.fecha}}" name="fecha"
                                 id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
                         </div>
                     </div>
@@ -352,7 +352,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if biblioteca.estudiantes_en_articulo %}{{biblioteca.estudiantes_en_articulo}}{% endif %}">
+                                value="{{biblioteca.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -424,7 +424,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autores{{biblioteca.id}}" name="autores"
-                                type="text" value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                type="text" value="{{biblioteca.autores}}">
                         </div>
                     </div>
 
@@ -432,7 +432,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="titulo{{biblioteca.id}}" name="titulo"
-                                type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                type="text" value="{{biblioteca.titulo}}">
                         </div>
                     </div>
 
@@ -441,7 +441,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacion{{biblioteca.id}}"
                                 name="revista"
-                                value="{% if biblioteca.revista_publicacion %}{% if biblioteca.revista_publicacion %}{{biblioteca.revista_publicacion}}{% endif %}{% endif %}"
+                                value="{{biblioteca.revista_publicacion}}"
                                 type="text">
                         </div>
 
@@ -459,7 +459,7 @@
                         <label for="" class="col-md-2 ">BibCode:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}" name="bibcode"
+                                value="{{biblioteca.bibcode}}" name="bibcode"
                                 id="bibcode{{biblioteca.id}}">
                         </div>
                     </div>
@@ -468,7 +468,7 @@
                         <label for="" class="col-md-2 ">DOI/ISBN:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.doi %}{{biblioteca.doi}}{% endif %}" name="doi"
+                                value="{{biblioteca.doi}}" name="doi"
                                 id="doi{{biblioteca.id}}">
                         </div>
                     </div>
@@ -477,7 +477,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
+                                value="{{biblioteca.fecha}}" name="fecha"
                                 id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
                         </div>
                     </div>
@@ -487,7 +487,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if biblioteca.estudiantes_en_articulo %}{{biblioteca.estudiantes_en_articulo}}{% endif %}">
+                                value="{{biblioteca.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -559,7 +559,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autores{{biblioteca.id}}" name="autores"
-                                type="text" value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                type="text" value="{{biblioteca.autores}}">
                         </div>
                     </div>
 
@@ -567,7 +567,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="titulo{{biblioteca.id}}" name="titulo"
-                                type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                type="text" value="{{biblioteca.titulo}}">
                         </div>
                     </div>
 
@@ -576,7 +576,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacion{{biblioteca.id}}"
                                 name="revista"
-                                value="{% if biblioteca.revista_publicacion %}{{biblioteca.revista_publicacion}}{% endif %}"
+                                value="{{biblioteca.revista_publicacion}}"
                                 type="text">
                         </div>
 
@@ -594,7 +594,7 @@
                         <label for="" class="col-md-2 ">BibCode:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}" name="bibcode"
+                                value="{{biblioteca.bibcode}}" name="bibcode"
                                 id="bibcode{{biblioteca.id}}">
                         </div>
                     </div>
@@ -603,7 +603,7 @@
                         <label for="" class="col-md-2 ">DOI/ISBN:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                value="{{biblioteca.doi}}" name="doi"
                                 id="doi{{biblioteca.id}}">
                         </div>
                     </div>
@@ -612,7 +612,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
+                                value="{{biblioteca.fecha}}" name="fecha"
                                 id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
                         </div>
                     </div>
@@ -622,7 +622,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if biblioteca.estudiantes_en_articulo %}{{biblioteca.estudiantes_en_articulo}}{% endif %}">
+                                value="{{biblioteca.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -693,7 +693,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autoresModelo1{{modelo1.id}}" name="autores"
-                                type="text" value="{% if modelo1.autores %}{{modelo1.autores}}{% endif %}">
+                                type="text" value="{{modelo1.autores}}">
                         </div>
                     </div>
 
@@ -701,7 +701,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="tituloModelo1{{modelo1.id}}" name="titulo"
-                                type="text" value="{% if modelo1.titulo %}{{modelo1.titulo}}{% endif %}">
+                                type="text" value="{{modelo1.titulo}}">
                         </div>
                     </div>
 
@@ -710,7 +710,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacionModelo1{{modelo1.id}}"
                                 name="revista"
-                                value="{% if modelo1.revista_publicacion %}{{modelo1.revista_publicacion}}{% endif %}"
+                                value="{{modelo1.revista_publicacion}}"
                                 type="text">
                         </div>
 
@@ -720,7 +720,7 @@
                         <label for="url" class="col-md-2 "><a target="blank" href="{{modelo1.url}}">URL:</a></label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="urlModelo1{{modelo1.id}}" name="url"
-                                type="url" value="{% if modelo1.url %}{{modelo1.url}}{% endif %}">
+                                type="url" value="{{modelo1.url}}">
                         </div>
                     </div>
 
@@ -728,7 +728,7 @@
                         <label for="DOI/ISBN" class="col-md-2 ">DOI/ISBN: </label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control"
-                                value="{% if modelo1.doi %}{{modelo1.doi}}{% endif %}" type="text" name="doi"
+                                value="{{modelo1.doi}}" type="text" name="doi"
                                 id="doiModelo1{{modelo1.id}}">
                         </div>
                     </div>
@@ -737,7 +737,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if modelo1.fecha %}{{modelo1.fecha}}{% endif %}" name="fecha"
+                                value="{{modelo1.fecha}}" name="fecha"
                                 id="fechaModelo1{{modelo1.id}}">
                         </div>
                     </div>
@@ -747,7 +747,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantesModelo1{{modelo1.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if modelo1.estudiantes_en_articulo %}{{modelo1.estudiantes_en_articulo}} {% endif %}">
+                                value="{{modelo1.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -820,7 +820,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autores{{biblioteca.id}}" name="autores"
-                                type="text" value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                type="text" value="{{biblioteca.autores}}">
                         </div>
                     </div>
 
@@ -828,7 +828,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="titulo{{biblioteca.id}}" name="titulo"
-                                type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                type="text" value="{{biblioteca.titulo}}">
                         </div>
                     </div>
 
@@ -837,7 +837,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacion{{biblioteca.id}}"
                                 name="revista"
-                                value="{% if biblioteca.revista_publicacion %}{{biblioteca.revista_publicacion}}{% endif %}"
+                                value="{{biblioteca.revista_publicacion}}"
                                 type="text">
                         </div>
                     </div>
@@ -854,7 +854,7 @@
                         <label for="" class="col-md-2 ">BibCode:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}" name="bibcode"
+                                value="{{biblioteca.bibcode}}" name="bibcode"
                                 id="bibcode{{biblioteca.id}}">
                         </div>
                     </div>
@@ -863,7 +863,7 @@
                         <label for="" class="col-md-2 ">DOI/ISBN:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.doi %}{{biblioteca.doi}}{% endif %}" name="doi"
+                                value="{{biblioteca.doi}}" name="doi"
                                 id="doi{{biblioteca.id}}">
                         </div>
                     </div>
@@ -872,7 +872,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
+                                value="{{biblioteca.fecha}}" name="fecha"
                                 id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
                         </div>
                     </div>
@@ -882,7 +882,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if biblioteca.estudiantes_en_articulo %}{{biblioteca.estudiantes_en_articulo}}{% endif %}">
+                                value="{{biblioteca.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -955,7 +955,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autoresModelo1{{modelo1.id}}" name="autores"
-                                type="text" value="{% if modelo1.autores %}{{modelo1.autores}}{% endif %}">
+                                type="text" value="{{modelo1.autores}}">
                         </div>
                     </div>
 
@@ -963,7 +963,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="tituloModelo1{{modelo1.id}}" name="titulo"
-                                type="text" value="{% if modelo1.titulo %}{{modelo1.titulo}}{% endif %}">
+                                type="text" value="{{modelo1.titulo}}">
                         </div>
                     </div>
 
@@ -972,7 +972,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacionModelo1{{modelo1.id}}"
                                 name="revista"
-                                value="{% if modelo1.revista_publicacion %}{{modelo1.revista_publicacion}}{% endif %}"
+                                value="{{modelo1.revista_publicacion}}"
                                 type="text">
                         </div>
 
@@ -982,7 +982,7 @@
                         <label for="url" class="col-md-2 "><a target="blank" href="{{modelo1.url}}">URL:</a></label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="urlModelo1{{modelo1.id}}" name="url"
-                                type="url" value="{% if modelo1.url %}{{modelo1.url}}{% endif %}">
+                                type="url" value="{{modelo1.url}}">
                         </div>
                     </div>
 
@@ -990,7 +990,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if modelo1.fecha %}{{modelo1.fecha}}{% endif %}" name="fecha"
+                                value="{{modelo1.fecha}}" name="fecha"
                                 id="fechaModelo1{{modelo1.id}}">
                         </div>
                     </div>
@@ -1000,7 +1000,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantesModelo1{{modelo1.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if modelo1.estudiantes_en_articulo %}{{modelo1.estudiantes_en_articulo}}{% endif %}">
+                                value="{{modelo1.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -1072,7 +1072,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autores{{biblioteca.id}}" name="autores"
-                                type="text" value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                type="text" value="{{biblioteca.autores}}">
                         </div>
                     </div>
 
@@ -1080,7 +1080,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="titulo{{biblioteca.id}}" name="titulo"
-                                type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                type="text" value="{{biblioteca.titulo}}">
                         </div>
 
                     </div>
@@ -1090,7 +1090,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacion{{biblioteca.id}}"
                                 name="revista"
-                                value="{% if biblioteca.revista_publicacion %}{{biblioteca.revista_publicacion}}{% endif %}"
+                                value="{{biblioteca.revista_publicacion}}"
                                 type="text">
                         </div>
                     </div>
@@ -1099,7 +1099,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
+                                value="{{biblioteca.fecha}}" name="fecha"
                                 id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
                         </div>
                     </div>
@@ -1109,7 +1109,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if biblioteca.estudiantes_en_articulo %}{{biblioteca.estudiantes_en_articulo}}{% endif %}">
+                                value="{{biblioteca.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -1181,7 +1181,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autoresModelo1{{modelo1.id}}" name="autores"
-                                type="text" value="{% if modelo1.autores %}{{modelo1.autores}}{% endif %}">
+                                type="text" value="{{modelo1.autores}}">
                         </div>
                     </div>
 
@@ -1189,7 +1189,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="tituloModelo1{{modelo1.id}}" name="titulo"
-                                type="text" value=" {% if modelo1.titulo %}{{modelo1.titulo}}{% endif %}">
+                                type="text" value=" {{modelo1.titulo}}">
                         </div>
                     </div>
 
@@ -1198,7 +1198,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacionModelo1{{modelo1.id}}"
                                 name="revista"
-                                value="{% if modelo1.revista_publicacion %}{{modelo1.revista_publicacion}}{% endif %}"
+                                value="{{modelo1.revista_publicacion}}"
                                 type="text">
                         </div>
                     </div>
@@ -1207,7 +1207,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if modelo1.fecha %}{{modelo1.fecha}}{% endif %}" name="fecha"
+                                value="{{modelo1.fecha}}" name="fecha"
                                 id="fechaModelo1{{modelo1.id}}">
                         </div>
                     </div>
@@ -1217,7 +1217,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantesModelo1{{modelo1.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if modelo1.estudiantes_en_articulo %}{{modelo1.estudiantes_en_articulo}} {% endif %}">
+                                value="{{modelo1.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -1290,7 +1290,7 @@
                             <label for="autores" class="col-md-2 ">Autor(es):</label>
                             <div class="col-md-10">
                                 <input disabled class="mb-1 form-control" id="autores{{biblioteca.id}}" name="autores"
-                                    type="text" value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                    type="text" value="{{biblioteca.autores}}">
                             </div>
                         </div>
 
@@ -1298,7 +1298,7 @@
                             <label for="titulo" class="col-md-2 ">Titulo:</label>
                             <div class="col-md-10">
                                 <input disabled class="mb-1 form-control" id="titulo{{biblioteca.id}}" name="titulo"
-                                    type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                    type="text" value="{{biblioteca.titulo}}">
                             </div>
                         </div>
 
@@ -1307,7 +1307,7 @@
                             <div class="col-md-10">
                                 <input disabled class="mb-1 form-control" id="revista_publicacion{{biblioteca.id}}"
                                     name="revista"
-                                    value="{% if biblioteca.revista_publicacion %}{{biblioteca.revista_publicacion}}{% endif %}"
+                                    value="{{biblioteca.revista_publicacion}}"
                                     type="text">
                             </div>
                         </div>
@@ -1325,7 +1325,7 @@
                             <label for="" class="col-md-2 ">BibCode:</label>
                             <div class="col-md-10">
                                 <input disabled class="form-control mb-1" type="text"
-                                    value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}" name="bibcode"
+                                    value="{{biblioteca.bibcode}}" name="bibcode"
                                     id="bibcode{{biblioteca.id}}">
                             </div>
                         </div>
@@ -1334,7 +1334,7 @@
                             <label for="" class="col-md-2 ">DOI/ISBN:</label>
                             <div class="col-md-10">
                                 <input disabled class="form-control mb-1" type="text"
-                                    value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                    value="{{biblioteca.doi}}" name="doi"
                                     id="doi{{biblioteca.id}}">
                             </div>
                         </div>
@@ -1343,7 +1343,7 @@
                             <label for="" class="col-md-2 ">Fecha:</label>
                             <div class="col-md-10">
                                 <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                    value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
+                                    value="{{biblioteca.fecha}}" name="fecha"
                                     id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
                             </div>
                         </div>
@@ -1353,7 +1353,7 @@
                             <div class="col-md-10">
                                 <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
                                     name="estudiantes" type="text"
-                                    value="{% if biblioteca.estudiantes_en_articulo %}{{biblioteca.estudiantes_en_articulo}}{% endif %}">
+                                    value="{{biblioteca.estudiantes_en_articulo}}">
                             </div>
                         </div>
 
@@ -1424,7 +1424,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autores{{biblioteca.id}}" name="autores"
-                                type="text" value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                type="text" value="{{biblioteca.autores}}">
                         </div>
                     </div>
 
@@ -1432,7 +1432,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="titulo{{biblioteca.id}}" name="titulo"
-                                type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                type="text" value="{{biblioteca.titulo}}">
                         </div>
                     </div>
 
@@ -1441,7 +1441,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacion{{biblioteca.id}}"
                                 name="revista"
-                                value="{% if biblioteca.revista_publicacion %}{{biblioteca.revista_publicacion}}{% endif %}"
+                                value="{{biblioteca.revista_publicacion}}"
                                 type="text">
                         </div>
                     </div>
@@ -1458,7 +1458,7 @@
                         <label for="" class="col-md-2 ">BibCode:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}" name="bibcode"
+                                value="{{biblioteca.bibcode}}" name="bibcode"
                                 id="bibcode{{biblioteca.id}}">
                         </div>
                     </div>
@@ -1467,7 +1467,7 @@
                         <label for="" class="col-md-2 ">DOI/ISBN:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                value="{{biblioteca.doi}}" name="doi"
                                 id="doi{{biblioteca.id}}">
                         </div>
                     </div>
@@ -1476,7 +1476,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
+                                value="{{biblioteca.fecha}}" name="fecha"
                                 id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
                         </div>
                     </div>
@@ -1486,7 +1486,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if biblioteca.estudiantes_en_articulo %}{{biblioteca.estudiantes_en_articulo}}{% endif %}">
+                                value="{{biblioteca.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -1556,7 +1556,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autores{{biblioteca.id}}" name="autores"
-                                type="text" value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                type="text" value="{{biblioteca.autores}}">
                         </div>
                     </div>
 
@@ -1564,7 +1564,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="titulo{{biblioteca.id}}" name="titulo"
-                                type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                type="text" value="{{biblioteca.titulo}}">
                         </div>
                     </div>
 
@@ -1573,7 +1573,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacion{{biblioteca.id}}"
                                 name="revista"
-                                value="{% if biblioteca.revista_publicacion %}{{biblioteca.revista_publicacion}}{% endif %}"
+                                value="{{biblioteca.revista_publicacion}}"
                                 type="text">
                         </div>
                     </div>
@@ -1590,7 +1590,7 @@
                         <label for="" class="col-md-2 ">BibCode:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}" name="bibcode"
+                                value="{{biblioteca.bibcode}}" name="bibcode"
                                 id="bibcode{{biblioteca.id}}">
                         </div>
                     </div>
@@ -1599,7 +1599,7 @@
                         <label for="" class="col-md-2 ">DOI/ISBN:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                value="{{biblioteca.doi}}" name="doi"
                                 id="doi{{biblioteca.id}}">
                         </div>
                     </div>
@@ -1608,7 +1608,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
+                                value="{{biblioteca.fecha}}" name="fecha"
                                 id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
                         </div>
                     </div>
@@ -1618,7 +1618,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if biblioteca.estudiantes_en_articulo %}{{biblioteca.estudiantes_en_articulo}}{% endif %}">
+                                value="{{biblioteca.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -1689,7 +1689,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autores{{biblioteca.id}}" name="autores"
-                                type="text" value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                type="text" value="{{biblioteca.autores}}">
                         </div>
                     </div>
 
@@ -1697,7 +1697,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="titulo{{biblioteca.id}}" name="titulo"
-                                type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                type="text" value="{{biblioteca.titulo}}">
                         </div>
                     </div>
 
@@ -1706,7 +1706,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacion{{biblioteca.id}}"
                                 name="revista"
-                                value="{% if biblioteca.revista_publicacion %}{{biblioteca.revista_publicacion}}{% endif %}"
+                                value="{{biblioteca.revista_publicacion}}"
                                 type="text">
                         </div>
                     </div>
@@ -1723,7 +1723,7 @@
                         <label for="" class="col-md-2 ">BibCode:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}" name="bibcode"
+                                value="{{biblioteca.bibcode}}" name="bibcode"
                                 id="bibcode{{biblioteca.id}}">
                         </div>
                     </div>
@@ -1732,7 +1732,7 @@
                         <label for="" class="col-md-2 ">DOI/ISBN:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                value="{{biblioteca.doi}}" name="doi"
                                 id="doi{{biblioteca.id}}">
                         </div>
                     </div>
@@ -1741,7 +1741,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
+                                value="{{biblioteca.fecha}}" name="fecha"
                                 id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
                         </div>
                     </div>
@@ -1751,7 +1751,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if biblioteca.estudiantes_en_articulo %}{{biblioteca.estudiantes_en_articulo}}{% endif %}">
+                                value="{{biblioteca.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -1821,7 +1821,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autores{{biblioteca.id}}" name="autores"
-                                type="text" value="{% if biblioteca.autores %}{{biblioteca.autores}}{% endif %}">
+                                type="text" value="{{biblioteca.autores}}">
                         </div>
                     </div>
 
@@ -1829,7 +1829,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="titulo{{biblioteca.id}}" name="titulo"
-                                type="text" value="{% if biblioteca.titulo %}{{biblioteca.titulo}}{% endif %}">
+                                type="text" value="{{biblioteca.titulo}}">
                         </div>
                     </div>
 
@@ -1838,7 +1838,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacion{{biblioteca.id}}"
                                 name="revista"
-                                value="{% if biblioteca.revista_publicacion %}{{biblioteca.revista_publicacion}}{% endif %}"
+                                value="{{biblioteca.revista_publicacion}}"
                                 type="text">
                         </div>
                     </div>
@@ -1855,7 +1855,7 @@
                         <label for="" class="col-md-2 ">BibCode:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.bibcode %}{{biblioteca.bibcode}}{% endif %}" name="bibcode"
+                                value="{{biblioteca.bibcode}}" name="bibcode"
                                 id="bibcode{{biblioteca.id}}">
                         </div>
                     </div>
@@ -1864,7 +1864,7 @@
                         <label for="" class="col-md-2 ">DOI/ISBN:</label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.doi %} {{biblioteca.doi}} {% endif %}" name="doi"
+                                value="{{biblioteca.doi}}" name="doi"
                                 id="doi{{biblioteca.id}}">
                         </div>
                     </div>
@@ -1873,7 +1873,7 @@
                         <label for="" class="col-md-2 ">Fecha:</label>
                         <div class="col-md-10">
                             <input maxlength="7" disabled class="form-control mb-1" type="text"
-                                value="{% if biblioteca.fecha %}{{biblioteca.fecha}}{% endif %}" name="fecha"
+                                value="{{biblioteca.fecha}}" name="fecha"
                                 id="fecha{{biblioteca.id}}" placeholder="Ingrese la fecha en formato YYYY/MM">
                         </div>
                     </div>
@@ -1883,7 +1883,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="estudiantes{{biblioteca.id}}"
                                 name="estudiantes" type="text"
-                                value="{% if biblioteca.estudiantes_en_articulo %}{{biblioteca.estudiantes_en_articulo}}{% endif %}">
+                                value="{{biblioteca.estudiantes_en_articulo}}">
                         </div>
                     </div>
 
@@ -1954,7 +1954,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autoresModelo1{{modelo1.id}}" name="autores"
-                                type="text" value="{% if modelo1.autores %}{{modelo1.autores}}{% endif %}">
+                                type="text" value="{{modelo1.autores}}">
                         </div>
                     </div>
 
@@ -1962,7 +1962,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="tituloModelo1{{modelo1.id}}" name="titulo"
-                                type="text" value=" {% if modelo1.titulo %}{{modelo1.titulo}}{% endif %}">
+                                type="text" value=" {{modelo1.titulo}}">
                         </div>
                     </div>
 
@@ -1971,7 +1971,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacionModelo1{{modelo1.id}}"
                                 name="revista"
-                                value="{% if modelo1.revista_publicacion %}{{modelo1.revista_publicacion}}{% endif %}"
+                                value="{{modelo1.revista_publicacion}}"
                                 type="text">
                         </div>
                     </div>
@@ -1980,7 +1980,7 @@
                         <label for="url" class="col-md-2 "><a target="blank" href="{{modelo1.url}}">URL:</a></label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="urlModelo1{{modelo1.id}}" name="url"
-                                type="url" value="{% if modelo1.url %}{{modelo1.url}}{% endif %}">
+                                type="url" value="{{modelo1.url}}">
                         </div>
                     </div>
 
@@ -1988,7 +1988,7 @@
                         <label for="DOI/ISBN" class="col-md-2 ">DOI/ISBN: </label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control"
-                                value="{% if modelo1.doi %}{{modelo1.doi}}{% endif %}" type="text" name="doi"
+                                value="{{modelo1.doi}}" type="text" name="doi"
                                 id="doiModelo1{{modelo1.id}}">
                         </div>
                     </div>
@@ -2061,7 +2061,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autoresModelo1{{modelo1.id}}" name="autores"
-                                type="text" value="{% if modelo1.autores %}{{modelo1.autores}}{% endif %}">
+                                type="text" value="{{modelo1.autores}}">
                         </div>
                     </div>
 
@@ -2069,7 +2069,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="tituloModelo1{{modelo1.id}}" name="titulo"
-                                type="text" value=" {% if modelo1.titulo %}{{modelo1.titulo}}{% endif %}">
+                                type="text" value=" {{modelo1.titulo}}">
                         </div>
                     </div>
 
@@ -2078,7 +2078,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacionModelo1{{modelo1.id}}"
                                 name="revista"
-                                value="{% if modelo1.revista_publicacion %}{{modelo1.revista_publicacion}}{% endif %}"
+                                value="{{modelo1.revista_publicacion}}"
                                 type="text">
                         </div>
 
@@ -2088,7 +2088,7 @@
                         <label for="url" class="col-md-2 "><a target="blank" href="{{modelo1.url}}">URL:</a></label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="urlModelo1{{modelo1.id}}" name="url"
-                                type="url" value="{% if modelo1.url %}{{modelo1.url}}{% endif %}">
+                                type="url" value="{{modelo1.url}}">
                         </div>
                     </div>
 
@@ -2096,7 +2096,7 @@
                         <label for="DOI/ISBN" class="col-md-2 ">DOI/ISBN: </label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control"
-                                value="{% if modelo1.doi %}{{modelo1.doi}}{% endif %}" type="text" name="doi"
+                                value="{{modelo1.doi}}" type="text" name="doi"
                                 id="doiModelo1{{modelo1.id}}">
                         </div>
                     </div>
@@ -2169,7 +2169,7 @@
                         <label for="autores" class="col-md-2 ">Autor(es):</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="autoresModelo1{{modelo1.id}}" name="autores"
-                                type="text" value="{% if modelo1.autores %}{{modelo1.autores}}{% endif %}">
+                                type="text" value="{{modelo1.autores}}">
                         </div>
                     </div>
 
@@ -2177,7 +2177,7 @@
                         <label for="titulo" class="col-md-2 ">Titulo:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="tituloModelo1{{modelo1.id}}" name="titulo"
-                                type="text" value=" {% if modelo1.titulo %}{{modelo1.titulo}}{% endif %}">
+                                type="text" value=" {{modelo1.titulo}}">
                         </div>
                     </div>
 
@@ -2186,7 +2186,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="revista_publicacionModelo1{{modelo1.id}}"
                                 name="revista"
-                                value="{% if modelo1.revista_publicacion %}{{modelo1.revista_publicacion}}{% endif %}"
+                                value="{{modelo1.revista_publicacion}}"
                                 type="text">
                         </div>
 
@@ -2196,7 +2196,7 @@
                         <label for="url" class="col-md-2 "><a target="blank" href="{{modelo1.url}}">URL:</a></label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="urlModelo1{{modelo1.id}}" name="url"
-                                type="url" value="{% if modelo1.url %}{{modelo1.url}}{% endif %}">
+                                type="url" value="{{modelo1.url}}">
                         </div>
                     </div>
 
@@ -2204,7 +2204,7 @@
                         <label for="DOI/ISBN" class="col-md-2 ">DOI/ISBN: </label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control"
-                                value="{% if modelo1.doi %}{{modelo1.doi}}{% endif %}" type="text" name="doi"
+                                value="{{modelo1.doi}}" type="text" name="doi"
                                 id="doiModelo1{{modelo1.id}}">
                         </div>
                     </div>
@@ -2277,7 +2277,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="nombre_del_proyecto"
                                 id="nombre_del_proyectoModelo2{{modelo2.id}}"
-                                value="{% if modelo2.nombre_del_proyecto %}{{modelo2.nombre_del_proyecto}}{% endif %}">
+                                value="{{modelo2.nombre_del_proyecto}}">
                         </div>
                     </div>
 
@@ -2286,7 +2286,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="participantes"
                                 id="participantesModelo2{{modelo2.id}}"
-                                value="{% if modelo2.participantes %}{{modelo2.participantes}}{% endif %}">
+                                value="{{modelo2.participantes}}">
                         </div>
                     </div>
 
@@ -2295,7 +2295,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="estudiantes"
                                 id="estudiantesModelo2{{modelo2.id}}"
-                                value="{% if modelo2.estudiantes %}{{modelo2.estudiantes}}{% endif %}">
+                                value="{{modelo2.estudiantes}}">
                         </div>
                     </div>
 
@@ -2305,8 +2305,8 @@
                             <select disabled class="form-control mb-1" name="responsable" required
                                 id="responsableModelo2{{modelo2.id}}">
                                 <option selected
-                                    value="{% if modelo2.rol %}{{modelo2.rol}}{% endif %}">
-                                    {% if modelo2.rol == "" or modelo2.rol == None  %}
+                                    value="{{modelo2.rol}}">
+                                    {% if modelo2.rol == ""  %}
                                     --------------------
                                     {% else %}
                                     {{modelo2.rol}}
@@ -2322,7 +2322,7 @@
                     <label for="Descripcion">Descripcion</label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
                         id="descripcionModelo2{{modelo2.id}}" cols="30"
-                        rows="5">{% if modelo2.descripcion %}{{modelo2.descripcion}}{% endif %}</textarea>
+                        rows="5">{{modelo2.descripcion}}</textarea>
 
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo2{{modelo2.id}}">
@@ -2394,7 +2394,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="nombre_del_proyecto"
                                 id="nombre_del_proyectoModelo2{{modelo2.id}}"
-                                value="{% if modelo2.nombre_del_proyecto %}{{modelo2.nombre_del_proyecto}}{% endif %}">
+                                value="{{modelo2.nombre_del_proyecto}}">
                         </div>
                     </div>
 
@@ -2403,7 +2403,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="participantes"
                                 id="participantesModelo2{{modelo2.id}}"
-                                value="{% if modelo2.participantes %}{{modelo2.participantes}}{% endif %}">
+                                value="{{modelo2.participantes}}">
                         </div>
                     </div>
 
@@ -2412,7 +2412,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="estudiantes"
                                 id="estudiantesModelo2{{modelo2.id}}"
-                                value="{% if modelo2.estudiantes %}{{modelo2.estudiantes}}{% endif %}">
+                                value="{{modelo2.estudiantes}}">
                         </div>
                     </div>
 
@@ -2422,8 +2422,8 @@
                             <select disabled class="form-control mb-1" name="responsable" required
                                 id="responsableModelo2{{modelo2.id}}">
                                 <option selected
-                                    value="{% if modelo2.rol %}{{modelo2.rol}}{% endif %}">
-                                    {% if modelo2.rol == "" or modelo2.rol == None  %}
+                                    value="{{modelo2.rol}}">
+                                    {% if modelo2.rol == ""  %}
                                     --------------------
                                     {% else %}
                                     {{modelo2.rol}}
@@ -2439,7 +2439,7 @@
                     <label for="Descripcion">Descripcion</label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
                         id="descripcionModelo2{{modelo2.id}}" cols="30"
-                        rows="5">{% if modelo2.descripcion %}{{modelo2.descripcion}}{% endif %}</textarea>
+                        rows="5">{{modelo2.descripcion}}</textarea>
 
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo2{{modelo2.id}}">
@@ -2510,7 +2510,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="nombre_del_proyecto"
                                 id="nombre_del_proyectoModelo2{{modelo2.id}}"
-                                value="{% if modelo2.nombre_del_proyecto %}{{modelo2.nombre_del_proyecto}}{% endif %}">
+                                value="{{modelo2.nombre_del_proyecto}}">
                         </div>
                     </div>
 
@@ -2519,7 +2519,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="participantes"
                                 id="participantesModelo2{{modelo2.id}}"
-                                value="{% if modelo2.participantes %}{{modelo2.participantes}}{% endif %}">
+                                value="{{modelo2.participantes}}">
                         </div>
                     </div>
 
@@ -2528,7 +2528,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="estudiantes"
                                 id="estudiantesModelo2{{modelo2.id}}"
-                                value="{% if modelo2.estudiantes %}{{modelo2.estudiantes}}{% endif %}">
+                                value="{{modelo2.estudiantes}}">
                         </div>
                     </div>
 
@@ -2538,8 +2538,8 @@
                             <select disabled class="form-control mb-1" name="responsable" required
                                 id="responsableModelo2{{modelo2.id}}">
                                 <option selected
-                                    value="{% if modelo2.rol %}{{modelo2.rol}}{% endif %}">
-                                    {% if modelo2.rol == "" or modelo2.rol == None  %}
+                                    value="{{modelo2.rol}}">
+                                    {% if modelo2.rol == ""  %}
                                     --------------------
                                     {% else %}
                                     {{modelo2.rol}}
@@ -2555,7 +2555,7 @@
                     <label for="Descripcion">Descripcion</label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
                         id="descripcionModelo2{{modelo2.id}}" cols="30"
-                        rows="5">{% if modelo2.descripcion %}{{modelo2.descripcion}}{% endif %}</textarea>
+                        rows="5">{{modelo2.descripcion}}</textarea>
 
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo2{{modelo2.id}}">
@@ -2626,7 +2626,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="nombre_del_proyecto"
                                 id="nombre_del_proyectoModelo2{{modelo2.id}}"
-                                value="{% if modelo2.nombre_del_proyecto %}{{modelo2.nombre_del_proyecto}}{% endif %}">
+                                value="{{modelo2.nombre_del_proyecto}}">
                         </div>
                     </div>
 
@@ -2635,7 +2635,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="participantes"
                                 id="participantesModelo2{{modelo2.id}}"
-                                value="{% if modelo2.participantes %}{{modelo2.participantes}}{% endif %}">
+                                value="{{modelo2.participantes}}">
                         </div>
                     </div>
 
@@ -2644,7 +2644,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="estudiantes"
                                 id="estudiantesModelo2{{modelo2.id}}"
-                                value="{% if modelo2.estudiantes %}{{modelo2.estudiantes}}{% endif %}">
+                                value="{{modelo2.estudiantes}}">
                         </div>
                     </div>
 
@@ -2654,8 +2654,8 @@
                             <select disabled class="form-control mb-1" name="responsable" required
                                 id="responsableModelo2{{modelo2.id}}">
                                 <option selected
-                                    value="{% if modelo2.rol %}{{modelo2.rol}}{% endif %}">
-                                    {% if modelo2.rol == "" or modelo2.rol == None  %}
+                                    value="{{modelo2.rol}}">
+                                    {% if modelo2.rol == ""  %}
                                     --------------------
                                     {% else %}
                                     {{modelo2.rol}}
@@ -2671,7 +2671,7 @@
                     <label for="Descripcion">Descripcion</label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
                         id="descripcionModelo2{{modelo2.id}}" cols="30"
-                        rows="5">{% if modelo2.descripcion %}{{modelo2.descripcion}}{% endif %}</textarea>
+                        rows="5">{{modelo2.descripcion}}</textarea>
 
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo2{{modelo2.id}}">
@@ -2743,7 +2743,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="nombre_del_proyecto"
                                 id="nombre_del_proyectoModelo2{{modelo2.id}}"
-                                value="{% if modelo2.nombre_del_proyecto %}{{modelo2.nombre_del_proyecto}}{% endif %}">
+                                value="{{modelo2.nombre_del_proyecto}}">
                         </div>
                     </div>
 
@@ -2752,7 +2752,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="participantes"
                                 id="participantesModelo2{{modelo2.id}}"
-                                value="{% if modelo2.participantes %}{{modelo2.participantes}}{% endif %}">
+                                value="{{modelo2.participantes}}">
                         </div>
                     </div>
 
@@ -2761,7 +2761,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="estudiantes"
                                 id="estudiantesModelo2{{modelo2.id}}"
-                                value="{% if modelo2.estudiantes %}{{modelo2.estudiantes}}{% endif %}">
+                                value="{{modelo2.estudiantes}}">
                         </div>
                     </div>
 
@@ -2771,8 +2771,8 @@
                             <select disabled class="form-control mb-1" name="responsable" required
                                 id="responsableModelo2{{modelo2.id}}">
                                 <option selected
-                                    value="{% if modelo2.rol %}{{modelo2.rol}}{% endif %}">
-                                    {% if modelo2.rol == "" or modelo2.rol == None  %}
+                                    value="{{modelo2.rol}}">
+                                    {% if modelo2.rol == ""  %}
                                     --------------------
                                     {% else %}
                                     {{modelo2.rol}}
@@ -2788,7 +2788,7 @@
                     <label for="Descripcion">Descripcion</label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
                         id="descripcionModelo2{{modelo2.id}}" cols="30"
-                        rows="5">{% if modelo2.descripcion %}{{modelo2.descripcion}}{% endif %}</textarea>
+                        rows="5">{{modelo2.descripcion}}</textarea>
 
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo2{{modelo2.id}}">
@@ -2860,7 +2860,7 @@
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="conferencia_proyectoModelo14{{modelo14.id}}"
                                 name="conferencia_proyecto" type="text"
-                                value="{% if modelo14.conferencia_proyecto %}{{modelo14.conferencia_proyecto}}{% endif %}">
+                                value="{{modelo14.conferencia_proyecto}}">
                         </div>
                     </div>
 
@@ -2868,7 +2868,7 @@
                         <label for="rol" class="col-md-2 ">Rol:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="rolModelo14{{modelo14.id}}" name="rol"
-                                type="text" value="{% if modelo14.rol %}{{modelo14.rol}}{% endif %}">
+                                type="text" value="{{modelo14.rol}}">
                         </div>
                     </div>
 
@@ -2876,7 +2876,7 @@
                         <label for="url" class="col-md-2 ">URL:</label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="urlModelo14{{modelo14.id}}" name="url"
-                                value="{% if modelo14.url %}{{modelo14.url}}{% endif %}" type="text">
+                                value="{{modelo14.url}}" type="text">
                         </div>
 
                     </div>
@@ -2885,7 +2885,7 @@
                         <label for="fecha" class="col-md-2 ">Fecha: </label>
                         <div class="col-md-10">
                             <input disabled class="mb-1 form-control" id="fechaModelo14{{modelo14.id}}" name="fecha"
-                                type="text" value="{% if modelo14.fecha %}{{modelo14.fecha}}{% endif %}">
+                                type="text" value="{{modelo14.fecha}}">
                         </div>
                     </div>
 
@@ -2961,7 +2961,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="titulo_de_la_presentacion"
                                 id="titulo_de_la_presentacionModelo3{{modelo3.id}}"
-                                value="{% if modelo3.titulo_de_la_presentacion %}{{modelo3.titulo_de_la_presentacion}}{% endif %}">
+                                value="{{modelo3.titulo_de_la_presentacion}}">
                         </div>
                     </div>
 
@@ -2970,7 +2970,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="autores"
                                 id="autoresModelo3{{modelo3.id}}"
-                                value="{% if modelo3.autores %}{{modelo3.autores}}{% endif %}">
+                                value="{{modelo3.autores}}">
                         </div>
                     </div>
 
@@ -2979,7 +2979,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="nombre_de_conferencia"
                                 id="nombre_de_conferenciaModelo3{{modelo3.id}}"
-                                value="{% if modelo3.nombre_de_conferencia %}{{modelo3.nombre_de_conferencia}}{% endif %}">
+                                value="{{modelo3.nombre_de_conferencia}}">
 
                         </div>
                     </div>
@@ -2989,7 +2989,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
                                 id="fechaModelo3{{modelo3.id}}"
-                                value=" {% if modelo3.fecha %}{{modelo3.fecha}}{% endif %}">
+                                value="{{modelo3.fecha}}">
                         </div>
                     </div>
 
@@ -2999,8 +2999,8 @@
                             <select disabled class="form-control mb-1" name="presentacionPoster" required
                                 id="presentacionPosterModelo3{{modelo3.id}}">
                                 <option selected
-                                    value="{% if modelo3.presentacionPoster %}{{modelo3.presentacionPoster}}{% endif %}">
-                                    {% if modelo3.presentacionPoster == None or modelo3.presentacionPoster == "" %}
+                                    value="{{modelo3.presentacionPoster}}">
+                                    {% if modelo3.presentacionPoster == "" %}
                                     --------------------
                                     {% else %}
                                     {{modelo3.presentacionPoster}}
@@ -3017,7 +3017,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="estudiantes"
                                 id="estudiantesModelo3{{modelo3.id}}"
-                                value="{% if modelo3.estudiantes %}{{modelo3.estudiantes}}{% endif %}">
+                                value="{{modelo3.estudiantes}}">
                         </div>
                     </div>
 
@@ -3025,7 +3025,7 @@
                         <label for="" class="col-md-2 "><a target="blank" href="{{modelo3.url}}">URL:</a></label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="url" name="url"
-                                id="urlModelo3{{modelo3.id}}" value="{% if modelo3.url %}{{modelo3.url}}{% endif %}">
+                                id="urlModelo3{{modelo3.id}}" value="{{modelo3.url}}">
                         </div>
                     </div>
 
@@ -3097,7 +3097,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="titulo_de_la_presentacion"
                                 id="titulo_de_la_presentacionModelo3{{modelo3.id}}"
-                                value="{% if modelo3.titulo_de_la_presentacion %}{{modelo3.titulo_de_la_presentacion}}{% endif %}">
+                                value="{{modelo3.titulo_de_la_presentacion}}">
                         </div>
                     </div>
 
@@ -3106,7 +3106,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="autores"
                                 id="autoresModelo3{{modelo3.id}}"
-                                value="{% if modelo3.autores %}{{modelo3.autores}}{% endif %}">
+                                value="{{modelo3.autores}}">
                         </div>
                     </div>
 
@@ -3115,7 +3115,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="nombre_de_conferencia"
                                 id="nombre_de_conferenciaModelo3{{modelo3.id}}"
-                                value="{% if modelo3.nombre_de_conferencia %}{{modelo3.nombre_de_conferencia}}{% endif %}">
+                                value="{{modelo3.nombre_de_conferencia}}">
 
                         </div>
                     </div>
@@ -3125,7 +3125,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
                                 id="fechaModelo3{{modelo3.id}}"
-                                value=" {% if modelo3.fecha %}{{modelo3.fecha}}{% endif %}">
+                                value="{{modelo3.fecha}}">
 
                         </div>
                     </div>
@@ -3136,8 +3136,8 @@
                             <select disabled class="form-control mb-1" name="presentacionPoster"
                                 id="presentacionPosterModelo3{{modelo3.id}}">
                                 <option selected
-                                    value="{% if modelo3.presentacionPoster %}{{modelo3.presentacionPoster}}{% endif %}">
-                                    {% if modelo3.presentacionPoster == None or modelo3.presentacionPoster == "" %}
+                                    value="{{modelo3.presentacionPoster}}">
+                                    {% if modelo3.presentacionPoster == "" %}
                                     --------------------
                                     {% else %}
                                     {{modelo3.presentacionPoster}}
@@ -3155,7 +3155,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="estudiantes"
                                 id="estudiantesModelo3{{modelo3.id}}"
-                                value="{% if modelo3.estudiantes %}{{modelo3.estudiantes}}{% endif %}">
+                                value="{{modelo3.estudiantes}}">
                         </div>
                     </div>
 
@@ -3163,7 +3163,7 @@
                         <label for="" class="col-md-2 "><a target="blank" href="{{modelo3.url}}">URL:</a></label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="url" name="url"
-                                id="urlModelo3{{modelo3.id}}" value="{% if modelo3.url %}{{modelo3.url}}{% endif %}">
+                                id="urlModelo3{{modelo3.id}}" value="{{modelo3.url}}">
                         </div>
                     </div>
 
@@ -3237,7 +3237,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="titulo_de_la_presentacion"
                                 id="titulo_de_la_presentacionModelo3{{modelo3.id}}"
-                                value="{% if modelo3.titulo_de_la_presentacion %}{{modelo3.titulo_de_la_presentacion}}{% endif %}">
+                                value="{{modelo3.titulo_de_la_presentacion}}">
                         </div>
                     </div>
 
@@ -3246,7 +3246,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="nombre_de_conferencia"
                                 id="nombre_de_conferenciaModelo3{{modelo3.id}}"
-                                value="{% if modelo3.nombre_de_conferencia %}{{modelo3.nombre_de_conferencia}}{% endif %}">
+                                value="{{modelo3.nombre_de_conferencia}}">
 
                         </div>
                     </div>
@@ -3256,7 +3256,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
                                 id="fechaModelo3{{modelo3.id}}"
-                                value="{% if modelo3.fecha %}{{modelo3.fecha}}{% endif %}">
+                                value="{{modelo3.fecha}}">
                         </div>
                     </div>
 
@@ -3264,7 +3264,7 @@
                         <label for="" class="col-md-2 "><a target="blank" href="{{modelo3.url}}">URL:</a></label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="url" name="url"
-                                id="urlModelo3{{modelo3.id}}" value="{% if modelo3.url %}{{modelo3.url}}{% endif %}">
+                                id="urlModelo3{{modelo3.id}}" value="{{modelo3.url}}">
                         </div>
                     </div>
 
@@ -3334,7 +3334,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="titulo_de_la_presentacion"
                                 id="titulo_de_la_presentacionModelo3{{modelo3.id}}"
-                                value="{% if modelo3.titulo_de_la_presentacion %}{{modelo3.titulo_de_la_presentacion}}{% endif %}">
+                                value="{{modelo3.titulo_de_la_presentacion}}">
                         </div>
                     </div>
 
@@ -3343,7 +3343,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="nombre_de_conferencia"
                                 id="nombre_de_conferenciaModelo3{{modelo3.id}}"
-                                value="{% if modelo3.nombre_de_conferencia %}{{modelo3.nombre_de_conferencia}}{% endif %}">
+                                value="{{modelo3.nombre_de_conferencia}}">
                         </div>
                     </div>
 
@@ -3352,7 +3352,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
                                 id="fechaModelo3{{modelo3.id}}"
-                                value="{% if modelo3.fecha %}{{modelo3.fecha}}{% endif %}">
+                                value="{{modelo3.fecha}}">
                         </div>
                     </div>
 
@@ -3360,7 +3360,7 @@
                         <label for="" class="col-md-2 "><a target="blank" href="{{modelo3.url}}">URL:</a></label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="url" name="url"
-                                id="urlModelo3{{modelo3.id}}" value="{% if modelo3.url %}{{modelo3.url}}{% endif %}">
+                                id="urlModelo3{{modelo3.id}}" value="{{modelo3.url}}">
                         </div>
                     </div>
 
@@ -3430,7 +3430,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="titulo_de_la_presentacion"
                                 id="titulo_de_la_presentacionModelo3{{modelo3.id}}"
-                                value="{% if modelo3.titulo_de_la_presentacion %}{{modelo3.titulo_de_la_presentacion}}{% endif %}">
+                                value="{{modelo3.titulo_de_la_presentacion}}">
                         </div>
                     </div>
 
@@ -3439,7 +3439,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="autores"
                                 id="autoresModelo3{{modelo3.id}}"
-                                value="{% if modelo3.autores %}{{modelo3.autores}}{% endif %}">
+                                value="{{modelo3.autores}}">
                         </div>
                     </div>
 
@@ -3448,7 +3448,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="nombre_de_conferencia"
                                 id="nombre_de_conferenciaModelo3{{modelo3.id}}"
-                                value="{% if modelo3.nombre_de_conferencia %}{{modelo3.nombre_de_conferencia}}{% endif %}">
+                                value="{{modelo3.nombre_de_conferencia}}">
                         </div>
                     </div>
 
@@ -3457,7 +3457,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
                                 id="fechaModelo3{{modelo3.id}}"
-                                value=" {% if modelo3.fecha %}{{modelo3.fecha}}{% endif %}">
+                                value="{{modelo3.fecha}}">
                         </div>
                     </div>
 
@@ -3467,8 +3467,8 @@
                             <select disabled class="form-control mb-1" name="presentacionPoster"
                                 id="presentacionPosterModelo3{{modelo3.id}}">
                                 <option selected
-                                    value="{% if modelo3.presentacionPoster %}{{modelo3.presentacionPoster}}{% endif %}">
-                                    {% if modelo3.presentacionPoster == None or modelo3.presentacionPoster == "" %}
+                                    value="{{modelo3.presentacionPoster}}">
+                                    {% if modelo3.presentacionPoster == "" %}
                                     --------------------
                                     {% else %}
                                     {{modelo3.presentacionPoster}}
@@ -3485,7 +3485,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="estudiantes"
                                 id="estudiantesModelo3{{modelo3.id}}"
-                                value="{% if modelo3.estudiantes %}{{modelo3.estudiantes}}{% endif %}">
+                                value="{{modelo3.estudiantes}}">
                         </div>
                     </div>
 
@@ -3502,7 +3502,7 @@
                         <label for="" class="col-md-2 "><a target="blank" href="{{modelo3.url}}">URL:</a></label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="url" name="url"
-                                id="urlModelo3{{modelo3.id}}" value="{% if modelo3.url %}{{modelo3.url}}{% endif %}">
+                                id="urlModelo3{{modelo3.id}}" value="{{modelo3.url}}">
                         </div>
                     </div>
 
@@ -3573,7 +3573,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="titulo_de_la_presentacion"
                                 id="titulo_de_la_presentacionModelo3{{modelo3.id}}"
-                                value="{% if modelo3.titulo_de_la_presentacion %}{{modelo3.titulo_de_la_presentacion}}{% endif %}">
+                                value="{{modelo3.titulo_de_la_presentacion}}">
                         </div>
                     </div>
 
@@ -3582,7 +3582,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="autores"
                                 id="autoresModelo3{{modelo3.id}}"
-                                value="{% if modelo3.autores %}{{modelo3.autores}}{% endif %}">
+                                value="{{modelo3.autores}}">
                         </div>
                     </div>
 
@@ -3591,7 +3591,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="nombre_de_conferencia"
                                 id="nombre_de_conferenciaModelo3{{modelo3.id}}"
-                                value="{% if modelo3.nombre_de_conferencia %}{{modelo3.nombre_de_conferencia}}{% endif %}">
+                                value="{{modelo3.nombre_de_conferencia}}">
                         </div>
                     </div>
 
@@ -3600,7 +3600,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
                                 id="fechaModelo3{{modelo3.id}}"
-                                value=" {% if modelo3.fecha %}{{modelo3.fecha}}{% endif %}">
+                                value="{{modelo3.fecha}}">
                         </div>
                     </div>
 
@@ -3610,8 +3610,8 @@
                             <select disabled class="form-control mb-1" name="presentacionPoster"
                                 id="presentacionPosterModelo3{{modelo3.id}}">
                                 <option selected
-                                    value="{% if modelo3.presentacionPoster %}{{modelo3.presentacionPoster}}{% endif %}">
-                                    {% if modelo3.presentacionPoster == None or modelo3.presentacionPoster == "" %}
+                                    value="{{modelo3.presentacionPoster}}">
+                                    {% if modelo3.presentacionPoster == "" %}
                                     --------------------
                                     {% else %}
                                     {{modelo3.presentacionPoster}}
@@ -3628,7 +3628,7 @@
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="text" name="estudiantes"
                                 id="estudiantesModelo3{{modelo3.id}}"
-                                value="{% if modelo3.estudiantes %}{{modelo3.estudiantes}}{% endif %}">
+                                value="{{modelo3.estudiantes}}">
                         </div>
                     </div>
 
@@ -3645,7 +3645,7 @@
                         <label for="" class="col-md-2 "><a target="blank" href="{{modelo3.url}}">URL:</a></label>
                         <div class="col-md-10">
                             <input disabled class="form-control mb-1" type="url" name="url"
-                                id="urlModelo3{{modelo3.id}}" value="{% if modelo3.url %}{{modelo3.url}}{% endif %}">
+                                id="urlModelo3{{modelo3.id}}" value="{{modelo3.url}}">
                         </div>
                     </div>
 
@@ -3715,19 +3715,19 @@
                             {% csrf_token %}
                             <label for="">Citas totales:</label>
                             <input disabled class="form-control mb-2" type="number"
-                                value="{% if campo.citas %}{{campo.citas}}{% endif %}" name="citas"
+                                value="{{campo.citas}}" name="citas"
                                 id="citas{{campo.id}}">
 
                             <label for="">Citas obtenidas durante el periodo del reporte</label>
                             <input disabled class="form-control mb-2" type="number"
-                                value="{% if campo.citas_en_periodo %}{{campo.citas_en_periodo}}{% endif %}"
+                                value="{{campo.citas_en_periodo}}"
                                 name="citas_en_periodo" id="citas_en_periodo{{campo.id}}">
                         </div>
 
                         <div class="form-group">
                             <label for="">30a. índice H:</label>
                             <input disabled class="form-control mb-1"
-                                value="{% if campo.indiceH %}{{campo.indiceH}}{% endif %}" type="number" name="indiceH"
+                                value="{{campo.indiceH}}" type="number" name="indiceH"
                                 id="indiceH{{campo.id}}">
                         </div>
 
@@ -4177,7 +4177,7 @@
                                 <label for="" class="col-md-2 ">Fecha:</label>
                                 <div class="col-md-10">
                                     <input maxlength="7" class="form-control mb-1" type="text"
-                                        value="{% if modelo1.fecha %}{{modelo1.fecha}}{% endif %}" name="fecha"
+                                        value="{{modelo1.fecha}}" name="fecha"
                                         id="fechaModelo1${response.id}">
                                 </div>
                             </div>
