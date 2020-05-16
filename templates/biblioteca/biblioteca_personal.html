@@ -100,8 +100,8 @@
                     {% if biblioteca.numeral %}{{biblioteca.numeral}}{%else%}No aplica{% endif %}
                 </td>
 
-                <td class="bibliotecaEstudiantesEnArticulo bibliotecaData" name="estudiantesEnArticulo">
-                    {% if biblioteca.estudiantesEnArticulo%}{{biblioteca.estudiantesEnArticulo}}{%else%}No aplica{%endif%}
+                <td class="bibliotecaestudiantes_en_articulo bibliotecaData" name="estudiantes_en_articulo">
+                    {% if biblioteca.estudiantes_en_articulo%}{{biblioteca.estudiantes_en_articulo}}{%else%}No aplica{%endif%}
                 </td>
 
                 <td>
@@ -202,7 +202,7 @@
                     </select>
 
                     <p  style="margin-top:20px; text-align:left; !important">Estudiante(s):</p>
-                    <input class="form-control mb-2" placeholder="Apellido, Nombre" id="form-estudiantesEnArticulo" type="text" name="estudiantesEnArticulo" />
+                    <input class="form-control mb-2" placeholder="Apellido, Nombre" id="form-estudiantes_en_articulo" type="text" name="estudiantes_en_articulo" />
 		</form>
                 `,
                 showCancelButton: true,
@@ -253,12 +253,12 @@
 
                                         }
                                     }
-                                    if (attr == "estudiantesEnArticulo") {
-                                        if (data.estudiantesEnArticulo == "") {
+                                    if (attr == "estudiantes_en_articulo") {
+                                        if (data.estudiantes_en_articulo == "") {
                                             $(this).text("No aplica");
                                         }
                                         else {
-                                            $(this).text(data.estudiantesEnArticulo);
+                                            $(this).text(data.estudiantes_en_articulo);
                                         }
 
                                     }
@@ -278,17 +278,17 @@
             
             });
             tr_id = "#biblioteca-" + id;
-            estudiantesEnArticulo = $(tr_id).find(".bibliotecaEstudiantesEnArticulo").text().trim();
+            estudiantes_en_articulo = $(tr_id).find(".bibliotecaestudiantes_en_articulo").text().trim();
             numeral = $(tr_id).find(".bibliotecaNumeral").text().trim();
 
             //Asignamos valores recogidos y los colocamos en el Modal, para la edición
             $('#form-id').val(id);
 
-            if (estudiantesEnArticulo == "No aplica") {
-                $('#form-estudiantesEnArticulo').val("");
+            if (estudiantes_en_articulo == "No aplica") {
+                $('#form-estudiantes_en_articulo').val("");
             }
             else {
-                $('#form-estudiantesEnArticulo').val(estudiantesEnArticulo);
+                $('#form-estudiantes_en_articulo').val(estudiantes_en_articulo);
             }
 
             $("#form-Numeral").text(numeral);

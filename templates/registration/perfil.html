@@ -15,13 +15,13 @@
       <p>Correo: <span class="text-muted">{{perfil.email}}</span></p>
 
       <div class="form-group">
-        <label for="first_name">Nombre(s): </label>
-        <input disabled type="text" class="form-control" value="{{perfil.first_name}}" name="nombres" id="nombreP">
+        <label for="nombre">Nombre(s): </label>
+        <input disabled type="text" class="form-control" value="{{perfil.nombre}}" name="nombres" id="nombreP">
       </div>
 
       <div class="form-group">
-        <label for="last_name">Apellido(s): </label>
-        <input disabled type="text" class="form-control" value="{{perfil.last_name}}" name="apellidos" id="apellidosP">
+        <label for="apellido">Apellido(s): </label>
+        <input disabled type="text" class="form-control" value="{{perfil.apellido}}" name="apellidos" id="apellidosP">
       </div>
 
       <div class="row">
@@ -156,7 +156,7 @@
       $("#nivel_sni").prop("disabled", true);
       $("#orc_id").prop("disabled", true);
       $("#arxiv_id").prop("disabled", true);
-      $("#infoAcademica-btn").prop("disabled", true);
+      $("#informacionAcademica-btn").prop("disabled",false)
       $(this).prop("disabled", true);
     });
 

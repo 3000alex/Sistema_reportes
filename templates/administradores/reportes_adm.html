@@ -50,9 +50,9 @@
             <div class="reportes">
                 {% for reporte in reportes %}
                 <tr>
-                    <td>{{reporte.fechaCreacion|date:"d-M-Y"}}</td>
-                    <td>{{reporte.usuario.last_name}}</td>
-                    <td> {{reporte.usuario.first_name}}</td>
+                    <td>{{reporte.fecha_de_creacion|date:"d-M-Y"}}</td>
+                    <td>{{reporte.usuario.apellido}}</td>
+                    <td> {{reporte.usuario.nombre}}</td>
 
                     <td><a download href="{{reporte.reporte.url}}"><i style="font-size:35px; color:red;"
                                 class="far fa-file-pdf"></i></a></td>

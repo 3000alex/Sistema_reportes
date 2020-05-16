@@ -13,13 +13,13 @@ def login_view(request):
             if request.user.email == 'astrofi@inaoep.mx':#if para redirigir a perfil administrador
                 return HttpResponseRedirect(reverse('administradores:home-adm'))
             else:#else para redirigir a perfil investigador
-                return  HttpResponseRedirect(reverse('investigadores:home'))
+                return  HttpResponseRedirect(reverse('reportes:home'))
     else:#else para redirigir a loguearse
         context = {}
         if request.method == "POST":
-                username = request.POST['username']
+                email = request.POST['email']
                 password = request.POST['password']
-                user = authenticate(request, username=username, password=password)
+                user = authenticate(request, email=email, password=password)
                 if user:
                    #user.is_authenticated
                    login(request,user)
@@ -27,7 +27,7 @@ def login_view(request):
                    if user.email == 'astrofi@inaoep.mx':
                         return HttpResponseRedirect(reverse('administradores:home-adm'))
                    else:
-                       return HttpResponseRedirect(reverse('investigadores:home'))
+                       return HttpResponseRedirect(reverse('reportes:home'))
                 else:
                     context["error"] = '<div class="alert alert-danger" role="alert"><ul><li>Por favor, introduzca un nombre de usuario y clave correctos. Observe que ambos campos pueden ser sensibles a mayúsculas.</li></ul></div>'
                     return render(request,"registration/login.html",context)
@@ -43,8 +43,8 @@ class ProfileUpdate(View):
 
     def post(self,request):
         obj = User.objects.get(id=request.user.id)
-        nombre = request.POST.get('nombres',obj.first_name)
-        apellidos = request.POST.get('apellidos',obj.last_name)
+        nombre = request.POST.get('nombres',obj.nombre)
+        apellidos = request.POST.get('apellidos',obj.apellido)
         correo = request.POST.get('correo',obj.email)
         categoria = request.POST.get('categoria',obj.categoria)
         nivel_sni = request.POST.get('nivel_sni',obj.nivelSni)
@@ -52,8 +52,8 @@ class ProfileUpdate(View):
         arxiv_id = request.POST.get('arxiv_id',obj.arxivId)
         
         
-        obj.first_name = nombre
-        obj.last_name = apellidos
+        obj.nombre = nombre
+        obj.apellido = apellidos
         obj.email = correo
         obj.categoria = categoria
         obj.nivelSni = nivel_sni

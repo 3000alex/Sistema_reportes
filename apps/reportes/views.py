@@ -1,0 +1,2240 @@
+# Redirecciones
+from django.urls import reverse
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.http import FileResponse
+from django.core import serializers
+# Vistas genericas
+from django.views.generic.base import TemplateView
+from django.views.generic.edit import UpdateView
+from django.views.generic import View, ListView
+from django.views.generic import FormView
+# Librerias para validar el login
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+# Modelos y forms
+from .models import Numeral, Citas, ReporteEnviado, Modelo1, Modelo2, Modelo3, Modelo4, Modelo5, Modelo6, Modelo7, Modelo8, Modelo9, Modelo10, Glosario
+from .models import Modelo11, Modelo12, Modelo13, Modelo14, Modelo15,Modelo16, Periodo
+from apps.registration.models import User
+from apps.biblioteca.models import Biblioteca
+from .models import ReporteEnviado
+from datetime import date
+from datetime import datetime
+from django.http import JsonResponse
+#forms
+from django.urls import reverse_lazy
+
+# Manejo Archivos
+from django.shortcuts import redirect
+from django.core.files.storage import FileSystemStorage
+import os
+from django.conf import settings
+from django.core.files.base import ContentFile
+from django.core.files.base import File as contenidoFile
+#Zip
+import zipfile
+import zlib
+from io import StringIO
+#PDF 
+import pdfkit
+from io import BytesIO
+from django.core.files import File
+#config = pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')  #Linux
+config =  pdfkit.configuration(wkhtmltopdf='C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe') #Windows
+# Correo
+from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.shortcuts import render
+from django.core.files import File
+from email.mime.base import MIMEBase
+from email import encoders
+from sistema_reportes.settings import BASE_DIR
+#Reporte final
+from .generarReporteCoordinacion import generarPdf
+#Time zone
+import datetime
+
+
+class infoUpdateView(UpdateView):
+    pass
+
+@method_decorator(login_required, name='dispatch')
+class reporte_productividad(View):
+    def get(self,request):
+        periodoActual =  Periodo.objects.last()
+        periodos = Periodo.objects.all()
+        data = {
+            'periodoActual': periodoActual,'periodos':periodos
+        }
+        return render(request, 'reportes/reportes_productividad.html',data)
+    def post(self,request):
+        return HttpResponse('HOLA')
+
+@method_decorator(login_required, name='dispatch')
+class investigacion_cientifica(View):
+
+    def get(self,request):
+        id1 = request.GET.get('periodoActual')
+        id_usuario = request.user.id
+        periodoActual = Periodo.objects.get(id = id1)
+        periodos = Periodo.objects.all()
+        yearPeriodo = periodoActual.fecha_inicio.year
+        data = {
+            "numeralName": Numeral.objects.filter(nombre_seccion="Investigacion Cientifica"),
+            'numeral_1': Biblioteca.objects.reporteProductividad(id_usuario,1,yearPeriodo),
+            'numeral_2': Biblioteca.objects.reporteProductividad(id_usuario,2,yearPeriodo), 
+            'numeral_3': Biblioteca.objects.reporteProductividad(id_usuario,3,yearPeriodo),
+            'numeral_4': Biblioteca.objects.reporteProductividad(id_usuario,4,yearPeriodo),
+            'numeral_5': Biblioteca.objects.reporteProductividad(id_usuario,5,yearPeriodo), 
+            'numeral_6': Modelo1.objects.reporteProductividad(id_usuario,6,yearPeriodo),
+            'numeral_7': Biblioteca.objects.reporteProductividad(id_usuario,7,yearPeriodo), 
+            'numeral_8': Modelo1.objects.reporteProductividad(id_usuario,8,yearPeriodo),
+            'numeral_9': Biblioteca.objects.reporteProductividad(id_usuario,9,yearPeriodo),
+            "numeral_10": Modelo1.objects.reporteProductividad(id_usuario,10,yearPeriodo),
+            'numeral_11': Biblioteca.objects.reporteProductividad(id_usuario,11,yearPeriodo), 
+            'numeral_12': Biblioteca.objects.reporteProductividad(id_usuario,12,yearPeriodo),
+            'numeral_13': Biblioteca.objects.reporteProductividad(id_usuario,13,yearPeriodo), 
+            'numeral_14': Biblioteca.objects.reporteProductividad(id_usuario,14,yearPeriodo), 
+            'numeral_14a': Biblioteca.objects.reporteProductividad(id_usuario,15,yearPeriodo),
+            'numeral_15':Modelo1.objects.reporteProductividad(id_usuario,16,yearPeriodo),
+            'numeral_16':Modelo1.objects.reporteProductividad(id_usuario,17,yearPeriodo),
+            'numeral_17':Modelo1.objects.reporteProductividad(id_usuario,18,yearPeriodo),
+            'numeral_18':Modelo2.objects.reporteProductividad(id_usuario, 19,yearPeriodo),
+            'numeral_19':Modelo2.objects.reporteProductividad(id_usuario, 20,yearPeriodo),
+            'numeral_20':Modelo2.objects.reporteProductividad(id_usuario, 21,yearPeriodo),
+            'numeral_21':Modelo2.objects.reporteProductividad(id_usuario, 22,yearPeriodo),
+            'numeral_22':Modelo2.objects.reporteProductividad(id_usuario, 23,yearPeriodo),
+            'numeral_23':Modelo14.objects.reporteProductividad(id_usuario,24,yearPeriodo),
+            'numeral_24':Modelo3.objects.reporteProductividad(id_usuario, 25,yearPeriodo),
+            'numeral_25':Modelo3.objects.reporteProductividad(id_usuario, 26,yearPeriodo),
+            'numeral_26':Modelo3.objects.reporteProductividad(id_usuario, 27,yearPeriodo),
+            'numeral_27':Modelo3.objects.reporteProductividad(id_usuario, 28,yearPeriodo),
+            'numeral_28':Modelo3.objects.reporteProductividad(id_usuario, 29,yearPeriodo),
+            'numeral_29':Modelo3.objects.reporteProductividad(id_usuario, 30,yearPeriodo),
+            'citas': Citas.objects.reporteProductividad(id_usuario), #Id - 31
+            'glosario': Glosario.objects.reporteProductividad("I. INVESTIGACIÓN CIENTÍFICA"),
+            'periodoActual': periodoActual,'periodos':periodos
+        }
+        return render(request, "reportes/investigacionCientifica.html", data)
+
+@method_decorator(login_required, name='dispatch')
+class formacion_RH(View):
+    
+    def get(self,request):
+        id1 = request.GET.get('periodoActual')
+        id_usuario = request.user.id
+        periodoActual = Periodo.objects.get(id = id1)
+        periodos = Periodo.objects.all()
+        yearPeriodo = periodoActual.fecha_inicio.year
+        data = {
+            'numeralName': Numeral.objects.filter(nombre_seccion="Formacion de Recursos Humanos"),
+            'numeral_31': Modelo4.objects.reporteProductividad(id_usuario,32,yearPeriodo),
+            'numeral_32': Modelo4.objects.reporteProductividad(id_usuario,33,yearPeriodo),
+            'numeral_33': Modelo4.objects.reporteProductividad(id_usuario,34,yearPeriodo),
+            'numeral_34': Modelo4.objects.reporteProductividad(id_usuario,35,yearPeriodo),
+            'numeral_35': Modelo5.objects.reporteProductividad(id_usuario,36,yearPeriodo),
+            'numeral_36': Modelo5.objects.reporteProductividad(id_usuario,37,yearPeriodo),
+            'numeral_37': Modelo6.objects.reporteProductividad(id_usuario,38,yearPeriodo),
+            'numeral_38': Modelo16.objects.reporteProductividad(id_usuario,39,yearPeriodo),
+            'numeral_39': Modelo6.objects.reporteProductividad(id_usuario,40,yearPeriodo),
+            "glosario": Glosario.objects.reporteProductividad("II. FORMACIÓN DE RECURSOS HUMANOS"),
+            "periodoActual": periodoActual,'periodos':periodos
+            }
+        return render(request, "reportes/formacionRRHH.html", data)
+
+@method_decorator(login_required, name='dispatch')
+class desarrollo_tec_inovacion(View):
+    
+    def get(self,request):
+        id1 = request.GET.get('periodoActual')
+        id_usuario = request.user.id
+        periodoActual = Periodo.objects.get(id = id1)
+        periodos = Periodo.objects.all()
+        yearPeriodo = periodoActual.fecha_inicio.year
+        data = {
+            "numeralName": Numeral.objects.filter(nombre_seccion="Desarrollo Tecnologico e Innovacion"), 
+            'numeral_40': Modelo7.objects.reporteProductividad(id_usuario,41,yearPeriodo),
+            'numeral_41': Modelo7.objects.reporteProductividad(id_usuario,42,yearPeriodo),
+            'numeral_42': Modelo7.objects.reporteProductividad(id_usuario,43,yearPeriodo),
+            'numeral_43': Modelo7.objects.reporteProductividad(id_usuario,44,yearPeriodo),
+            'numeral_44': Modelo7.objects.reporteProductividad(id_usuario,45,yearPeriodo),
+            'numeral_45': Modelo8.objects.reporteProductividad(id_usuario,46,yearPeriodo),
+            'numeral_46': Modelo9.objects.reporteProductividad(id_usuario,47,yearPeriodo),
+            'glosario':  Glosario.objects.reporteProductividad("III. DESARROLLO TECNOLÓGICO E INNOVACIÓN(agregar patentes en REGISTRO)"),
+            'periodoActual': periodoActual,'periodos':periodos
+            }
+        return render(request, "reportes/desarrolloTecInnov.html", data)
+
+@method_decorator(login_required, name='dispatch')
+class apoyo_institucional(View):
+    
+    def get(self,request):
+        id1 = request.GET.get('periodoActual')
+        id_usuario = request.user.id
+        periodoActual = Periodo.objects.get(id = id1)
+        periodos = Periodo.objects.all()
+        yearPeriodo = periodoActual.fecha_inicio.year
+        data = {
+            "numeralName": Numeral.objects.filter(nombre_seccion="Apoyo Institucional"),
+            'numeral_47': Modelo15.objects.reporteProductividad(id_usuario,48,yearPeriodo),
+            'numeral_48': Modelo9.objects.reporteProductividad(id_usuario ,49,yearPeriodo),
+            'numeral_49': Modelo10.objects.reporteProductividad(id_usuario,50,yearPeriodo),
+            'numeral_49a': Modelo10.objects.reporteProductividad(id_usuario,51,yearPeriodo),
+            'numeral_49b': Modelo10.objects.reporteProductividad(id_usuario,52,yearPeriodo),
+            'numeral_50': Modelo10.objects.reporteProductividad(id_usuario,53,yearPeriodo),
+            'numeral_51': Modelo10.objects.reporteProductividad(id_usuario,54,yearPeriodo),
+            'numeral_52': Modelo10.objects.reporteProductividad(id_usuario,55,yearPeriodo),
+            'numeral_52a': Modelo10.objects.reporteProductividad(id_usuario,56,yearPeriodo),
+            'numeral_53': Modelo11.objects.reporteProductividad(id_usuario,57,yearPeriodo),
+            'numeral_54': Modelo11.objects.reporteProductividad(id_usuario,58,yearPeriodo),
+            'numeral_55': Modelo11.objects.reporteProductividad(id_usuario,59,yearPeriodo),
+            'numeral_56': Modelo11.objects.reporteProductividad(id_usuario,60,yearPeriodo),
+            'numeral_57': Modelo15.objects.reporteProductividad(id_usuario,61,yearPeriodo),
+            'numeral_58': Modelo12.objects.reporteProductividad(id_usuario,62,yearPeriodo),
+            'numeral_59': Modelo13.objects.reporteProductividad(id_usuario,63,yearPeriodo),
+            'numeral_60': Modelo15.objects.reporteProductividad(id_usuario,64,yearPeriodo),
+            'glosario': Glosario.objects.reporteProductividad("IV. APOYO INSTITUCIONAL"), 
+            'periodoActual': periodoActual,'periodos':periodos
+            }
+        return render(request, "reportes/apoyoInstitucional.html", data)
+
+@method_decorator(login_required, name='dispatch')
+class informacion_adicional(View):
+    def get(self,request):
+        id_usuario = request.user.id
+        id1 = request.GET.get('periodoActual')
+        periodoActual = Periodo.objects.get(id = id1)
+        periodos = Periodo.objects.all()
+        yearPeriodo = periodoActual.fecha_inicio.year
+        data = {
+            'numeralName': Numeral.objects.filter(nombre_seccion="Informacion Adicional"),
+            'numeral_61': Modelo14.objects.reporteProductividad(id_usuario,65,yearPeriodo),
+            'glosario': Glosario.objects.reporteProductividad("V. INFORMACIÖN ADICIONAL"), 
+            'periodoActual': periodoActual,'periodos':periodos,
+            }
+        return render(request, "reportes/informacionAdicional.html", data)
+
+# Investigacion Cientifica - CRUD
+
+# Numerales Biblioteca
+@method_decorator(login_required, name='dispatch')
+class actualizarBiblioteca(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        autor = request.POST.get('autores', None)
+        titulo = request.POST.get('titulo', None)
+        revista = request.POST.get('revista', None)
+        estudiantes = request.POST.get('estudiantes', None)
+        url = request.POST.get('url', None)
+        doi = request.POST.get('doi', None)
+        fecha = request.POST.get('fecha', None)
+        bibcode = request.POST.get('bibcode', None)
+        temp = len(fecha)
+        fecha_ano = fecha[:temp - 3 ]
+        
+        # Actualizamos biblioteca
+        obj = Biblioteca.objects.get(id=id1)
+        obj.autores = autor
+        obj.titulo = titulo
+        obj.revista_publicacion = revista
+        obj.estudiantes_en_articulo = estudiantes
+        obj.doi = doi
+        obj.fecha = fecha
+        obj.url = url
+        obj.fecha_ano = fecha_ano
+        obj.bibcode = bibcode
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id, 'autores': obj.autores, 'titulo': obj.titulo,
+                'revista': obj.revista_publicacion, 'estudiantes': obj.estudiantes_en_articulo}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class BibliotecaCrearNumeral(View):
+    def post(self, request):
+        numeral1 = request.POST.get('numeral', None)
+        
+        obj = Biblioteca.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral1
+        )
+        
+        data = {
+            'id': obj.id,
+            'numeral': numeral1,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorBiblioteca(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo14.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id)
+
+        data = {
+            'descripcion':datos.descripcion,
+        }
+        return  JsonResponse(data)
+# Fin Numerales Biblioteca
+
+# Operaciones Modelo1
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo1(View):
+
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        autores = request.POST.get('autores', None)
+        titulo = request.POST.get('titulo', None)
+        revista = request.POST.get('revista', None)
+        url = request.POST.get('url', None)
+        doi = request.POST.get('doi', None)
+        fecha = request.POST.get('fecha',None)
+        estudiantes = request.POST.get('estudiantes', None)
+
+        # Actualizamos Modelo1
+        obj = Modelo1.objects.get(id=id1)
+        obj.autores = autores
+        obj.titulo = titulo
+        obj.revista_publicacion = revista
+        obj.fecha = fecha
+        obj.estudiantes_en_articulo = estudiantes
+        obj.doi = doi
+        obj.url = url
+
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        data = {'id': obj.id}  # Json que se enviara a Data
+
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo1(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+
+        obj = Modelo1.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo1.objects.get(id=id1).delete()
+
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo1(View):
+    def get(self, request):
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+        
+        obj = Modelo1.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+        
+        
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo1(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+        periodo_id = int(periodo_id) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo1.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+
+        data = {
+            'descripcion':datos.descripcion,
+        }
+        return  JsonResponse(data)
+
+# Operaciones Modelo2
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo2(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        nombre_del_proyecto = request.POST.get('nombre_del_proyecto', None)
+        descripcion = request.POST.get('descripcion', None)
+        participantes = request.POST.get('participantes', None)
+        responsable = request.POST.get('responsable', None)
+        estudiantes = request.POST.get('estudiantes', None)
+
+        # Actualizamos Modelo2
+        obj = Modelo2.objects.get(id=id1)
+        obj.nombre_del_proyecto = nombre_del_proyecto
+        obj.descripcion = descripcion
+        obj.participantes = participantes
+        obj.estudiantes = estudiantes
+        obj.responsableTecParticipante = responsable
+
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo2(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        print(id1)
+
+        obj = Modelo2.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo2.objects.get(id=id1).delete()
+
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo2(View):
+    def get(self, request):
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+        
+        obj = Modelo2.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+        
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo2(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo2.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id)
+        nombre_del_proyecto = []
+        descripcion = []
+        participantes = []
+        estudiantes = []
+        responsableTecParticipantes = []
+        ids = []
+
+        for d in datos:
+            data = Modelo2.objects.create(
+                nombre_del_proyecto = d.nombre_del_proyecto,
+                descripcion = d.descripcion,
+                participantes = d.participantes,
+                estudiantes = d.estudiantes,
+                responsableTecParticipante = d.responsableTecParticipante,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            nombre_del_proyecto.append(data.nombre_del_proyecto)
+            descripcion.append(data.descripcion)
+            participantes.append(data.participantes)
+            estudiantes.append(data.estudiantes)
+            responsableTecParticipantes.append(data.responsableTecParticipante)
+            ids.append(data.id)
+
+        data = {
+            'nombre_del_proyecto':nombre_del_proyecto,
+            'descripcion':descripcion,
+            'participantes':participantes,
+            'estudiantes':estudiantes,
+            'responsableTecParticipantes':responsableTecParticipantes,
+            'ids':ids
+        }
+
+        return  JsonResponse(data)
+
+# Operaciones Modelo3
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo3(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        titulo_de_la_presentacion = request.POST.get('titulo_de_la_presentacion', None)
+        autores = request.POST.get('autores', None)
+        nombre_de_conferencia = request.POST.get('nombre_de_conferencia', None)
+        fecha = request.POST.get('fecha', None)
+        estudiantes = request.POST.get('estudiantes', None)
+        doi = request.POST.get('doi', None)
+        presentacionPoster = request.POST.get('presentacionPoster', None)
+        url = request.POST.get('url', None)
+
+        # Actualizamos modelo3
+        obj = Modelo3.objects.get(id=id1)
+        obj.titulo_de_la_presentacion = titulo_de_la_presentacion
+        obj.autores = autores
+        obj.nombre_de_conferencia = nombre_de_conferencia
+        obj.fecha = fecha
+        obj.presentacionPoster = presentacionPoster
+        obj.estudiantes = estudiantes
+        obj.doi = doi
+        obj.url = url
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo3(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo3.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo3.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo3(View):
+    def get(self, request):
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+        
+        obj = Modelo3.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+        
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo3(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo3.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        titulo_de_la_presentacion = []
+        autores = []
+        nombre_de_conferencia = []
+        fecha = []
+        presentacionPoster = []
+        estudiantes = []
+        doi = []
+        url = []
+        ids = []
+
+        for d in datos:
+            data = Modelo3.objects.create(
+                titulo_de_la_presentacion = d.titulo_de_la_presentacion,
+                autores = d.autores,
+                nombre_de_conferencia = d.nombre_de_conferencia,
+                fecha = d.fecha,
+                presentacionPoster = d.presentacionPoster,
+                estudiantes = d.estudiantes,
+                doi = d.doi,
+                url = d.url,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            titulo_de_la_presentacion.append(data.titulo_de_la_presentacion)
+            autores.append(data.autores)
+            nombre_de_conferencia.append(data.nombre_de_conferencia)
+            fecha.append(data.fecha)
+            presentacionPoster.append(data.presentacionPoster)
+            estudiantes.append(data.estudiantes)
+            doi.append(data.doi)
+            url.append(data.url)
+            ids.append(data.id)
+        
+        data = {
+            'titulo_de_la_presentacion':titulo_de_la_presentacion,
+            'autores':autores,
+            'nombre_de_conferencia':nombre_de_conferencia,
+            'fecha':fecha,
+            'presentacionPoster':presentacionPoster,
+            'estudiantes':estudiantes,
+            'doi':doi,
+            'url':url,
+            'ids':ids
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class actualizarCitas(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        citas = request.POST.get('citas', None)
+        citas_en_periodo = request.POST.get('citas_en_periodo', None)
+        indiceH = request.POST.get('indiceH', None)
+
+        obj = Citas.objects.get(id=id1)
+        obj.citas = citas
+        obj.citasObtenidasEnPeriodo = citas_en_periodo
+        obj.indiceH = indiceH
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearCitas(View):
+    def get(self,request):
+        numeral1 = request.GET.get('numeral', None)
+        id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=id)
+        
+        obj = Citas.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral1,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id':obj.id,
+            'numeral': numeral1,
+        }
+        return JsonResponse(data)
+
+# Formacion RRHH - CRUD
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo4(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        nombre_completo = request.POST.get('nombre_completo', None)
+        titulo_de_tesis = request.POST.get('titulo_de_tesis', None)
+        fecha = request.POST.get('fecha', None)
+        url = request.POST.get('url', None)
+       
+
+        # Actualizamos modelo4
+        obj = Modelo4.objects.get(id=id1)
+        obj.nombre_completo = nombre_completo
+        obj.titulo_de_tesis = titulo_de_tesis
+        obj.fecha = fecha
+        obj.url = url
+
+
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo4(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo4.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo4.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo4(View):
+    def get(self, request):
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+
+        obj = Modelo4.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo4(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo4.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        nombre_completo = []
+        titulo_de_tesis = []
+        fecha = []
+        url = []
+        ids = []
+
+        for d in datos:
+            data = Modelo4.objects.create(
+                nombre_completo = d.nombre_completo,
+                titulo_de_tesis = d.titulo_de_tesis,
+                fecha = d.fecha,
+                url = d.url,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+        
+            nombre_completo.append(data.nombre_completo)
+            titulo_de_tesis.append(data.titulo_de_tesis)
+            fecha.append(data.fecha)
+            url.append(data.url)
+            ids.append(data.id)
+
+        data = {
+            'nombre_completo': nombre_completo,
+            'titulo_de_tesis': titulo_de_tesis,
+            'fecha': fecha,
+            'url': url,
+            'ids':ids
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo5(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        nombre_del_curso = request.POST.get('nombre_del_curso', None)
+        periodo = request.POST.get('periodo', None)
+        notas = request.POST.get('notas', None)
+
+        # Actualizamos biblioteca
+        obj = Modelo5.objects.get(id=id1)
+        obj.nombre_del_curso = nombre_del_curso
+        obj.periodo_numeral = periodo
+        obj.notas = notas
+
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo5(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo5.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo5.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo5(View):
+    def get(self, request):
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+
+        obj = Modelo5.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo5(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo5.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        nombre_del_curso = []
+        periodo_numeral = []
+        notas = []
+        ids = []
+
+        for d in datos:
+            data = Modelo5.objects.create(
+                nombre_del_curso = d.nombre_del_curso,
+                periodo_numeral = d.periodo_numeral,
+                notas = d.notas,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+        
+            nombre_del_curso.append(data.nombre_del_curso)
+            periodo_numeral.append(data.periodo_numeral)
+            notas.append(data.notas)
+            ids.append(data.id)
+
+        data = {
+            'nombre_del_curso':nombre_del_curso,
+            'periodo_numeral':periodo_numeral,
+            'notas':notas,
+            'ids':ids
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo6(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        nombre = request.POST.get('nombre', None)
+        titulo = request.POST.get('titulo_de_tesis', None)
+        grado = request.POST.get('grado', None)
+        institucion = request.POST.get('institucion', None)
+        fecha = request.POST.get('fecha', None)
+        notas = request.POST.get('notas', None)
+
+        # Actualizamos modelo
+        obj = Modelo6.objects.get(id=id1)
+        obj.nombre = nombre
+        obj.titulo_de_tesis = titulo
+        obj.grado = grado
+        obj.institucion = institucion
+        obj.fecha = fecha
+        obj.notas = notas
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo6(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo6.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo6.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo6(View):
+    def get(self, request):
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+       
+        obj = Modelo6.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo6(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo6.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        nombre = []
+        titulo_de_tesis = []
+        grado = []
+        institucion = []
+        fecha = []
+        notas = []
+        ids = []
+
+        for d in datos:
+            data = Modelo6.objects.create(
+                nombre = d.nombre,
+                titulo_de_tesis = d.titulo_de_tesis,
+                grado = d.grado,
+                institucion = d.institucion,
+                fecha = d.fecha,
+                notas = d.notas,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            nombre.append(data.nombre)
+            titulo_de_tesis.append(data.titulo_de_tesis)
+            grado.append(data.grado)
+            institucion.append(data.institucion)
+            fecha.append(data.fecha)
+            notas.append(data.notas)
+            ids.append(data.id)
+
+        data = {
+            'nombre':nombre,
+            'titulo_de_tesis':titulo_de_tesis,
+            'grado':grado,
+            'institucion':institucion,
+            'fecha':fecha,
+            'notas':notas,
+            'ids':ids
+        }
+        return  JsonResponse(data)
+
+# Desarrollo Tec. Innov. - CRUD
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo7(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        autores = request.POST.get('autores', None)
+        descripcion = request.POST.get('descripcion', None)
+        url = request.POST.get('url', None)
+
+        obj = Modelo7.objects.get(id=id1)
+        obj.autores = autores
+        obj.descripcion = descripcion
+        obj.url = url
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo7(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo7.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo7.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo7(View):
+    def get(self, request):        
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+
+        obj = Modelo7.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo7(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo7.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        descripcion = []
+        autores = []
+        url = []
+        ids = []
+        for d in datos:
+            data = Modelo7.objects.create(
+                descripcion = d.descripcion,
+                autores = d.autores,
+                url = d.url,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            descripcion.append(data.descripcion)
+            autores.append(data.autores)
+            url.append(data.url)
+            ids.append(data.id)
+
+        data = {
+            'descripcion':descripcion,
+            'autores':autores,
+            'url':url,
+            'ids':ids
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo8(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        nombre = request.POST.get('nombre', None)
+        descripcion = request.POST.get('descripcion', None)
+        participantes = request.POST.get('participantes', None)
+        financiamiento = request.POST.get('financiamiento', None)
+
+        obj = Modelo8.objects.get(id=id1)
+        obj.nombre = nombre
+        obj.descripcion = descripcion
+        obj.participantes = participantes
+        obj.financiamiento = financiamiento
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo8(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo8.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo8.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo8(View):
+    def get(self, request):        
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+
+        obj = Modelo8.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo8(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo8.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        nombre = []
+        descripcion = []
+        participantes = []
+        financiamiento = []
+        ids = []
+
+        for d in datos:
+            data = Modelo8.objects.create(
+                nombre = d.nombre,
+                descripcion = d.descripcion,
+                participantes = d.participantes,
+                financiamiento = d.financiamiento,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            nombre.append(data.nombre)
+            descripcion.append(data.descripcion)
+            participantes.append(data.participantes)
+            financiamiento.append(data.financiamiento)
+            ids.append(data.id)
+
+        data = {
+            'nombre':nombre,
+            'descripcion':descripcion,
+            'participantes':participantes,
+            'financiamiento':financiamiento,
+            'ids':ids
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo9(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        titulo = request.POST.get('titulo', None)
+        autores = request.POST.get('autores', None)
+        Nreporte = request.POST.get('Nreportes', None)
+        fecha = request.POST.get('fecha', None)
+        url = request.POST.get('url', None)
+        revista = request.POST.get('revista_publicacion', None)
+        doi = request.POST.get('doi',None)
+
+        obj = Modelo9.objects.get(id=id1)
+        obj.titulo = titulo
+        obj.autores = autores
+        obj.numero_reportes = Nreporte
+        obj.fecha = fecha
+        obj.url = url
+        obj.revista_publicacion = revista
+        obj.doi = doi
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo9(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo9.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo9.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo9(View):
+    def get(self, request):
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+
+        obj = Modelo9.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo9(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        numeral_id = request.GET.get('numeral',None)
+        periodo_id = int(periodo) - 1
+        datos = Modelo9.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id)
+        titulo = []
+        autores = []
+        numero_reportes = []
+        fecha = []
+        url = []
+        revista_publicacion = []
+        doi = []
+        ids = []
+
+        for d in datos:
+            data = Modelo9.objects.create(
+                titulo = d.titulo,
+                autores = d.autores,
+                numero_reportes = d.numero_reportes,
+                fecha = d.fecha,
+                url = d.url,
+                revista_publicacion = d.revista_publicacion,
+                doi = d.doi,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+
+            )
+            titulo.append(data.titulo)
+            autores.append(data.autores)
+            numero_reportes.append(data.numero_reportes)
+            fecha.append(data.fecha)
+            url.append(data.url)
+            revista_publicacion.append(data.revista_publicacion)
+            doi.append(data.doi)
+            ids.append(data.id)
+
+        data = {
+            'titulo':titulo,
+            'autores':autores,
+            'numero_reportes':numero_reportes,
+            'fecha':fecha,
+            'url':url,
+            'revista_publicacion':revista_publicacion,
+            'doi':doi,
+            'ids':ids
+        }
+        return  JsonResponse(data)
+
+# Apoyo institucional
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo10(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        descripcion = request.POST.get('descripcion', None)
+        fecha = request.POST.get('fecha', None)
+        url = request.POST.get('url', None)
+        periodo = request.POST.get('periodo', None)
+
+        obj = Modelo10.objects.get(id=id1)
+        obj.descripcion = descripcion
+        obj.fecha = fecha
+        obj.url = url
+        obj.periodo_numeral = periodo
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo10(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo10.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo10.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo10(View):
+    def get(self, request):
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+
+        obj = Modelo10.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo10(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo10.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id)
+        descripcion = []
+        fecha = []
+        url = []
+        periodo_numeral = []
+        ids = []
+
+        for d in datos:
+            data = Modelo10.objects.create(
+                descripcion = d.descripcion,
+                fecha = d.fecha,
+                url = d.url,
+                periodo_numeral = d.periodo_numeral,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            descripcion.append(data.descripcion)
+            fecha.append(data.fecha)
+            url.append(data.url)
+            periodo_numeral.append(data.periodo_numeral)
+            ids.append(data.id)
+
+        data = {
+            'descripcion':descripcion,
+            'fecha':fecha,
+            'url':url,
+            'periodo_numeral':periodo_numeral,
+            'ids':ids
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo11(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        nombre = request.POST.get('nombre_del_estudiante', None)
+        descripcion = request.POST.get('descripcion', None)
+        fecha = request.POST.get('fecha', None)
+        fechaPeriodo = request.POST.get('fechaPeriodo', None)
+
+        obj = Modelo11.objects.get(id=id1)
+        obj.nombre_del_estudiante = nombre
+        obj.descripcion = descripcion
+        obj.fecha = fecha
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo11(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo11.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo11.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo11(View):
+    def get(self, request):
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+
+        obj = Modelo11.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo11(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo11.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id)
+        descripcion = []
+        nombre_del_estudiante = []
+        fecha = []
+        ids =  []
+
+        for d in datos:
+            data = Modelo11.objects.create(
+                descripcion = d.descripcion,
+                nombre_del_estudiante = d.nombre_del_estudiante,
+                fecha = d.fecha,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            descripcion.append(data.descripcion)
+            nombre_del_estudiante.append(data.nombre_del_estudiante)
+            fecha.append(data.fecha)
+            ids.append(data.id)
+
+        data = {
+            'descripcion':descripcion,
+            'nombre_del_estudiante':nombre_del_estudiante,
+            'fecha':fecha,
+            'ids':ids
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo12(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        laboratorio = request.POST.get('laboratorio_taller', None)
+
+        obj = Modelo12.objects.get(id=id1)
+
+        obj.laboratorio_taller = laboratorio
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo12(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo12.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo12.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo12(View):
+    def get(self, request):
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+    
+        obj = Modelo12.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo12(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo12.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id)
+        laboratorio_taller = []
+        ids  = []
+        for d in datos:
+            data = Modelo12.objects.create(
+                laboratorio_taller = d.laboratorio_taller,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            laboratorio_taller.append(data.laboratorio_taller)
+            ids.append(data.id)
+
+        data = {
+            'laboratorio_taller':laboratorio_taller,
+            'ids':ids
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo13(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        descripcion = request.POST.get('descripcion', None)
+        agencia = request.POST.get('agencias_financieras', None)
+
+        obj = Modelo13.objects.get(id=id1)
+        obj.descripcion = descripcion
+        obj.agencias_financieras = agencia
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo13(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo13.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo13.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo13(View):
+    def get(self, request):
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+
+        obj = Modelo13.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo13(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo13.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id)
+        descripcion = []
+        agencias_financieras = []
+        ids = []
+
+        for d in datos:
+            data = Modelo13.objects.create(
+                descripcion = d.descripcion,
+                agencias_financieras = d.agencias_financieras,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            descripcion.append(data.descripcion)
+            agencias_financieras.append(data.agencias_financieras)
+            ids.append(data.id)
+
+        data = {
+            'descripcion':descripcion,
+            'agencias':agencias_financieras,
+            'ids':ids
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo14(FormView):
+
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        telescopio = request.POST.get('telescopio', None)
+        descripcion = request.POST.get('descripcion', None)
+        url = request.POST.get('url', None)
+        conferencia_proyecto = request.POST.get('conferencia_proyecto',None)
+        rol = request.POST.get('rol',None)
+        fecha = request.POST.get('fecha',None)
+
+        obj = Modelo14.objects.get(id=id1)
+        obj.telescopio_instrumento_infra = telescopio
+        obj.descripcion = descripcion
+        obj.url = url
+        obj.conferencia_proyecto = conferencia_proyecto
+        obj.rol = rol
+        obj.fecha = fecha
+        
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + obj.anexos.url))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo14(View):
+    def post(self, request):
+        print("Entre a la funcion")
+        id1 = request.POST.get('id', None)
+        print(id1)
+        Modelo14.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo14(View):
+    def get(self, request):
+        print("llegue")
+        #Create
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
+        #Update
+        telescopio = request.GET.get('telescopio_instrumento_infra')
+        descripcion = request.GET.get('descripcion')
+        url = request.GET.get('url')
+        conferencia_proyecto = request.GET.get('conferencia_proyecto')
+        rol = request.GET.get('rol')
+        fecha = request.GET.get('fecha')
+        anexos = request.GET.get('anexos')
+        #Validate update or create
+        
+        obj = Modelo14.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo_id,
+            telescopio_instrumento_infra = telescopio,
+            descripcion = descripcion,
+            url = url,
+            conferencia_proyecto = conferencia_proyecto,
+            rol = rol,
+            fecha = fecha,
+            anexos = anexos,
+        )
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo14(View):
+    
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo14.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        telescopio = []
+        descripcion = []
+        rol = []
+        conferencia = []
+        fecha = []
+        ids = []
+        urls = []
+
+        for d in datos:
+            data = Modelo14.objects.create(
+                descripcion = d.descripcion,
+                telescopio_instrumento_infra = d.telescopio_instrumento_infra,
+                url = d.url,
+                rol = d.rol,
+                fecha = d.fecha,
+                conferencia_proyecto = d.conferencia_proyecto,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            telescopio.append(data.telescopio_instrumento_infra)
+            descripcion.append(data.descripcion)
+            rol.append(data.rol)
+            conferencia.append(data.conferencia_proyecto)
+            fecha.append(data.fecha)
+            urls.append(data.url)
+            ids.append(data.id)
+            
+        
+        data = {
+            'telescopio':telescopio,
+            'descripcion':descripcion,
+            'urls':urls,
+            'conferencia_proyecto':conferencia,
+            'rol':rol,
+            'fecha':fecha,
+            'ids':ids
+        }
+        
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo15(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        descripcion = request.POST.get('descripcion', None)
+
+        obj = Modelo15.objects.get(id=id1)
+        obj.descripcion = descripcion
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo15(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo15.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo15.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo15(View):
+    def get(self, request):
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+
+        obj = Modelo15.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo15(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo15.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        descripcion = []
+        ids = []
+
+        for d in datos:
+            data = Modelo15.objects.create(
+                descripcion = d.descripcion,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            descripcion.append(data.descripcion)
+            ids.append(data.id)
+        data = {
+            'descripcion':descripcion,
+            'ids':ids
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class actualizarModelo16(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        estudiantes = request.POST.get('nombre_del_estudiante', None)
+        coordinacion = request.POST.get('coordinacion',None)
+        grado = request.POST.get('grado',None)
+        
+        obj = Modelo16.objects.get(id=id1)
+        obj.nombre_del_estudiante = estudiantes
+        obj.coordinacion = coordinacion
+        obj.grado = grado
+        # Subir archivos
+        if request.FILES:
+            archivo = request.FILES['anexo']
+            if obj.anexos:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+                obj.anexos = archivo
+            else:
+                obj.anexos = archivo
+        obj.save()
+
+        user = {'id': obj.id}  # Json que se enviara a Data
+
+        data = {
+            'user': user  # Objeto de Json con los datos actualizados.
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class eliminarModelo16(View):
+    def post(self, request):
+        id1 = request.POST.get('id', None)
+        obj = Modelo16.objects.get(id=id1)
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        Modelo16.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class crearModelo16(View):
+    def get(self, request):
+        numeral = request.GET.get('numeral', None)
+        periodo_id = request.GET.get('periodo',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+
+        obj = Modelo16.objects.create(
+            usuario_id=request.user.id,
+            numeral_id=numeral,
+            periodo_id=periodo.id,
+        )
+
+        data = {
+            'id': obj.id,
+            'numeral': numeral,
+            'periodo':periodo_id,
+        }
+        return JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class infoAnteriorModelo16(View):
+    def get(self,request):
+        periodo = request.GET.get('periodo',None)
+        periodo_id = int(periodo) - 1
+        numeral_id = request.GET.get('numeral',None)
+        datos = Modelo16.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id)
+        nombre_del_estudiante = []
+        coordinacion = []
+        grado = []
+        ids = []
+
+        for d in datos:
+            data = Modelo16.objects.create(
+                nombre_del_estudiante = d.nombre_del_estudiante,
+                coordinacion = d.coordinacion,
+                grado = d.grado,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+
+            nombre_del_estudiante.append(data.nombre_del_estudiante)
+            coordinacion.append(data.coordinacion)
+            grado.append(data.grado)
+            ids.append(data.id)
+
+
+        data = {
+            'nombre_del_estudiante':nombre_del_estudiante,
+            'coordinacion':coordinacion,
+            'grado':grado,
+            'ids':ids
+        }
+        return  JsonResponse(data)
+
+@method_decorator(login_required, name='dispatch')
+class enviarReporte(View): 
+    def get(self, request, *args, **kwargs):
+        periodo_id = request.GET.get('periodoActual',None)
+        periodo = Periodo.objects.get(id=periodo_id)
+        yearPeriodo = periodo.fecha_inicio.year
+        anexoModelo1 = Modelo1.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo2 = Modelo2.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo3 = Modelo3.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo4 = Modelo4.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo5 = Modelo5.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo6 = Modelo6.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo7 = Modelo7.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo8 = Modelo8.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo9 = Modelo9.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo10 = Modelo10.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo11 = Modelo11.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo12 = Modelo12.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo13 = Modelo13.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo14 = Modelo14.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo15 = Modelo15.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoModelo16 = Modelo16.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
+        anexoBiblioteca = Biblioteca.objects.exclude(anexos = "").filter(usuario_id = request.user.id, fecha_ano=yearPeriodo)
+        anexoCitas = Citas.objects.exclude(anexos = "").filter(usuario_id = request.user.id,periodo__fecha_inicio__year = yearPeriodo)
+
+        html = generarPdf(request,periodo_id)
+        
+        options = {
+            'page-size': 'Letter',
+            'margin-top': '0.75in',
+            'margin-right': '0.75in',
+            'margin-bottom': '0.75in',
+            'margin-left': '0.75in',
+            'encoding': "UTF-8",
+            'no-outline': None
+        }
+        pdf = pdfkit.from_string(html,False,configuration=config,options=options)
+        periodo = Periodo.objects.get(id=periodo_id)
+        periodo = periodo.nombre_periodo
+        
+        data = {
+            'periodo':periodo,
+        }
+        
+        """
+        #Email para investigador
+        body = render_to_string(
+            'reportes/templateReportesFinalizadoUsuario.html', {
+                'nombre': request.user.nombre,
+                'apellido': request.user.apellido,
+                'periodo':periodo,
+            },
+        )
+
+        email_message = EmailMessage(
+            subject='Reporte enviado a la Coordinación',
+            body=body,
+            from_email='reportes-astro@inaoep.mx',
+            to=[request.user.email],
+        )
+
+        email_message.content_subtype = 'html'
+        #Convertimos la instancia PDF en un tipo MIME para enviarlo
+        adjunto = MIMEBase('application', 'octet-stream')
+        adjunto.set_payload(pdf)
+        encoders.encode_base64(adjunto)
+        adjunto.add_header('Content-Disposition', "attachment; filename= Reporte "+periodo+'.pdf')
+        email_message.attach(adjunto)
+        #Enviamos email
+        email_message.send()
+
+
+        #Email para la coordinacion
+        bodyAdmin = render_to_string(
+         'reportes/templateReporteFinalizado.html',{
+             'nombre':request.user.nombre,
+             'apellido': request.user.apellido,
+             'periodo': periodo,
+         }   
+        )
+
+        mensajeCordinacion = EmailMessage(
+            subject='Reporte enviado a la Coordinación',
+            body=bodyAdmin,
+            from_email='reportes-astro@inaoep.mx',
+            to=['alexXarellan@hotmail.com'], #Cambiar a astrofi@inaoep.mx
+        )
+        mensajeCordinacion.content_subtype = 'html'
+        mensajeCordinacion.attach(adjunto)
+        #Enviamos email
+        mensajeCordinacion.send()
+        """
+        #Guardamos reporte en BD
+        reporte,creado = ReporteEnviado.objects.get_or_create(periodo_id = periodo_id, usuario_id = request.user.id)
+        
+        if creado:
+            data['actualizado'] = False
+
+        else:
+            data['actualizado'] = True
+            if reporte.reporte:
+                os.remove(os.path.join(BASE_DIR + '/media/'+reporte.reporte.name))
+            if reporte.anexo:
+                os.remove(os.path.join(BASE_DIR + '/media/'+reporte.anexo.name))
+            
+        reporte.reporte.save('Reporte '+periodo+' '+str(reporte.id)+'.pdf', ContentFile(pdf), save=False)
+        print(BASE_DIR + '/media/'+'anexos_zip/anexo.zip')
+        #Genera Zip con anexos
+        with zipfile.ZipFile(BASE_DIR + '/media/'+'anexos_zip/anexo.zip', mode='w', compression=zipfile.ZIP_DEFLATED) as anexoZip:
+            
+            for anexo in anexoModelo1:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
+            for anexo in anexoModelo2:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            for anexo in anexoModelo3:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            for anexo in anexoModelo4:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            for anexo in anexoModelo5:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            for anexo in anexoModelo6:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            for anexo in anexoModelo7:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            for anexo in anexoModelo8:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            for anexo in anexoModelo9:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            for anexo in anexoModelo10:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            for anexo in anexoModelo11:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            for anexo in anexoModelo12:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            for anexo in anexoModelo13:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            for anexo in anexoModelo14:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            for anexo in anexoModelo15:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
+            for anexo in anexoModelo16:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
+            for anexo in anexoCitas:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
+            for anexo in anexoBiblioteca:
+                if anexo:
+                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
+        anexoZip.close()
+
+        anexoZip = open(BASE_DIR + '/media/'+'anexos_zip/anexo.zip','rb') #Corregir este error
+        reporte.anexo.save("Anexo "+periodo+' '+str(reporte.id)+".zip", ContentFile(anexoZip.read()), save=False)
+        reporte.save()
+        #os.remove('media/anexos_zip/anexo.zip')
+        
+        return  JsonResponse(data)
+
+
+# Generar PDF
+@method_decorator(login_required, name='dispatch')
+class generarReporte(View):
+    def get(self,request):
+        periodo_id = request.GET.get('periodo',None)
+
+        html = generarPdf(request,periodo_id)
+        options = {
+            'page-size': 'Letter',
+            'margin-top': '0.75in',
+            'margin-right': '0.75in',
+            'margin-bottom': '0.75in',
+            'margin-left': '0.75in',
+            'encoding': "UTF-8",
+            'no-outline': None
+        }
+        pdf  = pdfkit.from_string(html,False,configuration=config,options=options)
+        return HttpResponse(pdf,content_type='application/pdf')
+        
+    
+@method_decorator(login_required, name='dispatch')
+class reportesEnviados(View):
+    def get(self,request):
+        queryset = ReporteEnviado.objects.filter(usuario_id= request.user.id)
+        return render(request,'reportes/reportesEnviados.html',{'reportes':queryset})
+
+
+@method_decorator(login_required, name='dispatch')
+class descargarReporteEnviado(View):
+    def get(self, request, pdf):
+        #Reporte maestro:
+        reporte = Reporte(request)
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+        response['Content-Disposition'] = 'attachment; filename=reporte %s.docx' %(self.periodo.nombre_periodo)
+        reporte.save(response)
+
+
+@method_decorator(login_required, name='dispatch')
+class home(TemplateView):
+    template_name = 'reportes/home.html'
+
+
+@method_decorator(login_required, name='dispatch')
+class perfil(TemplateView):
+    template_name = 'registration/profile_form.html'
+
+
+@method_decorator(login_required, name='dispatch')
+class ampliarSesion(View):
+    def get(self, request):
+        sesion_expiry = request.session.set_expiry(600)
+        sesion = request.session.get_expiry_date()
+
+        timeNow = datetime.datetime.now() + datetime.timedelta(minutes=10)
+        hora = timeNow.hour
+        minutos = timeNow.minute
+        nuevaSesion = str(hora) + ":" + str(minutos)
+    
+        data = {
+            'nuevaSesion': nuevaSesion
+        }
+        return JsonResponse(data)

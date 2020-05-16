@@ -1,9 +1,9 @@
-from apps.investigadores.models import Periodo
+from apps.reportes.models import Periodo
 from datetime import timedelta
 import datetime
 from django.http import HttpResponse
 from django.views.generic import View
-from apps.investigadores.models import Citas
+from apps.reportes.models import Citas
 from apps.registration.models import User
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
@@ -17,12 +17,12 @@ def nuevo_periodo(request):
     dateNow = datetime.datetime.now()
         
     if dateNow.month <= 6:
-        nombrePeriodo = str(dateNow.year)+"A: "+"ene-jun"
+        nombre_periodo = str(dateNow.year)+"A: "+"ene-jun"
 
     else: 
-        nombrePeriodo = str(dateNow.year)+"B: "+"ene-dic"
+        nombre_periodo = str(dateNow.year)+"B: "+"ene-dic"
         
-    p = Periodo.objects.create(nombrePeriodo=nombrePeriodo)
+    p = Periodo.objects.create(nombre_periodo=nombre_periodo)
         
     for user in usuarios:
             
@@ -32,16 +32,16 @@ def nuevo_periodo(request):
 
     body = render_to_string(
         'administradores/periodoCreado.html', {
-            'periodo': p.nombrePeriodo,
+            'periodo': p.nombre_periodo,
                 
         },
     )
 
-    #Envio de correo a todos los investigadores con el nuevo periodo.
+    #Envio de correo a todos los reportes con el nuevo periodo.
     for user in usuarios:
 
         email_message = EmailMessage(
-            subject='Nuevo periodo '+p.nombrePeriodo+' disponible en la plataforma',
+            subject='Nuevo periodo '+p.nombre_periodo+' disponible en la plataforma',
             body=body,
             from_email='reportes-astro@inaoep.mx',
             to=[user.email],

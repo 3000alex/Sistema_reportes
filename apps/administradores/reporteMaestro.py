@@ -13,8 +13,8 @@ from docx.enum.table import WD_ROW_HEIGHT_RULE
 from docx.enum.dml import MSO_THEME_COLOR_INDEX
 from docx.shared import Inches
 #Modelos 
-from apps.investigadores.models import Numeral, Citas, ReporteEnviado, Modelo1, Modelo2, Modelo3, Modelo4, Modelo5, Modelo6, Modelo7, Modelo8, Modelo9, Modelo10
-from apps.investigadores.models import Modelo11, Modelo12, Modelo13, Modelo14, Modelo15, Modelo16, Periodo
+from apps.reportes.models import Numeral, Citas, ReporteEnviado, Modelo1, Modelo2, Modelo3, Modelo4, Modelo5, Modelo6, Modelo7, Modelo8, Modelo9, Modelo10
+from apps.reportes.models import Modelo11, Modelo12, Modelo13, Modelo14, Modelo15, Modelo16, Periodo
 from apps.registration.models import User
 from apps.biblioteca.models import Biblioteca
 from docx.shared import RGBColor
@@ -65,35 +65,35 @@ def Reporte(request,periodo_id):
     #Objetos
     #periodo = Periodo.objects.last()
     periodo = Periodo.objects.get(id=periodo_id) #Para obtener valores del 2019
-    yearPeriodo = periodo.fechaInicio.year
+    yearPeriodo = periodo.fecha_inicio.year
     MesFin = ""
     MesInicio = ""
 
-    if periodo.fechaInicio.month == 1:
+    if periodo.fecha_inicio.month == 1:
         mesFin = "JUNIO"
-    elif periodo.fechaInicio.month == 7:
+    elif periodo.fecha_inicio.month == 7:
         mesFin = "DICIEMBRE"
 
     biblioteca = Biblioteca.objects.filter(fecha_ano=yearPeriodo)
 
     usuario = User.objects.filter(is_staff = 0) #exclude(email = 'astrofi@inaoep.mx')
-    modelo1 = Modelo1.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo2 = Modelo2.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo3 = Modelo3.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo4 = Modelo4.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo5 = Modelo5.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo6 = Modelo6.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo7 = Modelo7.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo8 = Modelo8.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo9 = Modelo9.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo10 = Modelo10.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo11 = Modelo11.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo12 = Modelo12.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo13 = Modelo13.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo14 = Modelo14.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo15 = Modelo15.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    modelo16 = Modelo16.objects.filter(periodo__fechaInicio__year = yearPeriodo)
-    citas = Citas.objects.filter(periodo__fechaInicio__year = yearPeriodo)
+    modelo1 = Modelo1.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo2 = Modelo2.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo3 = Modelo3.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo4 = Modelo4.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo5 = Modelo5.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo6 = Modelo6.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo7 = Modelo7.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo8 = Modelo8.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo9 = Modelo9.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo10 = Modelo10.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo11 = Modelo11.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo12 = Modelo12.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo13 = Modelo13.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo14 = Modelo14.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo15 = Modelo15.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    modelo16 = Modelo16.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    citas = Citas.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
     numeral = Numeral.objects.all()
  
     #Variables contadoras de cada Categoria 
@@ -113,14 +113,14 @@ def Reporte(request,periodo_id):
     sniEmerito = User.objects.filter(nivelSni='Emérito').count()
     TotalSNI = sniCandidato + sniNivel1  + sniNivel2 + sniNivel3 + sniEmerito
     
-    fechaInicioPeriodo = periodo.fechaInicio
-    yearPeriodo = str(fechaInicioPeriodo.year)
+    fecha_inicioPeriodo = periodo.fecha_inicio
+    yearPeriodo = str(fecha_inicioPeriodo.year)
     #Fin objetos
 
-    if fechaInicioPeriodo.month == 1:
+    if fecha_inicioPeriodo.month == 1:
         MesInicio = "ENERO"
         MesFin = "JUNIO"
-    elif fechaInicioPeriodo.month == 6:
+    elif fecha_inicioPeriodo.month == 6:
         MesInicio = "JUNIO"
         MesFin = "DICIEMBRE"
 
@@ -166,9 +166,9 @@ def Reporte(request,periodo_id):
             paragraph = document.add_paragraph()
             p = paragraph.add_run()
             p.bold = True
-            p.text = "Estadísticas de Investigadores: Coordinación de Astrofísica"
+            p.text = "Estadísticas de reportes: Coordinación de Astrofísica"
             
-            paragraph = document.add_paragraph("Número total de investigadores en la plataforma de reportes: ")
+            paragraph = document.add_paragraph("Número total de reportes en la plataforma de reportes: ")
             p = paragraph.add_run()
             p.bold = True
             p.text = str(User.objects.filter(is_staff = 0).count())
@@ -250,7 +250,7 @@ def Reporte(request,periodo_id):
 
             document.add_paragraph()
 
-            #Tabla 3 Datos Investigadores
+            #Tabla 3 Datos reportes
             table = document.add_table(rows=1, cols=5, style='Medium Shading 1 Accent 1')
             hdr_cells = table.rows[0].cells
             hdr_cells[0].text = 'Apellido'
@@ -266,8 +266,8 @@ def Reporte(request,periodo_id):
                     reporte=""
 
                 row_cells = table.add_row().cells
-                row_cells[0].text = investigador.last_name
-                row_cells[1].text = investigador.first_name
+                row_cells[0].text = investigador.apellido
+                row_cells[1].text = investigador.nombre
                 row_cells[2].text = investigador.categoria
                 row_cells[3].text = investigador.nivelSni
                 if reporte:
@@ -315,7 +315,7 @@ def Reporte(request,periodo_id):
             row_cells = table.add_row().cells
             row_cells[0].text = "6"
             row_cells[1].text = "Artículos científicos arbitrados en revistas periódicas no indizadas"
-            row_cells[2].text = str( Modelo1.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 6).count() )
+            row_cells[2].text = str( Modelo1.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 6).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "7"
@@ -325,7 +325,7 @@ def Reporte(request,periodo_id):
             row_cells = table.add_row().cells
             row_cells[0].text = "8"
             row_cells[1].text = "Artículos aceptados con arbitraje en revistas periódicas no indizadas"
-            row_cells[2].text = str( Modelo1.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 8).count() )
+            row_cells[2].text = str( Modelo1.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 8).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "9"
@@ -335,7 +335,7 @@ def Reporte(request,periodo_id):
             row_cells = table.add_row().cells
             row_cells[0].text = "10"
             row_cells[1].text = "Artículos enviados con arbitraje en revistas periódicas no indizadas"
-            row_cells[2].text = str( Modelo1.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 10).count() )
+            row_cells[2].text = str( Modelo1.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 10).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "11"
@@ -365,77 +365,77 @@ def Reporte(request,periodo_id):
             row_cells = table.add_row().cells
             row_cells[0].text = "15"
             row_cells[1].text = "Autor o coautor de libros (no memorias de congreso)"
-            row_cells[2].text = str( Modelo1.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 16).count() )
+            row_cells[2].text = str( Modelo1.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 16).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "16"
             row_cells[1].text = "Autor de capítulo de libro (no del mismo libro y no memoria de congreso)"
-            row_cells[2].text = str( Modelo1.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 17).count() )
+            row_cells[2].text = str( Modelo1.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 17).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "17"
             row_cells[1].text = "Edición de libros / memorias"
-            row_cells[2].text = str( Modelo1.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 18).count() )
+            row_cells[2].text = str( Modelo1.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 18).count() )
 
             row_cells = table.add_row().cells 
             row_cells[0].text = "18"
             row_cells[1].text = "Proyectos CONACyT"
-            row_cells[2].text = str( Modelo2.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 19).count() )
+            row_cells[2].text = str( Modelo2.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 19).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "19"
             row_cells[1].text = "Proyectos institucionales"
-            row_cells[2].text = str( Modelo2.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 20).count() )
+            row_cells[2].text = str( Modelo2.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 20).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "20"
             row_cells[1].text = "Proyectos externos"
-            row_cells[2].text = str( Modelo2.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 21).count() )
+            row_cells[2].text = str( Modelo2.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 21).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "21"
             row_cells[1].text = "Proyectos interinstitucionales"
-            row_cells[2].text = str( Modelo2.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 22).count() )
+            row_cells[2].text = str( Modelo2.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 22).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "22"
             row_cells[1].text = "Proyectos comercializados"
-            row_cells[2].text = str( Modelo2.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 23).count() )
+            row_cells[2].text = str( Modelo2.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 23).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "23"
             row_cells[1].text = "Participación en el comité científico de conferencias internacionales (Scientific Organizing Committee; Steering Committee; similares)"
-            row_cells[2].text = str( Modelo1.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 24).count() )
+            row_cells[2].text = str( Modelo1.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 24).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "24"
             row_cells[1].text = "Conferencias científicas internacionales."
-            row_cells[2].text = str( Modelo3.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 25).count() )
+            row_cells[2].text = str( Modelo3.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 25).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "25"
             row_cells[1].text = "Conferencias científicas nacionales"
-            row_cells[2].text = str( Modelo3.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 26).count() )
+            row_cells[2].text = str( Modelo3.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 26).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "26"
             row_cells[1].text = "Pláticas invitadas en conferencias internacionales"
-            row_cells[2].text = str( Modelo3.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 27).count() )
+            row_cells[2].text = str( Modelo3.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 27).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "27"
             row_cells[1].text = "Pláticas invitadas en conferencias nacionales"
-            row_cells[2].text = str( Modelo3.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 28).count() )
+            row_cells[2].text = str( Modelo3.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 28).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "28"
             row_cells[1].text = "Resúmenes en congreso internacionales"
-            row_cells[2].text = str( Modelo3.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 29).count() )
+            row_cells[2].text = str( Modelo3.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 29).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "29"
             row_cells[1].text = "Resúmenes en congreso nacionales"
-            row_cells[2].text = str( Modelo3.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 30).count() )
+            row_cells[2].text = str( Modelo3.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 30).count() )
             
 
             document.add_paragraph()
@@ -451,22 +451,22 @@ def Reporte(request,periodo_id):
             row_cells = table.add_row().cells
             row_cells[0].text = "31"
             row_cells[1].text = "Alumnos graduados de doctorado en tiempos PNPC"
-            row_cells[2].text = str( Modelo4.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 32).count() )
+            row_cells[2].text = str( Modelo4.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 32).count() )
                         
             row_cells = table.add_row().cells
             row_cells[0].text = "32"
             row_cells[1].text = "Alumnos graduados de doctorado fuera de tiempo PNPC"
-            row_cells[2].text = str( Modelo4.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 33).count() )
+            row_cells[2].text = str( Modelo4.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 33).count() )
             
             row_cells = table.add_row().cells
             row_cells[0].text = "33"
             row_cells[1].text = "Alumnos graduados de maestría en tiempos PNPC"
-            row_cells[2].text = str( Modelo4.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 34).count() )
+            row_cells[2].text = str( Modelo4.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 34).count() )
                         
             row_cells = table.add_row().cells
             row_cells[0].text = "34"
             row_cells[1].text = "Alumnos graduados de maestría fuera de tiempo PNPC"
-            row_cells[2].text = str( Modelo4.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 35).count() )
+            row_cells[2].text = str( Modelo4.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 35).count() )
             document.add_paragraph()
 
             paragraph = document.add_paragraph() 
@@ -480,32 +480,32 @@ def Reporte(request,periodo_id):
             row_cells = table.add_row().cells # Modelo 7  40-41-42-43-44
             row_cells[0].text = "40"
             row_cells[1].text = "Derechos de autor y aseguramiento de propiedad intelectual"
-            row_cells[2].text = str( Modelo7.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 41).count() )
+            row_cells[2].text = str( Modelo7.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 41).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "41"
             row_cells[1].text = "Patentes solicitadas"
-            row_cells[2].text = str( Modelo7.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 42).count() )
+            row_cells[2].text = str( Modelo7.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 42).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "42"
             row_cells[1].text = "Patentes en proceso de evaluación que ya aprobaron el examen de forma (IMPI)"
-            row_cells[2].text = str( Modelo7.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 43).count() )
+            row_cells[2].text = str( Modelo7.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 43).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "44"
             row_cells[1].text = "Patentes licenciadas"
-            row_cells[2].text = str( Modelo7.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 45).count() )
+            row_cells[2].text = str( Modelo7.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 45).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "45"
             row_cells[1].text = "Dirección de proyectos de investigación tecnológica"
-            row_cells[2].text = str( Modelo8.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 46).count() )
+            row_cells[2].text = str( Modelo8.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 46).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "46"
             row_cells[1].text = "Reportes técnicos registrados"
-            row_cells[2].text = str( Modelo9.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 47).count() )
+            row_cells[2].text = str( Modelo9.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 47).count() )
 
             document.add_paragraph()
 
@@ -520,27 +520,27 @@ def Reporte(request,periodo_id):
             row_cells = table.add_row().cells
             row_cells[0].text = "48"
             row_cells[1].text = "Artículos de divulgación científica en medios masivos"
-            row_cells[2].text = str( Modelo15.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 49 ).count() )
+            row_cells[2].text = str( Modelo15.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 49 ).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "49"
             row_cells[1].text = "Conferencias de divulgación en eventos masivos"
-            row_cells[2].text = str( Modelo10.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 50).count() )
+            row_cells[2].text = str( Modelo10.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 50).count() )
 
             row_cells = table.add_row().cells
             row_cells[0].text = "50"
             row_cells[1].text = "Conferencias de difusión o promoción externas"
-            row_cells[2].text = str( Modelo10.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 53).count() )
+            row_cells[2].text = str( Modelo10.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 53).count() )
                         
             row_cells = table.add_row().cells
             row_cells[0].text = "51"
             row_cells[1].text = "Conferencias de difusión o promoción internas"
-            row_cells[2].text = str( Modelo10.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 54).count() )
+            row_cells[2].text = str( Modelo10.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 54).count() )
                         
             row_cells = table.add_row().cells
             row_cells[0].text = "52"
             row_cells[1].text = "Organización de eventos académicos vinculados al quehacer institucional"
-            row_cells[2].text = str( Modelo10.objects.filter(periodo__fechaInicio__year = yearPeriodo, numeral_id = 55).count() )
+            row_cells[2].text = str( Modelo10.objects.filter(periodo__fecha_inicio__year = yearPeriodo, numeral_id = 55).count() )
             
 
             document.add_paragraph()
@@ -602,8 +602,8 @@ def Reporte(request,periodo_id):
                         paragraph.add_run(item.titulo).font.italic = True
                         paragraph.add_run(",")
                     
-                    if item.revistaPublicacion:
-                        paragraph.add_run(item.revistaPublicacion)
+                    if item.revista_publicacion:
+                        paragraph.add_run(item.revista_publicacion)
                         paragraph.add_run(" ")
                     
                     if item.paginas:
@@ -630,9 +630,9 @@ def Reporte(request,periodo_id):
                         p.add_run("Bibcode: "+item.bibcode)
                         p.add_run(" \r")
                     
-                    if item.estudiantesEnArticulo:
+                    if item.estudiantes_en_articulo:
                         p.add_run("Estudiante(s): ")
-                        p.add_run(item.estudiantesEnArticulo).font.color.rgb = RGBColor(255,0,0)
+                        p.add_run(item.estudiantes_en_articulo).font.color.rgb = RGBColor(255,0,0)
                         p.add_run(" \r")
                     
                     if item.url:
@@ -657,8 +657,8 @@ def Reporte(request,periodo_id):
                         paragraph.add_run(item.titulo).font.italic = True
                         paragraph.add_run(",")
 
-                    if item.revistaPublicacion:
-                        paragraph.add_run(item.revistaPublicacion)
+                    if item.revista_publicacion:
+                        paragraph.add_run(item.revista_publicacion)
                         paragraph.add_run(" ")
 
                     if item.fecha:
@@ -673,9 +673,9 @@ def Reporte(request,periodo_id):
                         p.add_run(item.doi).font.color.rgb = RGBColor(0x42, 0x24, 0xE9)
                         p.add_run(" \r")
                     
-                    if item.estudiantesEnArticulo:
+                    if item.estudiantes_en_articulo:
                         p.add_run("Estudiante(s): ")
-                        p.add_run(item.estudiantesEnArticulo).font.color.rgb = RGBColor(255,0,0)
+                        p.add_run(item.estudiantes_en_articulo).font.color.rgb = RGBColor(255,0,0)
                         p.add_run(" \r")
                     
                     if item.url:
@@ -691,8 +691,8 @@ def Reporte(request,periodo_id):
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
                     
-                    if item.nombreProyecto:
-                        paragraph.add_run("Nombre del proyecto: " + item.nombreProyecto + "\n")
+                    if item.nombre_del_proyecto:
+                        paragraph.add_run("Nombre del proyecto: " + item.nombre_del_proyecto + "\n")
 
                     if item.participantes:
                         paragraph.add_run("Participantes: " + item.participantes + "\n")
@@ -716,14 +716,14 @@ def Reporte(request,periodo_id):
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
 
-                    if item.tituloPresentacion:
-                        paragraph.add_run("Título de la presentación: " + item.tituloPresentacion + "\n")
+                    if item.titulo_de_la_presentacion:
+                        paragraph.add_run("Título de la presentación: " + item.titulo_de_la_presentacion + "\n")
 
                     if item.autores:
                         paragraph.add_run("Autor(es): " + item.autores + "\n")
 
-                    if item.nombreConferencia:
-                        paragraph.add_run("Nombre de la conferencia: " + item.nombreConferencia + "\n")
+                    if item.nombre_de_conferencia:
+                        paragraph.add_run("Nombre de la conferencia: " + item.nombre_de_conferencia + "\n")
 
                     if item.fecha:
                         paragraph.add_run("Fecha: " + item.fecha + "\n")
@@ -751,11 +751,11 @@ def Reporte(request,periodo_id):
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
                     
-                    if item.nombreCompleto:
-                        paragraph.add_run("Nombre completo: " + item.nombreCompleto + "\n")
+                    if item.nombre_completo:
+                        paragraph.add_run("Nombre completo: " + item.nombre_completo + "\n")
 
-                    if item.tituloTesis:
-                        paragraph.add_run("Título de tesis: " + item.tituloTesis + "\n")
+                    if item.titulo_de_tesis:
+                        paragraph.add_run("Título de tesis: " + item.titulo_de_tesis + "\n")
 
                     if item.fecha:
                         paragraph.add_run("Fecha: " + item.fecha + "\n")
@@ -773,11 +773,11 @@ def Reporte(request,periodo_id):
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
                     
-                    if item.nombreCurso:
-                        paragraph.add_run("Nombre del curso: " + item.nombreCurso + "\n")
+                    if item.nombre_del_curso:
+                        paragraph.add_run("Nombre del curso: " + item.nombre_del_curso + "\n")
 
-                    if item.periodoNumeral:
-                        paragraph.add_run("Periodo: " + item.periodoNumeral + "\n")
+                    if item.periodo_numeral:
+                        paragraph.add_run("Periodo: " + item.periodo_numeral + "\n")
 
                     if item.notas:
                         paragraph.add_run("Notas: " + item.notas + "\n")
@@ -793,11 +793,11 @@ def Reporte(request,periodo_id):
                     if item.nombre:
                         paragraph.add_run("Nombre: " + item.nombre + "\n")
 
-                    if item.tituloTesis:
-                        paragraph.add_run("Título de tesis: " + item.tituloTesis + "\n")
+                    if item.titulo_de_tesis:
+                        paragraph.add_run("Título de tesis: " + item.titulo_de_tesis + "\n")
 
-                    if item.Grado:
-                        paragraph.add_run("Grado: " + item.Grado + "\n")
+                    if item.grado:
+                        paragraph.add_run("grado: " + item.grado + "\n")
 
                     if item.institucion:
                         paragraph.add_run("Institución: " + item.institucion + "\n")
@@ -861,11 +861,11 @@ def Reporte(request,periodo_id):
                     if item.autores:
                         paragraph.add_run("Autor(es): " + item.autores + "\n")
                     
-                    if item.numeroReportes:
-                        paragraph.add_run("No. Reporte/ID: " + item.numeroReportes + "\n")
+                    if item.numero_reportes:
+                        paragraph.add_run("No. Reporte/ID: " + item.numero_reportes + "\n")
                     
-                    if item.revistaPublicacion:
-                        paragraph.add_run("Revista o publicación: " + item.revistaPublicacion + "\n")
+                    if item.revista_publicacion:
+                        paragraph.add_run("Revista o publicación: " + item.revista_publicacion + "\n")
 
                     if item.fecha:
                         paragraph.add_run("Fecha: " + item.fecha + "\n")
@@ -890,8 +890,8 @@ def Reporte(request,periodo_id):
                     if item.fecha:
                         paragraph.add_run("Fecha: " + item.fecha + "\n")
                     
-                    if item.periodoNumeral:
-                        paragraph.add_run("Periodo: " + item.periodoNumeral)
+                    if item.periodo_numeral:
+                        paragraph.add_run("Periodo: " + item.periodo_numeral)
                     
                     if item.descripcion:
                         paragraph.add_run("Descripción: " + item.descripcion + "\n")
@@ -910,8 +910,8 @@ def Reporte(request,periodo_id):
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
 
-                    if item.nombreEstudiante:
-                        paragraph.add_run("Nombre del estudiante: " + item.nombreEstudiante + "\n")
+                    if item.nombre_del_estudiante:
+                        paragraph.add_run("Nombre del estudiante: " + item.nombre_del_estudiante + "\n")
        
                     if item.fecha:
                         paragraph.add_run("Fecha: " + item.fecha + "\n")
@@ -928,8 +928,8 @@ def Reporte(request,periodo_id):
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
                     
-                    if item.laboratorioTaller:
-                        paragraph.add_run("Laboratorio o taller:" + item.laboratorioTaller + "\n")
+                    if item.laboratorio_taller:
+                        paragraph.add_run("Laboratorio o taller:" + item.laboratorio_taller + "\n")
                     
                     if item.anexos:
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
@@ -940,8 +940,8 @@ def Reporte(request,periodo_id):
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
                     
-                    if item.agenciasFinancieras:
-                        paragraph.add_run("Agencia(s) financiadora(s):" + item.agenciasFinancieras + "\n")
+                    if item.agencias_financieras:
+                        paragraph.add_run("Agencia(s) financiadora(s):" + item.agencias_financieras + "\n")
                     
                     if item.descripcion:
                         paragraph.add_run("Descripción: " + item.descripcion + "\n")
@@ -955,11 +955,11 @@ def Reporte(request,periodo_id):
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
                     
-                    if item.TelescopioInstrumentoInfra:
-                        paragraph.add_run("Telescopio, instrumento, infraestructura: " + item.TelescopioInstrumentoInfra + "\n")
+                    if item.telescopio_instrumento_infra:
+                        paragraph.add_run("Telescopio, instrumento, infraestructura: " + item.telescopio_instrumento_infra + "\n")
                     
-                    if item.conferenciaProyecto:
-                        paragraph.add_run("Conferencia: " + item.conferenciaProyecto + "\n")
+                    if item.conferencia_proyecto:
+                        paragraph.add_run("Conferencia: " + item.conferencia_proyecto + "\n")
                     
                     if item.rol:
                         paragraph.add_run("Rol: " + item.rol + "\n")
@@ -994,14 +994,14 @@ def Reporte(request,periodo_id):
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
                     
-                    if item.nombreEstudiante:
-                        paragraph.add_run("Nombre estudiante: " + item.nombreEstudiante + "\n")
+                    if item.nombre_del_estudiante:
+                        paragraph.add_run("Nombre estudiante: " + item.nombre_del_estudiante + "\n")
                     
                     if item.coordinacion:
                         paragraph.add_run("Coordinacion: " + item.coordinacion + "\n")
 
                     if item.grado:
-                        paragraph.add_run("Grado: " + item.grado + "\n")
+                        paragraph.add_run("grado: " + item.grado + "\n")
                     
                     if item.anexos:
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))

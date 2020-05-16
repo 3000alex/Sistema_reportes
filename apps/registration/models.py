@@ -1,12 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-
-class User(AbstractUser):
-    
+from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin
+from .managers import UserManager
+class User(AbstractBaseUser,PermissionsMixin):
     categoria_select = (
-        ('select','sin especificar'),
         ('Investigador posdoctoral','Investigador posdoctoral'),
         ('Cátedra CONACyT',"Cátedra CONACyT"),
         ('Investigador Asociado C','Investigador Asociado C'),
@@ -16,7 +14,6 @@ class User(AbstractUser):
         ('Investigador Titular D','Investigador Titular D'),
     )
     nivelSni_select = (
-        ('Sin Nombramiento','Sin Nombramiento'),
         ('Candidato','Candidato'),
         ('Nivel 1','Nivel 1'),
         ('Nivel 2','Nivel 2'),
@@ -24,18 +21,22 @@ class User(AbstractUser):
         ('Emérito','Emérito'),
     )
     
-    nombreCorto = models.CharField(max_length=50, verbose_name="Nombre corto", null=True, blank=True)
+    email = models.EmailField(unique=True)
+    nombre = models.CharField(max_length=50, verbose_name="Nombre")
+    apellido = models.CharField(max_length=50, verbose_name="Apellido", blank=True)
+    nombreCorto = models.CharField(max_length=50, verbose_name="Nombre corto", blank=True)
     correoAlternativo = models.EmailField(max_length=50, verbose_name="Correo alternativo", blank=True)
-    categoria = models.CharField(max_length=50, blank=True, verbose_name="Nombramiento", choices= categoria_select)
-    nivelSni = models.CharField(max_length=50, blank=True, verbose_name="Nivel de SNI",  choices= nivelSni_select)
+    categoria = models.CharField(max_length=50, blank=True, verbose_name="Categoria", default="Sin especificar", choices= categoria_select)
+    nivelSni = models.CharField(max_length=50, blank=True, verbose_name="Nivel de SNI", default="Sin nombreamiento", choices= nivelSni_select)
     orcId = models.CharField(max_length=50, blank=True, verbose_name="Orc ID")
     arxivId = models.CharField(max_length=50, blank=True, verbose_name="Arxiv ID")
+    is_staff = models.BooleanField(default=False)
 
-    class Meta:
-        verbose_name="Usuario"
-        verbose_name_plural = "Usuarios"
-        ordering = ['nombreCorto']
+    USERNAME_FIELD = 'email'
+    objects = UserManager()
+
+    def get_short_name(self):
+        return self.email
     
-    def __str__(self):
-        return self.first_name +" "+ self.last_name
-    
+    def get_full_name(self):
+        return self.nombre + ' ' + self.apellido

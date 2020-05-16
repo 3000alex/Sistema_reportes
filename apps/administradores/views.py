@@ -10,9 +10,9 @@ from django.contrib import messages
 from django.core.mail import send_mail
 # Modelos y forms
 from apps.registration.models import User
-from apps.investigadores.models import Modelo1, Modelo2, Modelo3, Modelo4, Modelo5, Modelo6, Modelo7, Modelo8, Modelo9, Modelo10, Modelo11, Modelo12, Modelo13, Modelo14, Modelo15
-from apps.investigadores.models import ReporteEnviado,Periodo,Numeral
-from apps.investigadores.models import Citas
+from apps.reportes.models import Modelo1, Modelo2, Modelo3, Modelo4, Modelo5, Modelo6, Modelo7, Modelo8, Modelo9, Modelo10, Modelo11, Modelo12, Modelo13, Modelo14, Modelo15
+from apps.reportes.models import ReporteEnviado,Periodo,Numeral
+from apps.reportes.models import Citas
 from apps.biblioteca.models import Biblioteca
 # Diversos
 from django.http import JsonResponse
@@ -40,13 +40,13 @@ from apps.administradores.reporteMaestro import Reporte
 class StaffRequiredMixin(object):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_staff:
-            return redirect(reverse_lazy('investigadores:home'))
+            return redirect(reverse_lazy('reportes:home'))
         return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
 class UsuariosListado(StaffRequiredMixin, ListView):
     model = User  # Llamamos a la clase Users que es la que contiene nuestros usuarios
-    template_name = "administradores/investigadores.html"
+    template_name = "administradores/reportes.html"
     context_object_name = 'users'
 
 
@@ -59,14 +59,13 @@ class UsuariosEditar(StaffRequiredMixin, View):
         email1 = request.GET.get('email', None)  # Email Investigador
 
         obj = User.objects.get(id=id1)
-        obj.first_name = name1
-        obj.last_name = apellido1
-        obj.username = email1
+        obj.nombre = name1
+        obj.apellido = apellido1
         obj.nombreCorto = nombreCorto1
         obj.email = email1  # correo y usuario es el mismo
         obj.save()
-        user = {'id': obj.id, 'username': obj.username, 'nombreCorto': obj.nombreCorto,
-                'name': obj.first_name, 'last_name': obj.last_name, 'email': obj.email}  # Json que se enviara a Data
+        user = {'id': obj.id, 'nombreCorto': obj.nombreCorto,
+                'name': obj.nombre, 'apellido': obj.apellido, 'email': obj.email}  # Json que se enviara a Data
 
         data = {
             'user': user  # Objeto de Json con los datos actualizados.
@@ -77,15 +76,13 @@ class UsuariosEditar(StaffRequiredMixin, View):
 class UsuarioAgregar(StaffRequiredMixin, View):
     def post(self, request):
         email1 = request.POST.get('email', None)
-        username1 = request.POST.get('email', None)
-        first_name1 = request.POST.get('nombre', None)
+        nombre1 = request.POST.get('nombre', None)
         lastName1 = request.POST.get('apellido', None)
         password1 =  get_random_string(length=20)
         nombreCorto1 = request.POST.get('nombreCorto',None)
         periodos = Periodo.objects.all()
         # Crear objeto
-        userNew = User.objects.create_user(
-            username=username1, email=email1, password=password1, first_name=first_name1, last_name=lastName1, nombreCorto=nombreCorto1)
+        userNew = User.objects.create_user(email=email1, password=password1, nombre=nombre1, apellido=lastName1, nombreCorto=nombreCorto1)
         
         for p in periodos:
             Citas.objects.create(
@@ -94,8 +91,8 @@ class UsuarioAgregar(StaffRequiredMixin, View):
 
         body = render_to_string(
             'administradores/templateBienvenida.html', {
-                'nombre': userNew.first_name,
-                'apellido': userNew.last_name,
+                'nombre': userNew.nombre,
+                'apellido': userNew.apellido,
                 'password': password1,
                 'correo': userNew.email,
             },
@@ -110,8 +107,8 @@ class UsuarioAgregar(StaffRequiredMixin, View):
         email_message.content_subtype = 'html'
         email_message.send()
 
-        user = {'id': userNew.id, 'name': userNew.username, 'nombreCorto':userNew.nombreCorto,
-                'first_name': userNew.first_name, 'last_name': userNew.last_name, 'email': userNew.email}
+        user = {'id': userNew.id, 'nombreCorto':userNew.nombreCorto,
+                'nombre': userNew.nombre, 'apellido': userNew.apellido, 'email': userNew.email}
 
         data = { 'user': user}
         return JsonResponse(data)
@@ -138,8 +135,8 @@ class correoBienvenida(StaffRequiredMixin, View):
         
         body = render_to_string(
             'administradores/templateBienvenida.html', {
-                'nombre': obj.first_name,
-                'apellido': obj.last_name,
+                'nombre': obj.nombre,
+                'apellido': obj.apellido,
                 'password': password,
                 'correo': obj.email,
             },
@@ -155,8 +152,8 @@ class correoBienvenida(StaffRequiredMixin, View):
         email_message.send()
 
         data = {
-            'nombre':obj.first_name,
-            'apellido':obj.last_name,
+            'nombre':obj.nombre,
+            'apellido':obj.apellido,
         }
 
         return JsonResponse(data)
@@ -218,7 +215,7 @@ class reporteMaestro(View):
         #Reporte maestro:
         reporte = Reporte(request,periodo_id)
         response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-        response['Content-Disposition'] = 'attachment; filename=Reporte Maestro %s.docx' %(periodoActual.nombrePeriodo)
+        response['Content-Disposition'] = 'attachment; filename=Reporte Maestro %s.docx' %(periodoActual.nombre_periodo)
         reporte.save(response)
         
         return response

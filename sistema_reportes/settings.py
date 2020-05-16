@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 import os
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -37,13 +38,13 @@ DJANGO_APPS = (
 LOCAL_APPS = (
     'apps.core',
     'apps.administradores',
-    'apps.investigadores',
+    'apps.reportes',
     'apps.biblioteca',
     'apps.metricas',
     'apps.reporteSNI',
 )
 
-THIRD_PARTY_APPS = ('django_crontab',)
+THIRD_PARTY_APPS = ('django_crontab','rest_framework')
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
@@ -83,10 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sistema_reportes.wsgi.application'
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'apps.registration.backends.EmailAuthBackend',
-)
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 

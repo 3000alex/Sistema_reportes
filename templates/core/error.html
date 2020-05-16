@@ -15,7 +15,7 @@
     <div class="stars">
         <div class="central-body">
             <img class="image-404" src="http://salehriaz.com/404Page/img/404.svg" width="300px">
-            <a href="{% if user.email == 'astrofi@inaoep.mx' %} {% url 'administradores:home-adm' %} {% else %} {% url 'investigadores:home' %} {% endif %}"
+            <a href="{% if user.email == 'astrofi@inaoep.mx' %} {% url 'administradores:home-adm' %} {% else %} {% url 'reportes:home' %} {% endif %}"
                 class="btn-go-home">Home</a>
         </div>
         <div class="objects">

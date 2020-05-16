@@ -1,23 +1,15 @@
 from django.shortcuts import render
-import django.http.request
 import ads
 #Librerias para validar el login
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-##
 from .models import Biblioteca
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, View
 from django.http import JsonResponse
-from django.urls import reverse
-from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.template import loader, Context
-from apps.registration.models import User
-from datetime import date
-from datetime import datetime
 from django.contrib import messages
 import json
+from django.http import HttpResponse
 ads.config.token = '71EV2aJvIIiFZLSoA9cWRlxgjxTQKwykjEi3yQS7' #Configuramos el token de ADS para las consultas
 # Create your views here.
 
@@ -36,26 +28,21 @@ class busqueda_ads(TemplateView):
 @method_decorator(login_required, name='dispatch')
 class editar_biblioteca(View):
 
-    def post(self, request):    
-        
+    def post(self, request):      
         id1 = request.POST.get('id')
         obj = Biblioteca.objects.get(id=id1)
-        estudiantesEnArticulo1 = request.POST.get('estudiantesEnArticulo', obj.estudiantesEnArticulo)  # Contador (Front - end)
-        numeral1 = request.POST.get('numeral',obj.numeral_id) #Numeral relacionado con articulo
-        
+        estudiantes_en_articulo1 = request.POST.get('estudiantes_en_articulo', obj.estudiantes_en_articulo)  # Contador (Front - end)
+        numeral1 = request.POST.get('numeral',obj.numeral_id) #Numeral relacionado con articulo    
         if numeral1 == "":
-            
-            obj.estudiantesEnArticulo = estudiantesEnArticulo1
+            obj.estudiantes_en_articulo = estudiantes_en_articulo1
             numeral = ""
             obj.save()
         else:
-            obj.estudiantesEnArticulo = estudiantesEnArticulo1
+            obj.estudiantes_en_articulo = estudiantes_en_articulo1
             obj.numeral_id = numeral1
             obj.save()
-            numeral = str(obj.numeral)
-
-          
-        data = {'id': obj.id, 'estudiantesEnArticulo':obj.estudiantesEnArticulo,'numeral':numeral}
+            numeral = str(obj.numeral)      
+        data = {'id': obj.id, 'estudiantes_en_articulo':obj.estudiantes_en_articulo,'numeral':numeral}
 
         return JsonResponse(data)
 
@@ -79,16 +66,27 @@ class publicaciones_generales(View):
         data =  list(ads.SearchQuery(q=query,fl='title,pubdate,author,doi,page,volume,pub,bibcode',rows=1000))  # Buscar por autor
 
         return render(request, 'biblioteca/publicaciones.html', {'data': data, 'articulos': articulos})
-
-@method_decorator(login_required, name='dispatch')       
+      
 class publicaciones_bidcode(View):
     def get(self,request):
-        query_bidcode = request.GET.get('bibcode')
-        
-        data = list(ads.SearchQuery(bibcode=query_bidcode,fl='title,pubdate,author,doi,page,volume,pub,bibcode',rows=1000))  # Buscar por bidcode
+        query_bidcode = '2018MNRAS.479..917G'
+        articulo = []
+        data = ads.SearchQuery(bibcode=query_bidcode,fl='title,pubdate,author,doi,page,volume,pub,bibcode',rows=1000)  # Buscar por bidcode
         articulos = Biblioteca.objects.filter(usuario_id=request.user.id) # Filtramos articulos para validar si existen en la biblioteca
         # Pasamos como 3 parametro un diccionario (json) con el contenido
-        return render(request, 'biblioteca/publicaciones.html', {'data': data, 'articulos': articulos})
+        for d in data:
+            articulo.append({
+            'title': d.title,
+            'pubdate': d.pubdate,
+            'author': d.author,
+            'doi': d.doi,
+            'page': d.page,
+            'volume': d.volume,
+            'pub': d.pub
+        })
+        print(articulo)
+        
+        return HttpResponse(articulo)
 
 @method_decorator(login_required, name='dispatch')
 class publicaciones_orcid(View):
@@ -115,7 +113,7 @@ class agregar_biblioteca(View):
                     bibcode = l['bibcode'],
                     titulo = l['titulo'],
                     autores = l['autores'],
-                    revistaPublicacion = l['pub'],
+                    revista_publicacion = l['pub'],
                     paginas = l['page'],
                     volumen = l['volume'],
                     doi = l['doi'],

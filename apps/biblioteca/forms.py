@@ -4,5 +4,5 @@ from .models import Biblioteca
 class bibliotecaForm(forms.ModelForm):
     class Meta:
         model = Biblioteca
-        fields = ('estudiantesEnArticulo','numeral')
+        fields = ('estudiantes_en_articulo','numeral')
         widgets = {}

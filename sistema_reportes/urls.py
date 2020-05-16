@@ -5,7 +5,7 @@ from django.conf.urls import handler404,url
 from django.conf.urls.static import static
 
 from apps.registration.urls import registrationpatterns
-from apps.investigadores.urls import investigadorespatterns
+from apps.reportes.urls import reportespatterns
 from apps.biblioteca.urls import bibliotecapatterns
 from apps.administradores.urls import administradorespatterns
 from apps.metricas.urls import metricaspatterns
@@ -15,7 +15,7 @@ from apps.reporteSNI.urls import reporteSNIpatterns
 
 urlpatterns = [
     path('',include('apps.core.urls')),
-    path('',include(investigadorespatterns)),
+    path('',include(reportespatterns)),
     path('',include(bibliotecapatterns)),
     path('',include(administradorespatterns)),
     path('',include(metricaspatterns)),

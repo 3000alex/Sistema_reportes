@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+{% block contenido %}
+<section class="container" style="margin-top: 100px;">
+
+    <div class="row text-center d-flex justify-content-center">
+
+
+        <div class="col-12 col-sm-6 col-md-6 col-lg-2">
+            <a href="{% url 'registration:actualizar-perfil' %}"><img id="perfilAdmin" class="perfil"
+                    src="{% static 'media/perfil.png'%}" alt=""><br></a>
+            <strong>
+                <p class="text-dark">Perfil</p>
+            </strong>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-6 col-lg-2">
+            <a href="{% url 'reportes:reporte-productividad' %}"><img class="reporte_p"
+                    src="{% static 'media/reporte.png'%}" alt=""><br></a>
+            <strong>
+                <p class="text-dark">Reporte de <br>productividad</p>
+            </strong>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-6 col-lg-2">
+            <a href="{% url 'biblioteca:biblioteca_personal'%}"><img class="biblioteca"
+                    src="{% static 'media/biblioteca.png'%}" alt=""><br></a>
+            <strong>
+                <p class="text-dark">Biblioteca</p>
+            </strong>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-6 col-lg-2">
+            <a href="{% url 'reporteSNI:instruccionesSNI' %}"> <img class="reporte_SNI"
+                    src="{% static 'media/sni.png'%}" alt=""><br></a>
+            <strong>
+                <p class="text-dark">Citas SNI</p>
+            </strong>
+        </div>
+
+        <!--
+                <div class="col-12 col-sm-6 col-md-12 col-lg-2">
+                    <a href="{% url 'metricas:metricasForm' %}"><img class="metrica_ADS" src="{% static 'media/metricas.png'%}" alt=""></a><br>
+                    <strong><p class="text-dark">Metrica ADS</p></strong>
+                </div>
+            -->
+
+    </div>
+</section>
+
+{% endblock %}
