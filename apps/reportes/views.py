@@ -397,7 +397,7 @@ class actualizarModelo2(View):
         obj.descripcion = descripcion
         obj.participantes = participantes
         obj.estudiantes = estudiantes
-        obj.responsableTecParticipante = responsable
+        obj.rol = responsable
 
         # Subir archivos
         if request.FILES:
@@ -464,7 +464,7 @@ class infoAnteriorModelo2(View):
         descripcion = []
         participantes = []
         estudiantes = []
-        responsableTecParticipantes = []
+        rols = []
         ids = []
 
         for d in datos:
@@ -473,7 +473,7 @@ class infoAnteriorModelo2(View):
                 descripcion = d.descripcion,
                 participantes = d.participantes,
                 estudiantes = d.estudiantes,
-                responsableTecParticipante = d.responsableTecParticipante,
+                rol = d.rol,
                 numeral_id = numeral_id,
                 periodo_id = periodo,
                 usuario_id = request.user.id
@@ -482,7 +482,7 @@ class infoAnteriorModelo2(View):
             descripcion.append(data.descripcion)
             participantes.append(data.participantes)
             estudiantes.append(data.estudiantes)
-            responsableTecParticipantes.append(data.responsableTecParticipante)
+            rols.append(data.rol)
             ids.append(data.id)
 
         data = {
@@ -490,7 +490,7 @@ class infoAnteriorModelo2(View):
             'descripcion':descripcion,
             'participantes':participantes,
             'estudiantes':estudiantes,
-            'responsableTecParticipantes':responsableTecParticipantes,
+            'rols':rols,
             'ids':ids
         }
 
@@ -635,7 +635,7 @@ class actualizarCitas(View):
 
         obj = Citas.objects.get(id=id1)
         obj.citas = citas
-        obj.citasObtenidasEnPeriodo = citas_en_periodo
+        obj.citas_en_periodo = citas_en_periodo
         obj.indiceH = indiceH
         # Subir archivos
         if request.FILES:
@@ -1741,28 +1741,13 @@ class crearModelo14(View):
         print("llegue")
         #Create
         numeral = request.GET.get('numeral')
-        periodo_id = request.GET.get('periodo')
-        #Update
-        telescopio = request.GET.get('telescopio_instrumento_infra')
-        descripcion = request.GET.get('descripcion')
-        url = request.GET.get('url')
-        conferencia_proyecto = request.GET.get('conferencia_proyecto')
-        rol = request.GET.get('rol')
-        fecha = request.GET.get('fecha')
-        anexos = request.GET.get('anexos')
+        periodo_id = request.GET.get('periodo')     
         #Validate update or create
         
         obj = Modelo14.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
             periodo_id=periodo_id,
-            telescopio_instrumento_infra = telescopio,
-            descripcion = descripcion,
-            url = url,
-            conferencia_proyecto = conferencia_proyecto,
-            rol = rol,
-            fecha = fecha,
-            anexos = anexos,
         )
 
         data = {

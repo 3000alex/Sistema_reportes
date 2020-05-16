@@ -378,7 +378,7 @@ class Modelo14(models.Model):
     usuario =  models.ForeignKey(User, on_delete=models.CASCADE)
     numeral = models.ForeignKey(Numeral, on_delete=models.CASCADE)
     periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
-    descripcion = models.TextField(max_length=15000,verbose_name="Descripcion", blank=True)
+    descripcion = models.TextField(max_length=15000, verbose_name="Descripcion", blank=True)
     telescopio_instrumento_infra = models.CharField(max_length=500,verbose_name="Telescopio, instrumento, infraestructura", blank=True, choices=TelescopioChoise)
     url = models.CharField(max_length=100,verbose_name="url", blank=True)
     conferencia_proyecto = models.CharField(max_length=500,  verbose_name="Conferencia o proyecto", blank=True)

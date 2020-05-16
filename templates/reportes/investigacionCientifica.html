@@ -2300,16 +2300,16 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="ResponsableTecParticipante" class="col-md-2">Rol:</label>
+                        <label for="rol" class="col-md-2">Rol:</label>
                         <div class="col-md-10">
                             <select disabled class="form-control mb-1" name="responsable" required
                                 id="responsableModelo2{{modelo2.id}}">
                                 <option selected
-                                    value="{% if modelo2.responsableTecParticipante %}{{modelo2.responsableTecParticipante}}{% endif %}">
-                                    {% if modelo2.responsableTecParticipante == "" or modelo2.responsableTecParticipante == None  %}
+                                    value="{% if modelo2.rol %}{{modelo2.rol}}{% endif %}">
+                                    {% if modelo2.rol == "" or modelo2.rol == None  %}
                                     --------------------
                                     {% else %}
-                                    {{modelo2.responsableTecParticipante}}
+                                    {{modelo2.rol}}
                                     {% endif %}
                                 </option>
                                 <option value="">--------------------</option>
@@ -2417,16 +2417,16 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="ResponsableTecParticipante" class="col-md-2">Rol:</label>
+                        <label for="rol" class="col-md-2">Rol:</label>
                         <div class="col-md-10">
                             <select disabled class="form-control mb-1" name="responsable" required
                                 id="responsableModelo2{{modelo2.id}}">
                                 <option selected
-                                    value="{% if modelo2.responsableTecParticipante %}{{modelo2.responsableTecParticipante}}{% endif %}">
-                                    {% if modelo2.responsableTecParticipante == "" or modelo2.responsableTecParticipante == None  %}
+                                    value="{% if modelo2.rol %}{{modelo2.rol}}{% endif %}">
+                                    {% if modelo2.rol == "" or modelo2.rol == None  %}
                                     --------------------
                                     {% else %}
-                                    {{modelo2.responsableTecParticipante}}
+                                    {{modelo2.rol}}
                                     {% endif %}
                                 </option>
                                 <option value="">--------------------</option>
@@ -2533,16 +2533,16 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="ResponsableTecParticipante" class="col-md-2">Rol:</label>
+                        <label for="rol" class="col-md-2">Rol:</label>
                         <div class="col-md-10">
                             <select disabled class="form-control mb-1" name="responsable" required
                                 id="responsableModelo2{{modelo2.id}}">
                                 <option selected
-                                    value="{% if modelo2.responsableTecParticipante %}{{modelo2.responsableTecParticipante}}{% endif %}">
-                                    {% if modelo2.responsableTecParticipante == "" or modelo2.responsableTecParticipante == None  %}
+                                    value="{% if modelo2.rol %}{{modelo2.rol}}{% endif %}">
+                                    {% if modelo2.rol == "" or modelo2.rol == None  %}
                                     --------------------
                                     {% else %}
-                                    {{modelo2.responsableTecParticipante}}
+                                    {{modelo2.rol}}
                                     {% endif %}
                                 </option>
                                 <option value="">--------------------</option>
@@ -2649,16 +2649,16 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="ResponsableTecParticipante" class="col-md-2">Rol:</label>
+                        <label for="rol" class="col-md-2">Rol:</label>
                         <div class="col-md-10">
                             <select disabled class="form-control mb-1" name="responsable" required
                                 id="responsableModelo2{{modelo2.id}}">
                                 <option selected
-                                    value="{% if modelo2.responsableTecParticipante %}{{modelo2.responsableTecParticipante}}{% endif %}">
-                                    {% if modelo2.responsableTecParticipante == "" or modelo2.responsableTecParticipante == None  %}
+                                    value="{% if modelo2.rol %}{{modelo2.rol}}{% endif %}">
+                                    {% if modelo2.rol == "" or modelo2.rol == None  %}
                                     --------------------
                                     {% else %}
-                                    {{modelo2.responsableTecParticipante}}
+                                    {{modelo2.rol}}
                                     {% endif %}
                                 </option>
                                 <option value="">--------------------</option>
@@ -2766,16 +2766,16 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="ResponsableTecParticipante" class="col-md-2">Rol:</label>
+                        <label for="rol" class="col-md-2">Rol:</label>
                         <div class="col-md-10">
                             <select disabled class="form-control mb-1" name="responsable" required
                                 id="responsableModelo2{{modelo2.id}}">
                                 <option selected
-                                    value="{% if modelo2.responsableTecParticipante %}{{modelo2.responsableTecParticipante}}{% endif %}">
-                                    {% if modelo2.responsableTecParticipante == "" or modelo2.responsableTecParticipante == None  %}
+                                    value="{% if modelo2.rol %}{{modelo2.rol}}{% endif %}">
+                                    {% if modelo2.rol == "" or modelo2.rol == None  %}
                                     --------------------
                                     {% else %}
-                                    {{modelo2.responsableTecParticipante}}
+                                    {{modelo2.rol}}
                                     {% endif %}
                                 </option>
                                 <option value="">--------------------</option>
@@ -2922,7 +2922,7 @@
                 </form>
                 <hr>
                 {% if forloop.last %}
-                <button onclick="modelo14Obj.modelo14Crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                <button onclick="Modelo14.crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo14Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
                 <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
@@ -2935,7 +2935,7 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="modelo14Obj.modelo14Crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                <button onclick="Modelo14.crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo14Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
@@ -3720,7 +3720,7 @@
 
                             <label for="">Citas obtenidas durante el periodo del reporte</label>
                             <input disabled class="form-control mb-2" type="number"
-                                value="{% if campo.citasObtenidasEnPeriodo %}{{campo.citasObtenidasEnPeriodo}}{% endif %}"
+                                value="{% if campo.citas_en_periodo %}{{campo.citas_en_periodo}}{% endif %}"
                                 name="citas_en_periodo" id="citas_en_periodo{{campo.id}}">
                         </div>
 
@@ -3741,11 +3741,11 @@
 
                         <div class="justify-content-end d-flex">
                             <button onclick="Citas.actualizar({{campo.id}})" type="button" id="guardarCitas"
-                                class="btn btn-success " title="Guardar cambios"><i class="fas fa-save">&nbsp;
+                                class="btn btn-success mr-2 " title="Guardar cambios"><i class="fas fa-save">&nbsp;
                                     Guardar</i></button>
 
                             <button onclick="Citas.editar({{campo.id}},false)" id="cancelarCitas"
-                                class="btn btn-warning  text-white" type="reset">
+                                class="btn btn-warning mr-2  text-white" type="reset">
                                 <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i></button>
 
                             <button type="button" class="btn btn-primary" onclick="Citas.editar({{campo.id}})" id=""
@@ -4121,6 +4121,7 @@
                     $("#modelo1Crear" + numeral).remove()
                     timer.reset(540000);
                     Modelo1.dibujar(response);
+                    notificacion.creado();
                 })
                 .fail(function (response) {
                     notificacion.error(response)
@@ -4633,6 +4634,7 @@
                      <i class="fas fa-plus-circle"></i>Agregar entrada</button>`);
                     $("#modelo2Crear" + numeral).remove()
                     Modelo2.dibujar(response)
+                    notificacion.creado();
                     timer.reset(540000);
                 })
                 .fail(function (response) {
@@ -4669,7 +4671,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="ResponsableTecParticipante" class="col-md-2">Rol:</label>
+                                <label for="rol" class="col-md-2">Rol:</label>
                                 <div class="col-md-10">
                                     <select class="form-control mb-1" name="responsable" required id="responsableModelo2${response.id}">
                                         <option value="">------------------------</option>
@@ -4747,7 +4749,7 @@
                         $("#nombre_del_proyectoModelo2" + response.ids[i]).val(response.nombre_del_proyecto[i]);
                         $("#descripcionModelo2" + response.ids[i]).val(response.descripcion[i]);
                         $("#participantesModelo2" + response.ids[i]).val(response.participantes[i]);
-                        $("#responsableModelo2" + response.ids[i]).val(response.responsableTecParticipantes[i]);
+                        $("#responsableModelo2" + response.ids[i]).val(response.rols[i]);
                         $("#estudiantesModelo2" + response.ids[i]).val(response.estudiantes[i]);
                     }
                     $("#infoAnteriorModelo2" + numeral).prop('disabled', 'true');
@@ -5166,6 +5168,7 @@
                         `);
                     $("#modelo14Crear" + numeral).remove();
                     Modelo14.dibujar(response)
+                    notificacion.creado();
                     timer.reset(540000);
                 });
 

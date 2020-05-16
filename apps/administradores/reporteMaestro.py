@@ -697,9 +697,9 @@ def Reporte(request,periodo_id):
                     if item.participantes:
                         paragraph.add_run("Participantes: " + item.participantes + "\n")
 
-                    if item.responsableTecParticipante:
+                    if item.rol:
                         paragraph.add_run("Rol: ")
-                        paragraph.add_run(item.responsableTecParticipante + "\n")
+                        paragraph.add_run(item.rol + "\n")
 
                     if item.descripcion:
                         paragraph.add_run("Descripcion: " + item.descripcion + "\n")

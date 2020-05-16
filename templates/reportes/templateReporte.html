@@ -99,7 +99,7 @@
                             <li>
                                 {% if modelo2.nombre_del_proyecto %}Nombre del proyecto: {{modelo2.nombre_del_proyecto}}  {% endif %}
                                 {% if modelo2.participantes %} <br>Participantes: {{modelo2.participantes}}  {% endif %}
-                                {% if modelo2.responsableTecParticipante %}<br>Responsable técnico o participante: {{modelo2.responsableTecParticipante}}  {% endif %}
+                                {% if modelo2.rol %}<br>Responsable técnico o participante: {{modelo2.rol}}  {% endif %}
                                 {% if modelo2.descripcion %}<br>Descripcion: {{modelo2.descripcion}}  {% endif %}
                                 {% if modelo2.estudiantes %}<br>Estudiantes: <span style="color: red;">{{modelo2.estudiantes}}</span> {% endif %}
                                 {% if modelo2.anexos %}<br>Anexo: {{modelo2.anexos.name|nombreFile}}{% endif %}    

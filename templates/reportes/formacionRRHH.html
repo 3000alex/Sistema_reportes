@@ -1019,6 +1019,7 @@
                         <i class="fas fa-plus-circle"></i>Agregar entrada</button>`);
                     $("#modelo4Crear" + numeral).remove();
                     Modelo4.dibujar(response);
+                    notificacion.creado();
                     timer.reset(540000);
                 })
                 .fail(function (response) {
@@ -1169,6 +1170,7 @@
             })
                 .done(function () {
                     Modelo5.editar(id, false)
+                    notificacion.actualizado();
                     timer.reset(540000);
                 })
                 .fail(function (response) {
@@ -1194,6 +1196,7 @@
                      <i class="fas fa-plus-circle"></i>Agregar entrada</button>`)
                     $("#modelo5Crear" + numeral).remove()
                     Modelo5.dibujar(response)
+                    notificacion.creado();
                     timer.reset(540000);
                 })
                 .fail(function (response) {
@@ -1339,7 +1342,8 @@
                 dataType: 'html',
             })
                 .done(function () {
-                    desactivarCamposModelo6(id)
+                    Modelo6.editar(id,false)
+                    notificacion.actualizado();
                     timer.reset(540000);
                 })
                 .fail(function (response) {
@@ -1364,7 +1368,8 @@
                         id="modelo6Crear${response.numeral}" class="btn btn-danger">
                         <i class="fas fa-plus-circle"></i>Agregar entrada</button>`)
                     $("#modelo6Crear" + numeral).remove()
-                    dibujarmodelo6(response)
+                    Modelo6.dibujar(response)
+                    notificacion.creado();
                     timer.reset(540000);
                 })
                 .fail(function (response) {
@@ -1374,7 +1379,7 @@
         dibujar: function (response) {
             var numeral = parseInt(response.numeral);
             switch (numeral) {
-                case 40: $("#modelo6Crear" + `${response.posicion}`).before(
+                case 40: $("#modelo6Crear" + `${response.numeral}`).before(
                     `<form id="modelo6${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
                             {% csrf_token %}
@@ -1450,7 +1455,7 @@
                     `);   
                     break;
             
-                default: $("#modelo6Crear" + `${response.posicion}`).before(
+                default: $("#modelo6Crear" + `${response.numeral}`).before(
                     `<form id="modelo6${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
                             {% csrf_token %}
@@ -1614,7 +1619,8 @@
                 dataType: 'html',
             })
                 .done(function () {
-                    desactivarCamposModelo16(id)
+                    Modelo16.editar(id,false)
+                    notificacion.actualizado();
                     timer.reset(540000);
                 })
                 .fail(function (response) {
@@ -1638,8 +1644,9 @@
                     id="modelo16Crear${response.numeral}" class="btn btn-danger">
                     <i class="fas fa-plus-circle"></i>Agregar entrada</button>
                 `)
-                    $("#modelo16Crear" + numeral).remove()
-                    dibujarmodelo16(response)
+                    $("#modelo16Crear" + numeral).remove();
+                    Modelo16.dibujar(response);
+                    notificacion.creado();
                     timer.reset(540000);
                 })
                 .fail(function (response) {
