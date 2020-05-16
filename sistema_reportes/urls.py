@@ -3,7 +3,7 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls import handler404,url
 from django.conf.urls.static import static
-
+from django.contrib.auth import urls
 from apps.registration.urls import registrationpatterns
 from apps.reportes.urls import reportespatterns
 from apps.biblioteca.urls import bibliotecapatterns

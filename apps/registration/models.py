@@ -31,6 +31,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     orcId = models.CharField(max_length=50, blank=True, verbose_name="Orc ID")
     arxivId = models.CharField(max_length=50, blank=True, verbose_name="Arxiv ID")
     is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
     objects = UserManager()
