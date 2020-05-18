@@ -24,11 +24,6 @@ def nuevo_periodo(request):
         
     p = Periodo.objects.create(nombre_periodo=nombre_periodo)
         
-    for user in usuarios:
-            
-        Citas.objects.create(
-            numeral_id = 31, periodo_id = p.id, usuario_id = user.id
-        )
 
     body = render_to_string(
         'administradores/periodoCreado.html', {

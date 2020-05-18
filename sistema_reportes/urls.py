@@ -14,6 +14,7 @@ from apps.reporteSNI.urls import reporteSNIpatterns
 
 
 urlpatterns = [
+    #path('', include('apps.reportes.routers')),
     path('',include('apps.core.urls')),
     path('',include(reportespatterns)),
     path('',include(bibliotecapatterns)),
@@ -21,6 +22,7 @@ urlpatterns = [
     path('',include(metricaspatterns)),
     path('',include(reporteSNIpatterns)),
     path('admin/', admin.site.urls),
+    
 
     # Paths de Auth
     path('accounts/',include('django.contrib.auth.urls')),

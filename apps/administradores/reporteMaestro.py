@@ -93,7 +93,7 @@ def Reporte(request,periodo_id):
     modelo14 = Modelo14.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
     modelo15 = Modelo15.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
     modelo16 = Modelo16.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
-    citas = Citas.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
+    citas = Citas.objects.all()
     numeral = Numeral.objects.all()
  
     #Variables contadoras de cada Categoria 

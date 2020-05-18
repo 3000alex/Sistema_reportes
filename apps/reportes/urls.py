@@ -107,8 +107,6 @@ reportespatterns = ([
     path('eliminar-modelo16',vista.eliminarModelo16.as_view(), name="eliminar-modelo16"),
     path('crear-modelo16',vista.crearModelo16.as_view(), name="crear-modelo16"),
     path('info-anteriorModelo16',vista.infoAnteriorModelo16.as_view(), name="info-anteriorModelo16"),
-
-    path('prueba/<pk>',vista.infoUpdateView.as_view(), name="prueba"),
     
     #Finalizar reporte
     path('enviar-Reporte',vista.enviarReporte.as_view(), name="enviar-Reporte")

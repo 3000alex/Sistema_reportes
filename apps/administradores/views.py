@@ -75,11 +75,11 @@ class UsuariosEditar(StaffRequiredMixin, View):
 
 class UsuarioAgregar(StaffRequiredMixin, View):
     def post(self, request):
-        email1 = request.POST.get('email', None)
-        nombre1 = request.POST.get('nombre', None)
-        lastName1 = request.POST.get('apellido', None)
+        email1 = request.POST.get('email')
+        nombre1 = request.POST.get('nombre')
+        lastName1 = request.POST.get('apellido')
         password1 =  get_random_string(length=20)
-        nombreCorto1 = request.POST.get('nombreCorto',None)
+        nombreCorto1 = request.POST.get('nombreCorto')
         periodos = Periodo.objects.all()
         # Crear objeto
         userNew = User.objects.create_user(email=email1, password=password1, nombre=nombre1, apellido=lastName1, nombreCorto=nombreCorto1)

@@ -1,14 +1,11 @@
 # Redirecciones
-from django.urls import reverse
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.http import FileResponse
 from django.core import serializers
 # Vistas genericas
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView
 from django.views.generic import View, ListView
-from django.views.generic import FormView
 # Librerias para validar el login
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -18,48 +15,31 @@ from .models import Modelo11, Modelo12, Modelo13, Modelo14, Modelo15,Modelo16, P
 from apps.registration.models import User
 from apps.biblioteca.models import Biblioteca
 from .models import ReporteEnviado
-from datetime import date
-from datetime import datetime
 from django.http import JsonResponse
-#forms
-from django.urls import reverse_lazy
 
 # Manejo Archivos
-from django.shortcuts import redirect
-from django.core.files.storage import FileSystemStorage
 import os
 from django.conf import settings
 from django.core.files.base import ContentFile
-from django.core.files.base import File as contenidoFile
 #Zip
 import zipfile
-import zlib
-from io import StringIO
 #PDF 
 import pdfkit
-from io import BytesIO
-from django.core.files import File
 #config = pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')  #Linux
 config =  pdfkit.configuration(wkhtmltopdf='C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe') #Windows
 # Correo
-from django.core.mail import send_mail
 from django.core.mail import EmailMessage
-from django.http import HttpResponse
 from django.template.loader import render_to_string
-from django.shortcuts import render
-from django.core.files import File
 from email.mime.base import MIMEBase
 from email import encoders
 from sistema_reportes.settings import BASE_DIR
 #Reporte final
 from .generarReporteCoordinacion import generarPdf
 #Time zone
-import datetime
-
-
-class infoUpdateView(UpdateView):
-    pass
-
+from datetime import date
+from datetime import datetime
+#serializer 
+    
 @method_decorator(login_required, name='dispatch')
 class reporte_productividad(View):
     def get(self,request):
@@ -222,15 +202,15 @@ class informacion_adicional(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarBiblioteca(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        autor = request.POST.get('autores', None)
-        titulo = request.POST.get('titulo', None)
-        revista = request.POST.get('revista', None)
-        estudiantes = request.POST.get('estudiantes', None)
-        url = request.POST.get('url', None)
-        doi = request.POST.get('doi', None)
-        fecha = request.POST.get('fecha', None)
-        bibcode = request.POST.get('bibcode', None)
+        id1 = request.POST.get('id')
+        autor = request.POST.get('autores')
+        titulo = request.POST.get('titulo')
+        revista = request.POST.get('revista')
+        estudiantes = request.POST.get('estudiantes')
+        url = request.POST.get('url')
+        doi = request.POST.get('doi')
+        fecha = request.POST.get('fecha')
+        bibcode = request.POST.get('bibcode')
         temp = len(fecha)
         fecha_ano = fecha[:temp - 3 ]
         
@@ -266,7 +246,7 @@ class actualizarBiblioteca(View):
 @method_decorator(login_required, name='dispatch')
 class BibliotecaCrearNumeral(View):
     def post(self, request):
-        numeral1 = request.POST.get('numeral', None)
+        numeral1 = request.POST.get('numeral')
         
         obj = Biblioteca.objects.create(
             usuario_id=request.user.id,
@@ -282,9 +262,9 @@ class BibliotecaCrearNumeral(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorBiblioteca(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
+        periodo_id = request.GET.get('periodo')
         periodo_id = int(periodo_id) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo14.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id)
 
         data = {
@@ -298,14 +278,14 @@ class infoAnteriorBiblioteca(View):
 class actualizarModelo1(View):
 
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        autores = request.POST.get('autores', None)
-        titulo = request.POST.get('titulo', None)
-        revista = request.POST.get('revista', None)
-        url = request.POST.get('url', None)
-        doi = request.POST.get('doi', None)
-        fecha = request.POST.get('fecha',None)
-        estudiantes = request.POST.get('estudiantes', None)
+        id1 = request.POST.get('id')
+        autores = request.POST.get('autores')
+        titulo = request.POST.get('titulo')
+        revista = request.POST.get('revista')
+        url = request.POST.get('url')
+        doi = request.POST.get('doi')
+        fecha = request.POST.get('fecha')
+        estudiantes = request.POST.get('estudiantes')
 
         # Actualizamos Modelo1
         obj = Modelo1.objects.get(id=id1)
@@ -334,7 +314,7 @@ class actualizarModelo1(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo1(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
 
         obj = Modelo1.objects.get(id=id1)
         if obj.anexos:
@@ -349,8 +329,8 @@ class eliminarModelo1(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo1(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
         
         obj = Modelo1.objects.create(
@@ -370,9 +350,9 @@ class crearModelo1(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo1(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
+        periodo_id = request.GET.get('periodo')
         periodo_id = int(periodo_id) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo1.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
 
         data = {
@@ -384,12 +364,12 @@ class infoAnteriorModelo1(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo2(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        nombre_del_proyecto = request.POST.get('nombre_del_proyecto', None)
-        descripcion = request.POST.get('descripcion', None)
-        participantes = request.POST.get('participantes', None)
-        responsable = request.POST.get('responsable', None)
-        estudiantes = request.POST.get('estudiantes', None)
+        id1 = request.POST.get('id')
+        nombre_del_proyecto = request.POST.get('nombre_del_proyecto')
+        descripcion = request.POST.get('descripcion')
+        participantes = request.POST.get('participantes')
+        responsable = request.POST.get('responsable')
+        estudiantes = request.POST.get('estudiantes')
 
         # Actualizamos Modelo2
         obj = Modelo2.objects.get(id=id1)
@@ -419,7 +399,7 @@ class actualizarModelo2(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo2(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         print(id1)
 
         obj = Modelo2.objects.get(id=id1)
@@ -435,8 +415,8 @@ class eliminarModelo2(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo2(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
         
         obj = Modelo2.objects.create(
@@ -456,9 +436,9 @@ class crearModelo2(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo2(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo2.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id)
         nombre_del_proyecto = []
         descripcion = []
@@ -500,15 +480,15 @@ class infoAnteriorModelo2(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo3(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        titulo_de_la_presentacion = request.POST.get('titulo_de_la_presentacion', None)
-        autores = request.POST.get('autores', None)
-        nombre_de_conferencia = request.POST.get('nombre_de_conferencia', None)
-        fecha = request.POST.get('fecha', None)
-        estudiantes = request.POST.get('estudiantes', None)
-        doi = request.POST.get('doi', None)
-        presentacionPoster = request.POST.get('presentacionPoster', None)
-        url = request.POST.get('url', None)
+        id1 = request.POST.get('id')
+        titulo_de_la_presentacion = request.POST.get('titulo_de_la_presentacion')
+        autores = request.POST.get('autores')
+        nombre_de_conferencia = request.POST.get('nombre_de_conferencia')
+        fecha = request.POST.get('fecha')
+        estudiantes = request.POST.get('estudiantes')
+        doi = request.POST.get('doi')
+        presentacionPoster = request.POST.get('presentacionPoster')
+        url = request.POST.get('url')
 
         # Actualizamos modelo3
         obj = Modelo3.objects.get(id=id1)
@@ -540,7 +520,7 @@ class actualizarModelo3(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo3(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         obj = Modelo3.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
@@ -553,8 +533,8 @@ class eliminarModelo3(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo3(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
         
         obj = Modelo3.objects.create(
@@ -574,9 +554,9 @@ class crearModelo3(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo3(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo3.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
         titulo_de_la_presentacion = []
         autores = []
@@ -628,10 +608,10 @@ class infoAnteriorModelo3(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarCitas(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        citas = request.POST.get('citas', None)
-        citas_en_periodo = request.POST.get('citas_en_periodo', None)
-        indiceH = request.POST.get('indiceH', None)
+        id1 = request.POST.get('id')
+        citas = request.POST.get('citas')
+        citas_en_periodo = request.POST.get('citas_en_periodo')
+        indiceH = request.POST.get('indiceH')
 
         obj = Citas.objects.get(id=id1)
         obj.citas = citas
@@ -656,8 +636,8 @@ class actualizarCitas(View):
 @method_decorator(login_required, name='dispatch')
 class crearCitas(View):
     def get(self,request):
-        numeral1 = request.GET.get('numeral', None)
-        id = request.GET.get('periodo',None)
+        numeral1 = request.GET.get('numeral')
+        id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=id)
         
         obj = Citas.objects.create(
@@ -676,11 +656,11 @@ class crearCitas(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo4(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        nombre_completo = request.POST.get('nombre_completo', None)
-        titulo_de_tesis = request.POST.get('titulo_de_tesis', None)
-        fecha = request.POST.get('fecha', None)
-        url = request.POST.get('url', None)
+        id1 = request.POST.get('id')
+        nombre_completo = request.POST.get('nombre_completo')
+        titulo_de_tesis = request.POST.get('titulo_de_tesis')
+        fecha = request.POST.get('fecha')
+        url = request.POST.get('url')
        
 
         # Actualizamos modelo4
@@ -711,7 +691,7 @@ class actualizarModelo4(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo4(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         obj = Modelo4.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
@@ -724,8 +704,8 @@ class eliminarModelo4(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo4(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo4.objects.create(
@@ -744,9 +724,9 @@ class crearModelo4(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo4(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo4.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
         nombre_completo = []
         titulo_de_tesis = []
@@ -783,10 +763,10 @@ class infoAnteriorModelo4(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo5(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        nombre_del_curso = request.POST.get('nombre_del_curso', None)
-        periodo = request.POST.get('periodo', None)
-        notas = request.POST.get('notas', None)
+        id1 = request.POST.get('id')
+        nombre_del_curso = request.POST.get('nombre_del_curso')
+        periodo = request.POST.get('periodo')
+        notas = request.POST.get('notas')
 
         # Actualizamos biblioteca
         obj = Modelo5.objects.get(id=id1)
@@ -814,7 +794,7 @@ class actualizarModelo5(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo5(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         obj = Modelo5.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
@@ -827,8 +807,8 @@ class eliminarModelo5(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo5(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo5.objects.create(
@@ -847,9 +827,9 @@ class crearModelo5(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo5(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo5.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
         nombre_del_curso = []
         periodo_numeral = []
@@ -882,13 +862,13 @@ class infoAnteriorModelo5(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo6(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        nombre = request.POST.get('nombre', None)
-        titulo = request.POST.get('titulo_de_tesis', None)
-        grado = request.POST.get('grado', None)
-        institucion = request.POST.get('institucion', None)
-        fecha = request.POST.get('fecha', None)
-        notas = request.POST.get('notas', None)
+        id1 = request.POST.get('id')
+        nombre = request.POST.get('nombre')
+        titulo = request.POST.get('titulo_de_tesis')
+        grado = request.POST.get('grado')
+        institucion = request.POST.get('institucion')
+        fecha = request.POST.get('fecha')
+        notas = request.POST.get('notas')
 
         # Actualizamos modelo
         obj = Modelo6.objects.get(id=id1)
@@ -918,7 +898,7 @@ class actualizarModelo6(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo6(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         obj = Modelo6.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
@@ -931,8 +911,8 @@ class eliminarModelo6(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo6(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
        
         obj = Modelo6.objects.create(
@@ -951,9 +931,9 @@ class crearModelo6(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo6(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo6.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
         nombre = []
         titulo_de_tesis = []
@@ -998,10 +978,10 @@ class infoAnteriorModelo6(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo7(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        autores = request.POST.get('autores', None)
-        descripcion = request.POST.get('descripcion', None)
-        url = request.POST.get('url', None)
+        id1 = request.POST.get('id')
+        autores = request.POST.get('autores')
+        descripcion = request.POST.get('descripcion')
+        url = request.POST.get('url')
 
         obj = Modelo7.objects.get(id=id1)
         obj.autores = autores
@@ -1027,7 +1007,7 @@ class actualizarModelo7(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo7(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         obj = Modelo7.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
@@ -1040,8 +1020,8 @@ class eliminarModelo7(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo7(View):
     def get(self, request):        
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo7.objects.create(
@@ -1060,9 +1040,9 @@ class crearModelo7(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo7(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo7.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
         descripcion = []
         autores = []
@@ -1093,11 +1073,11 @@ class infoAnteriorModelo7(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo8(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        nombre = request.POST.get('nombre', None)
-        descripcion = request.POST.get('descripcion', None)
-        participantes = request.POST.get('participantes', None)
-        financiamiento = request.POST.get('financiamiento', None)
+        id1 = request.POST.get('id')
+        nombre = request.POST.get('nombre')
+        descripcion = request.POST.get('descripcion')
+        participantes = request.POST.get('participantes')
+        financiamiento = request.POST.get('financiamiento')
 
         obj = Modelo8.objects.get(id=id1)
         obj.nombre = nombre
@@ -1124,7 +1104,7 @@ class actualizarModelo8(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo8(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         obj = Modelo8.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
@@ -1137,8 +1117,8 @@ class eliminarModelo8(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo8(View):
     def get(self, request):        
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo8.objects.create(
@@ -1157,9 +1137,9 @@ class crearModelo8(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo8(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo8.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
         nombre = []
         descripcion = []
@@ -1195,14 +1175,14 @@ class infoAnteriorModelo8(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo9(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        titulo = request.POST.get('titulo', None)
-        autores = request.POST.get('autores', None)
-        Nreporte = request.POST.get('Nreportes', None)
-        fecha = request.POST.get('fecha', None)
-        url = request.POST.get('url', None)
-        revista = request.POST.get('revista_publicacion', None)
-        doi = request.POST.get('doi',None)
+        id1 = request.POST.get('id')
+        titulo = request.POST.get('titulo')
+        autores = request.POST.get('autores')
+        Nreporte = request.POST.get('Nreportes')
+        fecha = request.POST.get('fecha')
+        url = request.POST.get('url')
+        revista = request.POST.get('revista_publicacion')
+        doi = request.POST.get('doi')
 
         obj = Modelo9.objects.get(id=id1)
         obj.titulo = titulo
@@ -1232,7 +1212,7 @@ class actualizarModelo9(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo9(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         obj = Modelo9.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
@@ -1245,8 +1225,8 @@ class eliminarModelo9(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo9(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo9.objects.create(
@@ -1265,8 +1245,8 @@ class crearModelo9(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo9(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
-        numeral_id = request.GET.get('numeral',None)
+        periodo = request.GET.get('periodo')
+        numeral_id = request.GET.get('numeral')
         periodo_id = int(periodo) - 1
         datos = Modelo9.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id)
         titulo = []
@@ -1317,11 +1297,11 @@ class infoAnteriorModelo9(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo10(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        descripcion = request.POST.get('descripcion', None)
-        fecha = request.POST.get('fecha', None)
-        url = request.POST.get('url', None)
-        periodo = request.POST.get('periodo', None)
+        id1 = request.POST.get('id')
+        descripcion = request.POST.get('descripcion')
+        fecha = request.POST.get('fecha')
+        url = request.POST.get('url')
+        periodo = request.POST.get('periodo')
 
         obj = Modelo10.objects.get(id=id1)
         obj.descripcion = descripcion
@@ -1348,7 +1328,7 @@ class actualizarModelo10(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo10(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         obj = Modelo10.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
@@ -1361,8 +1341,8 @@ class eliminarModelo10(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo10(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo10.objects.create(
@@ -1381,9 +1361,9 @@ class crearModelo10(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo10(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo10.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id)
         descripcion = []
         fecha = []
@@ -1419,11 +1399,11 @@ class infoAnteriorModelo10(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo11(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        nombre = request.POST.get('nombre_del_estudiante', None)
-        descripcion = request.POST.get('descripcion', None)
-        fecha = request.POST.get('fecha', None)
-        fechaPeriodo = request.POST.get('fechaPeriodo', None)
+        id1 = request.POST.get('id')
+        nombre = request.POST.get('nombre_del_estudiante')
+        descripcion = request.POST.get('descripcion')
+        fecha = request.POST.get('fecha')
+        fechaPeriodo = request.POST.get('fechaPeriodo')
 
         obj = Modelo11.objects.get(id=id1)
         obj.nombre_del_estudiante = nombre
@@ -1449,7 +1429,7 @@ class actualizarModelo11(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo11(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         obj = Modelo11.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
@@ -1462,8 +1442,8 @@ class eliminarModelo11(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo11(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo11.objects.create(
@@ -1482,9 +1462,9 @@ class crearModelo11(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo11(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo11.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id = numeral_id)
         descripcion = []
         nombre_del_estudiante = []
@@ -1516,8 +1496,8 @@ class infoAnteriorModelo11(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo12(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        laboratorio = request.POST.get('laboratorio_taller', None)
+        id1 = request.POST.get('id')
+        laboratorio = request.POST.get('laboratorio_taller')
 
         obj = Modelo12.objects.get(id=id1)
 
@@ -1542,7 +1522,7 @@ class actualizarModelo12(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo12(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         obj = Modelo12.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
@@ -1555,8 +1535,8 @@ class eliminarModelo12(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo12(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
     
         obj = Modelo12.objects.create(
@@ -1575,9 +1555,9 @@ class crearModelo12(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo12(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo12.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id)
         laboratorio_taller = []
         ids  = []
@@ -1600,9 +1580,9 @@ class infoAnteriorModelo12(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo13(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        descripcion = request.POST.get('descripcion', None)
-        agencia = request.POST.get('agencias_financieras', None)
+        id1 = request.POST.get('id')
+        descripcion = request.POST.get('descripcion')
+        agencia = request.POST.get('agencias_financieras')
 
         obj = Modelo13.objects.get(id=id1)
         obj.descripcion = descripcion
@@ -1627,7 +1607,7 @@ class actualizarModelo13(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo13(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         obj = Modelo13.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
@@ -1640,8 +1620,8 @@ class eliminarModelo13(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo13(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo13.objects.create(
@@ -1660,9 +1640,9 @@ class crearModelo13(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo13(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo13.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id)
         descripcion = []
         agencias_financieras = []
@@ -1688,16 +1668,16 @@ class infoAnteriorModelo13(View):
         return  JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
-class actualizarModelo14(FormView):
+class actualizarModelo14(View):
 
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        telescopio = request.POST.get('telescopio', None)
-        descripcion = request.POST.get('descripcion', None)
-        url = request.POST.get('url', None)
-        conferencia_proyecto = request.POST.get('conferencia_proyecto',None)
-        rol = request.POST.get('rol',None)
-        fecha = request.POST.get('fecha',None)
+        id1 = request.POST.get('id')
+        telescopio = request.POST.get('telescopio')
+        descripcion = request.POST.get('descripcion')
+        url = request.POST.get('url')
+        conferencia_proyecto = request.POST.get('conferencia_proyecto')
+        rol = request.POST.get('rol')
+        fecha = request.POST.get('fecha')
 
         obj = Modelo14.objects.get(id=id1)
         obj.telescopio_instrumento_infra = telescopio
@@ -1726,9 +1706,7 @@ class actualizarModelo14(FormView):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo14(View):
     def post(self, request):
-        print("Entre a la funcion")
-        id1 = request.POST.get('id', None)
-        print(id1)
+        id1 = request.POST.get('id')
         Modelo14.objects.get(id=id1).delete()
         data = {
             'deleted': True
@@ -1761,9 +1739,9 @@ class crearModelo14(View):
 class infoAnteriorModelo14(View):
     
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo14.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
         telescopio = []
         descripcion = []
@@ -1809,8 +1787,8 @@ class infoAnteriorModelo14(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo15(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        descripcion = request.POST.get('descripcion', None)
+        id1 = request.POST.get('id')
+        descripcion = request.POST.get('descripcion')
 
         obj = Modelo15.objects.get(id=id1)
         obj.descripcion = descripcion
@@ -1834,7 +1812,7 @@ class actualizarModelo15(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo15(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         obj = Modelo15.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
@@ -1847,8 +1825,8 @@ class eliminarModelo15(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo15(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo15.objects.create(
@@ -1867,9 +1845,9 @@ class crearModelo15(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo15(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo15.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
         descripcion = []
         ids = []
@@ -1892,10 +1870,10 @@ class infoAnteriorModelo15(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo16(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
-        estudiantes = request.POST.get('nombre_del_estudiante', None)
-        coordinacion = request.POST.get('coordinacion',None)
-        grado = request.POST.get('grado',None)
+        id1 = request.POST.get('id')
+        estudiantes = request.POST.get('nombre_del_estudiante')
+        coordinacion = request.POST.get('coordinacion')
+        grado = request.POST.get('grado')
         
         obj = Modelo16.objects.get(id=id1)
         obj.nombre_del_estudiante = estudiantes
@@ -1921,7 +1899,7 @@ class actualizarModelo16(View):
 @method_decorator(login_required, name='dispatch')
 class eliminarModelo16(View):
     def post(self, request):
-        id1 = request.POST.get('id', None)
+        id1 = request.POST.get('id')
         obj = Modelo16.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
@@ -1934,8 +1912,8 @@ class eliminarModelo16(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo16(View):
     def get(self, request):
-        numeral = request.GET.get('numeral', None)
-        periodo_id = request.GET.get('periodo',None)
+        numeral = request.GET.get('numeral')
+        periodo_id = request.GET.get('periodo')
         periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo16.objects.create(
@@ -1954,9 +1932,9 @@ class crearModelo16(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo16(View):
     def get(self,request):
-        periodo = request.GET.get('periodo',None)
+        periodo = request.GET.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral',None)
+        numeral_id = request.GET.get('numeral')
         datos = Modelo16.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id, numeral_id=numeral_id)
         nombre_del_estudiante = []
         coordinacion = []
@@ -1990,7 +1968,7 @@ class infoAnteriorModelo16(View):
 @method_decorator(login_required, name='dispatch')
 class enviarReporte(View): 
     def get(self, request, *args, **kwargs):
-        periodo_id = request.GET.get('periodoActual',None)
+        periodo_id = request.GET.get('periodoActual')
         periodo = Periodo.objects.get(id=periodo_id)
         yearPeriodo = periodo.fecha_inicio.year
         anexoModelo1 = Modelo1.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
@@ -2165,7 +2143,7 @@ class enviarReporte(View):
 @method_decorator(login_required, name='dispatch')
 class generarReporte(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo',None)
+        periodo_id = request.GET.get('periodo')
 
         html = generarPdf(request,periodo_id)
         options = {

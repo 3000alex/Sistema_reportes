@@ -37,7 +37,7 @@
                     <td>{{modelo14.anexos.name|nombreFile}}</td>
                     <td><button type="button" class="btn btn-primary" title="Editar entrada">
                             <i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger" onclick="options.eliminar({{modelo14.id}})"
+                        <button type="button" class="btn btn-danger" onclick=""
                             title="Eliminar entrada">
                             <i class="fas fa-trash-alt"></i></button>
                     </td>
@@ -45,7 +45,7 @@
                 {% endfor %}
             </tbody>
         </table>
-        <button onclick="options.crear({{numeral.id}})" type="button" class="btn btn-danger ml-4 mb-2">
+        <button onclick="" type="button" class="btn btn-danger ml-4 mb-2">
             <i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
         {% endif %}
         <!--Fin Numeral 61 Modelo14-->
@@ -285,102 +285,6 @@
         }
     }
     //Fin modelo14
-    var options = {
-        editar: id => {
-            $.ajax({
-                type: "GET",
-                url: "{% url 'reportes:prueba' 3 %}",
-                dataType: "html",
-                success: function (response) {
-                    Swal.fire({
-                        title: 'Editar entrada',
-                        html: `${response}`,
-                        showCancelButton: true,
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: '<i class="fas fa-check"></i> Guardar',
-                        cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
-
-                    })
-                }
-            });
-            /*
-            Swal.fire({
-                title: 'Editar entrada',
-                html: `<style>label{text-align: left !important;}</style>
-                        {{form}}
-                        
-                `,
-                showCancelButton: true,
-                cancelButtonColor: '#d33',
-                confirmButtonText: '<i class="fas fa-check"></i> Guardar',
-                cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
-
-            })
-           var td = $(".modelo14-"+id);
-           var elementos = $(td).find('td');
-           
-           $("#id_telescopio_instrumento_infra").val($(elementos[0]).text());
-           $("#id_url").val($(elementos[1]).text());
-           $("#id_descripcion").val($(elementos[2]).text());
-           $("#idanexo").val($(elementos[3]).text());
-           */
-
-        },
-        eliminar: id => {
-            notificacion.eliminar(function () {
-
-            })
-        },
-        crear: (numeral) => {
-            Swal.fire({
-                title: 'Crear entrada',
-                html: `<form id="modelo14">{{form}}</form>`,
-                showCancelButton: true,
-                cancelButtonColor: '#d33',
-                confirmButtonText: '<i class="fas fa-check"></i> Crear',
-                cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
-                preConfirm: function () {
-                    return new Promise((resolve, reject) => {
-                        var form = $("#modelo14")
-                        console.log(form[0]);
-                        
-                        var formdata = new Formdata(form[0]);
-                        //var formData = new FormData(document.getElementById("actualizarBibliotecaForm"))
-                        var nameFile = "";
-                        var anexo = $("#id_anexos")[0].files;
-                        var telescopio = $("#id_telescopio_instrumento_infra").val();
-                        var url = $("#id_url").val();
-                        var descripcion = $("#id_descripcion").val();
-                        var periodo = $('select[name="periodoActual"]').val().trim();
-
-                        if (anexo.length != 0) {
-                            nameFile = anexo[0].name
-                        }
-
-                        $.ajax({
-                            type: "GET",
-                            url: '{% url "reportes:crear-modelo14" %}',
-                            data: formdata,
-                            dataType: "JSON",
-                        })
-                            .done(function (response) {
-                                console.log('pase');
-                                t.row.add([telescopio, url, descripcion, nameFile,
-                                    `<button type="button" class="btn btn-primary" onclick="options.editar(${response.id})" title="Editar entrada">
-                                <i class="fas fa-edit"></i></button>
-                            <button type="button" class="btn btn-danger" onclick="options.eliminar(${response.id})" title="Eliminar entrada">
-                                <i class="fas fa-trash-alt"></i></button>`,
-                                ]).draw(false);
-                            })
-                            .fail(function (response) {
-                                console.log('error');
-                                notificacion.error(response);
-                            });
-                    });
-                }
-
-            })
-        }
-    }
+  
 </script>
 {% endblock %}
