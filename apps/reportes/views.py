@@ -1988,7 +1988,7 @@ class enviarReporte(View):
         anexoModelo15 = Modelo15.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
         anexoModelo16 = Modelo16.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
         anexoBiblioteca = Biblioteca.objects.exclude(anexos = "").filter(usuario_id = request.user.id, fecha_ano=yearPeriodo)
-        anexoCitas = Citas.objects.exclude(anexos = "").filter(usuario_id = request.user.id,periodo__fecha_inicio__year = yearPeriodo)
+        anexoCitas = Citas.objects.exclude(anexos = "").filter(usuario_id = request.user.id)
 
         html = generarPdf(request,periodo_id)
         
@@ -2037,7 +2037,7 @@ class enviarReporte(View):
         email_message.send()
 
 
-        #Email para la coordinacion
+        #Email para la coordinacionP
         bodyAdmin = render_to_string(
          'reportes/templateReporteFinalizado.html',{
              'nombre':request.user.nombre,
