@@ -19,12 +19,11 @@
             <div>
                 {% for modelo15 in numeral_47 %}
 
-                <form  id="modelo15{{modelo15.id}}">
+                <form id="modelo15{{modelo15.id}}">
                     {% csrf_token %}
                     <label for="">Descripción</label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
-                        id="descripcionModelo15{{modelo15.id}}" cols="30"
-                        rows="5"> {% if modelo15.descripcion %}{{modelo15.descripcion}}{% endif %} </textarea>
+                        id="descripcionModelo15{{modelo15.id}}" cols="30" rows="5"> {{modelo15.descripcion}} </textarea>
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo15{{modelo15.id}}">
                     <small class="mb-4">Tamaño máximo: 5 Mb</small>
@@ -93,8 +92,7 @@
                         <label for="" class="col-sm-2">Título: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="titulo"
-                                id="tituloModelo9{{modelo9.id}}"
-                                value="{% if modelo9.titulo %}{{modelo9.titulo}}{% endif %}">
+                                id="tituloModelo9{{modelo9.id}}" value="{{modelo9.titulo}}">
                         </div>
                     </div>
 
@@ -102,8 +100,7 @@
                         <label for="" class="col-sm-2">Autor(es): </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="autores"
-                                id="autoresModelo9{{modelo9.id}}"
-                                value="{% if modelo9.autores %}{{modelo9.autores}}{% endif %}">
+                                id="autoresModelo9{{modelo9.id}}" value="{{modelo9.autores}}">
                         </div>
                     </div>
 
@@ -111,8 +108,7 @@
                         <label for="" class="col-sm-2">Revista o publicación: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="revista_publicacion"
-                                id="revista_publicacionModelo9{{modelo9.id}}"
-                                value="{% if modelo9.revista_publicacion %}{{modelo9.revista_publicacion}}{% endif %}">
+                                id="revista_publicacionModelo9{{modelo9.id}}" value="{{modelo9.revista_publicacion}}">
                         </div>
                     </div>
 
@@ -120,8 +116,7 @@
                         <label for="" class="col-sm-2">Fecha: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
-                                id="fechaModelo9{{modelo9.id}}"
-                                value=" {% if modelo9.fecha %}{{modelo9.fecha }}{% endif %}">
+                                id="fechaModelo9{{modelo9.id}}" value="{{modelo9.fecha}}">
                         </div>
                     </div>
 
@@ -129,7 +124,7 @@
                         <label for="" class="col-sm-2">DOI/ISBN: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="doi"
-                                id="doiModelo9{{modelo9.id}}" value="{% if modelo9.doi %}{{modelo9.doi}}{% endif %}">
+                                id="doiModelo9{{modelo9.id}}" value="{{modelo9.doi}}">
                         </div>
                     </div>
 
@@ -137,7 +132,7 @@
                         <label for="" class="col-sm-2">URL: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="url" name="url"
-                                id="urlModelo9{{modelo9.id}}" value="{% if modelo9.url %}{{modelo9.url}}{% endif %}">
+                                id="urlModelo9{{modelo9.id}}" value="{{modelo9.url}}">
                         </div>
                     </div>
 
@@ -208,8 +203,7 @@
                         <label for="" class="col-sm-2">Fecha: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
-                                id="fechaModelo10{{modelo10.id}}"
-                                value="{% if modelo10.fecha %}{{modelo10.fecha}}{% endif %}">
+                                id="fechaModelo10{{modelo10.id}}" value="{{modelo10.fecha}}">
                         </div>
                     </div>
 
@@ -217,16 +211,14 @@
                         <label for="" class="col-sm-2">URL: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="url" name="url"
-                                id="urlModelo10{{modelo10.id}}"
-                                value="{% if modelo10.url %}{{modelo10.url}}{% endif %}">
+                                id="urlModelo10{{modelo10.id}}" value="{{modelo10.url}}">
 
                         </div>
                     </div>
 
                     <label for="">Descripción: </label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
-                        id="descripcionModelo10{{modelo10.id}}" cols="30"
-                        rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+                        id="descripcionModelo10{{modelo10.id}}" cols="30" rows="5">{{modelo10.descripcion}}</textarea>
 
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo10{{modelo10.id}}">
@@ -298,8 +290,7 @@
                         <label for="" class="col-sm-2">Fecha: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
-                                id="fechaModelo10{{modelo10.id}}"
-                                value="{% if modelo10.fecha %}{{modelo10.fecha}}{% endif %}">
+                                id="fechaModelo10{{modelo10.id}}" value="{{modelo10.fecha}}">
                         </div>
                     </div>
 
@@ -308,16 +299,14 @@
                             </a></label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="url" name="url"
-                                id="urlModelo10{{modelo10.id}}"
-                                value="{% if modelo10.url %}{{modelo10.url}}{% endif %}">
+                                id="urlModelo10{{modelo10.id}}" value="{{modelo10.url}}">
 
                         </div>
                     </div>
 
                     <label for="">Descripción: </label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
-                        id="descripcionModelo10{{modelo10.id}}" cols="30"
-                        rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+                        id="descripcionModelo10{{modelo10.id}}" cols="30" rows="5">{{modelo10.descripcion}}</textarea>
 
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo10{{modelo10.id}}">
@@ -389,8 +378,7 @@
                         <label for="" class="col-sm-2">Fecha: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
-                                id="fechaModelo10{{modelo10.id}}"
-                                value="{% if modelo10.fecha %}{{modelo10.fecha}}{% endif %}">
+                                id="fechaModelo10{{modelo10.id}}" value="{{modelo10.fecha}}">
                         </div>
                     </div>
 
@@ -399,16 +387,14 @@
                             </a></label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="url" name="url"
-                                id="urlModelo10{{modelo10.id}}"
-                                value="{% if modelo10.url %}{{modelo10.url}}{% endif %}">
+                                id="urlModelo10{{modelo10.id}}" value="{{modelo10.url}}">
 
                         </div>
                     </div>
 
                     <label for="">Descripción: </label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
-                        id="descripcionModelo10{{modelo10.id}}" cols="30"
-                        rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+                        id="descripcionModelo10{{modelo10.id}}" cols="30" rows="5">{{modelo10.descripcion}}</textarea>
 
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo10{{modelo10.id}}">
@@ -479,8 +465,7 @@
                         <label for="" class="col-sm-2">Fecha: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
-                                id="fechaModelo10{{modelo10.id}}"
-                                value="{% if modelo10.fecha %}{{modelo10.fecha}}{% endif %}">
+                                id="fechaModelo10{{modelo10.id}}" value="{{modelo10.fecha}}">
                         </div>
                     </div>
 
@@ -489,16 +474,14 @@
                             </a></label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="url" name="url"
-                                id="urlModelo10{{modelo10.id}}"
-                                value="{% if modelo10.url %}{{modelo10.url}}{% endif %}">
+                                id="urlModelo10{{modelo10.id}}" value="{{modelo10.url}}">
 
                         </div>
                     </div>
 
                     <label for="">Descripción: </label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
-                        id="descripcionModelo10{{modelo10.id}}" cols="30"
-                        rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+                        id="descripcionModelo10{{modelo10.id}}" cols="30" rows="5">{{modelo10.descripcion}}</textarea>
 
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo10{{modelo10.id}}">
@@ -570,8 +553,7 @@
                         <label for="" class="col-sm-2">Fecha: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
-                                id="fechaModelo10{{modelo10.id}}"
-                                value="{% if modelo10.fecha %}{{modelo10.fecha}}{% endif %}">
+                                id="fechaModelo10{{modelo10.id}}" value="{{modelo10.fecha}}">
                         </div>
                     </div>
 
@@ -580,16 +562,14 @@
                             </a></label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="url" name="url"
-                                id="urlModelo10{{modelo10.id}}"
-                                value="{% if modelo10.url %}{{modelo10.url}}{% endif %}">
+                                id="urlModelo10{{modelo10.id}}" value="{{modelo10.url}}">
 
                         </div>
                     </div>
 
                     <label for="">Descripción: </label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
-                        id="descripcionModelo10{{modelo10.id}}" cols="30"
-                        rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+                        id="descripcionModelo10{{modelo10.id}}" cols="30" rows="5">{{modelo10.descripcion}}</textarea>
 
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo10{{modelo10.id}}">
@@ -660,8 +640,7 @@
                         <label for="" class="col-sm-2">Fecha: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
-                                id="fechaModelo10{{modelo10.id}}"
-                                value="{% if modelo10.fecha %}{{modelo10.fecha}}{% endif %}">
+                                id="fechaModelo10{{modelo10.id}}" value="{{modelo10.fecha}}">
                         </div>
                     </div>
 
@@ -670,16 +649,14 @@
                             </a></label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="url" name="url"
-                                id="urlModelo10{{modelo10.id}}"
-                                value="{% if modelo10.url %}{{modelo10.url}}{% endif %}">
+                                id="urlModelo10{{modelo10.id}}" value="{{modelo10.url}}">
 
                         </div>
                     </div>
 
                     <label for="">Descripción: </label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
-                        id="descripcionModelo10{{modelo10.id}}" cols="30"
-                        rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+                        id="descripcionModelo10{{modelo10.id}}" cols="30" rows="5">{{modelo10.descripcion}}</textarea>
 
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo10{{modelo10.id}}">
@@ -756,8 +733,7 @@
 
                     <label for="">Descripcion: </label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
-                        id="descripcionModelo10{{modelo10.id}}" cols="30"
-                        rows="5"> {% if modelo10.descripcion %}{{modelo10.descripcion}}{% endif %}</textarea>
+                        id="descripcionModelo10{{modelo10.id}}" cols="30" rows="5">{{modelo10.descripcion}}</textarea>
 
 
                     <input class="form-control" type="file" accept=".pdf, image/*" name="anexo"
@@ -824,14 +800,13 @@
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="nombre_del_estudiante"
                                 id="nombre_del_estudianteModelo11{{modelo11.id}}"
-                                value="{% if modelo11.nombre_del_estudiante %}{{modelo11.nombre_del_estudiante}}{%endif%}">
+                                value="{{modelo11.nombre_del_estudiante}}">
                         </div>
                     </div>
 
                     <label for="">Descripción: </label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
-                        id="descripcionModelo11{{modelo11.id}}" cols="30"
-                        rows="5">{% if modelo11.descripcion %}{{modelo11.descripcion}}{%endif%}</textarea>
+                        id="descripcionModelo11{{modelo11.id}}" cols="30" rows="5">{{modelo11.descripcion}}</textarea>
 
                     <input disabled class="form-control" disabled type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo11{{modelo11.id}}">
@@ -841,7 +816,6 @@
                     <strong>Actualmente: </strong><a
                         href="{{modelo11.anexos.url}}">{{modelo11.anexos.name|nombreFile}}</a>
                     {% endif %}
-
 
                     <div class="justify-content-end d-flex">
                         <div class="row">
@@ -902,8 +876,7 @@
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="nombre_del_estudiante"
                                 id="nombre_del_estudianteModelo11{{modelo11.id}}"
-                                value="{% if modelo11.nombre_del_estudiante %}{{modelo11.nombre_del_estudiante}}{% endif %}">
-
+                                value="{{modelo11.nombre_del_estudiante}}">
                         </div>
                     </div>
 
@@ -911,16 +884,13 @@
                         <label for="" class="col-sm-2">Fecha: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
-                                id="fechaModelo11{{modelo11.id}}"
-                                value="{% if modelo11.fecha %}{{modelo11.fecha}}{% endif %}">
+                                id="fechaModelo11{{modelo11.id}}" value="{{modelo11.fecha}}">
                         </div>
                     </div>
 
-
                     <label for="">Descripción: </label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
-                        id="descripcionModelo11{{modelo11.id}}" cols="30"
-                        rows="5">{% if modelo11.descripcion %}{{modelo11.descripcion}}{% endif %}</textarea>
+                        id="descripcionModelo11{{modelo11.id}}" cols="30" rows="5">{{modelo11.descripcion}}</textarea>
 
                     <input disabled class="form-control " type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo11{{modelo11.id}}">
@@ -984,9 +954,7 @@
                         <label for="" class="col-sm-2">Fecha o periodo: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
-                                id="fechaModelo11{{modelo11.id}}"
-                                value="{% if modelo11.fecha %}{{modelo11.fecha}}{% endif %}">
-
+                                id="fechaModelo11{{modelo11.id}}" value="{{modelo11.fecha}}">
                         </div>
                     </div>
 
@@ -1063,8 +1031,7 @@
                         <label for="" class="col-sm-2">Fecha o periodo: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="fecha"
-                                id="fechaModelo11{{modelo11.id}}"
-                                value="{% if modelo11.fecha %}{{modelo11.fecha}}{% endif %}">
+                                id="fechaModelo11{{modelo11.id}}" value="{{modelo11.fecha}}">
 
                         </div>
                     </div>
@@ -1141,8 +1108,7 @@
                     {% csrf_token %}
                     <label for="">Descripción: </label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
-                        id="descripcionModelo15{{modelo15.id}}" cols="30"
-                        rows="5">{% if modelo15.descripcion %}{{modelo15.descripcion}}{% endif %}</textarea>
+                        id="descripcionModelo15{{modelo15.id}}" cols="30" rows="5">{{modelo15.descripcion}}</textarea>
 
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo15{{modelo15.id}}">
@@ -1212,8 +1178,7 @@
                         <label class="col-sm-2" for="">Laboratorio o taller: </label>
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="laboratorio_taller"
-                                id="laboratorio_tallerModelo12{{modelo12.id}}"
-                                value="{% if modelo12.laboratorio_taller %}{{modelo12.laboratorio_taller}}{% endif %}">
+                                id="laboratorio_tallerModelo12{{modelo12.id}}" value="{{modelo12.laboratorio_taller}}">
                         </div>
                     </div>
 
@@ -1286,14 +1251,13 @@
                         <div class="col-sm-10">
                             <input disabled class="form-control mb-1" type="text" name="agencias_financieras"
                                 id="agenciaFinanciadoraModelo13{{modelo13.id}}"
-                                value="{% if modelo13.agencias_financieras %}{{modelo13.agencias_financieras}}{% endif %}">
+                                value="{{modelo13.agencias_financieras}}">
                         </div>
                     </div>
 
                     <label for="">Descripción: </label>
                     <textarea disabled class="form-control mb-1" name="descripcion"
-                        id="descripcionModelo13{{modelo13.id}}" cols="30"
-                        rows="5">{% if modelo13.descripcion %}{{modelo13.descripcion}}{% endif %}</textarea>
+                        id="descripcionModelo13{{modelo13.id}}" cols="30" rows="5">{{modelo13.descripcion}}</textarea>
 
                     <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                         id="anexoModelo13{{modelo13.id}}">
@@ -1363,7 +1327,7 @@
                         <label for="">Descripción: </label>
                         <textarea disabled class="form-control mb-1" name="descripcion"
                             id="descripcionModelo15{{modelo15.id}}" cols="30"
-                            rows="5">{% if modelo15.descripcion %}{{modelo15.descripcion}}{% endif %}</textarea>
+                            rows="5">{{modelo15.descripcion}}</textarea>
 
                         <input disabled class="form-control" type="file" accept=".pdf, image/*" name="anexo"
                             id="anexoModelo15{{modelo15.id}}">
@@ -1497,7 +1461,7 @@
                     notificacion.actualizado();
                     timer.reset(540000);
                 })
-                .fail(function(response){
+                .fail(function (response) {
                     notificacion.error(response);
                 });
         },
@@ -1523,7 +1487,7 @@
                     notificacion.creado();
                     timer.reset(540000);
                 })
-                .fail(function(response){
+                .fail(function (response) {
                     notificacion.error(response);
                 });
         },
