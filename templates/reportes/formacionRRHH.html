@@ -1529,9 +1529,6 @@
                     'numeral': numeral,
                 },
                 dataType: "json",
-                success: function (response) {
-
-                }
             })
                 .done(function (response) {
                     $('#sinEntradas' + numeral).remove()
@@ -1542,7 +1539,7 @@
                         data['numeral'] = numeral;
                         data['id'] = response.ids[i];
 
-                        dibujarmodelo6(data)
+                        Modelo6.dibujar(data)
                         $("#nombreModelo6" + response.ids[i]).val(response.nombre[i]);
                         $("#titulo_de_tesisModelo6" + response.ids[i]).val(response.titulo_de_tesis[i]);
                         $("#gradoModelo6" + response.ids[i]).val(response.grado[i]);
@@ -1719,7 +1716,7 @@
                         data['numeral'] = numeral;
                         data['id'] = response.ids[i];
 
-                        dibujarmodelo16(data)
+                        Modelo16.dibujar(data)
                         $("#nombre_del_estudianteModelo16" + response.ids[i]).val(response.nombre_del_estudiante[i]);
                         $("#coordinacionModelo16" + response.ids[i]).val(response.coordinacion[i]);
                         $("#gradoModelo16" + response.ids[i]).val(response.grado[i]);

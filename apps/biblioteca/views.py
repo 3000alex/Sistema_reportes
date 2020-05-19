@@ -71,22 +71,10 @@ class publicaciones_bidcode(View):
     def get(self,request):
         query_bidcode = '2018MNRAS.479..917G'
         articulo = []
-        data = ads.SearchQuery(bibcode=query_bidcode,fl='title,pubdate,author,doi,page,volume,pub,bibcode',rows=1000)  # Buscar por bidcode
-        articulos = Biblioteca.objects.filter(usuario_id=request.user.id) # Filtramos articulos para validar si existen en la biblioteca
-        # Pasamos como 3 parametro un diccionario (json) con el contenido
-        for d in data:
-            articulo.append({
-            'title': d.title,
-            'pubdate': d.pubdate,
-            'author': d.author,
-            'doi': d.doi,
-            'page': d.page,
-            'volume': d.volume,
-            'pub': d.pub
-        })
-        print(articulo)
+        data = list(ads.SearchQuery(bibcode=query_bidcode,fl='title,pubdate,author,doi,page,volume,pub,bibcode',rows=1000))  # Buscar por bidcode
+        articulos = Biblioteca.objects.filter(usuario_id=request.user.id) # Filtramos articulos para validar si existen en la biblioteca      
         
-        return HttpResponse(articulo)
+        return render(request, 'biblioteca/publicaciones.html', {'data': data, 'articulos': articulos})
 
 @method_decorator(login_required, name='dispatch')
 class publicaciones_orcid(View):
@@ -103,7 +91,7 @@ class publicaciones_orcid(View):
 class agregar_biblioteca(View):
     def post(self,request):
         #Obtenemos valores de bidcodes a buscar
-        #bibcodes = request.POST.getlist("seleccion[]") #Obtenemos bibcodes seleccionados en el template publicacones
+        
         datos = request.POST.getlist('articulos[]')  
         articulosDB = [] 
         lista = json.loads(datos[0])

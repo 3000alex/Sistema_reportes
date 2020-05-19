@@ -13,46 +13,113 @@
     </div>
 
     <div id="numeral{{numeral.id}}" class="collapse" data-parent="#numeral">
-
-        <!--modelo 14 numeral 61-->
-        {% if numeral.orden == 61 %}
-        <table id="tabla1" class="table text-center dt-responsive" style="font-size: 14px; width: 100%;">
-            {% csrf_token %}
-            <thead class="thead-light">
-                <tr>
-                    <th>Telescopio, instrumento, infraestructura</th>
-                    <th>URL:</th>
-                    <th>Descripción:</th>
-                    <th>Anexo</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-
+        <div class="card-body" style="font-size:14px">
+            <!--modelo 14 numeral 61-->
+            {% if numeral.orden == 61 %}
+            <div>
                 {% for modelo14 in numeral_61 %}
-                <tr class="modelo14-{{modelo14.id}} ">
-                    <td id="telescopio{{modelo14.id}}">{{modelo14.telescopio_instrumento_infra}}</td>
-                    <td width=50px;>{{modelo14.url}}</td>
-                    <td width=350px;>{{modelo14.descripcion|truncatechars:125}}</td>
-                    <td>{{modelo14.anexos.name|nombreFile}}</td>
-                    <td><button type="button" class="btn btn-primary" title="Editar entrada">
-                            <i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger" onclick=""
-                            title="Eliminar entrada">
-                            <i class="fas fa-trash-alt"></i></button>
-                    </td>
-                </tr>
+                <form class="pt-2 pr-4 pl-4" id="modelo14{{modelo14.id}}" name="numeral61" type="post"
+                    enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="telescopio" class="col-sm-2 col-form-label">Telescopio, instrumento,
+                                infraestructura:</label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-1" type="text" name="telescopio"
+                                    id="telescopioModelo14{{modelo14.id}}"
+                                    value="{{modelo14.TelescopioInstrumentoInfra}}">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-2 col-form-label">URL: </label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control mb-1" type="text" name="url"
+                                    id="urlModelo14{{modelo14.id}}" value="{{modelo14.url}}">
+                            </div>
+
+                        </div>
+
+                        <label for="">Descripción: </label>
+                        <textarea disabled class="form-control mb-1" name="descripcion"
+                            id="descripcionModelo14{{modelo14.id}}" cols="30"
+                            rows="5">{{modelo14.descripcion}}</textarea>
+
+
+                        <input disabled class="form-control" accept=".pdf, image/*" type="file" name="anexo"
+                            id="anexoModelo14{{modelo14.id}}">
+                        <small class="mb-2">Tamaño máximo: 5 Mb</small>
+
+                        {%if modelo14.anexos %}
+                        <strong>Actualmente: </strong><a
+                            href="{{modelo14.anexos.url}}">{{modelo14.anexos.name|nombreFile}}</a>
+                        {% endif %}
+
+                        <div class="justify-content-end d-flex">
+                            <div class="row">
+                                <div class="col-12">
+                                    <button onclick="Modelo14.actualizar({{modelo14.id}})" type="button"
+                                        class="btn btn-success" title="Guardar cambios">
+                                        <i class="fas fa-save">&nbsp;Guardar</i>
+                                    </button>
+
+                                    <button onclick="Modelo14.editar({{modelo14.id}}, false)"
+                                        class="btn btn-warning text-white" type="reset">
+                                        <i class="fas fa-ban text-white">&nbsp;Cancelar</i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="Modelo14.editar({{modelo14.id}})" title="Editar entrada">
+                                        <i class="fas fa-edit">&nbsp;Editar</i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-danger"
+                                        onclick="Modelo14.eliminar({{modelo14.id}})" title="Eliminar entrada">
+                                        <i class="fas fa-trash-alt">&nbsp;Eliminar</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <hr>
+                {% if forloop.last %}
+                <button onclick="Modelo14.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo14Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
+                {% endif %}
+
+                {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>
+                <button onclick="Modelo14.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo14Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                    onclick="Modelo14.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
+                    anterior</button>
+                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
-            </tbody>
-        </table>
-        <button onclick="" type="button" class="btn btn-danger ml-4 mb-2">
-            <i class="fas fa-plus-circle"></i>&nbsp; Agregar entrada</button>
-        {% endif %}
-        <!--Fin Numeral 61 Modelo14-->
+            </div>
+
+            {% endif %}
+            <!--Fin Numeral 61 Modelo14-->
+        </div>
+
 
     </div>
-
     {% endfor %}
+
 </div>
 
 {% block JsCode %}
@@ -109,19 +176,18 @@
     }
     //Modelo 14
     var Modelo14 = {
-        editar: function (modelo, activar = true, ) {
-
-            var form = $('form#' + modelo).find('input, textarea');
-
+        editar: function (id, activar = true) {
             if (activar) {
-                $.each(form, function (indexInArray, valueOfElement) {
-                    $(valueOfElement).prop('disabled', false);
-                });
+                $("#telescopioModelo14" + id).prop("disabled", false);
+                $("#descripcionModelo14" + id).prop("disabled", false);
+                $("#urlModelo14" + id).prop("disabled", false);
+                $("#anexoModelo14" + id).prop("disabled", false);
             }
             else {
-                $.each(form, function (indexInArray, valueOfElement) {
-                    $(valueOfElement).prop('disabled', true);
-                });
+                $("#telescopioModelo14" + id).prop("disabled", true);
+                $("#descripcionModelo14" + id).prop("disabled", true);
+                $("#urlModelo14" + id).prop("disabled", true);
+                $("#anexoModelo14" + id).prop("disabled", true);
             }
             timer.reset(540000);
         },
@@ -141,7 +207,7 @@
                 dataType: 'html',
             })
                 .done(function (response) {
-                    Modelo14.editar('modelo14' + id, false);
+                    Modelo14.editar(id, false);
                     notificacion.actualizado();
                     timer.reset(540000);
                 })
@@ -207,11 +273,11 @@
                                         <i class="fas fa-save">&nbsp;Guardar</i>
                                     </button>
 
-                                    <button onclick="Modelo14.editar('modelo14${data.id}',false)" class="btn btn-warning text-white" type="reset">
+                                    <button onclick="Modelo14.editar(${data.id},false)" class="btn btn-warning text-white" type="reset">
                                         <i class="fas fa-ban text-white">&nbsp;Cancelar</i>
                                     </button>
 
-                                    <button type="button" class="btn btn-primary" onclick="Modelo14.editar('modelo14${data.id}')" title="Editar entrada">
+                                    <button type="button" class="btn btn-primary" onclick="Modelo14.editar(${data.id})" title="Editar entrada">
                                         <i class="fas fa-edit">&nbsp;Editar</i>
                                     </button>
 
@@ -285,6 +351,53 @@
         }
     }
     //Fin modelo14
-  
+    var prueba = {
+        crear: function () {
+            Swal.fire({
+                title: 'Crear entrada',
+                html: `
+                <form id="num61Form">
+                {{ num61 }}
+                </form>
+                `,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '<i class="far fa-save"></i> Crear',
+                cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
+                preConfirm() {
+                    var formData = new FormData();
+                    var anexo = $("#id_anexo")[0].files
+                    var id = Math.floor(Math.random() * 1000);
+
+                    if (anexo.length > 0) {
+                        anexo = anexo[0].name
+                    }
+                    else {
+                        anexo = ""
+                    }
+
+                    t.row.add([
+                        $("#id_telescopio").val().trim(),
+                        $("#id_url").val().trim(),
+                        $("#id_telescopio").val().trim(),
+                        anexo,
+                        `<button type="button" onclick="prueba.editar(${id})" class="btn btn-primary" title="Editar entrada">
+                            <i class="fas fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger" onclick="prueba.eliminar(${id})"
+                            title="Eliminar entrada">
+                            <i class="fas fa-trash-alt"></i></button>`
+                    ]).draw(false);
+
+                }
+            });
+        },
+        editar: function () {
+
+        },
+        eliminar: function () {
+
+        }
+    }
 </script>
 {% endblock %}

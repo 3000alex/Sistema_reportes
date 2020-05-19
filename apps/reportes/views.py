@@ -16,7 +16,8 @@ from apps.registration.models import User
 from apps.biblioteca.models import Biblioteca
 from .models import ReporteEnviado
 from django.http import JsonResponse
-
+#Forms
+from .forms import num61
 # Manejo Archivos
 import os
 from django.conf import settings
@@ -36,8 +37,7 @@ from sistema_reportes.settings import BASE_DIR
 #Reporte final
 from .generarReporteCoordinacion import generarPdf
 #Time zone
-from datetime import date
-from datetime import datetime
+import datetime
 #serializer 
     
 @method_decorator(login_required, name='dispatch')
@@ -49,8 +49,6 @@ class reporte_productividad(View):
             'periodoActual': periodoActual,'periodos':periodos
         }
         return render(request, 'reportes/reportes_productividad.html',data)
-    def post(self,request):
-        return HttpResponse('HOLA')
 
 @method_decorator(login_required, name='dispatch')
 class investigacion_cientifica(View):
@@ -193,10 +191,21 @@ class informacion_adicional(View):
             'numeral_61': Modelo14.objects.reporteProductividad(id_usuario,65,yearPeriodo),
             'glosario': Glosario.objects.reporteProductividad("V. INFORMACIÖN ADICIONAL"), 
             'periodoActual': periodoActual,'periodos':periodos,
+            'num61': num61
             }
+
         return render(request, "reportes/informacionAdicional.html", data)
 
 # Investigacion Cientifica - CRUD
+class prueba(View):
+    def get(self,request):
+        print(request.GET)
+        telescopio = request.GET.get('id_telescopio')
+        anexo = request.GET.get('anexo')
+        print(anexo)
+        print(type(anexo))
+        print(telescopio)
+        return JsonResponse({'a':'da'})
 
 # Numerales Biblioteca
 @method_decorator(login_required, name='dispatch')
@@ -353,7 +362,7 @@ class infoAnteriorModelo1(View):
         periodo_id = request.GET.get('periodo')
         periodo_id = int(periodo_id) - 1
         numeral_id = request.GET.get('numeral')
-        datos = Modelo1.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id).last()
+        datos = Modelo1.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
 
         data = {
             'descripcion':datos.descripcion,
@@ -364,20 +373,14 @@ class infoAnteriorModelo1(View):
 @method_decorator(login_required, name='dispatch')
 class actualizarModelo2(View):
     def post(self, request):
-        id1 = request.POST.get('id')
-        nombre_del_proyecto = request.POST.get('nombre_del_proyecto')
-        descripcion = request.POST.get('descripcion')
-        participantes = request.POST.get('participantes')
-        responsable = request.POST.get('responsable')
-        estudiantes = request.POST.get('estudiantes')
-
         # Actualizamos Modelo2
-        obj = Modelo2.objects.get(id=id1)
-        obj.nombre_del_proyecto = nombre_del_proyecto
-        obj.descripcion = descripcion
-        obj.participantes = participantes
-        obj.estudiantes = estudiantes
-        obj.rol = responsable
+        obj = Modelo2.objects.get(id=request.POST.get('id'))
+
+        obj.nombre_del_proyecto = request.POST.get('nombre_del_proyecto')
+        obj.descripcion = request.POST.get('descripcion')
+        obj.participantes = request.POST.get('participantes')
+        obj.estudiantes = request.POST.get('estudiantes')
+        obj.rol = request.POST.get('responsable')
 
         # Subir archivos
         if request.FILES:
