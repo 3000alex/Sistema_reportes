@@ -212,14 +212,14 @@ class prueba(View):
 class actualizarBiblioteca(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        autor = request.POST.get('autores')
-        titulo = request.POST.get('titulo')
-        revista = request.POST.get('revista')
-        estudiantes = request.POST.get('estudiantes')
-        url = request.POST.get('url')
-        doi = request.POST.get('doi')
-        fecha = request.POST.get('fecha')
-        bibcode = request.POST.get('bibcode')
+        autor = request.POST.get('autores','')
+        titulo = request.POST.get('titulo','')
+        revista = request.POST.get('revista','')
+        estudiantes = request.POST.get('estudiantes','')
+        url = request.POST.get('url','')
+        doi = request.POST.get('doi','')
+        fecha = request.POST.get('fecha','')
+        bibcode = request.POST.get('bibcode','')
         temp = len(fecha)
         fecha_ano = fecha[:temp - 3 ]
         
@@ -288,13 +288,13 @@ class actualizarModelo1(View):
 
     def post(self, request):
         id1 = request.POST.get('id')
-        autores = request.POST.get('autores')
-        titulo = request.POST.get('titulo')
-        revista = request.POST.get('revista')
-        url = request.POST.get('url')
-        doi = request.POST.get('doi')
-        fecha = request.POST.get('fecha')
-        estudiantes = request.POST.get('estudiantes')
+        autores = request.POST.get('autores','')
+        titulo = request.POST.get('titulo','')
+        revista = request.POST.get('revista','')
+        url = request.POST.get('url','')
+        doi = request.POST.get('doi','')
+        fecha = request.POST.get('fecha','')
+        estudiantes = request.POST.get('estudiantes','')
 
         # Actualizamos Modelo1
         obj = Modelo1.objects.get(id=id1)
@@ -376,11 +376,11 @@ class actualizarModelo2(View):
         # Actualizamos Modelo2
         obj = Modelo2.objects.get(id=request.POST.get('id'))
 
-        obj.nombre_del_proyecto = request.POST.get('nombre_del_proyecto')
-        obj.descripcion = request.POST.get('descripcion')
-        obj.participantes = request.POST.get('participantes')
-        obj.estudiantes = request.POST.get('estudiantes')
-        obj.rol = request.POST.get('responsable')
+        obj.nombre_del_proyecto = request.POST.get('nombre_del_proyecto','')
+        obj.descripcion = request.POST.get('descripcion','')
+        obj.participantes = request.POST.get('participantes','')
+        obj.estudiantes = request.POST.get('estudiantes','')
+        obj.rol = request.POST.get('responsable','')
 
         # Subir archivos
         if request.FILES:
@@ -484,14 +484,14 @@ class infoAnteriorModelo2(View):
 class actualizarModelo3(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        titulo_de_la_presentacion = request.POST.get('titulo_de_la_presentacion')
-        autores = request.POST.get('autores')
-        nombre_de_conferencia = request.POST.get('nombre_de_conferencia')
-        fecha = request.POST.get('fecha')
-        estudiantes = request.POST.get('estudiantes')
-        doi = request.POST.get('doi')
-        presentacionPoster = request.POST.get('presentacionPoster')
-        url = request.POST.get('url')
+        titulo_de_la_presentacion = request.POST.get('titulo_de_la_presentacion','')
+        autores = request.POST.get('autores','')
+        nombre_de_conferencia = request.POST.get('nombre_de_conferencia','')
+        fecha = request.POST.get('fecha','')
+        estudiantes = request.POST.get('estudiantes','')
+        doi = request.POST.get('doi','')
+        presentacionPoster = request.POST.get('presentacionPoster','')
+        url = request.POST.get('url','')
 
         # Actualizamos modelo3
         obj = Modelo3.objects.get(id=id1)
@@ -660,10 +660,10 @@ class crearCitas(View):
 class actualizarModelo4(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        nombre_completo = request.POST.get('nombre_completo')
-        titulo_de_tesis = request.POST.get('titulo_de_tesis')
-        fecha = request.POST.get('fecha')
-        url = request.POST.get('url')
+        nombre_completo = request.POST.get('nombre_completo','')
+        titulo_de_tesis = request.POST.get('titulo_de_tesis','')
+        fecha = request.POST.get('fecha','')
+        url = request.POST.get('url','')
        
 
         # Actualizamos modelo4
@@ -767,9 +767,9 @@ class infoAnteriorModelo4(View):
 class actualizarModelo5(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        nombre_del_curso = request.POST.get('nombre_del_curso')
-        periodo = request.POST.get('periodo')
-        notas = request.POST.get('notas')
+        nombre_del_curso = request.POST.get('nombre_del_curso','')
+        periodo = request.POST.get('periodo','')
+        notas = request.POST.get('notas','')
 
         # Actualizamos biblioteca
         obj = Modelo5.objects.get(id=id1)
@@ -866,12 +866,12 @@ class infoAnteriorModelo5(View):
 class actualizarModelo6(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        nombre = request.POST.get('nombre')
-        titulo = request.POST.get('titulo_de_tesis')
-        grado = request.POST.get('grado')
-        institucion = request.POST.get('institucion')
-        fecha = request.POST.get('fecha')
-        notas = request.POST.get('notas')
+        nombre = request.POST.get('nombre','')
+        titulo = request.POST.get('titulo_de_tesis','')
+        grado = request.POST.get('grado','')
+        institucion = request.POST.get('institucion','')
+        fecha = request.POST.get('fecha','')
+        notas = request.POST.get('notas','')
 
         # Actualizamos modelo
         obj = Modelo6.objects.get(id=id1)
@@ -982,9 +982,9 @@ class infoAnteriorModelo6(View):
 class actualizarModelo7(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        autores = request.POST.get('autores')
-        descripcion = request.POST.get('descripcion')
-        url = request.POST.get('url')
+        autores = request.POST.get('autores','')
+        descripcion = request.POST.get('descripcion','')
+        url = request.POST.get('url','')
 
         obj = Modelo7.objects.get(id=id1)
         obj.autores = autores
@@ -1077,10 +1077,10 @@ class infoAnteriorModelo7(View):
 class actualizarModelo8(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        nombre = request.POST.get('nombre')
-        descripcion = request.POST.get('descripcion')
-        participantes = request.POST.get('participantes')
-        financiamiento = request.POST.get('financiamiento')
+        nombre = request.POST.get('nombre','')
+        descripcion = request.POST.get('descripcion','')
+        participantes = request.POST.get('participantes','')
+        financiamiento = request.POST.get('financiamiento','')
 
         obj = Modelo8.objects.get(id=id1)
         obj.nombre = nombre
@@ -1179,13 +1179,13 @@ class infoAnteriorModelo8(View):
 class actualizarModelo9(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        titulo = request.POST.get('titulo')
-        autores = request.POST.get('autores')
-        Nreporte = request.POST.get('Nreportes')
-        fecha = request.POST.get('fecha')
-        url = request.POST.get('url')
-        revista = request.POST.get('revista_publicacion')
-        doi = request.POST.get('doi')
+        titulo = request.POST.get('titulo','')
+        autores = request.POST.get('autores','')
+        Nreporte = request.POST.get('Nreportes','')
+        fecha = request.POST.get('fecha','')
+        url = request.POST.get('url','')
+        revista = request.POST.get('revista_publicacion','')
+        doi = request.POST.get('doi','')
 
         obj = Modelo9.objects.get(id=id1)
         obj.titulo = titulo
@@ -1301,10 +1301,10 @@ class infoAnteriorModelo9(View):
 class actualizarModelo10(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        descripcion = request.POST.get('descripcion')
-        fecha = request.POST.get('fecha')
-        url = request.POST.get('url')
-        periodo = request.POST.get('periodo')
+        descripcion = request.POST.get('descripcion','')
+        fecha = request.POST.get('fecha','')
+        url = request.POST.get('url','')
+        periodo = request.POST.get('periodo','')
 
         obj = Modelo10.objects.get(id=id1)
         obj.descripcion = descripcion
@@ -1403,10 +1403,10 @@ class infoAnteriorModelo10(View):
 class actualizarModelo11(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        nombre = request.POST.get('nombre_del_estudiante')
-        descripcion = request.POST.get('descripcion')
-        fecha = request.POST.get('fecha')
-        fechaPeriodo = request.POST.get('fechaPeriodo')
+        nombre = request.POST.get('nombre_del_estudiante','')
+        descripcion = request.POST.get('descripcion','')
+        fecha = request.POST.get('fecha','')
+        fechaPeriodo = request.POST.get('fechaPeriodo','')
 
         obj = Modelo11.objects.get(id=id1)
         obj.nombre_del_estudiante = nombre
@@ -1500,7 +1500,7 @@ class infoAnteriorModelo11(View):
 class actualizarModelo12(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        laboratorio = request.POST.get('laboratorio_taller')
+        laboratorio = request.POST.get('laboratorio_taller','')
 
         obj = Modelo12.objects.get(id=id1)
 
@@ -1584,8 +1584,8 @@ class infoAnteriorModelo12(View):
 class actualizarModelo13(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        descripcion = request.POST.get('descripcion')
-        agencia = request.POST.get('agencias_financieras')
+        descripcion = request.POST.get('descripcion','')
+        agencia = request.POST.get('agencias_financieras','')
 
         obj = Modelo13.objects.get(id=id1)
         obj.descripcion = descripcion
@@ -1675,12 +1675,12 @@ class actualizarModelo14(View):
 
     def post(self, request):
         id1 = request.POST.get('id')
-        telescopio = request.POST.get('telescopio')
-        descripcion = request.POST.get('descripcion')
+        telescopio = request.POST.get('telescopio','')
+        descripcion = request.POST.get('descripcion','')
         url = request.POST.get('url')
-        conferencia_proyecto = request.POST.get('conferencia_proyecto')
-        rol = request.POST.get('rol')
-        fecha = request.POST.get('fecha')
+        conferencia_proyecto = request.POST.get('conferencia_proyecto','')
+        rol = request.POST.get('rol','')
+        fecha = request.POST.get('fecha','')
 
         obj = Modelo14.objects.get(id=id1)
         obj.telescopio_instrumento_infra = telescopio
@@ -1719,7 +1719,7 @@ class eliminarModelo14(View):
 @method_decorator(login_required, name='dispatch')
 class crearModelo14(View):
     def get(self, request):
-        print("llegue")
+
         #Create
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')     
@@ -1791,7 +1791,7 @@ class infoAnteriorModelo14(View):
 class actualizarModelo15(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        descripcion = request.POST.get('descripcion')
+        descripcion = request.POST.get('descripcion','')
 
         obj = Modelo15.objects.get(id=id1)
         obj.descripcion = descripcion
@@ -1874,9 +1874,9 @@ class infoAnteriorModelo15(View):
 class actualizarModelo16(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        estudiantes = request.POST.get('nombre_del_estudiante')
-        coordinacion = request.POST.get('coordinacion')
-        grado = request.POST.get('grado')
+        estudiantes = request.POST.get('nombre_del_estudiante','')
+        coordinacion = request.POST.get('coordinacion','')
+        grado = request.POST.get('grado','')
         
         obj = Modelo16.objects.get(id=id1)
         obj.nombre_del_estudiante = estudiantes
