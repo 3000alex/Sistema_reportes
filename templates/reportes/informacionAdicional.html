@@ -234,6 +234,7 @@
                 `)
                     $("#modelo14Crear" + numeral).remove()
                     Modelo14.dibujar(response);
+                    notificacion.creado()
                     timer.reset(540000);
                 })
                 .fail(function (response) {

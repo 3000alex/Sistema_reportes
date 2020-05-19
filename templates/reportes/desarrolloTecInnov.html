@@ -690,6 +690,7 @@
             })
                 .done(function () {
                     Modelo7.editar(id, false);
+                    notificacion.actualizado();
                     timer.reset(540000);
                 })
                 .fail(function (response) {
@@ -715,6 +716,7 @@
                         <i class="fas fa-plus-circle"></i>Agregar entrada</button>`)
                     $("#modelo7Crear" + numeral).remove()
                     Modelo7.dibujar(response)
+                    notificacion.creado()
                     timer.reset(540000);
                 })
                 .fail(function (response) {
@@ -859,6 +861,7 @@
             })
                 .done(function () {
                     Modelo8.editar(id, false);
+                    notificacion.actualizado();
                     timer.reset(540000);
                 })
                 .fail(function (resonse) {
@@ -884,6 +887,7 @@
                         <i class="fas fa-plus-circle"></i>Agregar entrada</button>`)
                     $("#modelo8Crear" + numeral).remove()
                     Modelo8.dibujar(response)
+                    notificacion.creado()
                     timer.reset(540000);
                 })
                 .fail(function (response) {
@@ -1043,6 +1047,7 @@
             })
                 .done(function () {
                     Modelo9.editar(id, false);
+                    notificacion.actualizado();
                     timer.reset(540000);
                 })
                 .fail(function (response) {
@@ -1068,6 +1073,7 @@
                             <i class="fas fa-plus-circle"></i>Agregar entrada</button>`)
                     $("#modelo9Crear" + numeral).remove()
                     Modelo9.dibujar(response)
+                    notificacion.creado()
                     timer.reset(540000);
                 })
                 .fail(function (response) {
