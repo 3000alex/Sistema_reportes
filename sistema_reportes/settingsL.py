@@ -4,13 +4,12 @@ from .settings import *
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'sistema_reportes',
-        'USER': 'root',
-        'PASSWORD':'',
+        'USER': 'postgres',
+        'PASSWORD':'0442223196995a',
         'HOST': 'localhost',
-        'PORT': '3306',
-        'TIME_ZONE':'America/Mexico_City',
+        'PORT': '5432',
     }
 }
 # SECURITY WARNING: don't run with debug turned on in production!
