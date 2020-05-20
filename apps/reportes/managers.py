@@ -5,17 +5,29 @@ class modelo1Manager(models.Manager):
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
         return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
+        return response
 
 class modelo2Manager(models.Manager):
     """Managers para el modelo biblioteca"""
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
         return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
+        return response
 
 class modelo3Manager(models.Manager):
     """Managers para el modelo biblioteca"""
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
+        return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
         return response
 
 class modelo4Manager(models.Manager):
@@ -24,10 +36,18 @@ class modelo4Manager(models.Manager):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
         return response
 
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
+        return response
+
 class modelo5Manager(models.Manager):
     """Managers para el modelo biblioteca"""
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
+        return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
         return response
 
 class modelo6Manager(models.Manager):
@@ -35,11 +55,19 @@ class modelo6Manager(models.Manager):
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
         return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
+        return response
 
 class modelo7Manager(models.Manager):
     """Managers para el modelo biblioteca"""
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
+        return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
         return response
 
 class modelo8Manager(models.Manager):
@@ -47,11 +75,19 @@ class modelo8Manager(models.Manager):
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
         return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
+        return response
 
 class modelo9Manager(models.Manager):
     """Managers para el modelo biblioteca"""
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
+        return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
         return response
 
 class modelo10Manager(models.Manager):
@@ -60,10 +96,18 @@ class modelo10Manager(models.Manager):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
         return response
 
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
+        return response
+
 class modelo11Manager(models.Manager):
     """Managers para el modelo biblioteca"""
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
+        return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
         return response
 
 class modelo12Manager(models.Manager):
@@ -71,11 +115,19 @@ class modelo12Manager(models.Manager):
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
         return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
+        return response
 
 class modelo13Manager(models.Manager):
     """Managers para el modelo biblioteca"""
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
+        return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
         return response
 
 class modelo14Manager(models.Manager):
@@ -83,17 +135,29 @@ class modelo14Manager(models.Manager):
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
         return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
+        return response
 
 class modelo15Manager(models.Manager):
     """Managers para el modelo biblioteca"""
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
         return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
+        return response
 
 class modelo16Manager(models.Manager):
     """Managers para el modelo biblioteca"""
     def reporteProductividad(self,user,numeral,fecha_ano):
         response = self.filter(usuario_id=user,numeral_id=numeral,periodo__fecha_inicio__year=fecha_ano)
+        return response
+    
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(periodo__fecha_inicio__year=year, numeral_id=numeral).count())
         return response
 
 class citasManager(models.Manager):

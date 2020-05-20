@@ -2888,13 +2888,13 @@
                     <div class="form-group row">
                         <label for="" class="col-md-2 ">Tipo de presentación:</label>
                         <div class="col-md-10">
-                            <select disabled class="form-control mb-1" name="presentacionPoster" required
-                                id="presentacionPosterModelo3{{modelo3.id}}">
-                                <option selected value="{{modelo3.presentacionPoster}}">
-                                    {% if modelo3.presentacionPoster == "" %}
+                            <select disabled class="form-control mb-1" name="tipo" required
+                                id="tipoModelo3{{modelo3.id}}">
+                                <option selected value="{{modelo3.tipo}}">
+                                    {% if modelo3.tipo == "" %}
                                     --------------------
                                     {% else %}
-                                    {{modelo3.presentacionPoster}}
+                                    {{modelo3.tipo}}
                                     {% endif %}
                                 </option>
                                 <option value="Presentación Oral">Presentación Oral</option>
@@ -3021,13 +3021,13 @@
                     <div class="form-group row">
                         <label for="" class="col-md-2 ">Tipo de presentación:</label>
                         <div class="col-md-10">
-                            <select disabled class="form-control mb-1" name="presentacionPoster"
-                                id="presentacionPosterModelo3{{modelo3.id}}">
-                                <option selected value="{{modelo3.presentacionPoster}}">
-                                    {% if modelo3.presentacionPoster == "" %}
+                            <select disabled class="form-control mb-1" name="tipo"
+                                id="tipoModelo3{{modelo3.id}}">
+                                <option selected value="{{modelo3.tipo}}">
+                                    {% if modelo3.tipo == "" %}
                                     --------------------
                                     {% else %}
-                                    {{modelo3.presentacionPoster}}
+                                    {{modelo3.tipo}}
                                     {% endif %}
                                 </option>
                                 <option value="Presentación Oral">Presentación Oral</option>
@@ -3346,13 +3346,13 @@
                     <div class="form-group row">
                         <label for="" class="col-md-2 ">Tipo de presentación:</label>
                         <div class="col-md-10">
-                            <select disabled class="form-control mb-1" name="presentacionPoster"
-                                id="presentacionPosterModelo3{{modelo3.id}}">
-                                <option selected value="{{modelo3.presentacionPoster}}">
-                                    {% if modelo3.presentacionPoster == "" %}
+                            <select disabled class="form-control mb-1" name="tipo"
+                                id="tipoModelo3{{modelo3.id}}">
+                                <option selected value="{{modelo3.tipo}}">
+                                    {% if modelo3.tipo == "" %}
                                     --------------------
                                     {% else %}
-                                    {{modelo3.presentacionPoster}}
+                                    {{modelo3.tipo}}
                                     {% endif %}
                                 </option>
                                 <option value="Presentación Oral">Presentación Oral</option>
@@ -3485,13 +3485,13 @@
                     <div class="form-group row">
                         <label for="" class="col-md-2 ">Tipo de presentación:</label>
                         <div class="col-md-10">
-                            <select disabled class="form-control mb-1" name="presentacionPoster"
-                                id="presentacionPosterModelo3{{modelo3.id}}">
-                                <option selected value="{{modelo3.presentacionPoster}}">
-                                    {% if modelo3.presentacionPoster == "" %}
+                            <select disabled class="form-control mb-1" name="tipo"
+                                id="tipoModelo3{{modelo3.id}}">
+                                <option selected value="{{modelo3.tipo}}">
+                                    {% if modelo3.tipo == "" %}
                                     --------------------
                                     {% else %}
-                                    {{modelo3.presentacionPoster}}
+                                    {{modelo3.tipo}}
                                     {% endif %}
                                 </option>
                                 <option value="Presentación Oral">Presentación Oral</option>
@@ -4647,7 +4647,7 @@
                 $("#fechaModelo3" + id).prop("disabled", false);
                 $("#estudiantesModelo3" + id).prop("disabled", false);
                 $("#doiModelo3" + id).prop("disabled", false);
-                $("#presentacionPosterModelo3" + id).prop("disabled", false);
+                $("#tipoModelo3" + id).prop("disabled", false);
                 $("#urlModelo3" + id).prop("disabled", false);
                 $("#anexoModelo3" + id).prop("disabled", false);
             }
@@ -4658,7 +4658,7 @@
                 $("#fechaModelo3" + id).prop("disabled", true);
                 $("#estudiantesModelo3" + id).prop("disabled", true);
                 $("#doiModelo3" + id).prop("disabled", true);
-                $("#presentacionPosterModelo3" + id).prop("disabled", true);
+                $("#tipoModelo3" + id).prop("disabled", true);
                 $("#urlModelo3" + id).prop("disabled", true);
                 $("#anexoModelo3" + id).prop("disabled", true);
             }
@@ -4874,7 +4874,7 @@
                                 <div class="form-group row">
                                     <label for="" class="col-md-2 ">Tipo de presentación</label>
                                     <div class="col-md-10">
-                                        <select class="form-control mb-1" name="presentacionPoster" id="presentacionPosterModelo3${response.id}">
+                                        <select class="form-control mb-1" name="tipo" id="tipoModelo3${response.id}">
                                             <option value="Presentación Oral">Presentación Oral</option>
                                             <option value="Poster">Poster</option>
                                         </select>
@@ -4972,7 +4972,7 @@
                         $("#fechaModelo3" + response.ids[i]).val(response.fecha[i]);
                         $("#estudiantesModelo3" + response.ids[i]).val(response.estudiantes[i]);
                         $("#doiModelo3" + response.ids[i]).val(response.doi[i]);
-                        $("#presentacionPosterModelo3" + response.ids[i]).val(response.presentacionPoster[i]);
+                        $("#tipoModelo3" + response.ids[i]).val(response.tipo[i]);
                         $("#urlModelo3" + response.ids[i]).val(response.url[i]);
                     }
                     timer.reset(540000);

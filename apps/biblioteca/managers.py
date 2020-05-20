@@ -18,3 +18,7 @@ class BibliotecaManager(models.Manager):
     def reporteProductividad2(self,user,fecha_ano):
         response = self.filter(usuario_id=user,fecha_ano=fecha_ano)
         return response
+
+    def entradasContador(self,year,numeral):
+        response = str(self.filter(fecha_ano=year,numeral_id=numeral).count())
+        return  response

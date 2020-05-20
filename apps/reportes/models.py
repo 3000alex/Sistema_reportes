@@ -137,7 +137,7 @@ class Modelo3(models.Model):
     periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     titulo_de_la_presentacion = models.CharField(max_length=500,verbose_name="Titulo de la presentacion", blank=True)
     autores = models.TextField(max_length=15000,verbose_name="Nombre de los autores", blank=True)
-    nombre_de_conferancia = models.CharField(max_length=500,verbose_name="Nombre de la conferencia", blank=True)
+    nombre_de_conferencia = models.CharField(max_length=500,verbose_name="Nombre de la conferencia", blank=True)
     fecha = models.CharField(max_length=500,verbose_name="fecha", blank=True)
     tipo = models.CharField(max_length=500,verbose_name="Presentacion oral o poster",choices=Presentacionselect, blank=True)
     estudiantes = models.CharField(max_length=10000,verbose_name="Nombre de los estudiantes", blank=True)

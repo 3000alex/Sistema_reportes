@@ -490,7 +490,7 @@ class actualizarModelo3(View):
         fecha = request.POST.get('fecha','')
         estudiantes = request.POST.get('estudiantes','')
         doi = request.POST.get('doi','')
-        presentacionPoster = request.POST.get('presentacionPoster','')
+        tipo = request.POST.get('tipo','')
         url = request.POST.get('url','')
 
         # Actualizamos modelo3
@@ -499,7 +499,7 @@ class actualizarModelo3(View):
         obj.autores = autores
         obj.nombre_de_conferencia = nombre_de_conferencia
         obj.fecha = fecha
-        obj.presentacionPoster = presentacionPoster
+        obj.tipo = tipo
         obj.estudiantes = estudiantes
         obj.doi = doi
         obj.url = url
@@ -565,7 +565,7 @@ class infoAnteriorModelo3(View):
         autores = []
         nombre_de_conferencia = []
         fecha = []
-        presentacionPoster = []
+        tipo = []
         estudiantes = []
         doi = []
         url = []
@@ -577,7 +577,7 @@ class infoAnteriorModelo3(View):
                 autores = d.autores,
                 nombre_de_conferencia = d.nombre_de_conferencia,
                 fecha = d.fecha,
-                presentacionPoster = d.presentacionPoster,
+                tipo = d.tipo,
                 estudiantes = d.estudiantes,
                 doi = d.doi,
                 url = d.url,
@@ -589,7 +589,7 @@ class infoAnteriorModelo3(View):
             autores.append(data.autores)
             nombre_de_conferencia.append(data.nombre_de_conferencia)
             fecha.append(data.fecha)
-            presentacionPoster.append(data.presentacionPoster)
+            tipo.append(data.tipo)
             estudiantes.append(data.estudiantes)
             doi.append(data.doi)
             url.append(data.url)
@@ -600,7 +600,7 @@ class infoAnteriorModelo3(View):
             'autores':autores,
             'nombre_de_conferencia':nombre_de_conferencia,
             'fecha':fecha,
-            'presentacionPoster':presentacionPoster,
+            'tipo':tipo,
             'estudiantes':estudiantes,
             'doi':doi,
             'url':url,

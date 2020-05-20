@@ -75,7 +75,9 @@
 
                     <td id="titulo{{forloop.counter}}"><div style="width:400px;">{% for title in datos.title %}{{title}}{% endfor %}</div></td>
 
-                    <td id="autor{{forloop.counter}}" ><div style="height:70px; overflow: hidden;">{% for author in datos.author %}{{author}};{% endfor %}</div></td>
+                    <td id="autor{{forloop.counter}}">
+                        <div style="height:70px; overflow: hidden;">{% for author in datos.author %}{% if forloop.last %} {{author}} {% else %} {{author}}; {% endif %} {% endfor %}</div>
+                    </td>
 
                     <td>
                         <div class="dropdown">
@@ -150,11 +152,14 @@
         var articulos = []
         $("input:checkbox:checked").each(function() {
             id = $(this)[0].id;
+            autores = $("#autor"+id).text().trim()
+            console.log(this);
+            
             articulos.push({
                 "fecha":$("#fecha"+id).text().replace('-','/').trim(),
                 "bibcode":$("#bibcode"+id).text().trim(),
                 "titulo": $("#titulo"+id).text().trim(),
-                "autores":$("#autor"+id).text().trim(),
+                "autores":autores,
                 "doi":$("#doi"+id).text().trim(),
                 "page":$("#page"+id).text().trim(),
                 "volume":$("#volume"+id).text().trim(),
