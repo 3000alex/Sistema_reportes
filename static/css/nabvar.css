@@ -1,0 +1,43 @@
+:root{
+    --light-blue: #F5F6FA;
+    --grey: #eff2f7;
+}
+
+body{
+    overflow: hidden;
+}
+
+#sidebar-container {
+    min-height: 85vh;
+    margin-left: -14rem;
+    transition: margin .25s ease-in-out;
+}
+
+#sidebar-container .logo{
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-container .menu {
+    width: 14rem;
+}
+
+#content-wrapper.toggled  #sidebar-container {
+    margin-left: 0;
+}
+
+#content {
+    overflow-y: auto;
+    height: 90vh;
+  }
+
+@media (min-width: 850px){
+
+    #sidebar-container {
+        margin-left: 0;
+    }
+
+    #content-wrapper.toggled #sidebar-container{
+        margin-left: -14rem;
+    }
+}

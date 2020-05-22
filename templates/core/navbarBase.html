@@ -1,0 +1,194 @@
+{% if request.user.is_authenticated %}
+    {% if request.user.is_superuser %}
+        <div class="row">
+            <div class="col-6 d-flex align-items-center">
+                <div class="navbar-light">
+                    <a class="navbar-brand" href="{% url 'administradores:home-adm'  %}">
+                        <i class="fas fa-home">&nbsp; Inicio</i></a>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="navbar-light float-right">
+                    <a onclick="cerrarSesion()" class="nav-link text-secondary" style="cursor: pointer;">
+                        <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar Sesión</a>
+
+                    <a class="nav-link text-secondary" href="javascript:history.back()">
+                        <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-6 col-md-6">
+                <h5>Administrador</h5>
+            </div>
+
+            <div class="col-6 col-md-6">
+                {% if request.path != '/home-adm' %}
+
+                <div class="d-flex justify-content-end text-white">
+                    <a href="{% url 'administradores:perfil_adm' %}"
+                        class="btn btn-light text-primary btn-sm mr-2 {% if request.path == '/perfil_adm' %}disabled{% endif %}">
+                        <i class="fas fa-user">&nbsp;</i> Administrador
+                    </a>
+
+                    <a href="{% url 'administradores:reportes' %}"
+                        class="btn btn-light text-primary mr-2 btn-sm {% if request.path == '/reportes' %}disabled{% endif %}">
+                        <i class="fas fa-users">&nbsp;</i>Usuarios
+                    </a>
+                    <a href="{% url 'administradores:reportes_adm' %}"
+                        class="btn btn-light text-primary btn-sm {% if request.path == '/reportes-adm/' %}disabled{% endif %}">
+                        <i class="far fa-file-alt"></i>&nbsp;Reportes</a>
+                </div>
+                {% endif %}
+
+
+            </div>
+
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-6 d-flex align-items-center">
+                <div class="navbar-light">
+                    <a class="navbar-brand" href="{% url 'reportes:home'  %}">
+                        <i class="fas fa-home">&nbsp; Inicio</i></a>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="navbar-light float-right">
+                    <a onclick="cerrarSesion()" class="nav-link text-secondary" style="cursor: pointer;">
+                        <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar Sesión</a>
+
+                    <a class="nav-link text-secondary" href="javascript:history.back()">
+                        <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
+                </div>
+            </div>
+        </div>
+        {% if request.path == '/reporte-productividad' %}
+
+            <div class="row mt-2">
+            
+                <div class="col-6 col-md-6">
+                    <h5>{{ user.nombre}} {{user.apellido}}</h5>
+                </div>
+            
+                <div class="col-6 col-md-6 d-flex justify-content-end">
+                    <!--<p>Periodo:<br><strong>{{periodoActual}}</strong></p> !-->
+                    <label class="mr-2" for="periodo">Periodo: </label>
+                    <form  method="POST">
+                        <select class="form-control" name="periodoActual" id="periodoActual">
+                            <option selected value="{{periodoActual.id}}">{{periodoActual.nombre_periodo}}</option>
+                            {% for periodos in periodos %}
+                            <option value="{{periodos.id}}">{{periodos.nombre_periodo}}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+            
+                </div>
+            </div>
+            
+            <div class="row mt-2">
+            
+                <div class="col-12 col-md-5">
+                    <div class="d-flex justify-content-start text-white">
+                        <a href="{% url 'biblioteca:biblioteca_personal' %}"
+                            class="btn btn-light text-primary mr-2 btn-sm"><i class="fas fa-book"></i> Biblioteca personal
+                        </a>
+                        <a href="{% url 'biblioteca:busqueda_biblioteca' %}"
+                            class="btn btn-light text-primary mr-2 btn-sm"><i class="fas fa-search"></i> Búsqueda ADS</a>
+                    </div>
+                </div>
+            
+                <div class="col-12 col-md-2">
+                    <div class="d-flex justify-content-center mt-md-0 mt-4">
+                        <p><strong>Periodo: <span id="nombre_periodo">{{periodoActual.nombre_periodo}}</span> </strong></p>
+                    </div>
+            
+                </div>
+            
+                <div class="col-12 col-md-5">
+                    <div class="d-flex justify-content-center justify-content-sm-end mb-2">
+                        <div class="btn-group" role="group">
+                            <form action="{% url 'reportes:generarReporte' %}">
+                                <input type="hidden" value="{{periodoActual.id}}" name="periodo">
+                                <button onclick="notificacion.vistaPrevia()" class="btn btn-success btn-sm mr-2"><i
+                                        class="far fa-eye"></i> Vista Previa</button>
+                            </form>
+            
+                            <a class="btn btn-info btn-sm mr-2" href="{% url 'reportes:reportesEnviados' %}"><i
+                                    class="fas fa-history"></i> Historico</a>
+                            <button class="btn btn-danger btn-sm" onclick="finalizarReporte()"><i class="fas fa-check"></i>
+                                Finalizar Reporte
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+
+        {% else %}
+        
+            <div class="row">
+
+                <div class="col-12 col-md-6">
+                    <h5>{{ user.nombre}} {{user.apellido}}</h5>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="d-flex justify-content-end text-white">
+
+                        <a href="{% url 'biblioteca:biblioteca_personal' %}"
+                            class="btn btn-light text-primary mr-2 btn-sm {% if request.path == '/biblioteca-personal' %}d-none{% endif %} "><i
+                                class="fas fa-book"></i> Biblioteca
+                            personal</a>
+                        <a href="{% url 'biblioteca:busqueda_biblioteca' %}"
+                            class="btn btn-light text-primary mr-2 btn-sm {% if request.path == '/busqueda-ads' %}d-none{% endif %}"><i
+                                class="fas fa-search"></i> Búsqueda
+                            ADS</a>
+                        <a href="{% url 'reportes:reporte-productividad' %}" class="btn btn-light text-primary btn-sm mr-2"><i
+                                class="far fa-file-alt"></i> Reportes
+                            productividad</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    {% endif %}
+
+{% endif %}
+
+<!--Reporte-->
+<form action="{% url 'reportes:generarReporte' %}">
+    <input type="hidden" value="{{periodoActual.id}}" name="periodo">
+    <button onclick="notificacion.vistaPrevia()" class="btn btn-success btn-sm mr-2">
+        <i class="far fa-eye"></i>Vista Previa</button>
+</form>
+
+------------------------
+
+<header  class="container-fluid bg-white sticky-top">
+    <div class="row shadow-sm pt-1">
+        <div class="col-3">
+
+            <div class="justify-content-start"><img src="{% static 'media/logo.png' %}" width="55px;"
+                    class="img-responsive" alt="Logo"></div>
+
+        </div>
+        <div class="col-6">
+            <div class="justify-content-center text-center">
+                <p>Coordinación de Astrofísica<br>Sistema de Reportes</p>
+            </div>
+        </div>
+
+
+        <div class="col-3">
+            <div class="justify-content-end"><img src="{% static 'media/conacyt.png' %}" width="55px"
+                    class="float-right img-responsive" alt=""></div>
+        </div>
+    </div>
+
+</header>

@@ -26,7 +26,6 @@
 {% block contenido %}
 
 <div class="container-fluid mb-4 mt-4">
-
     <form id="formid">
         {% csrf_token %}
 
@@ -42,10 +41,10 @@
                     <th>Título</th>
                     <th>Autor</th>
                     <th>Enlaces</th>
-                    <th>Doi</th>
-                    <th>Page</th>
-                    <th>Volume</th>
-                    <th>Pub</th>
+                    <th class="d-none">Doi</th>
+                    <th class="d-none">Page</th>
+                    <th class="d-none">Volume</th>
+                    <th class="d-none">Pub</th>
                 </tr>
             </thead>
 
@@ -100,10 +99,10 @@
                             </div>
                         </div>
                     </td><!--Enlaces-->
-                    <td id="doi{{forloop.counter}}">{%for d in datos.doi %}{% if d %}{{d}}{% endif %}{% endfor %}</td>
-                    <td id="page{{forloop.counter}}">{% for d in datos.page %}{% if d %}{{d}}{% endif %}{% endfor %}</td>
-                    <td id="volume{{forloop.counter}}">{% if datos.volume %} {{datos.volume}}{% endif %}</td>
-                    <td id="pub{{forloop.counter}}"> {% if datos.pub %}{{datos.pub}}{% endif %}</td>
+                    <td class="d-none" id="doi{{forloop.counter}}">{%for d in datos.doi %}{% if d %}{{d}}{% endif %}{% endfor %}</td>
+                    <td class="d-none" id="page{{forloop.counter}}">{% for d in datos.page %}{% if d %}{{d}}{% endif %}{% endfor %}</td>
+                    <td class="d-none" id="volume{{forloop.counter}}">{% if datos.volume %} {{datos.volume}}{% endif %}</td>
+                    <td class="d-none" id="pub{{forloop.counter}}"> {% if datos.pub %}{{datos.pub}}{% endif %}</td>
                 </tr>
                 {% endfor %}
             </tbody>

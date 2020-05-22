@@ -3,7 +3,38 @@
 {% load static %}
 
 {% block contenido %}
+
+<div class="container">
+    
+    <div class="row">
+
+        <div class="col-6">
+    
+            <div class="d-flex justify-content-end mt-2">
+                <strong>Periodo: <span id="nombre_periodo">{{periodoActual.nombre_periodo}}</span> </strong>
+            </div>
+
+        </div>
+
+        <div class="col-6">
+            <div class="d-flex justify-content-end mt-2">
+                <label for="periodo" class="d-flex align-content-center">Periodo: </label>
+                <form  method="POST" class="ml-2">
+                    <select class="form-control" name="periodoActual" id="periodoActual">
+                        <option selected value="{{periodoActual.id}}">{{periodoActual.nombre_periodo}}</option>
+                        {% for periodos in periodos %}
+                        <option value="{{periodos.id}}">{{periodos.nombre_periodo}}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div> 
+        </div>
+    
+    </div>
+</div>
+
 <div class="container mt-2 mb-2">
+
 
     <nav class="nav nav-tabs d-flex justify-content-between text-center">
 

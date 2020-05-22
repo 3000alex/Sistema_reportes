@@ -2012,7 +2012,7 @@ class enviarReporte(View):
             'periodo':periodo,
         }
         
-        """
+
         #Email para investigador
         body = render_to_string(
             'reportes/templateReportesFinalizadoUsuario.html', {
@@ -2026,7 +2026,7 @@ class enviarReporte(View):
             subject='Reporte enviado a la Coordinación',
             body=body,
             from_email='reportes-astro@inaoep.mx',
-            to=[request.user.email],
+            to=[request.user.email,'reportes-astro@inaoep.mx'],
         )
 
         email_message.content_subtype = 'html'
@@ -2053,13 +2053,13 @@ class enviarReporte(View):
             subject='Reporte enviado a la Coordinación',
             body=bodyAdmin,
             from_email='reportes-astro@inaoep.mx',
-            to=['alexXarellan@hotmail.com'], #Cambiar a astrofi@inaoep.mx
+            to=['astrofi@inaoep.mx','reportes-astro@inaoep.mx'], #Cambiar a 
         )
         mensajeCordinacion.content_subtype = 'html'
         mensajeCordinacion.attach(adjunto)
         #Enviamos email
         mensajeCordinacion.send()
-        """
+        
         #Guardamos reporte en BD
         reporte,creado = ReporteEnviado.objects.get_or_create(periodo_id = periodo_id, usuario_id = request.user.id)
         
