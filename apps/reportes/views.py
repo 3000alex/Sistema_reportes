@@ -2026,7 +2026,7 @@ class enviarReporte(View):
             subject='Reporte enviado a la Coordinación',
             body=body,
             from_email='reportes-astro@inaoep.mx',
-            to=[request.user.email,'reportes-astro@inaoep.mx'],
+            to=[request.user.email],
         )
 
         email_message.content_subtype = 'html'
