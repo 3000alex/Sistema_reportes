@@ -135,7 +135,7 @@ class Modelo3(models.Model):
     usuario =  models.ForeignKey(User,on_delete=models.CASCADE)
     numeral = models.ForeignKey(Numeral, on_delete=models.CASCADE)
     periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
-    titulo_de_la_presentacion = models.CharField(max_length=500,verbose_name="Titulo de la presentacion", blank=True)
+    titulo = models.CharField(max_length=500,verbose_name="Titulo de la presentacion", blank=True)
     autores = models.TextField(max_length=15000,verbose_name="Nombre de los autores", blank=True)
     nombre_de_conferencia = models.CharField(max_length=500,verbose_name="Nombre de la conferencia", blank=True)
     fecha = models.CharField(max_length=500,verbose_name="fecha", blank=True)

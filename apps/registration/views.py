@@ -22,12 +22,14 @@ def login_view(request):
                 user = authenticate(request, email=email, password=password)
                 if user:
                    #user.is_authenticated
+                   if user.last_login == None:
+                       context['sesion'] = "nueva"
                    login(request,user)
                    
                    if user.email == 'astrofi@inaoep.mx':
                         return HttpResponseRedirect(reverse('administradores:home-adm'))
                    else:
-                       return HttpResponseRedirect(reverse('reportes:home'))
+                       return render(request,"reportes/home.html",context) #HttpResponseRedirect(reverse('reportes:home'))
                 else:
                     context["error"] = '<div class="alert alert-danger" role="alert"><ul><li>Por favor, introduzca un nombre de usuario y clave correctos. Observe que ambos campos pueden ser sensibles a mayúsculas.</li></ul></div>'
                     return render(request,"registration/login.html",context)

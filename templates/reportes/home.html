@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% endblock %}
 {% block contenido %}
+
 <section class="container" style="margin-top: 100px;">
     
     <div class="row text-center d-flex justify-content-center">
@@ -51,4 +52,20 @@
     </div>
 </section>
 
+{% endblock %}
+
+{% block JSCode %}
+{% if sesion %}
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+            title: 'Bienvenido(a)',
+            icon: 'info',
+            text: 'favor de editar sus datos en la sección Perfil',
+            });
+        });
+        
+    </script>
+
+{% endif %}
 {% endblock %}

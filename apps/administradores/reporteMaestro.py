@@ -697,8 +697,8 @@ def Reporte(request,periodo_id):
                     document.add_paragraph(inv.nombreCorto)
                     paragraph = document.add_paragraph(style='List Bullet')
 
-                    if item.titulo_de_la_presentacion:
-                        paragraph.add_run("Título de la presentación: " + item.titulo_de_la_presentacion + "\n")
+                    if item.titulo:
+                        paragraph.add_run("Título de la presentación: " + item.titulo + "\n")
 
                     if item.autores:
                         paragraph.add_run("Autor(es): " + item.autores + "\n")

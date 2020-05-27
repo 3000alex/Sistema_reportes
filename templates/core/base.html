@@ -44,101 +44,74 @@
             {% if request.user.is_superuser %}
             <div class="logo">Administrador</div>
             <div class="menu list-group-flush">
-                {% if request.path != '/home-adm' %}
+
                 <a class="list-group-item list-group-item-action bg-light p-3 border-0"
                     href="{% url 'administradores:home-adm'  %}">
                     <i class="fas fa-home">&nbsp; Inicio</i></a>
 
-                <a href="#" onclick="cerrarSesion()"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0">
-                    <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar Sesión</a>
 
                 <a class="list-group-item list-group-item-action bg-light p-3 border-0"
                     href="javascript:history.back()">
                     <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
 
-                {% if request.path != '/perfil_adm' %}
                 <a href="{% url 'administradores:perfil_adm' %}"
                     class="list-group-item list-group-item-action bg-light p-3 border-0">
                     <i class="fas fa-user">&nbsp;</i> Administrador</a>
-                {% endif %}
 
-                {% if request.path != '/investigadores' %}
                 <a href="{% url 'administradores:reportes' %}"
                     class="list-group-item list-group-item-action bg-light p-3 border-0">
                     <i class="fas fa-users">&nbsp;</i>Usuarios</a>
-                {% endif %}
 
-                {% if request.path != '/reportes-adm' %}
                 <a href="{% url 'administradores:reportes_adm' %}"
                     class="list-group-item list-group-item-action bg-light p-3 border-0">
                     <i class="far fa-file-alt"></i>&nbsp;Reportes</a>
-                {% endif %}
+                <hr>
+                <a href="#" onclick="cerrarSesion()"
+                class="list-group-item list-group-item-action bg-light p-3 border-0">
+                <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar sesión</a>
 
-                {% endif %}
+
             </div>
             {% else %}
             <div class="logo">{{ user.nombre}} {{user.apellido}}</div>
             <div class="menu list-group-flush">
                 <a class="list-group-item list-group-item-action bg-light p-3 border-0"
-                    href="{% url 'administradores:home-adm'  %}">
+                    href="{% url 'reportes:home'  %}">
                     <i class="fas fa-home">&nbsp; Inicio</i></a>
-
-                <a href="#" onclick="cerrarSesion()"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0">
-                    <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar Sesión</a>
+                
+                <a class="list-group-item list-group-item-action bg-light p-3 border-0"
+                href="{% url 'registration:actualizar-perfil' %}">
+                <i class="fas fa-user"></i>&nbsp; Perfil</a>
 
                 <a class="list-group-item list-group-item-action bg-light p-3 border-0"
                     href="javascript:history.back()">
                     <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
-                <hr>
-
-                {% if request.path == '/home' %}
+                
                 <a href="http://bit.ly/Guía-Reportes-INAOE-Astro" target="blank"
                     class="list-group-item list-group-item-action bg-light p-3 border-0"><i
                         class="fas fa-book-open"></i> Guía rápida PDF</a>
-                {% endif %}
+                <hr>
 
-                {% if request.path != '/home' %}
-
-                {% if request.path != '/biblioteca-personal' %}
-                <a href="{% url 'biblioteca:biblioteca_personal' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-book"></i>
-                    Biblioteca personal</a>
-                {% endif %}
-
-                {% if request.path != '/busqueda-ads' %}
-                <a href="{% url 'biblioteca:busqueda_biblioteca' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-search"></i>
-                    Búsqueda ADS</a>
-                {% endif %}
-
-                {% if request.path != '/reporte-productividad' %}
                 <a href="{% url 'reportes:reporte-productividad' %}"
                     class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="far fa-file-alt"></i>
                     Reportes productividad</a>
-                {% endif %}
 
-                {% if request.path == '/reporte-productividad' %}
+                <a href="{% url 'biblioteca:biblioteca_personal' %}"
+                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-book"></i>
+                    Biblioteca personal</a>
+
+                <a href="{% url 'biblioteca:busqueda_biblioteca' %}"
+                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-search"></i>
+                    Búsqueda ADS</a>
                 <hr>
-                <p class="text-center text-white bg-primary list-group-item">Reporte de productividad</p>
-                <form action="{% url 'reportes:generarReporte' %}">
-                    <input type="hidden" value="{{periodoActual.id}}" name="periodo">
-                    <button onclick="notificacion.vistaPrevia()"
-                        class="text-white list-group-item list-group-item-action bg-success p-3 border-0">
-                        <i class="far fa-eye"></i> Vista Previa</button>
-                </form>
+                <a href="{% url 'reporteSNI:instruccionesSNI' %}"
+                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-pencil-alt"></i>
+                    Citas SNI</a>
 
-                <a class="text-white list-group-item list-group-item-action bg-info p-3 border-0"
-                    href="{% url 'reportes:reportesEnviados' %}"><i class="fas fa-history"></i> Historico</a>
-
-                <button class="text-white list-group-item list-group-item-action bg-danger p-3 border-0"
-                    onclick="finalizarReporte()"><i class="fas fa-check"></i>
-                    Finalizar Reporte
-                </button>
-                {% endif %}
-
-                {% endif %}
+                <hr>
+                <a href="#" onclick="cerrarSesion()"
+                    class="list-group-item list-group-item-action bg-light p-3 border-0">
+                    <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar sesión</a>
 
             </div>
             {% endif %}

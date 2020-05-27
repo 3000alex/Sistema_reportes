@@ -2,12 +2,10 @@
 <div class="card" id="numeral">
     {% for numeral in numeralName %}
     <div class="card-header">
-        <div data-toggle="collapse" data-target="#numeral{{numeral.id}}" onclick="icono({{numeral.id}})">
-            <span class="text-primary" style="cursor: pointer;">{{numeral}}&nbsp;<i
-                    class="fa fa-chevron-down numeral{{numeral.id}}"></i></span>
+            <a href="#" data-toggle="collapse" data-target="#numeral{{numeral.id}}" onclick="icono({{numeral.id}})" class="text-primary">{{numeral}}&nbsp;<i
+                    class="fa fa-chevron-down numeral{{numeral.id}}"></i></a>
             <i onclick="glosario()" style="font-size: 30px; cursor: pointer;" data-toggle="modal"
                 class="far fa-question-circle float-right"></i>
-        </div>
     </div>
     <div id="numeral{{numeral.id}}" class="collapse" data-parent="#numeral">
         <div class="card-body" style="font-size: 14px">
@@ -80,32 +78,19 @@
 
                     <hr>
                 </form>
-
-                {% if forloop.last %}
-                <button onclick="Modelo4.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
                     <strong>
                         <p class="text-center ">Sin entradas</p>
                     </strong>
-                </div>
-                <button onclick="Modelo4.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
-                    id="infoAnteriorModelo4{{numeral.id}}"
-                    onclick="Modelo4.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
-                    anterior</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
+                </div> 
                 {% endfor %}
-
+                <div class="w-100"></div>
+                <button onclick="Modelo4.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary  float-right">Cerrar&nbsp;<i
+                    class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!-- Fin Numeral 31,34 Modelo4 -->
@@ -179,31 +164,19 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo4.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
                     <strong>
                         <p class="text-center ">Sin entradas</p>
                     </strong>
-                </div>
+                </div>         
+                {% endfor %}
+                <div class="w-100"></div>
                 <button onclick="Modelo4.crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
-                    id="infoAnteriorModelo4{{numeral.id}}"
-                    onclick="Modelo4.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
-                    anterior</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary  float-right">Cerrar&nbsp;<i
                         class="fa fa-chevron-up"></i></p>
-                {% endfor %}
-
             </div>
             {% endif %}
             <!-- Fin Numeral 32 Modelo4 -->
@@ -277,30 +250,19 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo4.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
                     <strong>
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
+                {% endfor %}
+                <div class="w-100"></div>
                 <button onclick="Modelo4.crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
-                    id="infoAnteriorModelo4{{numeral.id}}"
-                    onclick="Modelo4.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
-                    anterior</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary  float-right">Cerrar&nbsp;<i
                         class="fa fa-chevron-up"></i></p>
-                {% endfor %}
 
             </div>
             {% endif %}
@@ -375,13 +337,6 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo4.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
 
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
@@ -389,16 +344,14 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="Modelo4.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
-                    id="infoAnteriorModelo4{{numeral.id}}"
-                    onclick="Modelo4.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
-                    anterior</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
+
                 {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo4.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                id="modelo4Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary  float-right">Cerrar&nbsp;<i
+                    class="fa fa-chevron-up"></i></p>
 
             </div>
             {% endif %}
@@ -462,13 +415,6 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo5.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo5Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
 
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
@@ -476,16 +422,18 @@
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
-                <button onclick="Modelo5.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo5Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
+
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo5{{numeral.id}}"
                     onclick="Modelo5.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo5.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo5Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary  float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin Numeral 35-->
@@ -550,35 +498,23 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo5.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo5Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
-                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
-                </div>
+                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
+                id="infoAnteriorModelo5{{numeral.id}}"
+                onclick="Modelo5.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
+                anterior</button>
+                {% endfor %}
+                <div class="w-100"></div>
                 <button onclick="Modelo5.crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo5Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
-                    id="infoAnteriorModelo5{{numeral.id}}"
-                    onclick="Modelo5.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
-                    anterior</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary  float-right">Cerrar&nbsp;<i
                         class="fa fa-chevron-up"></i></p>
-                {% endfor %}
             </div>
             {% endif %}
             <!--Fin Numeral 36-->
 
-            <!--Numerale 37 Modelo6-->
+            <!--Numeral 37 Modelo6-->
             {% if numeral.orden == 37 %}
             <div>
                 {% for modelo6 in numeral_37 %}
@@ -602,7 +538,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="" class="col-sm-2">grado: </label>
+                        <label for="" class="col-sm-2">Grado: </label>
                         <div class="col-sm-10">
                             <select disabled class="form-control mb-1" name="grado" required
                                 id="gradoModelo6{{modelo6.id}}">
@@ -662,30 +598,23 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo6.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo6Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
                     <strong>
                         <p class="text-center ">Sin entradas</p>
                     </strong>
-                </div>
-                <button onclick="Modelo6.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo6Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
+                </div>              
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo6{{numeral.id}}"
                     onclick="Modelo6.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
-                    anterior</button>
+                    anterior</button>     
+                {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo6.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo6Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
                 <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
                         class="fa fa-chevron-up"></i></p>
-                {% endfor %}
             </div>
             {% endif %}
             <!--Fin Numeral 37-->
@@ -712,7 +641,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2" for="">grado:</label>
+                        <label class="col-sm-2" for="">Grado:</label>
                         <select disabled class="form-control col-sm-10" name="grado" id="gradoModelo16{{modelo16.id}}">
                             <option value="{{ modelo16.grado }}" selected>
                                 {% if modelo16.grado %}{{ modelo16.grado }}{% else %}---------------------{% endif %}
@@ -764,17 +693,17 @@
                     <strong>
                         <p class="text-center ">Sin entradas</p>
                     </strong>
-                </div>
-                <button onclick="Modelo16.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo16Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
+                </div>   
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo16{{numeral.id}}"
                     onclick="Modelo16.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <button onclick="Modelo16.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo16Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary  float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin Numeral 38-->
@@ -803,7 +732,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="" class="col-sm-2">grado: </label>
+                        <label for="" class="col-sm-2">Grado: </label>
                         <div class="col-sm-10">
                             <select disabled class="form-control mb-1" name="grado" id="gradoModelo6{{modelo6.id}}">
                                 <option selected value="{{modelo6.grado}}">
@@ -811,7 +740,6 @@
                                     {% else %}
                                     {{modelo6.grado}}
                                     {% endif %}
-
                                 </option>
                                 <option value="Maestría">Maestría</option>
                                 <option value="Doctorado">Doctorado</option>
@@ -871,29 +799,19 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo6.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo6Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
                     <strong>
                         <p class="text-center ">Sin entradas</p>
                     </strong>
                 </div>
+                {% endfor %}
+                <div class="w-100"></div>
                 <button onclick="Modelo6.crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo6Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
-                    onclick="Modelo6.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
-                    anterior</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary  float-right">Cerrar&nbsp;<i
                         class="fa fa-chevron-up"></i></p>
-                {% endfor %}
             </div>
             {% endif %}
             <!--numeral 39 Modelo6-->
@@ -986,11 +904,7 @@
             })
                 .done(function (response) {
                     $("#sinEntradas" + numeral).remove()
-                    $("#modelo4Crear" + numeral).after(
-                        `<button onclick="Modelo4.crear(${numeral},${periodo})" type="button"
-                        id="modelo4Crear${response.numeral}" class="btn btn-danger">
-                        <i class="fas fa-plus-circle"></i>Agregar entrada</button>`);
-                    $("#modelo4Crear" + numeral).remove();
+                    $("#infoAnteriorModelo4" + numeral).remove()
                     Modelo4.dibujar(response);
                     notificacion.creado();
                     timer.reset(540000);
@@ -1028,7 +942,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="" class="col-sm-2">Url:</label>
+                            <label for="" class="col-sm-2">URL:</label>
                             <div class="col-sm-10">
                                 <input class="form-control mb-1" type="url" name="url" id="urlModelo4${response.id}">
                             </div>
@@ -1090,18 +1004,25 @@
                 dataType: "json",
             })
                 .done(function (response) {
-                    $('#sinEntradas' + numeral).remove()
-                    for (let i = 0; i < response.nombre_completo.length; i++) {
-                        data = {}
-                        data['numeral'] = numeral;
-                        data['id'] = response.ids[i];
-                        Modelo4.dibujar(data);
-                        $("#nombre_completoModelo4" + response.ids[i]).val(response.nombre_completo[i]);
-                        $("#titulo_de_tesisModelo4" + response.ids[i]).val(response.titulo_de_tesis[i]);
-                        $("#fechaModelo4" + response.ids[i]).val(response.fecha[i]);
-                        $("#urlModelo4" + response.ids[i]).val(response.url[i]);
+                    if(response.nombre_completo.length != 0){
+                        $('#sinEntradas' + numeral).remove()
+                        for (let i = 0; i < response.nombre_completo.length; i++) {
+                            data = {}
+                            data['numeral'] = numeral;
+                            data['id'] = response.ids[i];
+                            Modelo4.dibujar(data);
+                            $("#nombre_completoModelo4" + response.ids[i]).val(response.nombre_completo[i]);
+                            $("#titulo_de_tesisModelo4" + response.ids[i]).val(response.titulo_de_tesis[i]);
+                            $("#fechaModelo4" + response.ids[i]).val(response.fecha[i]);
+                            $("#urlModelo4" + response.ids[i]).val(response.url[i]);
+                        }
+                        $("#infoAnteriorModelo4" + numeral).remove();
+                        notificacion.importarPeriodo();
+                        timer.reset(540000);
+                    }else{
+                        notificacion.errorImportarPeriodo();
                     }
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response)
@@ -1163,11 +1084,7 @@
             })
                 .done(function (response) {
                     $("#sinEntradas" + numeral).remove()
-                    $("#modelo5Crear" + numeral).after(
-                        `<button onclick="Modelo5.crear(${numeral},${periodo})" type="button"
-                     id="modelo5Crear${response.numeral}" class="btn btn-danger">
-                     <i class="fas fa-plus-circle"></i>Agregar entrada</button>`)
-                    $("#modelo5Crear" + numeral).remove()
+                    $("#infoAnteriorModelo5" + numeral).remove()
                     Modelo5.dibujar(response)
                     notificacion.creado();
                     timer.reset(540000);
@@ -1256,18 +1173,27 @@
                 },
                 dataType: "json",
             })
-                .done(function () {
-                    $('#sinEntradas' + numeral).remove()
-                    for (let i = 0; i < response.nombre_del_curso.length; i++) {
-                        data = {}
-                        data['numeral'] = numeral;
-                        data['id'] = response.ids[i];
+                .done(function (response) {
+                    if(response.nombre_del_curso.length != 0){
+                        $('#sinEntradas' + numeral).remove()
+                        for (let i = 0; i < response.nombre_del_curso.length; i++) {
+                            data = {}
+                            data['numeral'] = numeral;
+                            data['id'] = response.ids[i];
 
-                        Modelo5.dibujar(data)
-                        $("#nombre_del_cursoModelo5" + response.ids[i]).val(response.nombre_del_curso[i]);
-                        $("#periodoModelo5" + response.ids[i]).val(response.periodo_numeral[i]);
-                        $("#notasModelo5" + response.ids[i]).val(response.notas[i]);
+                            Modelo5.dibujar(data)
+                            $("#nombre_del_cursoModelo5" + response.ids[i]).val(response.nombre_del_curso[i]);
+                            $("#periodoModelo5" + response.ids[i]).val(response.periodo_numeral[i]);
+                            $("#notasModelo5" + response.ids[i]).val(response.notas[i]);
+                            $("#infoAnteriorModelo5" + numeral).remove();
+                            notificacion.importarPeriodo();
+                            timer.reset(540000);
+                        }
                     }
+                    else{
+                        notificacion.errorImportarPeriodo();
+                    }
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response)
@@ -1336,11 +1262,7 @@
             })
                 .done(function (response) {
                     $("#sinEntradas" + numeral).remove()
-                    $("#modelo6Crear" + numeral).after(`
-                    <button onclick="modelo6Crear(${numeral},${periodo})" type="button"
-                        id="modelo6Crear${response.numeral}" class="btn btn-danger">
-                        <i class="fas fa-plus-circle"></i>Agregar entrada</button>`)
-                    $("#modelo6Crear" + numeral).remove()
+                    $("#infoAnteriorModelo6" + numeral).remove()
                     Modelo6.dibujar(response)
                     notificacion.creado();
                     timer.reset(540000);
@@ -1371,10 +1293,9 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="" class="col-sm-2">grado: </label>
+                                <label for="" class="col-sm-2">Grado: </label>
                                 <div class="col-sm-10">
                                     <select class="form-control mb-1" name="grado" id="gradoModelo6${response.id}">
-                                        <option value="Licenciatura">Licenciatura</option>
                                         <option value="Maestría">Maestría</option>
                                         <option value="Doctorado">Doctorado</option>
                                     </select>
@@ -1447,9 +1368,10 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="" class="col-sm-2">grado: </label>
+                                <label for="" class="col-sm-2">Grado: </label>
                                 <div class="col-sm-10">
                                     <select class="form-control mb-1" name="grado" id="gradoModelo6${response.id}">
+                                        <option value="Licenciatura">Licenciatura</option>
                                         <option value="Maestría">Maestría</option>
                                         <option value="Doctorado">Doctorado</option>
                                     </select>
@@ -1531,24 +1453,30 @@
                 dataType: "json",
             })
                 .done(function (response) {
-                    $('#sinEntradas' + numeral).remove()
+                    if(response.nombre.length != 0){
+                        $('#sinEntradas' + numeral).remove()
+                        for (let i = 0; i < response.nombre.length; i++) {
 
-                    for (let i = 0; i < response.nombre.length; i++) {
+                            data = {}
+                            data['numeral'] = numeral;
+                            data['id'] = response.ids[i];
 
-                        data = {}
-                        data['numeral'] = numeral;
-                        data['id'] = response.ids[i];
-
-                        Modelo6.dibujar(data)
-                        $("#nombreModelo6" + response.ids[i]).val(response.nombre[i]);
-                        $("#titulo_de_tesisModelo6" + response.ids[i]).val(response.titulo_de_tesis[i]);
-                        $("#gradoModelo6" + response.ids[i]).val(response.grado[i]);
-                        $("#institucionModelo6" + response.ids[i]).val(response.institucion[i]);
-                        $("#fechaModelo6" + response.ids[i]).val(response.fecha[i]);
-                        $("#notasModelo6" + response.ids[i]).val(response.notas[i]);
-
+                            Modelo6.dibujar(data)
+                            $("#nombreModelo6" + response.ids[i]).val(response.nombre[i]);
+                            $("#titulo_de_tesisModelo6" + response.ids[i]).val(response.titulo_de_tesis[i]);
+                            $("#gradoModelo6" + response.ids[i]).val(response.grado[i]);
+                            $("#institucionModelo6" + response.ids[i]).val(response.institucion[i]);
+                            $("#fechaModelo6" + response.ids[i]).val(response.fecha[i]);
+                            $("#notasModelo6" + response.ids[i]).val(response.notas[i]);
+                        }
+                        $("#infoAnteriorModelo6" + numeral).remove()
+                        notificacion.importarPeriodo();
+                        timer.reset(540000);
                     }
-                    timer.reset(540000);
+                    else{
+                        notificacion.errorImportarPeriodo();
+                    }
+
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -1609,12 +1537,7 @@
             })
                 .done(function (response) {
                     $("#sinEntradas" + numeral).remove()
-                    $("#modelo16Crear" + numeral).after(`
-                <button onclick="modelo16Crear(${numeral},${periodo})" type="button"
-                    id="modelo16Crear${response.numeral}" class="btn btn-danger">
-                    <i class="fas fa-plus-circle"></i>Agregar entrada</button>
-                `)
-                    $("#modelo16Crear" + numeral).remove();
+                    $("#infoAnteriorModelo16" + numeral).remove()
                     Modelo16.dibujar(response);
                     notificacion.creado();
                     timer.reset(540000);
@@ -1642,7 +1565,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2" for="">grado:</label>
+                            <label class="col-sm-2" for="">Grado:</label>
                             <select class="form-control col-sm-10" name="grado" id="gradoModelo16${response.id}">
                                 <option value="Maestría">Maestría</option>
                                 <option value="Doctorado">Doctorado</option>
@@ -1710,18 +1633,26 @@
                 dataType: "json",
             })
                 .done(function (response) {
-                    $('#sinEntradas' + numeral).remove()
-                    for (let i = 0; i < response.nombre_del_estudiante.length; i++) {
-                        data = {}
-                        data['numeral'] = numeral;
-                        data['id'] = response.ids[i];
+                    if(response.nombre_del_estudiante.length != 0){
+                        $('#sinEntradas' + numeral).remove()
+                        for (let i = 0; i < response.nombre_del_estudiante.length; i++) {
+                            data = {}
+                            data['numeral'] = numeral;
+                            data['id'] = response.ids[i];
 
-                        Modelo16.dibujar(data)
-                        $("#nombre_del_estudianteModelo16" + response.ids[i]).val(response.nombre_del_estudiante[i]);
-                        $("#coordinacionModelo16" + response.ids[i]).val(response.coordinacion[i]);
-                        $("#gradoModelo16" + response.ids[i]).val(response.grado[i]);
+                            Modelo16.dibujar(data)
+                            $("#nombre_del_estudianteModelo16" + response.ids[i]).val(response.nombre_del_estudiante[i]);
+                            $("#coordinacionModelo16" + response.ids[i]).val(response.coordinacion[i]);
+                            $("#gradoModelo16" + response.ids[i]).val(response.grado[i]);
+                        }
+                        $("#infoAnteriorModelo16" + numeral).remove()
+                        notificacion.importarPeriodo();
+                        timer.reset(540000);
                     }
-                    timer.reset(540000);
+                    else{
+                        notificacion.errorImportarPeriodo();
+                    }
+
                 })
                 .fail(function (response) {
                     notificacion.error(response);

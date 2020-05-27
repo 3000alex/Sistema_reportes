@@ -2,13 +2,10 @@
 <div id="numeral" class="card">
     {% for numeral in numeralName %}
     <div class="card-header">
-
-        <div data-toggle="collapse" data-target="#numeral{{numeral.id}}" onclick="icono({{numeral.id}})">
-            <span class="text-primary" style="cursor: pointer;">{{numeral}}&nbsp;<i
-                    class="fa fa-chevron-down numeral{{numeral.id}}"></i></span>
+            <a href="#" data-toggle="collapse" data-target="#numeral{{numeral.id}}" onclick="icono({{numeral.id}})" class="text-primary" style="cursor: pointer;">{{numeral}}&nbsp;<i
+                    class="fa fa-chevron-down numeral{{numeral.id}}"></i></a>
             <i onclick="glosario()" style="font-size: 30px; cursor: pointer;" data-toggle="modal"
                 class="far fa-question-circle float-right"></i>
-        </div>
     </div>
 
     <div id="numeral{{numeral.id}}" class="collapse" data-parent="#numeral">
@@ -53,30 +50,24 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo15.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
 
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
                     <strong>
                         <p class="text-center ">Sin entradas</p>
                     </strong>
-                </div>
-                <button onclick="Modelo15.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
+                </div>       
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo15{{numeral.id}}"
                     onclick="Modelo15.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo15.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin numeral 47 Modelo15 -->
@@ -163,30 +154,17 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo9.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo9Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center ">Sin entradas</p></strong>
                 </div>
+                {% endfor %}
+                <div class="w-100"></div>
                 <button onclick="Modelo9.crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo9Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
-                    id="infoAnteriorModelo9{{numeral.id}}"
-                    onclick="Modelo9.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
-                    anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
                         class="fa fa-chevron-up"></i></p>
-                {% endfor %}
             </div>
             {% endif %}
             <!--Fin Numeral 48 Modelo9-->
@@ -249,30 +227,16 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center ">Sin entradas</p></strong>
                 </div>
+                {% endfor %}
                 <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
-                    id="infoAnteriorModelo10{{numeral.id}}"
-                    onclick="Modelo10.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
-                    anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
                         class="fa fa-chevron-up"></i></p>
-                {% endfor %}
             </div>
             {% endif %}
             <!--Fin Numeral 49 Modelo10-->
@@ -337,30 +301,16 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center ">Sin entradas</p></strong>
                 </div>
+                {% endfor %}
                 <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
-                    id="infoAnteriorModelo10{{numeral.id}}"
-                    onclick="Modelo10.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
-                    anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
                         class="fa fa-chevron-up"></i></p>
-                {% endfor %}
             </div>
             {% endif %}
             <!--Fin Numeral 49a Modelo10-->
@@ -424,30 +374,22 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center">Sin entradas</p></strong>
                 </div>
-                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
+                
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo10{{numeral.id}}"
                     onclick="Modelo10.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin Numeral 49b  Modelo10-->
@@ -512,30 +454,22 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center">Sin entradas</p></strong>
                 </div>
-                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
+                
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo10{{numeral.id}}"
                     onclick="Modelo10.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin Numeral 50  Modelo10-->
@@ -600,30 +534,22 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center">Sin entradas</p></strong>
                 </div>
-                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
+                
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo10{{numeral.id}}"
                     onclick="Modelo10.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin Numeral 51  Modelo10-->
@@ -687,30 +613,22 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center">Sin entradas</p></strong>
                 </div>
-                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
+                
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo10{{numeral.id}}"
                     onclick="Modelo10.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin Numeral 52  Modelo10-->
@@ -760,30 +678,22 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center">Sin entradas</p></strong>
                 </div>
-                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
+                
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo10{{numeral.id}}"
                     onclick="Modelo10.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo10.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo10Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin Numeral 52a Modelo10 -->
@@ -836,30 +746,21 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo11.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center ">Sin entradas</p></strong>
                 </div>
-                <button onclick="Modelo11.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo11{{numeral.id}}"
                     onclick="Modelo11.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo11.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin Numeral 53 modelo 11 -->
@@ -915,30 +816,16 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo11.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center ">Sin entradas</p></strong>
                 </div>
+                {% endfor %}
                 <button onclick="Modelo11.crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>
-                <button title="Asignar informacion anterior" type="button" class="btn btn-link"
-                    id="infoAnteriorModelo11{{numeral.id}}"
-                    onclick="Modelo11.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
-                    anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
                         class="fa fa-chevron-up"></i></p>
-                {% endfor %}
             </div>
             {% endif %}
             <!--Fin Numeral 54 modelo 11 -->
@@ -992,30 +879,21 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo11.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center ">Sin entradas</p></strong>
                 </div>
-                <button onclick="Modelo11.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo11{{numeral.id}}"
                     onclick="Modelo11.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo11.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin Numeral 55 modelo 11 -->
@@ -1070,31 +948,22 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo11.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
 
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center ">Sin entradas</p></strong>
                 </div>
-                <button onclick="Modelo11.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo11{{numeral.id}}"
                     onclick="Modelo11.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo11.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo11Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin Numeral 56 modelo 11 -->
@@ -1138,30 +1007,23 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo15.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
                     <strong>
                         <p class="text-center ">Sin entradas</p>
                     </strong>
-                </div>
-                <button onclick="Modelo15.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
+                </div>       
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo15{{numeral.id}}"
                     onclick="Modelo15.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo15.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Numeral 57 Modelo15-->
@@ -1210,30 +1072,20 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo12.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo12Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center ">Sin entradas</p></strong>
                 </div>
-                <button onclick="Modelo12.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo12Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo12{{numeral.id}}"
                     onclick="Modelo12.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <button onclick="Modelo12.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo12Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin Numeral 58 Modelo12-->
@@ -1287,30 +1139,21 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo13.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo13Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
-                </div>
-                <button onclick="Modelo13.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo13Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
+                    <strong><p class="text-center ">Sin entradas</p></strong>
+                </div>    
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo13{{numeral.id}}"
                     onclick="Modelo13.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <div class="w-100"></div>
+                <button onclick="Modelo13.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo13Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
+                        class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin Numeral 59 Modelo13-->
@@ -1358,30 +1201,20 @@
                         </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo15.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center ">Sin entradas</p></strong>
                 </div>
-                <button onclick="Modelo15.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo15{{numeral.id}}"
                     onclick="Modelo15.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
-                <p style="cursor: pointer;" class="text-primary link float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
                 {% endfor %}
+                <button onclick="Modelo15.crear({{numeral.id}},{{periodoActual.id}})" type="button"
+                    id="modelo15Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
+                    Agregar entrada</button>
+                <p style="cursor: pointer;" data-toggle="collapse" data-target="#numeral{{numeral.id}}" class="text-primary link float-right">Cerrar&nbsp;<i
+                    class="fa fa-chevron-up"></i></p>
             </div>
             {% endif %}
             <!--Fin Numeral 60 Modelo15-->
@@ -1478,11 +1311,7 @@
             })
                 .done(function (response) {
                     $("#sinEntradas" + numeral).remove()
-                    $("#modelo9Crear" + numeral).after(`
-                        <button onclick="Modelo9.crear(${numeral},${periodo})" type="button"
-                            id="modelo9Crear${response.numeral}" class="btn btn-danger">
-                            <i class="fas fa-plus-circle"></i>Agregar entrada</button>`)
-                    $("#modelo9Crear" + numeral).remove()
+                    $("#infoAnteriorModelo9" + numeral).remove();
                     Modelo9.dibujar(response)
                     notificacion.creado();
                     timer.reset(540000);
@@ -1598,25 +1427,31 @@
                 dataType: "json",
             })
                 .done(function (response) {
-                    $('#sinEntradas' + numeral).remove()
-                    for (var i = 0; i < response.titulo.length; i++) {
+                    if(response.titulo.length != 0){
+                        $('#sinEntradas' + numeral).remove()
+                        for (var i = 0; i < response.titulo.length; i++) {
 
-                        data = {}
-                        data['numeral'] = numeral;
-                        data['id'] = response.ids[i];
+                            data = {}
+                            data['numeral'] = numeral;
+                            data['id'] = response.ids[i];
 
-                        Modelo9.dibujar(data)
-                        $("#tituloModelo9" + response.ids[i]).val(response.titulo[i]);
-                        $("#autoresModelo9" + response.ids[i]).val(response.autores[i]);
-                        $("#NReporteModelo9" + response.ids[i]).val(response.numero_reportes[i]);
-                        $("#fechaModelo9" + response.ids[i]).val(response.fecha[i]);
-                        $("#urlModelo9" + response.ids[i]).val(response.url[i]);
-                        $("#revista_publicacionModelo9" + response.ids[i]).val(response.revista_publicacion[i]);
-                        $("#doiModelo9" + response.ids[i]).val(response.doi[i]);
+                            Modelo9.dibujar(data)
+                            $("#tituloModelo9" + response.ids[i]).val(response.titulo[i]);
+                            $("#autoresModelo9" + response.ids[i]).val(response.autores[i]);
+                            $("#NReporteModelo9" + response.ids[i]).val(response.numero_reportes[i]);
+                            $("#fechaModelo9" + response.ids[i]).val(response.fecha[i]);
+                            $("#urlModelo9" + response.ids[i]).val(response.url[i]);
+                            $("#revista_publicacionModelo9" + response.ids[i]).val(response.revista_publicacion[i]);
+                            $("#doiModelo9" + response.ids[i]).val(response.doi[i]);
+                        }
+                        $("#infoAnteriorModelo9" + numeral).remove()
+                        notificacion.importarPeriodo();
+                        timer.reset(540000);
+                    }
+                    else{
+                        notificacion.errorImportarPeriodo();
                     }
 
-                    $("#infoAnteriorModelo9" + numeral).prop('disabled', 'true');
-                    timer.reset(540000);
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -1681,11 +1516,7 @@
             })
                 .done(function (response) {
                     $("#sinEntradas" + numeral).remove()
-                    $("#modelo10Crear" + numeral).after(`
-                        <button onclick="Modelo10.crear(${numeral},${periodo})" type="button"
-                            id="modelo10Crear${response.numeral}" class="btn btn-danger">
-                            <i class="fas fa-plus-circle"></i>Agregar entrada</button>`)
-                    $("#modelo10Crear" + numeral).remove()
+                    $("#infoAnteriorModelo10" + numeral).remove()
                     Modelo10.dibujar(response)
                     notificacion.creado();
                     timer.reset(540000);
@@ -1824,21 +1655,28 @@
                 dataType: "json",
             })
                 .done(function (response) {
-                    $('#sinEntradas' + numeral).remove()
-                    for (var i = 0; i < response.descripcion.length; i++) {
-                        data = {}
-                        data['numeral'] = numeral;
-                        data['id'] = response.ids[i];
+                    if(response.descripcion.length != 0){
+                        $('#sinEntradas' + numeral).remove()
+                        for (var i = 0; i < response.descripcion.length; i++) {
+                            data = {}
+                            data['numeral'] = numeral;
+                            data['id'] = response.ids[i];
 
-                        Modelo10.dibujar(data)
-                        $("#descripcionModelo10" + response.ids[i]).val(response.descripcion[i]);
-                        $("#fechaModelo10" + response.ids[i]).val(response.fecha[i]);
-                        $("#urlModelo10" + response.ids[i]).val(response.url[i]);
-                        $("#periodoModelo10" + response.ids[i]).val(response.periodo_numeral[i]);
+                            Modelo10.dibujar(data)
+                            $("#descripcionModelo10" + response.ids[i]).val(response.descripcion[i]);
+                            $("#fechaModelo10" + response.ids[i]).val(response.fecha[i]);
+                            $("#urlModelo10" + response.ids[i]).val(response.url[i]);
+                            $("#periodoModelo10" + response.ids[i]).val(response.periodo_numeral[i]);
+                        }
+
+                        $("#infoAnteriorModelo10" + numeral).remove()
+                        notificacion.importarPeriodo();
+                        timer.reset(540000);
                     }
-
-                    $("#infoAnteriorModelo10" + numeral).prop('disabled', 'true');
-                    timer.reset(540000);
+                    else{
+                        notificacion.errorImportarPeriodo();
+                    }
+                    
                 });
         }
     }
@@ -1900,11 +1738,7 @@
             })
                 .done(function (response) {
                     $("#sinEntradas" + numeral).remove()
-                    $("#modelo11Crear" + numeral).after(`
-                    <button onclick="Modelo11.crear(${numeral},${periodo})" type="button"
-                        id="modelo11Crear${response.numeral}" class="btn btn-danger">
-                        <i class="fas fa-plus-circle"></i>Agregar entrada</button>`)
-                    $("#modelo11Crear" + numeral).remove()
+                    $("#infoAnteriorModelo11" + numeral).remove()
                     Modelo11.dibujar(response)
                     notificacion.creado();
                     timer.reset(540000);
@@ -2008,7 +1842,7 @@
                             <div class="form-group row">
                                 <label for="" class="col-sm-2">Fecha o periodo: </label>
                                 <div class="col-sm-10">
-                                    <input class="form-control mb-1" type="text" name="fecha" id="fechaPeriodoModelo11${response.id}">
+                                    <input class="form-control mb-1" type="text" name="fecha" id="fechaModelo11${response.id}">
                                 </div>
                             </div>
 
@@ -2076,20 +1910,27 @@
                 dataType: "json",
             })
                 .done(function (response) {
-                    $('#sinEntradas' + numeral).remove()
-                    for (var i = 0; i < response.descripcion.length; i++) {
-                        data = {}
-                        data['numeral'] = numeral;
-                        data['id'] = response.ids[i];
+                    if(response.descripcion.length != 0){
+                        $('#sinEntradas' + numeral).remove()
+                        for (var i = 0; i < response.descripcion.length; i++) {
+                            data = {}
+                            data['numeral'] = numeral;
+                            data['id'] = response.ids[i];
 
-                        Modelo11.dibujar(data)
-                        $("#descripcionModelo11" + response.ids[i]).val(response.descripcion[i]);
-                        $("#nombre_del_estudianteModelo11" + response.ids[i]).val(response.nombre_del_estudiante[i]);
-                        $("#fechaModelo11" + response.ids[i]).val(response.fecha[i]);
+                            Modelo11.dibujar(data)
+                            $("#descripcionModelo11" + response.ids[i]).val(response.descripcion[i]);
+                            $("#nombre_del_estudianteModelo11" + response.ids[i]).val(response.nombre_del_estudiante[i]);
+                            $("#fechaModelo11" + response.ids[i]).val(response.fecha[i]);
+                        }
+
+                        $("#infoAnteriorModelo11" + numeral).remove();
+                        notificacion.importarPeriodo();
+                        timer.reset(540000);
                     }
-
-                    $("#infoAnteriorModelo11" + numeral).prop('disabled', 'true');
-                    timer.reset(540000);
+                    else{
+                        notificacion.errorImportarPeriodo();
+                    }
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -2148,11 +1989,7 @@
             })
                 .done(function (response) {
                     $("#sinEntradas" + numeral).remove()
-                    $("#modelo12Crear" + numeral).after(`
-                        <button onclick="Modelo12.crear(${numeral},${periodo})" type="button"
-                            id="modelo12Crear${response.numeral}" class="btn btn-danger">
-                            <i class="fas fa-plus-circle"></i>Agregar entrada</button>`)
-                    $("#modelo12Crear" + numeral).remove()
+                    $("#infoAnteriorModelo12" + numeral).remove()
                     Modelo12.dibujar(response)
                     notificacion.creado();
                     timer.reset(540000);
@@ -2229,17 +2066,24 @@
                 dataType: "json",
             })
                 .done(function (response) {
-                    $('#sinEntradas' + numeral).remove()
-                    for (var i = 0; i < response.laboratorio_taller.length; i++) {
-                        data = {}
-                        data['numeral'] = numeral;
-                        data['id'] = response.ids[i];
+                    if(response.laboratorio_taller.length != 0 ){
+                        $('#sinEntradas' + numeral).remove()
+                        for (var i = 0; i < response.laboratorio_taller.length; i++) {
+                            data = {}
+                            data['numeral'] = numeral;
+                            data['id'] = response.ids[i];
 
-                        Modelo12.dibujar(data)
-                        $("#laboratorio_tallerModelo12" + response.ids[i]).val(response.laboratorio_taller[i]);
+                            Modelo12.dibujar(data)
+                            $("#laboratorio_tallerModelo12" + response.ids[i]).val(response.laboratorio_taller[i]);
+                        }
+                        $("#infoAnteriorModelo12" + numeral).remove()
+                        notificacion.importarPeriodo();
+                        timer.reset(540000);
                     }
-                    $("#infoAnteriorModelo12" + numeral).prop('disabled', 'true');
-                    timer.reset(540000);
+                    else{
+                        notificacion.errorImportarPeriodo();
+                    }
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -2299,11 +2143,7 @@
             })
                 .done(function (response) {
                     $("#sinEntradas" + numeral).remove()
-                    $("#modelo13Crear" + numeral).after(`
-                    <button onclick="Modelo13.crear(${numeral},${periodo})" type="button"
-                        id="modelo13Crear${response.numeral}" class="btn btn-danger">
-                        <i class="fas fa-plus-circle"></i>Agregar entrada</button>`)
-                    $("#modelo13Crear" + numeral).remove()
+                    $("#infoAnteriorModelo13" + numeral).remove()
                     Modelo13.dibujar(response);
                     notificacion.creado();
                     timer.reset(540000);
@@ -2385,18 +2225,25 @@
                 dataType: "json",
             })
                 .done(function (response) {
-                    $('#sinEntradas' + numeral).remove()
-                    for (var i = 0; i < response.descripcion.length; i++) {
-                        data = {}
-                        data['numeral'] = numeral;
-                        data['id'] = response.ids[i];
+                    if(response.descripcion.length != 0){
+                        $('#sinEntradas' + numeral).remove()
+                        for (var i = 0; i < response.descripcion.length; i++) {
+                            data = {}
+                            data['numeral'] = numeral;
+                            data['id'] = response.ids[i];
 
-                        Modelo13.dibujar(data)
-                        $("#descripcionModelo13" + response.ids[i]).val(response.descripcion[i]);
-                        $("#agenciaFinanciadoraModelo13" + response.ids[i]).val(response.agencias[i]);
+                            Modelo13.dibujar(data)
+                            $("#descripcionModelo13" + response.ids[i]).val(response.descripcion[i]);
+                            $("#agenciaFinanciadoraModelo13" + response.ids[i]).val(response.agencias[i]);
+                        }
+                        $("#infoAnteriorModelo13" + numeral).remove()
+                        notificacion.importarPeriodo();
+                        timer.reset(540000);
                     }
-                    $("#infoAnteriorModelo13" + numeral).prop('disabled', 'true');
-                    timer.reset(540000);
+                    else{
+                        notificacion.errorImportarPeriodo();
+                    }
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -2455,11 +2302,7 @@
             })
                 .done(function (response) {
                     $("#sinEntradas" + numeral).remove()
-                    $("#modelo15Crear" + numeral).after(`
-                    <button onclick="Modelo15.crear(${numeral},${periodo})" type="button"
-                        id="modelo15Crear${response.numeral}" class="btn btn-danger">
-                        <i class="fas fa-plus-circle"></i>Agregar entrada</button>`)
-                    $("#modelo15Crear" + numeral).remove()
+                    $("#infoAnteriorModelo15" + numeral).remove()
                     Modelo15.dibujar(response)
                     notificacion.creado()
                     timer.reset(540000);
@@ -2534,17 +2377,24 @@
                 dataType: "json",
             })
                 .done(function (response) {
-                    $('#sinEntradas' + numeral).remove()
-                    for (var i = 0; i < response.descripcion.length; i++) {
-                        data = {}
-                        data['numeral'] = numeral;
-                        data['id'] = response.ids[i];
+                    if(response.descripcion.length != 0){
+                        $('#sinEntradas' + numeral).remove()
+                        for (var i = 0; i < response.descripcion.length; i++) {
+                            data = {}
+                            data['numeral'] = numeral;
+                            data['id'] = response.ids[i];
 
-                        Modelo15.dibujar(data)
-                        $("#descripcionModelo15" + response.ids[i]).val(response.descripcion[i]);
+                            Modelo15.dibujar(data)
+                            $("#descripcionModelo15" + response.ids[i]).val(response.descripcion[i]);
+                        }
+                        $("#infoAnteriorModelo15" + numeral).remove()
+                        notificacion.importarPeriodo();
+                        timer.reset(540000);
                     }
-                    $("#infoAnteriorModelo15" + numeral).prop('disabled', 'true');
-                    timer.reset(540000);
+                    else{
+                        notificacion.errorImportarPeriodo();
+                    }
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);

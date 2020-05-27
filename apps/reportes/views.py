@@ -212,14 +212,14 @@ class prueba(View):
 class actualizarBiblioteca(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        autor = request.POST.get('autores')
-        titulo = request.POST.get('titulo')
-        revista = request.POST.get('revista')
-        estudiantes = request.POST.get('estudiantes')
-        url = request.POST.get('url')
-        doi = request.POST.get('doi')
-        fecha = request.POST.get('fecha')
-        bibcode = request.POST.get('bibcode')
+        autor = request.POST.get('autores','')
+        titulo = request.POST.get('titulo','')
+        revista = request.POST.get('revista','')
+        estudiantes = request.POST.get('estudiantes','')
+        url = request.POST.get('url','')
+        doi = request.POST.get('doi','')
+        fecha = request.POST.get('fecha','')
+        bibcode = request.POST.get('bibcode','')
         temp = len(fecha)
         fecha_ano = fecha[:temp - 3 ]
         
@@ -484,7 +484,7 @@ class infoAnteriorModelo2(View):
 class actualizarModelo3(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        titulo_de_la_presentacion = request.POST.get('titulo_de_la_presentacion','')
+        titulo = request.POST.get('titulo','')
         autores = request.POST.get('autores','')
         nombre_de_conferencia = request.POST.get('nombre_de_conferencia','')
         fecha = request.POST.get('fecha','')
@@ -495,7 +495,7 @@ class actualizarModelo3(View):
 
         # Actualizamos modelo3
         obj = Modelo3.objects.get(id=id1)
-        obj.titulo_de_la_presentacion = titulo_de_la_presentacion
+        obj.titulo = titulo
         obj.autores = autores
         obj.nombre_de_conferencia = nombre_de_conferencia
         obj.fecha = fecha
@@ -561,7 +561,7 @@ class infoAnteriorModelo3(View):
         periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral')
         datos = Modelo3.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
-        titulo_de_la_presentacion = []
+        titulo = []
         autores = []
         nombre_de_conferencia = []
         fecha = []
@@ -573,7 +573,7 @@ class infoAnteriorModelo3(View):
 
         for d in datos:
             data = Modelo3.objects.create(
-                titulo_de_la_presentacion = d.titulo_de_la_presentacion,
+                titulo = d.titulo,
                 autores = d.autores,
                 nombre_de_conferencia = d.nombre_de_conferencia,
                 fecha = d.fecha,
@@ -585,7 +585,7 @@ class infoAnteriorModelo3(View):
                 periodo_id = periodo,
                 usuario_id = request.user.id
             )
-            titulo_de_la_presentacion.append(data.titulo_de_la_presentacion)
+            titulo.append(data.titulo)
             autores.append(data.autores)
             nombre_de_conferencia.append(data.nombre_de_conferencia)
             fecha.append(data.fecha)
@@ -596,7 +596,7 @@ class infoAnteriorModelo3(View):
             ids.append(data.id)
         
         data = {
-            'titulo_de_la_presentacion':titulo_de_la_presentacion,
+            'titulo':titulo,
             'autores':autores,
             'nombre_de_conferencia':nombre_de_conferencia,
             'fecha':fecha,
@@ -2039,7 +2039,7 @@ class enviarReporte(View):
         #Enviamos email
         email_message.send()
 
-
+        """
         #Email para la coordinacionP
         bodyAdmin = render_to_string(
          'reportes/templateReporteFinalizado.html',{
@@ -2053,12 +2053,13 @@ class enviarReporte(View):
             subject='Reporte enviado a la Coordinación',
             body=bodyAdmin,
             from_email='reportes-astro@inaoep.mx',
-            to=['astrofi@inaoep.mx','reportes-astro@inaoep.mx'], #Cambiar a 
+            to=['reportes-astro@inaoep.mx'], #agregar a  'astrofi@inaoep.mx',
         )
         mensajeCordinacion.content_subtype = 'html'
         mensajeCordinacion.attach(adjunto)
         #Enviamos email
         mensajeCordinacion.send()
+        """
         
         #Guardamos reporte en BD
         reporte,creado = ReporteEnviado.objects.get_or_create(periodo_id = periodo_id, usuario_id = request.user.id)

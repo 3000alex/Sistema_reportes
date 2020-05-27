@@ -10,6 +10,7 @@ from apps.biblioteca.urls import bibliotecapatterns
 from apps.administradores.urls import administradorespatterns
 from apps.metricas.urls import metricaspatterns
 from apps.reporteSNI.urls import reporteSNIpatterns
+from django.contrib.auth import urls
 
 
 

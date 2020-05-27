@@ -4,22 +4,42 @@
 
 {% block contenido %}
 
-<div class="container">
+<div class="container-fluid">
     
     <div class="row">
 
-        <div class="col-6">
-    
-            <div class="d-flex justify-content-end mt-2">
-                <strong>Periodo: <span id="nombre_periodo">{{periodoActual.nombre_periodo}}</span> </strong>
+        <div class="col-12 col-md-4">
+            <div class="d-flex justify-content-start mt-2">
+                <form action="{% url 'reportes:generarReporte' %}">
+                    <input type="hidden" value="{{periodoActual.id}}" name="periodo">
+                    <button onclick="notificacion.vistaPrevia()"
+                        class="text-white btn btn-success btn-sm mr-2">
+                        <i class="far fa-eye"></i> Vista Previa</button>
+                </form>
+
+                <a class="text-white btn btn-info btn-sm mr-2"
+                    href="{% url 'reportes:reportesEnviados' %}"><i class="fas fa-history"></i> Historico</a>
+
+                <button class="text-white btn btn-danger btn-sm"
+                    onclick="finalizarReporte()"><i class="fas fa-check"></i>
+                    Finalizar Reporte
+                </button>
             </div>
 
         </div>
 
-        <div class="col-6">
+
+        <div class="col-12 col-md-4">
+            <div class="d-flex justify-content-center mt-2">
+                <strong>Periodo: <span id="nombre_periodo">{{periodoActual.nombre_periodo}}</span> </strong>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
             <div class="d-flex justify-content-end mt-2">
-                <label for="periodo" class="d-flex align-content-center">Periodo: </label>
-                <form  method="POST" class="ml-2">
+                
+                <form  method="POST">
+                    <label for="periodo" class="">Periodo: </label>
                     <select class="form-control" name="periodoActual" id="periodoActual">
                         <option selected value="{{periodoActual.id}}">{{periodoActual.nombre_periodo}}</option>
                         {% for periodos in periodos %}
@@ -465,6 +485,20 @@
                 onBeforeOpen: () => {
                     Swal.showLoading()
                 },
+            })
+        },
+        errorImportarPeriodo: function(){
+            Swal.fire({
+                title: 'Sin datos',
+                icon: 'error',
+                text: 'No existen datos en el periodo anterior',
+            })
+        },
+        importarPeriodo: function(){
+            Swal.fire({
+                title: 'Operacion exitosa',
+                icon: 'success',
+                text: 'No olvide guardar los datos importados',
             })
         }
     }
