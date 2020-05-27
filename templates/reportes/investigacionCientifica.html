@@ -4148,6 +4148,41 @@
                     });
 
             })
+        },
+        infoAnterior: function(periodo, numeral){
+            $.ajax({
+                type: "GET",
+                url: "{% url 'reportes:info-anteriorModelo1' %}",
+                data: {
+                    'periodo': periodo,
+                    'numeral': numeral
+                },
+                dataType: "json",
+            })
+            .done(function(response){
+                if(response.autores.length != 0){
+                    $('#sinEntradas' + numeral).remove();
+                    for(let i=0; i<response.autores.length; i++){
+                        data = {}
+                        data['numeral'] = numeral;
+                        data['id'] = response.ids[i];
+                        Modelo1.dibujar(data)
+                        $("#autoresModelo1" + response.ids[i]).val(response.autores[i])
+                        $("#tituloModelo1" + response.ids[i]).val(response.titulo[i])
+                        $("#revista_publicacionModelo1" + response.ids[i]).val(response.revista_publicacion[i])
+                        $("#urlModelo1" + response.ids[i]).val(response.url[i])
+                        $("#doiModelo1" + response.ids[i]).val(response.doi[i])
+                        $("#fechaModelo1" + response.ids[i]).val(response.fecha[i])
+                        $("#estudiantesModelo1" + response.ids[i]).val(response.estudiantes_en_articulo[i])
+                    }
+                    $("#infoAnteriorModelo1" + numeral).remove();
+                    notificacion.importarPeriodo();
+                    timer.reset(540000);
+                }
+                else{
+                    notificacion.errorImportarPeriodo();
+                }
+            });
         }
     }
     //Fin modelo1

@@ -22,7 +22,6 @@ reportespatterns = ([
     path('descargarReportesEnviado',vista.descargarReporteEnviado.as_view(), name="descargarReporte"),
     #Biblioteca añadir Q1,Q2,Q3,Q4
     path('BibliotecaCrearNumeral',vista.BibliotecaCrearNumeral.as_view(), name="BibliotecaCrearNumeral"),
-    path('info-anteriorBiblioteca',vista.infoAnteriorBiblioteca.as_view(), name="info-anteriorBiblioteca"),
     #Investigacion cientifica
     path('actualizar-modelo1',vista.actualizarModelo1.as_view(), name="actualizar-modelo1"),
     path('eliminar-modelo1',vista.eliminarModelo1.as_view(), name="eliminar-modelo1"),

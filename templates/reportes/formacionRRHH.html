@@ -499,6 +499,11 @@
                 </form>
                 <hr>
                 {% empty %}
+                <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
+                    <strong>
+                        <p class="text-center ">Sin entradas</p>
+                    </strong>
+                </div>  
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                 id="infoAnteriorModelo5{{numeral.id}}"
                 onclick="Modelo5.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
@@ -680,25 +685,16 @@
                     </div>
                 </form>
                 <hr>
-                {% if forloop.last %}
-                <button onclick="Modelo16.crear({{numeral.id}},{{periodoActual.id}})" type="button"
-                    id="modelo16Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
-                    Agregar entrada</button>
-                <p style="cursor: pointer;" class="text-primary  float-right">Cerrar&nbsp;<i
-                        class="fa fa-chevron-up"></i></p>
-                {% endif %}
-
                 {% empty %}
                 <div class="alert alert-danger m-4" id="sinEntradas{{numeral.id}}" role="alert">
-                    <strong>
-                        <p class="text-center ">Sin entradas</p>
-                    </strong>
+                    <strong><p class="text-center ">Sin entradas</p></strong>
                 </div>   
                 <button title="Asignar informacion anterior" type="button" class="btn btn-link"
                     id="infoAnteriorModelo16{{numeral.id}}"
                     onclick="Modelo16.infoAnterior({{periodoActual.id}}, {{numeral.id}})">Importar periodo
                     anterior</button>
                 {% endfor %}
+                <div class="w-100"></div>
                 <button onclick="Modelo16.crear({{numeral.id}},{{periodoActual.id}})" type="button"
                     id="modelo16Crear{{numeral.id}}" class="btn btn-danger"><i class="fas fa-plus-circle"></i>&nbsp;
                     Agregar entrada</button>

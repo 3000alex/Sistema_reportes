@@ -267,19 +267,6 @@ class BibliotecaCrearNumeral(View):
             'numeral': numeral1,
         }
         return JsonResponse(data)
-
-@method_decorator(login_required, name='dispatch')
-class infoAnteriorBiblioteca(View):
-    def get(self,request):
-        periodo_id = request.GET.get('periodo')
-        periodo_id = int(periodo_id) - 1
-        numeral_id = request.GET.get('numeral')
-        datos = Modelo14.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id)
-
-        data = {
-            'descripcion':datos.descripcion,
-        }
-        return  JsonResponse(data)
 # Fin Numerales Biblioteca
 
 # Operaciones Modelo1
@@ -359,13 +346,50 @@ class crearModelo1(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo1(View):
     def get(self,request):
-        periodo_id = request.GET.get('periodo')
-        periodo_id = int(periodo_id) - 1
+        periodo = request.GET.get('periodo')
+        periodo_id = int(periodo) - 1
         numeral_id = request.GET.get('numeral')
         datos = Modelo1.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
+        autores = []
+        fecha = []
+        titulo = []
+        revista_publicacion = []
+        url = []
+        estudiantes_en_articulo = []
+        doi = []
+        ids = []
+
+        for d in datos:
+            data = Modelo1.objects.create(
+                autores = d.autores,
+                fecha = d.fecha,
+                titulo = d.titulo,
+                revista_publicacion = d.revista_publicacion,
+                url = d.url,
+                estudiantes_en_articulo = d.estudiantes_en_articulo,
+                doi = d.doi,
+                numeral_id = numeral_id,
+                periodo_id = periodo,
+                usuario_id = request.user.id
+            )
+            autores.append(data.autores)
+            fecha.append(data.fecha)
+            titulo.append(data.titulo)
+            revista_publicacion.append(data.revista_publicacion)
+            url.append(data.url)
+            estudiantes_en_articulo.append(data.estudiantes_en_articulo)
+            doi.append(data.doi)
+            ids.append(data.id)
 
         data = {
-            'descripcion':datos.descripcion,
+            'autores':autores,
+            'fecha': fecha,
+            'titulo': titulo,
+            'revista_publicacion': revista_publicacion,
+            'url': url,
+            'estudiantes_en_articulo': estudiantes_en_articulo,
+            'doi': doi,
+            'ids':ids,
         }
         return  JsonResponse(data)
 
