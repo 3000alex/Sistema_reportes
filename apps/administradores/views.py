@@ -101,7 +101,7 @@ class UsuarioAgregar(StaffRequiredMixin, View):
             subject='Bienvenido(a) al Sistema de Reportes de Astrofísica',
             body=body,
             from_email='reportes-astro@inaoep.mx',
-            to=[userNew.email],
+            to=[userNew.email,'reportes-astro@inaoep.mx'],
         )
         email_message.content_subtype = 'html'
         email_message.send()
@@ -145,7 +145,7 @@ class correoBienvenida(StaffRequiredMixin, View):
             subject='Bienvenido(a) al Sistema de Reportes de Astrofísica',
             body=body,
             from_email='reportes-astro@inaoep.mx',
-            to=[obj.email],
+            to=[obj.email,'reportes-astro@inaoep.mx'],
         )
         email_message.content_subtype = 'html'
         email_message.send()

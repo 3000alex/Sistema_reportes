@@ -2063,7 +2063,7 @@ class enviarReporte(View):
         #Enviamos email
         email_message.send()
 
-        """
+
         #Email para la coordinacionP
         bodyAdmin = render_to_string(
          'reportes/templateReporteFinalizado.html',{
@@ -2083,7 +2083,6 @@ class enviarReporte(View):
         mensajeCordinacion.attach(adjunto)
         #Enviamos email
         mensajeCordinacion.send()
-        """
         
         #Guardamos reporte en BD
         reporte,creado = ReporteEnviado.objects.get_or_create(periodo_id = periodo_id, usuario_id = request.user.id)
