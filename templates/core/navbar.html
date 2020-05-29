@@ -1,123 +1,114 @@
-<div class="wrapper">
-    <div class="slidebar-wrapper">
-        <ul class="sliderbar-nav">
-            <li class="sliderbar-brand">
-                <a href="">as</a>
-            </li>
-            <li><a href="">cs</a></li>
-            <li><a href="">s</a></li>
-            <li><a href="">ss</a></li>
-            <li><a href="">sss</a></li>
-            <li><a href="">qwqww</a></li>
-        </ul>
-    </div>
-</div>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom justify-content-between fixed-top">
+            
+        <a class="navbar-brand">
+            <img src="{% static 'media/logo.png' %}" width="55px;">
+        </a>
+            
+        <span class="navbar-text text-center">
+            Coordinación de Astrofísica<br>Sistema de Reportes
+        </span>
+           
+        <a class="navbar-brand">
+            <img src="{% static 'media/conacyt.png' %}" width="55px">
+        </a>
+        <button id="menu-toggle" class="navbar-toggler col-12" type="button" data-toggle="collapse"
+        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+        
+    </nav>
+</header>
 
-<div class="----------------"></div>
-        <!-- Sidebar -->
-        {% if request.user.is_authenticated %}
-        <div id="sidebar-container" class="bg-light border-right">
-            {% if request.user.is_superuser %}
-            <div class="logo">Administrador</div>
-            <div class="menu list-group-flush">
-                {% if request.path != '/home-adm' %}
-                <a class="list-group-item list-group-item-action bg-light p-3 border-0"
-                    href="{% url 'administradores:home-adm'  %}">
-                    <i class="fas fa-home">&nbsp; Inicio</i></a>
+<div class="d-flex" id="wrapper">
 
-                <a href="#" onclick="cerrarSesion()"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0">
-                    <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar Sesión</a>
+    <!-- Sidebar -->
+    {% if request.user.is_authenticated %}
+    <nav id="sidebar-wrapper" class="bg-light border-right fixed-left">
+        {% if request.user.is_superuser %}
+        <div class="logo">Administrador</div>
+        <div class="menu list-group-flush">
 
-                <a class="list-group-item list-group-item-action bg-light p-3 border-0"
-                    href="javascript:history.back()">
-                    <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
+            <a class="list-group-item list-group-item-action bg-light p-3 border-0"
+                href="{% url 'administradores:home-adm'  %}">
+                <i class="fas fa-home">&nbsp; Inicio</i></a>
 
-                {% if request.path != '/perfil_adm' %}
-                <a href="{% url 'administradores:perfil_adm' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0">
-                    <i class="fas fa-user">&nbsp;</i> Administrador</a>
-                {% endif %}
 
-                {% if request.path != '/investigadores' %}
-                <a href="{% url 'administradores:reportes' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0">
-                    <i class="fas fa-users">&nbsp;</i>Usuarios</a>
-                {% endif %}
+            <a class="list-group-item list-group-item-action bg-light p-3 border-0"
+                href="javascript:history.back()">
+                <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
 
-                {% if request.path != '/reportes-adm' %}
-                <a href="{% url 'administradores:reportes_adm' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0">
-                    <i class="far fa-file-alt"></i>&nbsp;Reportes</a>
-                {% endif %}
+            <a href="{% url 'administradores:perfil_adm' %}"
+                class="list-group-item list-group-item-action bg-light p-3 border-0">
+                <i class="fas fa-user">&nbsp;</i> Administrador</a>
 
-                {% endif %}
-            </div>
-            {% else %}
-            <div class="logo">{{ user.nombre}} {{user.apellido}}</div>
-            <div class="menu list-group-flush">
-                <a class="list-group-item list-group-item-action bg-light p-3 border-0"
-                    href="{% url 'administradores:home-adm'  %}">
-                    <i class="fas fa-home">&nbsp; Inicio</i></a>
+            <a href="{% url 'administradores:reportes' %}"
+                class="list-group-item list-group-item-action bg-light p-3 border-0">
+                <i class="fas fa-users">&nbsp;</i>Usuarios</a>
 
-                <a href="#" onclick="cerrarSesion()"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0">
-                    <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar Sesión</a>
+            <a href="{% url 'administradores:reportes_adm' %}"
+                class="list-group-item list-group-item-action bg-light p-3 border-0">
+                <i class="far fa-file-alt"></i>&nbsp;Reportes</a>
+            <hr>
+            <a href="#" onclick="cerrarSesion()"
+            class="list-group-item list-group-item-action bg-light p-3 border-0">
+            <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar sesión</a>
 
-                <a class="list-group-item list-group-item-action bg-light p-3 border-0"
-                    href="javascript:history.back()">
-                    <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
-                <hr>
 
-                {% if request.path == '/home' %}
-                <a href="http://bit.ly/Guía-Reportes-INAOE-Astro" target="blank"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i
-                        class="fas fa-book-open"></i> Guía rápida PDF</a>
-                {% endif %}
+        </div>
+        {% else %}
+        <div class="sidebar-heading">{{ user.nombre}} {{user.apellido}}</div>
+        <div class="list-group list-group-flush ">
+            <a class="list-group-item list-group-item-action bg-light p-3 border-0"
+                href="{% url 'reportes:home'  %}">
+                <i class="fas fa-home">&nbsp; Inicio</i></a>
+            
+            <a class="list-group-item list-group-item-action bg-light p-3 border-0"
+            href="{% url 'registration:actualizar-perfil' %}">
+            <i class="fas fa-user"></i>&nbsp; Perfil</a>
 
-                {% if request.path != '/home' %}
+            <a class="list-group-item list-group-item-action bg-light p-3 border-0"
+                href="javascript:history.back()">
+                <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
+            
+            <a href="http://bit.ly/Guía-Reportes-INAOE-Astro" target="blank"
+                class="list-group-item list-group-item-action bg-light p-3 border-0"><i
+                    class="fas fa-book-open"></i> Guía rápida PDF</a>
+            <hr>
 
-                {% if request.path != '/biblioteca-personal' %}
-                <a href="{% url 'biblioteca:biblioteca_personal' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-book"></i>
-                    Biblioteca personal</a>
-                {% endif %}
+            <a href="{% url 'reportes:reporte-productividad' %}"
+                class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="far fa-file-alt"></i>
+                Reportes productividad</a>
 
-                {% if request.path != '/busqueda-ads' %}
-                <a href="{% url 'biblioteca:busqueda_biblioteca' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-search"></i>
-                    Búsqueda ADS</a>
-                {% endif %}
+            <a href="{% url 'biblioteca:biblioteca_personal' %}"
+                class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-book"></i>
+                Biblioteca personal</a>
 
-                {% if request.path != '/reporte-productividad' %}
-                <a href="{% url 'reportes:reporte-productividad' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="far fa-file-alt"></i>
-                    Reportes productividad</a>
-                {% endif %}
+            <a href="{% url 'biblioteca:busqueda_biblioteca' %}"
+                class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-search"></i>
+                Búsqueda ADS</a>
+            <hr>
+            <a href="{% url 'reporteSNI:instruccionesSNI' %}"
+                class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-pencil-alt"></i>
+                Citas SNI</a>
 
-                {% if request.path == '/reporte-productividad' %}
-                <hr>
-                <p class="text-center text-white bg-primary list-group-item">Reporte de productividad</p>
-                <form action="{% url 'reportes:generarReporte' %}">
-                    <input type="hidden" value="{{periodoActual.id}}" name="periodo">
-                    <button onclick="notificacion.vistaPrevia()"
-                        class="text-white list-group-item list-group-item-action bg-success p-3 border-0">
-                        <i class="far fa-eye"></i> Vista Previa</button>
-                </form>
+            <hr>
+            <a href="#" onclick="cerrarSesion()"
+                class="list-group-item list-group-item-action bg-light p-3 border-0">
+                <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar sesión</a>
 
-                <a class="text-white list-group-item list-group-item-action bg-info p-3 border-0"
-                    href="{% url 'reportes:reportesEnviados' %}"><i class="fas fa-history"></i> Historico</a>
-
-                <button class="text-white list-group-item list-group-item-action bg-danger p-3 border-0"
-                    onclick="finalizarReporte()"><i class="fas fa-check"></i>
-                    Finalizar Reporte
-                </button>
-                {% endif %}
-
-                {% endif %}
-
-            </div>
-            {% endif %}
         </div>
         {% endif %}
-        <!-- Fin sidebar -->
+    </nav>
+    {% endif %}
+    <!-- Fin sidebar -->
+
+    <div id="page-content-wrapper">
+        
+        <div class="container-fluid pt-2 pl-2 pr-2">
+            {% block contenido %}{% endblock %}
+        </div>
+    </div>
+
+</div>

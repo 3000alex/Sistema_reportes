@@ -16,117 +16,116 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom justify-content-between">
-                
-        <a class="navbar-brand">
-            <img src="{% static 'media/logo.png' %}" width="55px;">
-        </a>
-            
-        <span class="navbar-text text-center">
-            Coordinación de Astrofísica<br>Sistema de Reportes
-        </span>
-           
-        <a class="navbar-brand">
-            <img src="{% static 'media/conacyt.png' %}" width="55px">
-        </a>
-        <button id="menu-toggle" class="navbar-toggler col-12" type="button" data-toggle="collapse"
-        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-        
-    </nav>
-    <div id="content-wrapper" class="d-flex">
-        
-        <!-- Sidebar -->
-        {% if request.user.is_authenticated %}
-        <div id="sidebar-container" class="bg-light border-right">
-            {% if request.user.is_superuser %}
-            <div class="logo">Administrador</div>
-            <div class="menu list-group-flush">
 
-                <a class="list-group-item list-group-item-action bg-light p-3 border-0"
-                    href="{% url 'administradores:home-adm'  %}">
-                    <i class="fas fa-home">&nbsp; Inicio</i></a>
+    {% if request.user.is_authenticated %}
+    <div class="vertical-nav bg-light border-right" id="sidebar">
+
+        <div class="sidebar-heading">{{ user.nombre}} {{user.apellido}}</div>
+
+        <div class="flex-column">
+
+            <a class="list-group-item list-group-item-action bg-light p-3 border-0" href="{% url 'reportes:home'  %}">
+                <i class="fas fa-home"></i>&nbsp; Inicio</a>
 
 
-                <a class="list-group-item list-group-item-action bg-light p-3 border-0"
-                    href="javascript:history.back()">
-                    <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
 
-                <a href="{% url 'administradores:perfil_adm' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0">
-                    <i class="fas fa-user">&nbsp;</i> Administrador</a>
-
-                <a href="{% url 'administradores:reportes' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0">
-                    <i class="fas fa-users">&nbsp;</i>Usuarios</a>
-
-                <a href="{% url 'administradores:reportes_adm' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0">
-                    <i class="far fa-file-alt"></i>&nbsp;Reportes</a>
-                <hr>
-                <a href="#" onclick="cerrarSesion()"
-                class="list-group-item list-group-item-action bg-light p-3 border-0">
-                <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar sesión</a>
-
-
-            </div>
-            {% else %}
-            <div class="logo">{{ user.nombre}} {{user.apellido}}</div>
-            <div class="menu list-group-flush">
-                <a class="list-group-item list-group-item-action bg-light p-3 border-0"
-                    href="{% url 'reportes:home'  %}">
-                    <i class="fas fa-home">&nbsp; Inicio</i></a>
-                
-                <a class="list-group-item list-group-item-action bg-light p-3 border-0"
+            <a class="list-group-item list-group-item-action bg-light p-3 border-0"
                 href="{% url 'registration:actualizar-perfil' %}">
                 <i class="fas fa-user"></i>&nbsp; Perfil</a>
 
-                <a class="list-group-item list-group-item-action bg-light p-3 border-0"
-                    href="javascript:history.back()">
-                    <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
-                
-                <a href="http://bit.ly/Guía-Reportes-INAOE-Astro" target="blank"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i
-                        class="fas fa-book-open"></i> Guía rápida PDF</a>
-                <hr>
 
-                <a href="{% url 'reportes:reporte-productividad' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="far fa-file-alt"></i>
-                    Reportes productividad</a>
 
-                <a href="{% url 'biblioteca:biblioteca_personal' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-book"></i>
-                    Biblioteca personal</a>
+            <a class="list-group-item list-group-item-action bg-light p-3 border-0" href="javascript:history.back()">
+                <i class="fas fa-arrow-circle-left"></i>&nbsp; Regresar</a>
 
-                <a href="{% url 'biblioteca:busqueda_biblioteca' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-search"></i>
-                    Búsqueda ADS</a>
-                <hr>
-                <a href="{% url 'reporteSNI:instruccionesSNI' %}"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-pencil-alt"></i>
-                    Citas SNI</a>
 
-                <hr>
-                <a href="#" onclick="cerrarSesion()"
-                    class="list-group-item list-group-item-action bg-light p-3 border-0">
-                    <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar sesión</a>
 
-            </div>
-            {% endif %}
+            <a href="http://bit.ly/Guía-Reportes-INAOE-Astro" target="blank"
+                class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-book-open"></i>
+                Guía rápida PDF</a>
+
+            <hr>
+
+            <a href="{% url 'reportes:reporte-productividad' %}"
+                class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="far fa-file-alt"></i>
+                Reportes productividad</a>
+
+
+            <a href="{% url 'biblioteca:biblioteca_personal' %}"
+                class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-book"></i>
+                Biblioteca personal</a>
+
+            <a href="{% url 'biblioteca:busqueda_biblioteca' %}"
+                class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-search"></i>
+                Búsqueda ADS</a>
+
+            <hr>
+
+            <a href="{% url 'reporteSNI:instruccionesSNI' %}"
+                class="list-group-item list-group-item-action bg-light p-3 border-0"><i class="fas fa-pencil-alt"></i>
+                Citas SNI</a>
+
+            <hr>
+
+            <a href="#" onclick="cerrarSesion()" class="list-group-item list-group-item-action bg-light p-3 border-0">
+                <i class="fas fa-sign-out-alt"></i>&nbsp; Cerrar sesión</a>
+
         </div>
-        {% endif %}
-        <!-- Fin sidebar -->
+    </div>
+    
 
-        <div id="page-content-wrapper" class="w-100">
-            
-            <div id="content" class="container-fluid pt-2 pl-2 pr-2">
-                {% block contenido %}{% endblock %}
-            </div>
+    <div class="page-content" id="content">
+
+        <!-- Page content -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom justify-content-between fixed-top">
+            <a class="navbar-brand">
+                <img src="{% static 'media/logo.png' %}" width="55px;">
+            </a>
+
+            <span class="navbar-text text-center">
+                Coordinación de Astrofísica<br>Sistema de Reportes
+            </span>
+
+            <a class="navbar-brand">
+                <img src="{% static 'media/conacyt.png' %}" width="55px">
+            </a>
+            <!-- Toggle button -->
+            <button id="sidebarCollapse" class="navbar-toggler col-12" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </nav>
+
+        <div class="contenido">
+
+            {% block contenido %}{% endblock %}
         </div>
 
     </div>
+    
+    {% else %}
+    <nav class="navbar  navbar-light bg-light border-bottom justify-content-between fixed-top">
+        <a class="navbar-brand">
+            <img src="{% static 'media/logo.png' %}" width="55px;">
+        </a>
+
+        <span class="navbar-text text-center">
+            Coordinación de Astrofísica<br>Sistema de Reportes
+        </span>
+
+        <a class="navbar-brand">
+            <img src="{% static 'media/conacyt.png' %}" width="55px">
+        </a>
+    </nav>
+    
+    <div class="container-fluid">
+        {% block login %} {% endblock %}
+    </div>
+    
+    {% endif %}
+
 
     {% if request.user.is_authenticated %}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -138,11 +137,10 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
     <script>
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $('#content-wrapper').toggleClass("toggled");
-            $('#btn-collaps').toggleClass("far fa-caret-square-right");
-
+        $(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+            });
         });
     </script>
     <script>
