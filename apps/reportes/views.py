@@ -1,6 +1,6 @@
 # Redirecciones
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.core import serializers
 # Vistas genericas
 from django.views.generic.base import TemplateView
@@ -1995,28 +1995,33 @@ class infoAnteriorModelo16(View):
 @method_decorator(login_required, name='dispatch')
 class enviarReporte(View): 
     def get(self, request, *args, **kwargs):
+        #Declaramos variables para filtos y nombres
         periodo_id = request.GET.get('periodoActual')
         periodo = Periodo.objects.get(id=periodo_id)
+        usuario = request.user.id
         yearPeriodo = periodo.fecha_inicio.year
-        anexoModelo1 = Modelo1.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo2 = Modelo2.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo3 = Modelo3.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo4 = Modelo4.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo5 = Modelo5.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo6 = Modelo6.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo7 = Modelo7.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo8 = Modelo8.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo9 = Modelo9.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo10 = Modelo10.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo11 = Modelo11.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo12 = Modelo12.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo13 = Modelo13.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo14 = Modelo14.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo15 = Modelo15.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoModelo16 = Modelo16.objects.exclude(anexos = "").filter(usuario_id = request.user.id, periodo__fecha_inicio__year = yearPeriodo)
-        anexoBiblioteca = Biblioteca.objects.exclude(anexos = "").filter(usuario_id = request.user.id, fecha_ano=yearPeriodo)
-        anexoCitas = Citas.objects.exclude(anexos = "").filter(usuario_id = request.user.id)
 
+        #Hacemos conexion conn la BD para obtener los anexos de cada nuemral del usuario y del periodo(año)
+        anexoModelo1 = Modelo1.objects.anexosModelo1(usuario,yearPeriodo)
+        anexoModelo2 = Modelo2.objects.anexosModelo2(usuario,yearPeriodo)
+        anexoModelo3 = Modelo3.objects.anexosModelo3(usuario,yearPeriodo)
+        anexoModelo4 = Modelo4.objects.anexosModelo4(usuario,yearPeriodo)
+        anexoModelo5 = Modelo5.objects.anexosModelo5(usuario,yearPeriodo)
+        anexoModelo6 = Modelo6.objects.anexosModelo6(usuario,yearPeriodo)
+        anexoModelo7 = Modelo7.objects.anexosModelo7(usuario,yearPeriodo)
+        anexoModelo8 = Modelo8.objects.anexosModelo8(usuario,yearPeriodo)
+        anexoModelo9 = Modelo9.objects.anexosModelo9(usuario,yearPeriodo)
+        anexoModelo10 = Modelo10.objects.anexosModelo10(usuario,yearPeriodo)
+        anexoModelo11 = Modelo11.objects.anexosModelo11(usuario,yearPeriodo)
+        anexoModelo12 = Modelo12.objects.anexosModelo12(usuario,yearPeriodo)
+        anexoModelo13 = Modelo13.objects.anexosModelo13(usuario,yearPeriodo)
+        anexoModelo14 = Modelo14.objects.anexosModelo14(usuario,yearPeriodo)
+        anexoModelo15 = Modelo15.objects.anexosModelo15(usuario,yearPeriodo)
+        anexoModelo16 = Modelo16.objects.anexosModelo16(usuario,yearPeriodo)
+        anexoBiblioteca = Biblioteca.objects.anexosBiblioteca(usuario,yearPeriodo)
+        anexoCitas = Citas.objects.anexosCitas(usuario)
+
+        #Mandamos a llamar a la funcion que genera el PDF.
         html = generarPdf(request,periodo_id)
         
         options = {
@@ -2028,21 +2033,16 @@ class enviarReporte(View):
             'encoding': "UTF-8",
             'no-outline': None
         }
-        pdf = pdfkit.from_string(html,False,configuration=config,options=options)
-        periodo = Periodo.objects.get(id=periodo_id)
-        periodo = periodo.nombre_periodo
+        pdf = pdfkit.from_string(html,False,configuration=config,options=options)        
+        data = {'periodo':periodo.nombre_periodo,}
         
-        data = {
-            'periodo':periodo,
-        }
-        
-
+        """
         #Email para investigador
         body = render_to_string(
             'reportes/templateReportesFinalizadoUsuario.html', {
                 'nombre': request.user.nombre,
                 'apellido': request.user.apellido,
-                'periodo':periodo,
+                'periodo':periodo.nombre_periodo,
             },
         )
 
@@ -2058,7 +2058,7 @@ class enviarReporte(View):
         adjunto = MIMEBase('application', 'octet-stream')
         adjunto.set_payload(pdf)
         encoders.encode_base64(adjunto)
-        adjunto.add_header('Content-Disposition', "attachment; filename= Reporte "+periodo+'.pdf')
+        adjunto.add_header('Content-Disposition', "attachment; filename= Reporte "+periodo.nombre_periodo+'.pdf')
         email_message.attach(adjunto)
         #Enviamos email
         email_message.send()
@@ -2069,7 +2069,7 @@ class enviarReporte(View):
          'reportes/templateReporteFinalizado.html',{
              'nombre':request.user.nombre,
              'apellido': request.user.apellido,
-             'periodo': periodo,
+             'periodo': periodo.nombre_periodo,
          }   
         )
 
@@ -2083,85 +2083,84 @@ class enviarReporte(View):
         mensajeCordinacion.attach(adjunto)
         #Enviamos email
         mensajeCordinacion.send()
-        
-        #Guardamos reporte en BD
-        reporte,creado = ReporteEnviado.objects.get_or_create(periodo_id = periodo_id, usuario_id = request.user.id)
+        """
+        #creamos o actualizamos reporte en BD
+        obj,creado = ReporteEnviado.objects.get_or_create(periodo_id = periodo_id, usuario_id = request.user.id)
         
         if creado:
             data['actualizado'] = False
 
         else:
             data['actualizado'] = True
-            if reporte.reporte:
-                os.remove(os.path.join(BASE_DIR + '/media/'+reporte.reporte.name))
-            if reporte.anexo:
-                os.remove(os.path.join(BASE_DIR + '/media/'+reporte.anexo.name))
+            if obj.reporte:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.reporte.name))
+            if obj.anexo:
+                os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexo.name))
             
-        reporte.reporte.save('Reporte '+periodo+' '+str(reporte.id)+'.pdf', ContentFile(pdf), save=False)
+        obj.reporte.save('Reporte '+periodo.nombre_periodo+' '+str(obj.id)+'.pdf', ContentFile(pdf), save=False)
 
         #Genera Zip con anexos
         with zipfile.ZipFile(BASE_DIR + '/media/'+'anexos_zip/anexo.zip', mode='w', compression=zipfile.ZIP_DEFLATED) as anexoZip:
             
             for anexo in anexoModelo1:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
+            
             for anexo in anexoModelo2:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            
             for anexo in anexoModelo3:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
-            for anexo in anexoModelo4:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
-            for anexo in anexoModelo5:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            
+            for anexo in anexoModelo4:        
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            
+            for anexo in anexoModelo5:        
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            
             for anexo in anexoModelo6:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+        
             for anexo in anexoModelo7:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            
             for anexo in anexoModelo8:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
-            for anexo in anexoModelo9:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
-            for anexo in anexoModelo10:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            
+            for anexo in anexoModelo9:   
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            
+            for anexo in anexoModelo10:    
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            
             for anexo in anexoModelo11:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
-            for anexo in anexoModelo12:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
-            for anexo in anexoModelo13:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
-            for anexo in anexoModelo14:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            
+            for anexo in anexoModelo12:        
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            
+            for anexo in anexoModelo13:        
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            
+            for anexo in anexoModelo14:        
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)            
+            
             for anexo in anexoModelo15:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
-            for anexo in anexoModelo16:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
-            for anexo in anexoCitas:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
-            for anexo in anexoBiblioteca:
-                if anexo:
-                    anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
+            
+            for anexo in anexoModelo16:        
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
+            
+            for anexo in anexoCitas:        
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
+            
+            for anexo in anexoBiblioteca:        
+                anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
+        
         anexoZip.close()
 
         anexoZip = open(BASE_DIR + '/media/'+'anexos_zip/anexo.zip','rb') #Corregir este error
-        reporte.anexo.save("Anexo "+periodo+' '+str(reporte.id)+".zip", ContentFile(anexoZip.read()), save=False)
-        reporte.save()
-        #os.remove('media/anexos_zip/anexo.zip')
+        obj.anexo.save("Anexo "+periodo.nombre_periodo+' '+str(obj.id)+".zip", ContentFile(anexoZip.read()), save=False)
+        obj.save()
         
         return  JsonResponse(data)
 
@@ -2169,9 +2168,8 @@ class enviarReporte(View):
 # Generar PDF
 @method_decorator(login_required, name='dispatch')
 class generarReporte(View):
-    def get(self,request):
-        periodo_id = request.GET.get('periodo')
-
+    def post(self,request):
+        periodo_id = request.POST.get('periodo')
         html = generarPdf(request,periodo_id)
         options = {
             'page-size': 'Letter',
@@ -2191,17 +2189,6 @@ class reportesEnviados(View):
     def get(self,request):
         queryset = ReporteEnviado.objects.filter(usuario_id= request.user.id)
         return render(request,'reportes/reportesEnviados.html',{'reportes':queryset})
-
-
-@method_decorator(login_required, name='dispatch')
-class descargarReporteEnviado(View):
-    def get(self, request, pdf):
-        #Reporte maestro:
-        reporte = Reporte(request)
-        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-        response['Content-Disposition'] = 'attachment; filename=reporte %s.docx' %(self.periodo.nombre_periodo)
-        reporte.save(response)
-
 
 @method_decorator(login_required, name='dispatch')
 class home(TemplateView):

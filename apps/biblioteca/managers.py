@@ -22,3 +22,7 @@ class BibliotecaManager(models.Manager):
     def entradasContador(self,year,numeral):
         response = str(self.filter(fecha_ano=year,numeral_id=numeral).count())
         return  response
+    
+    def anexosBiblioteca(self,user,year):
+        response = self.filter(usuario_id = user, fecha_ano = year)
+        return response
