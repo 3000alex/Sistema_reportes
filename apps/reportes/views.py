@@ -2101,7 +2101,7 @@ class enviarReporte(View):
 
         #Genera Zip con anexos
         fileZip = open(BASE_DIR + '/media/anexos_zip/anexo.zip', 'w+')
-        with zipfile.ZipFile(fileZip, mode='w+', compression=zipfile.ZIP_DEFLATED) as anexoZip:
+        with zipfile.ZipFile(fileZip, mode='w', compression=zipfile.ZIP_DEFLATED) as anexoZip:
             
             for anexo in anexoModelo1:
                 anexoZip.write(BASE_DIR + '/media/'+ anexo.anexos.name, anexo.anexos.name)
