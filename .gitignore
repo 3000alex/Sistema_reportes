@@ -1,3 +1,5 @@
 # Secret key
 secret.json
+manage.py
 media/*
+
