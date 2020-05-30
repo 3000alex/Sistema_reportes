@@ -11,11 +11,9 @@
 
       <p><small>Introduzca el Apellido, Nombre con el que suele publicar<br>
           en el siguiente formato: González, María</small></p>
-
-      <form action="{% url 'reporteSNI:metodo1SNI' %}">
+        {% csrf_token %}
         <input class="form-control mb-4" type="text" placeholder="Apellido, Nombre" name="autor" id="author1" required>
         <button type="submit" onclick=" generarSNI()" class="btn btn-success btn-lg pr-4 pl-4">Enviar</button>
-      </form>
 
     </div>
     <!--
@@ -80,6 +78,11 @@
 <script>
   function generarSNI() {
     var author = $('#author1').val();
+    var req = new XMLHttpRequest(); 
+    var formData = new FormData();
+    formData.append('autor', author)
+    formData.append('csrfmiddlewaretoken',csrfmiddlewaretoken)
+
     Swal.fire({
       title: 'Reporte SNI',
       html: `Por favor no salga de la pagina hasta que finalice el proceso. <br>Generando Reporte SNI
@@ -88,7 +91,26 @@
       allowOutsideClick: false,
       confirmButtonText: '<i class="fas fa-check"></i> Aceptar',
     })
-    timer.reset(540000);
+
+    req.open("POST", "{% url 'reporteSNI:metodo1SNI' %}", true);     
+    req.responseType = "blob"; 
+    req.onload = function (event) { 
+            var blob = req.response;           
+            var link = document.createElement('a'); 
+            link.href = window.URL.createObjectURL(blob); 
+            link.download = author + ".tex"; 
+            link.click();
+
+            Swal.fire({
+                title: 'Reporte SNI',
+                icon: 'success',
+                text:'Generando con exito',
+            })
+        }; 
+        req.send(formData); 
+    
+    
+
   }
 </script>
 

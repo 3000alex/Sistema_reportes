@@ -3,16 +3,13 @@
 {% block contenido %}
 {% load static %} {# Archivos #}
 
-<div class="container mt-4">
+<div class="container" style="margin-top: 150px;">
 
     <div class="row">
         <div class="col-10">
-            <form action="{%  url 'administradores:reporteMaestro' %}" method="POST">
-                {% csrf_token %}
-                <input type="hidden" value="{{periodoActual.id}}" name="periodoActual">
-                <button onclick="this.form.submit()" class="btn btn-success"><i style="font-size: 20px;"
-                        class="far fa-file-word"></i>&nbsp; Reporte Maestro</button>
-            </form>
+               
+            <button type="button" onclick="reporteMaestro()" class="btn btn-success"><i style="font-size: 20px;"
+                class="far fa-file-word"></i>&nbsp; Reporte Maestro</button>
 
         </div>
         <div class="col-12 col-md-2 d-flex justify-content-center mb-2 mt-2">
@@ -23,7 +20,7 @@
                 </label>
                 {% csrf_token %}
                 <select onchange="this.form.submit()" class="form-control" name="periodo_id" id="periodo">
-                    <option value="{{periodoActual.id}}">{{periodoActual}}</option>
+                    <option selected value="{{periodoActual.id}}">{{periodoActual}}</option>
                     {% for periodo in periodos %}
                     <option value="{{periodo.id}}">{{ periodo }}</option>
                     {% endfor %}
@@ -103,18 +100,44 @@
 <!--Fin datatables-->
 <script>
 
-    function reporteMaestro(periodo) {
+    function reporteMaestro() {
         var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
-        $.ajax({
-            type: "POST",
-            url: "{%  url 'administradores:reporteMaestro' %}",
-            data: {
-                'csrfmiddlewaretoken': csrfmiddlewaretoken,
-                'periodoActual': periodo,
+        var periodo_id = $('select[name="periodo_id"] option:selected').val();
+        var periodoActual = $('select[name="periodo_id"] option:selected').text();
+
+        Swal.fire({
+            title: 'Reporte Maestro',
+            icon: 'info',
+            text:'Generando reporte, espere un momento',
+            allowOutsideClick: false,
+            timerProgressBar: true,
+            onBeforeOpen: () => {
+                Swal.showLoading()
             },
-            dataType: "Json"
-        });
-        timer.reset(540000);
+        })
+
+        var req = new XMLHttpRequest(); 
+        req.open("POST", "{%  url 'administradores:reporteMaestro' %}", true); 
+        
+        req.responseType = "blob"; 
+        var formData = new FormData();
+        formData.append('periodoActual',periodo_id)
+        formData.append('csrfmiddlewaretoken',csrfmiddlewaretoken)
+
+        req.onload = function (event) { 
+            var blob = req.response;           
+            var link = document.createElement('a'); 
+            link.href = window.URL.createObjectURL(blob); 
+            link.download = "Reporte Maestro " + periodoActual + ".docx"; 
+            link.click();
+
+            Swal.fire({
+                title: 'Reporte Maestro',
+                icon: 'success',
+                text:'Generando con exito',
+            })
+        }; 
+        req.send(formData); 
     }
 
 

@@ -982,13 +982,6 @@ def Reporte(request,periodo_id):
                     
                     if item.anexos:
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
-                   
-    
-            
 
-        """
-        if n.id == 1:#Header del documento
-            pass
-        """
             
     return document

@@ -312,10 +312,6 @@
         var nombreP = this.options[index].text;
         notificacion.periodo(nombreP) 
         $("#nombre_periodo").html(nombreP) //Cambiar etiqueta central
-
-        /*
-        var periodoID = $('select[name="periodoActual"] option:selected').val();
-        $('input[name="periodo"]').val(periodoID);*/
     })
 
     var notificacion = {
@@ -480,14 +476,13 @@
             })
             var req = new XMLHttpRequest(); 
             req.open("POST", "{% url 'reportes:generarReporte' %}", true); 
-            console.log(periodo_id);
             
             req.responseType = "blob"; 
             var formData = new FormData();
             formData.append('periodo',periodo_id)
             formData.append('csrfmiddlewaretoken',csrfmiddlewaretoken)
             req.onload = function (event) { 
-                var blob = req.response;                 
+                var blob = req.response;                                 
                 var link=document.createElement('a'); 
                 link.href=window.URL.createObjectURL(blob); 
                 link.download="Periodo-" + periodoActual + ".pdf"; 

@@ -2036,7 +2036,6 @@ class enviarReporte(View):
         pdf = pdfkit.from_string(html,False,configuration=config,options=options)        
         data = {'periodo':periodo.nombre_periodo,}
         
-        """
         #Email para investigador
         body = render_to_string(
             'reportes/templateReportesFinalizadoUsuario.html', {
@@ -2083,7 +2082,8 @@ class enviarReporte(View):
         mensajeCordinacion.attach(adjunto)
         #Enviamos email
         mensajeCordinacion.send()
-        """
+
+    
         #creamos o actualizamos reporte en BD
         obj,creado = ReporteEnviado.objects.get_or_create(periodo_id = periodo_id, usuario_id = request.user.id)
         
