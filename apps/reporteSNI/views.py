@@ -30,9 +30,9 @@ class reporteSNI(View):
 
 
 class metodo1ReporteSNI(View):
-    def get(self,request):
+    def post(self,request):
         
-        author = request.GET.get('autor','None')
+        author = request.POST.get('autor','None')
         articulos = SNIads.get_papers(author, token=token)
         citas = SNIads.get_citations(articulos, token=token)
         f = open(BASE_DIR + '/media/reporteSNI/refs_{}.tex'.format(SNIads.clean_author(author)), 'w')
@@ -50,9 +50,9 @@ class metodo1ReporteSNI(View):
 
 @method_decorator(login_required, name='dispatch')
 class metodo2ReporteSNI(View):
-    def get(self,request):
+    def post(self,request):
         
-        author = request.GET.get('autor','None')
+        author = request.POST.get('autor','None')
         #Obtenemos lista de bibcodes
         biblioteca = Biblioteca.objects.filter(user_id = request.user.id)
 
