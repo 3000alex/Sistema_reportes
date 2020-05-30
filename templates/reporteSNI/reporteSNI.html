@@ -84,15 +84,19 @@
     formData.append('autor', author)
     formData.append('csrfmiddlewaretoken',csrfmiddlewaretoken)
     
-
     Swal.fire({
-      title: 'Reporte SNI',
-      html: `Por favor no salga de la pagina hasta que finalice el proceso. <br>Generando Reporte SNI
-          ${author}.tex`,
-      icon: 'info',
-      allowOutsideClick: false,
-      confirmButtonText: '<i class="fas fa-check"></i> Aceptar',
-    })
+            title: 'Reporte Maestro',
+            html: `Por favor no salga de la pagina hasta que finalice el proceso. <br>Generando Reporte SNI
+                  ${author}.tex`,
+            icon: 'info',
+            text:'Generando reporte, espere un momento',
+            timerProgressBar: true,
+            allowOutsideClick: false,
+            confirmButtonText: '<i class="fas fa-check"></i> Aceptar',
+            onBeforeOpen: () => {
+                Swal.showLoading()
+            },
+        })
 
     req.open("POST", "{% url 'reporteSNI:metodo1SNI' %}", true);     
     req.responseType = "blob"; 
