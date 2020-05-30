@@ -80,8 +80,10 @@
     var author = $('#author1').val();
     var req = new XMLHttpRequest(); 
     var formData = new FormData();
+    var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
     formData.append('autor', author)
     formData.append('csrfmiddlewaretoken',csrfmiddlewaretoken)
+    
 
     Swal.fire({
       title: 'Reporte SNI',
