@@ -180,9 +180,11 @@
                     title: 'Sesión por caducar',
                     html: 'Su sesión expira en <b></b> seg. <br> ¿Desea ampliarla? <br> <br> <i style="font-size:100px" class="far fa-clock text-danger"></i>',
                     allowOutsideClick: false,
+                    showCancelButton:true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: '<i class="fas fa-check"> Aceptar</i>',
+                    cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
                     timer: 60000,
                     timerProgressBar: true,
 
@@ -198,7 +200,7 @@
                         }, 100)
                     },
                     onClose: () => {
-                        clearInterval(timerInterval);
+                        
                         Swal.fire({
                             title: 'Sesión terminada',
                             icon: 'error',
@@ -209,10 +211,7 @@
                             onClose: () => {
                                 $(location).attr('href', '{% url "logout" %}');
                             },
-
-                        }).then((result) => {
-                            $(location).attr('href', '{% url "logout" %}');
-                        });
+                        })
 
                     },
                 }).then((result) => {
@@ -237,7 +236,7 @@
                             });
                     }
                 });
-            }, 540000)
+            }, 540000);
 
         });
 
