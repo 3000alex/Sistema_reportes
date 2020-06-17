@@ -1268,9 +1268,9 @@
                 });
         },
         dibujar: function (response) {
-            var numeral = parseInt(response.numeral);
-            switch (numeral) {
-                case 40: $("#modelo6Crear" + `${response.numeral}`).before(
+            var orden = response.numeral;
+            switch (orden) {
+                case 39: $("#modelo6Crear" + `${response.numeral}`).before(
                     `<form id="modelo6${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
                             {% csrf_token %}

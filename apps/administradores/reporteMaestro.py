@@ -112,7 +112,7 @@ def tablaNivelSNI(document):
 
     document.add_paragraph()
 
-def tablaInvestigadores(document,usuario):
+def tablaInvestigadores(document,usuario,periodo):
     table = document.add_table(rows=1, cols=5, style='Medium Shading 1 Accent 1')
     hdr_cells = table.rows[0].cells
     hdr_cells[0].text = 'Apellido'
@@ -122,10 +122,14 @@ def tablaInvestigadores(document,usuario):
     hdr_cells[4].text = 'Reporte enviado'
             
     for investigador in usuario:
+        print(investigador.id)
         try:
+            
             reporte = ReporteEnviado.objects.get(usuario_id = investigador.id, periodo = periodo)
+            print(reporte)
         except:
-            reporte=""
+            reporte= None
+            print(reporte)
 
         row_cells = table.add_row().cells
         row_cells[0].text = investigador.apellido
@@ -532,7 +536,7 @@ def Reporte(request,periodo_id):
     tablaNivelSNI(document)
 
     #Tabla 3 Datos reportes
-    tablaInvestigadores(document,usuario)
+    tablaInvestigadores(document,usuario,periodo)
 
     #Tabla 4 resumen Numerales
     tablaResumenNumerales(document,yearPeriodo)

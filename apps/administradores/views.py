@@ -159,8 +159,7 @@ class correoBienvenida(StaffRequiredMixin, View):
 
 
 class home_adm(StaffRequiredMixin, TemplateView):
-    template_name = 'administradores/home_adm.html'
-
+    template_name = 'administradores/home.html'
 
 class perfil_adm(StaffRequiredMixin, View):
     

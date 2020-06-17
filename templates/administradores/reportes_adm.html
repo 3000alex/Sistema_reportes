@@ -6,27 +6,30 @@
 <div class="container" style="margin-top: 150px;">
 
     <div class="row">
-        <div class="col-10">
-               
+
+        <div class="col-12 col-lg-4 mb-2">
             <button type="button" onclick="reporteMaestro()" class="btn btn-success"><i style="font-size: 20px;"
-                class="far fa-file-word"></i>&nbsp; Reporte Maestro</button>
-
+                    class="far fa-file-word"></i>&nbsp; Reporte Maestro</button>
         </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 mt-2">
 
-            <form action="" method="POST">
-                <label for="periodos">
-                    <strong>Periodos</strong>
-                </label>
-                {% csrf_token %}
-                <select onchange="this.form.submit()" class="form-control" name="periodo_id" id="periodo">
-                    <option selected value="{{periodoActual.id}}">{{periodoActual}}</option>
-                    {% for periodo in periodos %}
-                    <option value="{{periodo.id}}">{{ periodo }}</option>
-                    {% endfor %}
-                </select>
-            </form>
+        <div class="col-12 col-lg-4 d-flex justify-content-center mb-2"><strong>Periodo {{periodoActual}}</strong></div>
+
+        <div class="col-12 col-lg-4 mb-2">
+            <div class="d-flex justify-content-end">
+                <form  method="POST">
+                    {% csrf_token %}
+                    <label for="periodos"><strong>Periodos</strong></label>
+                    
+                    <select onchange="this.form.submit()" class="form-control" name="periodo_id" id="periodo">
+                        <option selected value="{{periodoActual.id}}">{{periodoActual}}</option>
+                        {% for periodo in periodos %}
+                        <option value="{{periodo.id}}">{{ periodo }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
         </div>
+
     </div>
 </div>
 
@@ -77,7 +80,7 @@
         "language": {
             "lengthMenu": "Mostrar _MENU_ usuarios",
             "zeroRecords": "No se encontraron resultados",
-            "info": "Mostrando usuarios del _START_ al _END_ de un total de _TOTAL_ registros",
+            "info": "<small>Mostrando usuarios del _START_ al _END_ de un total de _TOTAL_ registros</small>",
             "infoEmpty": "No existen usuarios",
             "infoFiltered": "(filtrado de un total de _MAX_ usuarios",
             "sSearch": "Buscar:",
@@ -108,7 +111,7 @@
         Swal.fire({
             title: 'Reporte Maestro',
             icon: 'info',
-            text:'Generando reporte, espere un momento',
+            text: 'Generando reporte, espere un momento',
             allowOutsideClick: false,
             timerProgressBar: true,
             onBeforeOpen: () => {
@@ -116,28 +119,29 @@
             },
         })
 
-        var req = new XMLHttpRequest(); 
-        req.open("POST", "{%  url 'administradores:reporteMaestro' %}", true); 
-        
-        req.responseType = "blob"; 
-        var formData = new FormData();
-        formData.append('periodoActual',periodo_id)
-        formData.append('csrfmiddlewaretoken',csrfmiddlewaretoken)
+        var req = new XMLHttpRequest();
+        req.open("POST", "{%  url 'administradores:reporteMaestro' %}", true);
 
-        req.onload = function (event) { 
-            var blob = req.response;           
-            var link = document.createElement('a'); 
-            link.href = window.URL.createObjectURL(blob); 
-            link.download = "Reporte Maestro " + periodoActual + ".docx"; 
+        req.responseType = "blob";
+        var formData = new FormData();
+        formData.append('periodoActual', periodo_id)
+        formData.append('csrfmiddlewaretoken', csrfmiddlewaretoken)
+
+        req.onload = function (event) {
+            var blob = req.response;
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "Reporte Maestro " + periodoActual + ".docx";
             link.click();
 
             Swal.fire({
                 title: 'Reporte Maestro',
                 icon: 'success',
-                text:'Generando con exito',
+                html: '<p>Reporte maestro del periodo</p>' +
+                    `${periodoActual}` + '<p>generado con éxito</p>',
             })
-        }; 
-        req.send(formData); 
+        };
+        req.send(formData);
     }
 
 

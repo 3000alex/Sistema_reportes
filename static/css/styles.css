@@ -1,33 +1,5 @@
 /*Perfil*/
-.perfil{
-    width:150px;
-    height:150px;
-    border-radius:150px;
-    opacity: 0.7;
-}
-
-.reporte_p{
-    width:150px;
-    height:150px;
-    border-radius:150px;
-    opacity: 0.7;
-}
-
-.biblioteca{
-    width:150px;
-    height:150px;
-    border-radius:150px;
-    opacity: 0.7;
-}
-
-.reporte_SNI{
-    width:150px;
-    height:150px;
-    border-radius:0px;
-    opacity: 0.7;
-}
-
-.metrica_ADS{
+.iconos{
     width:150px;
     height:150px;
     border-radius:150px;
@@ -35,29 +7,17 @@
 }
 
 /*HOVER*/
-.perfil:hover{
+.iconos:hover{
     cursor: pointer;
     opacity: 1;
 }
 
-.reporte_p:hover{
-    cursor: pointer;
-    opacity: 1;
+.centrar{
+    margin-top: 140px;
+  }
+
+@media (min-width: 768px) {
+  .centrar {
+    margin-top: 200px;
+  }
 }
-
-.biblioteca:hover{
-    cursor: pointer;
-    opacity: 1;
-}
-
-.reporte_SNI:hover{
-    cursor: pointer;
-    opacity: 1;
-}
-
-.metrica_ADS:hover{
-    cursor: pointer;
-    opacity: 1;
-}
-
-

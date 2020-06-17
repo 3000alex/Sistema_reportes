@@ -4,12 +4,10 @@
 
 {% block contenido %}
 
-<div class="container-fluid">
-    
+<div class="container-fluid" style="margin-top: 100px;">  
     <div class="row">
-
-        <div class="col-12 col-md-4">
-            <div class="d-flex justify-content-start mt-2">
+        <div class="col-12 col-lg-4">
+            <div class="d-flex justify-content-center justify-content-md-start mt-2">
                 <button type="button" onclick="notificacion.vistaPrevia()"
                     class="text-white btn btn-success btn-sm mr-2">
                     <i class="far fa-eye"></i> Vista Previa</button>
@@ -25,17 +23,17 @@
 
         </div>
 
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-lg-4">
             <div class="d-flex justify-content-center mt-2">
                 <strong>Periodo: <span id="nombre_periodo">{{periodoActual.nombre_periodo}}</span> </strong>
             </div>
         </div>
 
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-lg-4">
             <div class="d-flex justify-content-end mt-2">
                 
                 <form  method="POST">
-                    <label for="periodo" class="">Periodo: </label>
+                    <label for="periodo" class=""><strong>Periodo: </strong></label>
                     <select class="form-control" name="periodoActual" id="periodoActual">
                         <option selected value="{{periodoActual.id}}">{{periodoActual.nombre_periodo}}</option>
                         {% for periodos in periodos %}
@@ -436,8 +434,8 @@
                             if (response.actualizado) {
                                 Swal.fire({
                                     title: 'Reporte Finalizado',
-                                    html: `<small><p>El reporte <strong>${response.periodo}</strong> fue actualizado y enviado a la coordinación exitosamente.</p>
-                                            <p>En breve recibira un correo adjuntando una copia del reporte.</p></small><i style="font-size:100px" class="fas fa-check-circle text-info"></i>`,
+                                    html: `<small><p>El reporte <strong>${response.periodo}</strong></p> <p>fue actualizado y enviado a la Coordinación.</p>
+                                            <p>En breve recibirá un correo de confirmación.</p></small><i style="font-size:100px" class="fas fa-check-circle text-info"></i>`,
 
                                     allowOutsideClick: false,
                                 });
@@ -445,8 +443,8 @@
                             else {
                                 Swal.fire({
                                     title: 'Reporte Finalizado',
-                                    html: `El reporte ${response.periodo} fue enviado a la coordinación exitosamente.<br>
-                                    En breve recibira un correo adjuntando una copia del reporte <br> <i style="font-size:100px" class="fas fa-check-circle text-success"></i>`,
+                                    html: `<small><p>El reporte <strong>${response.periodo}</strong></p> <p>fue enviado a la Coordinación.</p>
+                                    <p>En breve recibirá un correo de confirmación</p></small> <i style="font-size:100px" class="fas fa-check-circle text-success"></i>`,
                                     allowOutsideClick: false,
                                 });
                             }

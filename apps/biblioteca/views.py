@@ -69,7 +69,7 @@ class publicaciones_generales(View):
       
 class publicaciones_bidcode(View):
     def get(self,request):
-        query_bidcode = '2018MNRAS.479..917G'
+        query_bidcode = request.GET.get('bibcode')
         articulo = []
         data = list(ads.SearchQuery(bibcode=query_bidcode,fl='title,pubdate,author,doi,page,volume,pub,bibcode',rows=1000))  # Buscar por bidcode
         articulos = Biblioteca.objects.filter(usuario_id=request.user.id) # Filtramos articulos para validar si existen en la biblioteca      

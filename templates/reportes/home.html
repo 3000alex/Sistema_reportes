@@ -5,13 +5,13 @@
 {% endblock %}
 {% block contenido %}
 
-<section class="container" style="margin-top: 225px;">
+<section class="container centrar">
     
     <div class="row text-center d-flex justify-content-center">
 
 
         <div class="col-12 col-sm-6 col-md-6 col-lg-2">
-            <a href="{% url 'registration:actualizar-perfil' %}"><img id="perfilAdmin" class="perfil"
+            <a href="{% url 'registration:actualizar-perfil' %}"><img id="perfilAdmin" class="iconos"
                     src="{% static 'media/perfil.png'%}" alt=""><br></a>
             <strong>
                 <p class="text-dark">Perfil</p>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="col-12 col-sm-6 col-md-6 col-lg-2">
-            <a href="{% url 'reportes:reporte-productividad' %}"><img class="reporte_p"
+            <a href="{% url 'reportes:reporte-productividad' %}"><img class="iconos"
                     src="{% static 'media/reporte.png'%}" alt=""><br></a>
             <strong>
                 <p class="text-dark">Reporte de <br>productividad</p>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="col-12 col-sm-6 col-md-6 col-lg-2">
-            <a href="{% url 'biblioteca:biblioteca_personal'%}"><img class="biblioteca"
+            <a href="{% url 'biblioteca:biblioteca_personal'%}"><img class="iconos"
                     src="{% static 'media/biblioteca.png'%}" alt=""><br></a>
             <strong>
                 <p class="text-dark">Biblioteca</p>
@@ -35,7 +35,7 @@
         </div>
 
         <div class="col-12 col-sm-6 col-md-6 col-lg-2">
-            <a href="{% url 'reporteSNI:instruccionesSNI' %}"> <img class="reporte_SNI"
+            <a href="{% url 'reporteSNI:instruccionesSNI' %}"> <img class="iconos"
                     src="{% static 'media/sni.png'%}" alt=""><br></a>
             <strong>
                 <p class="text-dark">Citas SNI</p>

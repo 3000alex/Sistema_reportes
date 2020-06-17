@@ -6,9 +6,15 @@
 {% endblock %}
 {% block contenido %}
 
-<div class="container-fluid mt-4">
-    <a class="float-right btn btn-light text-primary" href="https://www.scimagojr.com/journalrank.php?category=3103"
-        target="blank">Consultar cuartiles</a>
+<div class="container-fluid mb-4" style="margin-top: 120px;">
+
+    <div class="row justify-content-beetween mb-2">
+        <div class="col-12">
+            <a class="float-right btn btn-light text-primary" href="https://www.scimagojr.com/journalrank.php?category=3103"
+            target="blank">Consultar cuartiles</a>
+        </div>  
+    </div>
+    
 
     {% for message in messages %}
     <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
@@ -132,7 +138,7 @@
         "language": {
             "lengthMenu": "Mostrar _MENU_ entradas",
             "zeroRecords": "Su biblioteca esta vacia",
-            "info": "Mostrando entradas del _START_ al _END_ de un total de _TOTAL_ registros",
+            "info": "<small>Mostrando entradas del _START_ al _END_ de un total de _TOTAL_ registros</small>",
             "infoEmpty": "Sin resultados",
             "infoFiltered": "(filtrado de un total de _MAX_ entradas",
             "sSearch": "Buscar:",

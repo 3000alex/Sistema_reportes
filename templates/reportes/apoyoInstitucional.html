@@ -1528,14 +1528,14 @@
                 });
         },
         dibujar: function (response) {
-            var numeral = parseInt(response.numeral);
-            switch (numeral) {
+            var orden = response.numeral;
+            switch (orden) {
+                case 49:
+                case 49.1:
+                case 49.2:
                 case 50:
                 case 51:
-                case 52:
-                case 53:
-                case 54:
-                case 55: $("#modelo10Crear" + `${response.numeral}`).before(
+                case 52: $("#modelo10Crear" + `${response.numeral}`).before(
                     `<form id="modelo10${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
 
@@ -1752,7 +1752,7 @@
         dibujar: function (response) {
             var numeral = parseInt(response.numeral);
             switch (numeral) {
-                case 57: $("#modelo11Crear" + `${response.numeral}`).before(
+                case 53: $("#modelo11Crear" + `${response.numeral}`).before(
                     `<form id="modelo11${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
                             {% csrf_token %}
@@ -1790,7 +1790,7 @@
                         <hr>
                     </form>`);
                     break;
-                case 58: $("#modelo11Crear" + `${response.numeral}`).before(
+                case 54: $("#modelo11Crear" + `${response.numeral}`).before(
                     `<form id="modelo11${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
                             {% csrf_token %}
@@ -1836,8 +1836,8 @@
                         <hr>
                     </form>`);
                     break;
-                case 59:
-                case 60: $("#modelo11Crear" + `${response.numeral}`).before(
+                case 55:
+                case 56: $("#modelo11Crear" + `${response.numeral}`).before(
                     `<form id="modelo11${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
                             {% csrf_token %}

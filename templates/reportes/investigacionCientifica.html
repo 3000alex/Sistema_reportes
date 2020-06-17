@@ -1,7 +1,8 @@
 {% load name %}
-<div class="card" id="numeral">
+<div  id="numeral">
     <small class="form-text text-muted mb-2">NOTA: Los numerales 1-5, 7, 9, 11-14 y 14a son generados con base en su
         biblioteca, favor de actualizarla.</small>
+    <div class="card">
     {% for numeral in numeralName %}
     <div class="card-header">
 
@@ -3384,6 +3385,7 @@
         </div>
     </div>
     {% endfor %}
+    </div>
 </div>
 <script>
 
@@ -3493,8 +3495,8 @@
 
         },
         dibujar: function (response) {
-            var numeral = parseInt(response.numeral);
-            switch (numeral) {
+            var orden = response.orden;
+            switch (orden) {
                 case 9: $("#bibliotecaCrear" + `${response.numeral}`).before(
                     `<form id="biblioteca${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
@@ -3750,8 +3752,8 @@
 
         },
         dibujar: function (response) {
-            var numeral = parseInt(response.numeral);
-            switch (numeral) {
+            var orden = response.orden;
+            switch (orden) {
                 case 6: $("#modelo1Crear" + `${response.numeral}`).before(
                     `<form id="modelo1${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
@@ -4030,9 +4032,9 @@
                     </form>
                     <hr>`);
                     break;
+                case 15:
                 case 16:
-                case 17:
-                case 18: $("#modelo1Crear" + `${response.numeral}`).before(
+                case 17: $("#modelo1Crear" + `${response.numeral}`).before(
                     `<form id="modelo1${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
 
@@ -4490,10 +4492,10 @@
                 });
         },
         dibujar: function (response) {
-            var numeral = parseInt(response.numeral);
-            switch (numeral) {
-                case 25:
-                case 26: $("#modelo3Crear" + `${response.numeral}`).before(
+            var orden = response.numeral;
+            switch (orden) {
+                case 24:
+                case 25: $("#modelo3Crear" + `${response.numeral}`).before(
                     `<form id="modelo3${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
                                 {% csrf_token %}
@@ -4563,13 +4565,13 @@
                     </form>
                     <hr>`);
                     break;
-                case 27:
-                case 28: $("#modelo3Crear" + `${response.numeral}`).before(
+                case 26:
+                case 27: $("#modelo3Crear" + `${response.numeral}`).before(
                     `<form id="modelo3${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
                             {% csrf_token %}
                             <div class="form-group row">
-                                <label for="" class="col-md-2 ">Título de la presentación:</label>
+                                <label for="" class="col-md-2 ">Título:</label>
                                 <div class="col-md-10">
                                     <input class="form-control mb-1" type="text" name="titulo" id="tituloModelo3${response.id}">
                                 </div>
@@ -4624,7 +4626,7 @@
                         <div class="pt-4 pr-4 pl-4">
                                 {% csrf_token %}
                                 <div class="form-group row">
-                                    <label for="" class="col-md-2 ">Título de la presentación:</label>
+                                    <label for="" class="col-md-2 ">Título:</label>
                                     <div class="col-md-10">
                                         <input class="form-control mb-1" type="text" name="titulo"
                                             id="tituloModelo3${response.id}">
@@ -4682,6 +4684,9 @@
                                         <input class="form-control mb-1" type="url" name="url" id="urlModelo3${response.id}" value="{{Modelo3.url}}">
                                     </div>
                                 </div>
+
+                                <input class="form-control" type="file" accept=".pdf, image/*" name="anexo" id="anexoModelo3${response.id}">
+                                <small class="mb-4">Tamaño máximo: 5 Mb</small>
 
                                 <div class="justify-content-end d-flex">
                                     <div class="row">

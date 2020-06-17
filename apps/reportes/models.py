@@ -130,7 +130,7 @@ class Modelo2(models.Model):
     def __str__(self):
         return self.numeral.nombre
 
-#Modelo 3 comprende los numerales 24-25, 26-27(Sin el campo presentacion Oral o Poster), 28-29
+#Modelo 3 comprende los numerales 24-25, 26-27(Sin el campo presentacion Oral o Poster), 28-29(default)
 class Modelo3(models.Model):
     usuario =  models.ForeignKey(User,on_delete=models.CASCADE)
     numeral = models.ForeignKey(Numeral, on_delete=models.CASCADE)

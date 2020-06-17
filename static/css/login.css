@@ -1,0 +1,9 @@
+.centrar {
+    margin-top: 150px;
+}
+
+@media (min-width: 768px) {
+    .centrar{
+        margin-top: 200;
+    }
+}

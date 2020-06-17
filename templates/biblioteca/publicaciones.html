@@ -25,7 +25,7 @@
 
 {% block contenido %}
 
-<div class="container-fluid mb-4 mt-4">
+<div class="container-fluid mb-4" style="margin-top: 120px;">
     <form id="formid">
         {% csrf_token %}
 
@@ -120,7 +120,7 @@
         "language": {
             "lengthMenu": "Mostrar _MENU_ entradas",
             "zeroRecords": "No se encontraron resultados",
-            "info": "Mostrando entradas del _START_ al _END_ de un total de _TOTAL_ entradas",
+            "info": "<small>Mostrando entradas del _START_ al _END_ de un total de _TOTAL_ entradas</small>",
             "infoEmpty": "Sin resultados",
             "infoFiltered": "(filtrado de un total de _MAX_ entradas)",
             "sSearch": "Buscar:",

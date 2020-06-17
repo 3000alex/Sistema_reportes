@@ -60,7 +60,7 @@
         "language": {
             "lengthMenu": "Mostrar _MENU_ usuarios",
             "zeroRecords": "No se encontraron resultados",
-            "info": "Mostrando usuarios del _START_ al _END_ de un total de _TOTAL_ registros",
+            "info": "<small>Mostrando usuarios del _START_ al _END_ de un total de _TOTAL_ registros</small>",
             "infoEmpty": "No existen usuarios",
             "infoFiltered": "(filtrado de un total de _MAX_ usuarios",
             "sSearch": "Buscar:",
@@ -176,7 +176,7 @@
                             </div>
                             <input type="text" name="nombreCorto" class="form-control" aria-label="Username"
                                 data-toggle="popover" title="Acerca de" aria-describedby="basic-addon1"
-                                placeholder="Nombre corto">
+                                placeholder="Nombre corto" required>
                         </div>
                     </form>`,
             showCancelButton: true,
@@ -196,69 +196,73 @@
             cancelButtonColor: '#d33',
             confirmButtonText: '<i class="fas fa-check"></i> Crear',
             cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
-
-        }).then((result) => {
-            agregarUsuario();
-        }).catch((err) => {
-
+            preConfirm: () => {
+                var emailInput = $('input[name="email"]').val().trim();
+                var nameInput = $('input[name="name"]').val().trim();
+                var lastNameInput = $('input[name="lastName"]').val().trim();
+                var nombreCorto = $('input[name="nombreCorto"]').val().trim();
+                var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+                if (emailInput && nameInput && lastNameInput && nombreCorto) {
+                    // Create Ajax Call
+                    agregarUsuario(emailInput, nameInput, lastNameInput, nombreCorto)
+                }
+                else {
+                    alert("Todos los campos son obligatorios")
+                    return false;
+                }
+            }
         });
     }
 
-    function agregarUsuario() {
-
-        var emailInput = $('input[name="email"]').val().trim();
-        var nameInput = $('input[name="name"]').val().trim();
-        var lastNameInput = $('input[name="lastName"]').val().trim();
-        var nombreCorto = $('input[name="nombreCorto"]').val().trim();
-        var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
-
-        if (emailInput && nameInput && lastNameInput) {
-            // Create Ajax Call
-            $.ajax({
-                url: '{% url "administradores:agregar-inv" %}',
-                type: 'POST',
-                data: {
-                    'email': emailInput,
-                    'nombre': nameInput,
-                    'apellido': lastNameInput,
-                    'nombreCorto': nombreCorto,
-                    'csrfmiddlewaretoken': csrfmiddlewaretoken,
-                },
-                dataType: 'json',
-                beforeSend: function (response) {
+    function agregarUsuario(emailInput, nameInput, lastNameInput, nombreCorto) {
+        $.ajax({
+            url: '{% url "administradores:agregar-inv" %}',
+            type: 'POST',
+            data: {
+                'email': emailInput,
+                'nombre': nameInput,
+                'apellido': lastNameInput,
+                'nombreCorto': nombreCorto,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            dataType: 'json',
+            beforeSend: function (response) {
+                Swal.fire({
+                    title: 'Procesando',
+                    html: 'Espere unos segundos ..',
+                    icon: 'info',
+                    allowOutsideClick: false,
+                    timerProgressBar: true,
+                    onBeforeOpen: () => {
+                        Swal.showLoading()
+                    },
+                })
+            }
+        })
+            .done(function (response) {
+                if (response.user) {
+                    dibujar(response.user);
                     Swal.fire({
-                        title: 'Procesando',
-                        html: 'Espere unos segundos ..',
-                        icon: 'info',
-                        allowOutsideClick: false,
+                        title: 'Operación exitosa',
+                        text: 'Perfil creado correctamente',
+                        icon: 'success',
+                        showConfirmButton: false,
                         timerProgressBar: true,
-                        onBeforeOpen: () => {
-                            Swal.showLoading()
-                        },
-                    })
+                        timer: 2000
+                    });
                 }
             })
-                .done(function (response) {
-                    if (response.user) {
-                        dibujar(response.user);
-                        Swal.fire({
-                            title: 'Operación exitosa',
-                            text: 'Perfil creado correctamente',
-                            icon: 'success',
-                            showConfirmButton: false,
-                            timerProgressBar: true,
-                            timer: 2000
-                        });
-                    }
-                })
-                .fail(function(response){
-                    Swal.fire({
-                            title: 'Error en la solicitud',
-                            text: 'Algo salio mal [Code: ' + response.statusText + " ]",
-                            icon: 'error',
-                        });
+            .fail(function (response) {
+                Swal.fire({
+                    title: 'Error en la solicitud',
+                    text: 'Algo salio mal [Code: ' + response.statusText + " ]",
+                    icon: 'error',
                 });
-        }
+            });
+
+
+
+
         timer.reset(540000);
     }
 
@@ -344,7 +348,7 @@
                             al investigador en el Reporte Maestro</p> 
                         </small>`
                 })
-                 //Traemos valor del campo a editar y almacenamos en variables.
+                //Traemos valor del campo a editar y almacenamos en variables.
                 tr_id = "#user-" + id;
                 email = $(tr_id).find(".userEmail").text();
                 name = $(tr_id).find(".userName").text();
@@ -363,13 +367,13 @@
             cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
 
         }).then((result) => {
-            if(result.value){
+            if (result.value) {
                 actualizarUsuario();
             }
         }).catch((err) => {
-            
+
         });
-           
+
         timer.reset(540000);
     }
 
@@ -392,27 +396,27 @@
                 },
                 dataType: 'json',
             })
-            .done(function(response){
-                if (response.user) {
+                .done(function (response) {
+                    if (response.user) {
                         actualizarTabla(response.user);
                         Swal.fire({
-                        title: 'Actualizado',
-                        text: 'Usuario actualizado exitosamente',
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timerProgressBar: true,
-                        timer: 2000
-                    });
+                            title: 'Actualizado',
+                            text: 'Usuario actualizado exitosamente',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 2000
+                        });
                     }
-            })
-            .fail(function(response){
-                Swal.fire({
-                title: 'Error en la solicitud',
-                text: 'Algo salio mal [Code: ' + response.statusText + " ]",
-                icon: 'error',
-            });
-            });
-        } 
+                })
+                .fail(function (response) {
+                    Swal.fire({
+                        title: 'Error en la solicitud',
+                        text: 'Algo salio mal [Code: ' + response.statusText + " ]",
+                        icon: 'error',
+                    });
+                });
+        }
         timer.reset(540000);
     }
 
@@ -463,21 +467,21 @@
                     },
                     dataType: 'json',
                     beforeSend: function (response) {
-                    Swal.fire({
-                        title: 'Procesando',
-                        html: 'Espere unos segundos ..',
-                        icon: 'info',
-                        allowOutsideClick: false,
-                        timerProgressBar: true,
-                        onBeforeOpen: () => {
-                            Swal.showLoading()
-                        },
-                    })
-                }
+                        Swal.fire({
+                            title: 'Procesando',
+                            html: 'Espere unos segundos ..',
+                            icon: 'info',
+                            allowOutsideClick: false,
+                            timerProgressBar: true,
+                            onBeforeOpen: () => {
+                                Swal.showLoading()
+                            },
+                        })
+                    }
                 })
                     .done(function (response) {
                         Swal.fire({
-                            title:'Mensaje enviado',
+                            title: 'Mensaje enviado',
                             text: 'se envio exitosamente el mensaje de bienvenida',
                             icon: 'success',
                         })
