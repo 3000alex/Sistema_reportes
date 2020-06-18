@@ -16,8 +16,7 @@ from apps.registration.models import User
 from apps.biblioteca.models import Biblioteca
 from .models import ReporteEnviado
 from django.http import JsonResponse
-#Forms
-from .forms import num61
+
 # Manejo Archivos
 import os
 from django.conf import settings
@@ -43,8 +42,10 @@ import datetime
 @method_decorator(login_required, name='dispatch')
 class reporte_productividad(View):
     def get(self,request):
-        periodoActual =  Periodo.objects.last()
+        
         periodos = Periodo.objects.all()
+        periodoActual =  periodos.last()
+        periodos = periodos.order_by("-fecha_inicio")[:2]
         data = {
             'periodoActual': periodoActual,'periodos':periodos
         }
@@ -55,12 +56,11 @@ class investigacion_cientifica(View):
 
     def get(self,request):
         id1 = request.GET.get('periodoActual')
-        id_usuario = request.user.id
+        id_usuario = request.user.id  
         periodoActual = Periodo.objects.get(id = id1)
-        periodos = Periodo.objects.all()
         yearPeriodo = periodoActual.fecha_inicio.year
         data = {
-            "numeralName": Numeral.objects.filter(nombre_seccion="Investigacion Cientifica"),
+            "numeralName": Numeral.objects.filter(nombre_seccion="Investigacion Cientifica").order_by('orden'),
             'numeral_1': Biblioteca.objects.reporteProductividad(id_usuario,1,yearPeriodo),
             'numeral_2': Biblioteca.objects.reporteProductividad(id_usuario,2,yearPeriodo), 
             'numeral_3': Biblioteca.objects.reporteProductividad(id_usuario,3,yearPeriodo),
@@ -93,7 +93,6 @@ class investigacion_cientifica(View):
             'numeral_29':Modelo3.objects.reporteProductividad(id_usuario, 30,yearPeriodo),
             'citas': Citas.objects.reporteProductividad(id_usuario), #Id - 31
             'glosario': Glosario.objects.reporteProductividad("I. INVESTIGACIÓN CIENTÍFICA"),
-            'periodoActual': periodoActual,'periodos':periodos
         }
         return render(request, "reportes/investigacionCientifica.html", data)
 
@@ -104,10 +103,9 @@ class formacion_RH(View):
         id1 = request.GET.get('periodoActual')
         id_usuario = request.user.id
         periodoActual = Periodo.objects.get(id = id1)
-        periodos = Periodo.objects.all()
         yearPeriodo = periodoActual.fecha_inicio.year
         data = {
-            'numeralName': Numeral.objects.filter(nombre_seccion="Formacion de Recursos Humanos"),
+            'numeralName': Numeral.objects.filter(nombre_seccion="Formacion de Recursos Humanos").order_by('orden'),
             'numeral_31': Modelo4.objects.reporteProductividad(id_usuario,32,yearPeriodo),
             'numeral_32': Modelo4.objects.reporteProductividad(id_usuario,33,yearPeriodo),
             'numeral_33': Modelo4.objects.reporteProductividad(id_usuario,34,yearPeriodo),
@@ -118,7 +116,6 @@ class formacion_RH(View):
             'numeral_38': Modelo16.objects.reporteProductividad(id_usuario,39,yearPeriodo),
             'numeral_39': Modelo6.objects.reporteProductividad(id_usuario,40,yearPeriodo),
             "glosario": Glosario.objects.reporteProductividad("II. FORMACIÓN DE RECURSOS HUMANOS"),
-            "periodoActual": periodoActual,'periodos':periodos
             }
         return render(request, "reportes/formacionRRHH.html", data)
 
@@ -129,10 +126,9 @@ class desarrollo_tec_inovacion(View):
         id1 = request.GET.get('periodoActual')
         id_usuario = request.user.id
         periodoActual = Periodo.objects.get(id = id1)
-        periodos = Periodo.objects.all()
         yearPeriodo = periodoActual.fecha_inicio.year
         data = {
-            "numeralName": Numeral.objects.filter(nombre_seccion="Desarrollo Tecnologico e Innovacion"), 
+            "numeralName": Numeral.objects.filter(nombre_seccion="Desarrollo Tecnologico e Innovacion").order_by('orden'), 
             'numeral_40': Modelo7.objects.reporteProductividad(id_usuario,41,yearPeriodo),
             'numeral_41': Modelo7.objects.reporteProductividad(id_usuario,42,yearPeriodo),
             'numeral_42': Modelo7.objects.reporteProductividad(id_usuario,43,yearPeriodo),
@@ -141,7 +137,6 @@ class desarrollo_tec_inovacion(View):
             'numeral_45': Modelo8.objects.reporteProductividad(id_usuario,46,yearPeriodo),
             'numeral_46': Modelo9.objects.reporteProductividad(id_usuario,47,yearPeriodo),
             'glosario':  Glosario.objects.reporteProductividad("III. DESARROLLO TECNOLÓGICO E INNOVACIÓN(agregar patentes en REGISTRO)"),
-            'periodoActual': periodoActual,'periodos':periodos
             }
         return render(request, "reportes/desarrolloTecInnov.html", data)
 
@@ -152,10 +147,9 @@ class apoyo_institucional(View):
         id1 = request.GET.get('periodoActual')
         id_usuario = request.user.id
         periodoActual = Periodo.objects.get(id = id1)
-        periodos = Periodo.objects.all()
         yearPeriodo = periodoActual.fecha_inicio.year
         data = {
-            "numeralName": Numeral.objects.filter(nombre_seccion="Apoyo Institucional"),
+            "numeralName": Numeral.objects.filter(nombre_seccion="Apoyo Institucional").order_by('orden'),
             'numeral_47': Modelo15.objects.reporteProductividad(id_usuario,48,yearPeriodo),
             'numeral_48': Modelo9.objects.reporteProductividad(id_usuario ,49,yearPeriodo),
             'numeral_49': Modelo10.objects.reporteProductividad(id_usuario,50,yearPeriodo),
@@ -174,7 +168,6 @@ class apoyo_institucional(View):
             'numeral_59': Modelo13.objects.reporteProductividad(id_usuario,63,yearPeriodo),
             'numeral_60': Modelo15.objects.reporteProductividad(id_usuario,64,yearPeriodo),
             'glosario': Glosario.objects.reporteProductividad("IV. APOYO INSTITUCIONAL"), 
-            'periodoActual': periodoActual,'periodos':periodos
             }
         return render(request, "reportes/apoyoInstitucional.html", data)
 
@@ -184,28 +177,17 @@ class informacion_adicional(View):
         id_usuario = request.user.id
         id1 = request.GET.get('periodoActual')
         periodoActual = Periodo.objects.get(id = id1)
-        periodos = Periodo.objects.all()
         yearPeriodo = periodoActual.fecha_inicio.year
+
         data = {
-            'numeralName': Numeral.objects.filter(nombre_seccion="Informacion Adicional"),
+            'numeralName': Numeral.objects.filter(nombre_seccion="Informacion Adicional").order_by('orden'),
             'numeral_61': Modelo14.objects.reporteProductividad(id_usuario,65,yearPeriodo),
             'glosario': Glosario.objects.reporteProductividad("V. INFORMACIÖN ADICIONAL"), 
-            'periodoActual': periodoActual,'periodos':periodos,
-            'num61': num61
             }
 
         return render(request, "reportes/informacionAdicional.html", data)
 
 # Investigacion Cientifica - CRUD
-class prueba(View):
-    def get(self,request):
-        print(request.GET)
-        telescopio = request.GET.get('id_telescopio')
-        anexo = request.GET.get('anexo')
-        print(anexo)
-        print(type(anexo))
-        print(telescopio)
-        return JsonResponse({'a':'da'})
 
 # Numerales Biblioteca
 @method_decorator(login_required, name='dispatch')
@@ -244,11 +226,8 @@ class actualizarBiblioteca(View):
                 obj.anexos = archivo
         obj.save()
 
-        user = {'id': obj.id, 'autores': obj.autores, 'titulo': obj.titulo,
-                'revista': obj.revista_publicacion, 'estudiantes': obj.estudiantes_en_articulo}  # Json que se enviara a Data
-
         data = {
-            'user': user  # Objeto de Json con los datos actualizados.
+            'ok': 'ok'  # Objeto de Json con los datos actualizados.
         }
         return JsonResponse(data)
 
@@ -317,11 +296,9 @@ class eliminarModelo1(View):
         obj = Modelo1.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo1.objects.get(id=id1).delete()
+        obj.delete()
 
-        data = {
-            'deleted': True
-        }
+        data = {'deleted': True}
         return JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
@@ -329,12 +306,11 @@ class crearModelo1(View):
     def get(self, request):
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
         
         obj = Modelo1.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
         orden = obj.numeral.orden
         
@@ -431,16 +407,13 @@ class actualizarModelo2(View):
 class eliminarModelo2(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        print(id1)
 
         obj = Modelo2.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo2.objects.get(id=id1).delete()
+        obj.delete()
 
-        data = {
-            'deleted': True
-        }
+        data = {'deleted': True}
         return JsonResponse(data)
 
 @method_decorator(login_required, name='dispatch')
@@ -448,12 +421,11 @@ class crearModelo2(View):
     def get(self, request):
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
         
         obj = Modelo2.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
 
         orden = obj.numeral.orden
@@ -558,7 +530,7 @@ class eliminarModelo3(View):
         obj = Modelo3.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo3.objects.get(id=id1).delete()
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -569,12 +541,11 @@ class crearModelo3(View):
     def get(self, request):
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
         
         obj = Modelo3.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
         orden = obj.numeral.orden
 
@@ -730,7 +701,7 @@ class eliminarModelo4(View):
         obj = Modelo4.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo4.objects.get(id=id1).delete()
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -741,12 +712,11 @@ class crearModelo4(View):
     def get(self, request):
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo4.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
 
         orden = obj.numeral.orden
@@ -835,7 +805,7 @@ class eliminarModelo5(View):
         obj = Modelo5.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo5.objects.get(id=id1).delete()
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -846,12 +816,11 @@ class crearModelo5(View):
     def get(self, request):
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo5.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
 
         orden = obj.numeral.orden
@@ -941,7 +910,7 @@ class eliminarModelo6(View):
         obj = Modelo6.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo6.objects.get(id=id1).delete()
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -952,12 +921,11 @@ class crearModelo6(View):
     def get(self, request):
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
        
         obj = Modelo6.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
 
         orden = obj.numeral.orden
@@ -1051,7 +1019,7 @@ class eliminarModelo7(View):
         obj = Modelo7.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo7.objects.get(id=id1).delete()
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -1062,12 +1030,11 @@ class crearModelo7(View):
     def get(self, request):        
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo7.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
         orden = obj.numeral.orden
 
@@ -1149,7 +1116,7 @@ class eliminarModelo8(View):
         obj = Modelo8.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo8.objects.get(id=id1).delete()
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -1160,12 +1127,11 @@ class crearModelo8(View):
     def get(self, request):        
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo8.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
         orden = obj.numeral.orden
 
@@ -1258,7 +1224,7 @@ class eliminarModelo9(View):
         obj = Modelo9.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo9.objects.get(id=id1).delete()
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -1269,12 +1235,11 @@ class crearModelo9(View):
     def get(self, request):
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo9.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
 
         orden = obj.numeral.orden
@@ -1376,7 +1341,7 @@ class eliminarModelo10(View):
         obj = Modelo10.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo10.objects.get(id=id1).delete()
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -1387,12 +1352,11 @@ class crearModelo10(View):
     def get(self, request):
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo10.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
 
         orden = obj.numeral.orden
@@ -1479,7 +1443,7 @@ class eliminarModelo11(View):
         obj = Modelo11.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo11.objects.get(id=id1).delete()
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -1490,12 +1454,11 @@ class crearModelo11(View):
     def get(self, request):
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo11.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
 
         orden = obj.numeral.orden
@@ -1574,7 +1537,7 @@ class eliminarModelo12(View):
         obj = Modelo12.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo12.objects.get(id=id1).delete()
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -1585,12 +1548,11 @@ class crearModelo12(View):
     def get(self, request):
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
     
         obj = Modelo12.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
 
         orden = obj.numeral.orden
@@ -1661,7 +1623,7 @@ class eliminarModelo13(View):
         obj = Modelo13.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo13.objects.get(id=id1).delete()
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -1672,12 +1634,11 @@ class crearModelo13(View):
     def get(self, request):
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo13.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
 
         orden = obj.numeral.orden
@@ -1760,6 +1721,9 @@ class eliminarModelo14(View):
     def post(self, request):
         id1 = request.POST.get('id')
         Modelo14.objects.get(id=id1).delete()
+        if obj.anexos:
+            os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -1870,7 +1834,8 @@ class eliminarModelo15(View):
         obj = Modelo15.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo15.objects.get(id=id1).delete()
+
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -1881,12 +1846,11 @@ class crearModelo15(View):
     def get(self, request):
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo15.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
 
         orden = obj.numeral.orden
@@ -1959,7 +1923,7 @@ class eliminarModelo16(View):
         obj = Modelo16.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
-        Modelo16.objects.get(id=id1).delete()
+        obj.delete()
         data = {
             'deleted': True
         }
@@ -1970,12 +1934,11 @@ class crearModelo16(View):
     def get(self, request):
         numeral = request.GET.get('numeral')
         periodo_id = request.GET.get('periodo')
-        periodo = Periodo.objects.get(id=periodo_id)
 
         obj = Modelo16.objects.create(
             usuario_id=request.user.id,
             numeral_id=numeral,
-            periodo_id=periodo.id,
+            periodo_id=periodo_id,
         )
 
         orden = obj.numeral.orden
@@ -2195,7 +2158,6 @@ class enviarReporte(View):
         
         return  JsonResponse(data)
 
-
 # Generar PDF
 @method_decorator(login_required, name='dispatch')
 class generarReporte(View):
@@ -2219,17 +2181,11 @@ class generarReporte(View):
 class reportesEnviados(View):
     def get(self,request):
         queryset = ReporteEnviado.objects.filter(usuario_id= request.user.id)
-        return render(request,'reportes/reportesEnviados.html',{'reportes':queryset})
+        return render(request,'reportes/historico.html',{'reportes':queryset})
 
 @method_decorator(login_required, name='dispatch')
 class home(TemplateView):
     template_name = 'reportes/home.html'
-
-
-@method_decorator(login_required, name='dispatch')
-class perfil(TemplateView):
-    template_name = 'registration/profile_form.html'
-
 
 @method_decorator(login_required, name='dispatch')
 class ampliarSesion(View):

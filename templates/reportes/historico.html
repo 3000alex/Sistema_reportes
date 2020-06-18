@@ -1,7 +1,7 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% block contenido %}
-<div class="container mt-4">
+<div class="container" style="margin-top: 120px;">
     <table id="reportesEnviados" class="table table-bordered table-striped text-center" style="width:100%">
         <thead>
             <tr>
@@ -46,7 +46,7 @@
         "language": {
             "lengthMenu": "Mostrar _MENU_ reportes",
             "zeroRecords": "No se encontraron resultados",
-            "info": "Mostrando reportes del _START_ al _END_ de un total de _TOTAL_ registros",
+            "info": "<small>Mostrando reportes del _START_ al _END_ de un total de _TOTAL_ registros</small>",
             "infoEmpty": "No existen reportes enviados",
             "infoFiltered": "(filtrado de un total de _MAX_ registros",
             "sSearch": "Buscar:",

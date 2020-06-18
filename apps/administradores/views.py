@@ -166,7 +166,7 @@ class perfil_adm(StaffRequiredMixin, View):
     def get(self,request):
         perfil = User.objects.get(id=request.user.id)
         data = {'perfil':perfil}
-        return render(request,'administradores/perfil_adm.html',data)
+        return render(request,'administradores/perfil.html',data)
     
     def post(self,request):
         correoAlternativo = request.POST.get('correoAlternativo',None)
@@ -175,7 +175,6 @@ class perfil_adm(StaffRequiredMixin, View):
         obj.save()
         data = {'cambio':True}
         return JsonResponse(data)
-
 
 class reportes_adm(StaffRequiredMixin,View):
     def get(self, request):
@@ -204,7 +203,6 @@ class reportes_adm(StaffRequiredMixin,View):
         }
         return render(request,'administradores/reportes_adm.html', data)
 
-    
 class reporteMaestro(View):
 
     def post(self, request):

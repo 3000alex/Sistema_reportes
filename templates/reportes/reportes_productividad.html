@@ -32,10 +32,9 @@
         <div class="col-12 col-lg-4">
             <div class="d-flex justify-content-end mt-2">
                 
-                <form  method="POST">
+                <form method="POST">
                     <label for="periodo" class=""><strong>Periodo: </strong></label>
                     <select class="form-control" name="periodoActual" id="periodoActual">
-                        <option selected value="{{periodoActual.id}}">{{periodoActual.nombre_periodo}}</option>
                         {% for periodos in periodos %}
                         <option value="{{periodos.id}}">{{periodos.nombre_periodo}}</option>
                         {% endfor %}
@@ -88,7 +87,6 @@
 {%  endblock %}
 
 {% block JSCode %}
-<script src="{% static 'js/download2.js' %}"></script>
 <script>
     $(document).ready(function () {
         var periodo = $('select[name="periodoActual"]').val().trim();

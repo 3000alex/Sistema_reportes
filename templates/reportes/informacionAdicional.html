@@ -113,33 +113,7 @@
 </div>
 
 {% block JsCode %}
-<!--Data table -->
-<script src="{% static 'DataTables/datatables.min.js'%}"></script>
-<link rel="stylesheet" href="{% static 'DataTables/datatables.min.css'%}">
-<script>
-    var t = $('#tabla1').DataTable({
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ entradas",
-            "zeroRecords": "Sin registros",
-            "info": "Mostrando entradas del _START_ al _END_ de un total de _TOTAL_ registros",
-            "infoEmpty": "Sin resultados",
-            "infoFiltered": "(filtrado de un total de _MAX_ entradas",
-            "sSearch": "Buscar:",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Ultimo",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior",
-            },
-            "sProcessing": "Procesando..."
-        },
-        dom: 'tp',
-        "pageLength": 5,
-        "lengthMenu": [[5, 10, 20, 25, 50, -1], [5, 10, 20, 25, 50, "Todos"]],
-        "order": [[0, "desc"]],
-        responsive: true
-    }); //Fin Biblioteca personal Data Table
-</script>
+
 <script>
 
     function glosario() {
@@ -200,7 +174,8 @@
                     notificacion.error(response);
                 });
         },
-        crear: function (numeral, periodo) {
+        crear: function (numeral) {
+            var periodo = $("#periodoActual").val();
             $.ajax({
                 type: "GET",
                 url: '{% url "reportes:crear-modelo14" %}',
@@ -299,8 +274,8 @@
                     });
             });
         },
-        infoAnterior: function (periodo, numeral) {
-
+        infoAnterior: function (numeral) {
+            var periodo = $("#periodoActual").val();
             $.ajax({
                 type: "GET",
                 url: "{% url 'reportes:info-anteriorModelo14' %}",
@@ -339,53 +314,5 @@
         }
     }
     //Fin modelo14
-    var prueba = {
-        crear: function () {
-            Swal.fire({
-                title: 'Crear entrada',
-                html: `
-                <form id="num61Form">
-                {{ num61 }}
-                </form>
-                `,
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: '<i class="far fa-save"></i> Crear',
-                cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
-                preConfirm() {
-                    var formData = new FormData();
-                    var anexo = $("#id_anexo")[0].files
-                    var id = Math.floor(Math.random() * 1000);
-
-                    if (anexo.length > 0) {
-                        anexo = anexo[0].name
-                    }
-                    else {
-                        anexo = ""
-                    }
-
-                    t.row.add([
-                        $("#id_telescopio").val().trim(),
-                        $("#id_url").val().trim(),
-                        $("#id_telescopio").val().trim(),
-                        anexo,
-                        `<button type="button" onclick="prueba.editar(${id})" class="btn btn-primary" title="Editar entrada">
-                            <i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger" onclick="prueba.eliminar(${id})"
-                            title="Eliminar entrada">
-                            <i class="fas fa-trash-alt"></i></button>`
-                    ]).draw(false);
-
-                }
-            });
-        },
-        editar: function () {
-
-        },
-        eliminar: function () {
-
-        }
-    }
 </script>
 {% endblock %}
