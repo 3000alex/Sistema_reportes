@@ -204,7 +204,7 @@
                 var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
                 if (emailInput && nameInput && lastNameInput && nombreCorto) {
                     // Create Ajax Call
-                    agregarUsuario(emailInput, nameInput, lastNameInput, nombreCorto)
+                    agregarUsuario(emailInput, nameInput, lastNameInput, nombreCorto, csrfmiddlewaretoken)
                 }
                 else {
                     alert("Todos los campos son obligatorios")
@@ -214,7 +214,7 @@
         });
     }
 
-    function agregarUsuario(emailInput, nameInput, lastNameInput, nombreCorto) {
+    function agregarUsuario(emailInput, nameInput, lastNameInput, nombreCorto, csrfmiddlewaretoken) {
         $.ajax({
             url: '{% url "administradores:agregar-inv" %}',
             type: 'POST',
