@@ -15,13 +15,21 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def nuevo_periodo(request):
     usuarios = User.objects.exclude(is_superuser = 1)
     dateNow = datetime.datetime.now()
-        
+
+    """
     if dateNow.month <= 6:
         nombre_periodo = str(dateNow.year)+"A: "+"ene-jun"
 
     else: 
         nombre_periodo = str(dateNow.year)+"B: "+"ene-dic"
-        
+    """
+
+    if dateNow.day == 26:
+        nombre_periodo = str(dateNow.year)+"B: "+"ene-dic"
+    
+    else:
+        nombre_periodo = "2021A: ene-jun"
+
     p = Periodo.objects.create(nombre_periodo=nombre_periodo)
         
 
