@@ -724,6 +724,7 @@ class crearModelo4(View):
         data = {
             'id': obj.id,
             'orden': orden,
+            'numeral':numeral,
             'periodo':periodo_id,
         }
         return JsonResponse(data)
@@ -828,6 +829,7 @@ class crearModelo5(View):
         data = {
             'id': obj.id,
             'orden': orden,
+            'numeral':numeral,
             'periodo':periodo_id,
         }
         return JsonResponse(data)
@@ -932,6 +934,7 @@ class crearModelo6(View):
         data = {
             'id': obj.id,
             'orden': orden,
+            'numeral':numeral,
             'periodo':periodo_id,
         }
         return JsonResponse(data)
@@ -1041,6 +1044,7 @@ class crearModelo7(View):
         data = {
             'id': obj.id,
             'orden': orden,
+            'numeral':numeral,
             'periodo':periodo_id,
         }
         return JsonResponse(data)
@@ -1138,6 +1142,7 @@ class crearModelo8(View):
         data = {
             'id': obj.id,
             'orden': orden,
+            'numeral':numeral,
             'periodo':periodo_id,
         }
         return JsonResponse(data)
@@ -1247,6 +1252,7 @@ class crearModelo9(View):
         data = {
             'id': obj.id,
             'orden': orden,
+            'numeral':numeral,
             'periodo':periodo_id,
         }
         return JsonResponse(data)
@@ -1364,6 +1370,7 @@ class crearModelo10(View):
         data = {
             'id': obj.id,
             'orden': orden,
+            'numeral':numeral,
             'periodo':periodo_id,
         }
         return JsonResponse(data)
@@ -1466,6 +1473,7 @@ class crearModelo11(View):
         data = {
             'id': obj.id,
             'orden': orden,
+            'numeral':numeral,
             'periodo':periodo_id,
         }
         return JsonResponse(data)
@@ -1560,6 +1568,7 @@ class crearModelo12(View):
         data = {
             'id': obj.id,
             'orden': orden,
+            'numeral':numeral,
             'periodo':periodo_id,
         }
         return JsonResponse(data)
@@ -1646,6 +1655,7 @@ class crearModelo13(View):
         data = {
             'id': obj.id,
             'orden': orden,
+            'numeral':numeral,
             'periodo':periodo_id,
         }
         return JsonResponse(data)
@@ -1749,6 +1759,7 @@ class crearModelo14(View):
         data = {
             'id': obj.id,
             'orden': orden,
+            'numeral':numeral,
             'periodo':periodo_id,
         }
         return JsonResponse(data)
@@ -1858,6 +1869,7 @@ class crearModelo15(View):
         data = {
             'id': obj.id,
             'orden': orden,
+            'numeral':numeral,
             'periodo':periodo_id,
         }
         return JsonResponse(data)
@@ -1946,6 +1958,7 @@ class crearModelo16(View):
         data = {
             'id': obj.id,
             'orden': orden,
+            'numeral':numeral,
             'periodo':periodo_id,
         }
         return JsonResponse(data)
