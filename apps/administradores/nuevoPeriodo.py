@@ -12,7 +12,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-def nuevo_periodo(request):
+def nuevo_periodo():
     usuarios = User.objects.exclude(is_superuser = 1)
     dateNow = datetime.datetime.now()
 

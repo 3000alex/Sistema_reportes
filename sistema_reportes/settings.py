@@ -48,10 +48,6 @@ THIRD_PARTY_APPS = ('django_crontab','rest_framework')
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
-CRONJOBS = [
-    ('12 16 26,27 6 *', 'administradores.nuevoPeriodo.nuevo_periodo')
-]
-
 AUTH_USER_MODEL = 'registration.User'
 
 MIDDLEWARE = [
@@ -146,3 +142,7 @@ DEFAULT_FROM_EMAIL = 'reportes-astro' #Email que permite reenviar la contraseña
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 600  # 0r 5 * 60, same thing
 SESSION_SAVE_EVERY_REQUEST = True   
+
+CRONJOBS = [
+    ('20 16 26,27 6 *', 'administradores.nuevoPeriodo.nuevo_periodo')
+]
