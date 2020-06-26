@@ -49,7 +49,7 @@ THIRD_PARTY_APPS = ('django_crontab','rest_framework')
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
 CRONJOBS = [
-    ('0 12 26,27 6 *', 'administradores.nuevoPeriodo.nuevoPeriodo')
+    ('15 15 26,27 6 *', 'administradores.nuevoPeriodo.nuevo_periodo')
 ]
 
 AUTH_USER_MODEL = 'registration.User'
