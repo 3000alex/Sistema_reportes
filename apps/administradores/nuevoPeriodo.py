@@ -23,13 +23,14 @@ def nuevo_periodo(request):
     else: 
         nombre_periodo = str(dateNow.year)+"B: "+"ene-dic"
     
-
+    """
     if dateNow.day == 26:
         nombre_periodo = str(dateNow.year)+"B: "+"ene-dic"
     
     else:
         nombre_periodo = "2021A: ene-jun"
 
+    
     p = Periodo.objects.create(nombre_periodo=nombre_periodo)
         
 
@@ -39,7 +40,7 @@ def nuevo_periodo(request):
                 
         },
     )
-    """
+    
 
     #Envio de correo a todos los reportes con el nuevo periodo.
     for user in usuarios:
