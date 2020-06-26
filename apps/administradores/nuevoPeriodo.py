@@ -13,43 +13,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def nuevo_periodo():
-    usuarios = User.objects.exclude(is_superuser = 1)
-    dateNow = datetime.datetime.now()
-
-    """
-    if dateNow.month <= 6:
-        nombre_periodo = str(dateNow.year)+"A: "+"ene-jun"
-
-    else: 
-        nombre_periodo = str(dateNow.year)+"B: "+"ene-dic"
-    
-    """
-    if dateNow.day == 26:
-        nombre_periodo = str(dateNow.year)+"B: "+"ene-dic"
-    
-    else:
-        nombre_periodo = "2021A: ene-jun"
-
-    
-    p = Periodo.objects.create(nombre_periodo=nombre_periodo)
-        
-
-    body = render_to_string(
-        'administradores/periodoCreado.html', {
-            'periodo': p.nombre_periodo,
-                
-        },
-    )
-    
-
-    #Envio de correo a todos los reportes con el nuevo periodo.
-    for user in usuarios:
-
-        email_message = EmailMessage(
-            subject='Nuevo periodo '+p.nombre_periodo+' disponible en la plataforma',
-            body=body,
-            from_email='reportes-astro@inaoep.mx',
-            to=[user.email],
-        )
-        email_message.content_subtype = 'html'
-        email_message.send()
+    print('iam an cron job')
+    f = open('/home/alexis/Documentos/django_cron.txt', 'w')
+    f.close()
