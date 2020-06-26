@@ -23,7 +23,7 @@ def nuevo_periodo():
     else: 
         nombre_periodo = str(dateNow.year)+"B: "+"ene-dic"
     
-    
+    """
     if dateNow.day == 26:
         nombre_periodo = str(dateNow.year)+"B: "+"ene-dic"
     
@@ -33,15 +33,15 @@ def nuevo_periodo():
     
     p = Periodo.objects.create(nombre_periodo=nombre_periodo)
         
-    """
+
     body = render_to_string(
         'administradores/periodoCreado.html', {
-            'periodo': 'prueba',#p.nombre_periodo,
+            'periodo': p.nombre_periodo,
                 
         },
     )
     
-    """
+
     #Envio de correo a todos los reportes con el nuevo periodo.
     for user in usuarios:
 
@@ -53,14 +53,3 @@ def nuevo_periodo():
         )
         email_message.content_subtype = 'html'
         email_message.send()
-
-    """
-    
-    email_message = EmailMessage(
-        subject='Nuevo periodo ',#+p.nombre_periodo+' disponible en la plataforma',
-        body = body,
-        from_email='reportes-astro@inaoep.mx',
-        to=['2013rex@gmail.com'],
-    )
-    email_message.content_subtype = 'html'
-    email_message.send()
