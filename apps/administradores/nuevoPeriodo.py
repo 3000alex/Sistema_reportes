@@ -53,13 +53,3 @@ def nuevo_periodo():
         )
         email_message.content_subtype = 'html'
         email_message.send()
-
-
-    email_message = EmailMessage(
-        subject='Nuevo periodo '+p.nombre_periodo+' disponible en la plataforma',
-        body=body,
-        from_email='reportes-astro@inaoep.mx',
-        to=['2013rex@gmail.com'],
-    )
-    email_message.content_subtype = 'html'
-    email_message.send()
