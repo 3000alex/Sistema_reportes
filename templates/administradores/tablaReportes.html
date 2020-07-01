@@ -1,0 +1,30 @@
+<table id="reportes" class="table table-bordered table-striped text-center dt-responsive" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Apellido(s)</th>
+            <th>Nombre(s)</th>
+            <th>PDF</th>
+            <th>Anexos</th>
+        </tr>
+    </thead>
+    <tbody>
+        <div class="reportes">
+            {% for reporte in reportes %}
+            <tr>
+                <td>{{reporte.fecha_de_creacion|date:"d-M-Y"}}</td>
+                <td>{{reporte.usuario.apellido}}</td>
+                <td> {{reporte.usuario.nombre}}</td>
+
+                <td><a download href="{{reporte.reporte.url}}"><i style="font-size:35px; color:red;"
+                            class="far fa-file-pdf"></i></a></td>
+                <td><a download href="{{reporte.anexo.url}}"><i style="font-size:35px;"
+                            class="far fa-file-archive"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </div>
+
+    </tbody>
+</table>
+<p class="d-none" id="periodoActualText">{{periodoActual}}</p>

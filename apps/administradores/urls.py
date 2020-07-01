@@ -21,5 +21,6 @@ administradorespatterns = ([
     path('correoBienvenida',views.correoBienvenida.as_view(), name="correoBienvenida"),
     #Nuevo periodo
     path('periodoNuevo', n.nuevo_periodo, name='nuevo_periodo'),
+    path('tabla-reportes',views.tabla_reportes.as_view(), name="tabla_reportes")
 
 ],'administradores')

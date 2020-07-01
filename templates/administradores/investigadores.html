@@ -98,6 +98,8 @@
         }).then((result) => {
             if (result.value) {
                 var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+
+                
                 $.ajax({
                     url: '{% url "administradores:eliminar" %}',
                     type: "POST",
@@ -128,7 +130,7 @@
                             icon: 'error',
                         });
                     });
-            }
+            } 
         });
     }
 
@@ -151,7 +153,7 @@
                         <small class="form-text text-muted mb-3">El usuario debe ser el correo electrónico institucional
                             del investigador.</small>
 
-                            <p style="margin-top:10px; font-size:16px; text-align: left; !important">Apellido(s):</p>
+                        <p style="margin-top:10px; font-size:16px; text-align: left; !important">Apellido(s):</p>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-edit"></i></span>
@@ -240,8 +242,8 @@
             }
         })
             .done(function (response) {
-                if (response.user) {
-                    dibujar(response.user);
+                if (response) {
+                    dibujar(response);
                     Swal.fire({
                         title: 'Operación exitosa',
                         text: 'Perfil creado correctamente',
@@ -294,7 +296,7 @@
             html: `<form id="updateUser" action="">
                         <input class="form-control" id="form-id" type="hidden" name="formId" />
 
-                        <label for="email">Usuario:</label>
+                        <p style="margin-top:10px; font-size:16px; text-align: left; !important">Usuario:</p>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></span>
@@ -305,7 +307,7 @@
                         <small class="form-text text-muted mb-3">El usuario debe ser el correo electrónico institucional
                             del investigador.</small>
 
-                        <label for="apellidos">Apellido(s):</label>
+                        <p style="margin-top:10px; font-size:16px; text-align: left; !important">Apellido(s):</p>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-edit"></i></span>
@@ -315,7 +317,7 @@
                         </div>
 
 
-                        <label for="name">Nombre(s):</label>
+                        <p style="margin-top:10px; font-size:16px; text-align: left; !important">Nombre(s):</p>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-edit"></i></span>
@@ -324,7 +326,7 @@
                                 aria-describedby="basic-addon1" required>
                         </div>
 
-                        <label for="apellidos">Nombre corto:</label>
+                        <p style="margin-top:10px; font-size:16px; text-align: left; !important">Nombre corto:</p>
                         <div class="input-group ">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
@@ -397,8 +399,8 @@
                 dataType: 'json',
             })
                 .done(function (response) {
-                    if (response.user) {
-                        actualizarTabla(response.user);
+                    if (response) {
+                        actualizarTabla(response);
                         Swal.fire({
                             title: 'Actualizado',
                             text: 'Usuario actualizado exitosamente',

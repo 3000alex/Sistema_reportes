@@ -2004,6 +2004,7 @@ class enviarReporte(View):
     def get(self, request, *args, **kwargs):
         #Declaramos variables para filtos y nombres
         periodo_id = request.GET.get('periodoActual')
+        admin = User.objects.get(is_superuser = 1)
         periodo = Periodo.objects.get(id=periodo_id)
         usuario = request.user.id
         yearPeriodo = periodo.fecha_inicio.year
@@ -2042,7 +2043,6 @@ class enviarReporte(View):
         }
         pdf = pdfkit.from_string(html,False,configuration=config,options=options)        
         data = {'periodo':periodo.nombre_periodo,}
-        
         #Email para investigador
         body = render_to_string(
             'reportes/templateReportesFinalizadoUsuario.html', {
@@ -2069,7 +2069,6 @@ class enviarReporte(View):
         #Enviamos email
         email_message.send()
 
-
         #Email para la coordinacionP
         bodyAdmin = render_to_string(
          'reportes/templateReporteFinalizado.html',{
@@ -2079,18 +2078,26 @@ class enviarReporte(View):
          }   
         )
 
-        mensajeCordinacion = EmailMessage(
-            subject='Reporte enviado a la Coordinación',
-            body=bodyAdmin,
-            from_email='reportes-astro@inaoep.mx',
-            to=['reportes-astro@inaoep.mx'], #agregar a  'astrofi@inaoep.mx',
-        )
+        if admin.correoAlternativo:
+            mensajeCordinacion = EmailMessage(
+                subject='Reporte enviado a la Coordinación',
+                body=bodyAdmin,
+                from_email='reportes-astro@inaoep.mx',
+                to=['reportes-astro@inaoep.mx','astrofi@inaoep.mx',admin.correoAlternativo],
+            )
+        else:
+            mensajeCordinacion = EmailMessage(
+                subject='Reporte enviado a la Coordinación',
+                body=bodyAdmin,
+                from_email='reportes-astro@inaoep.mx',
+                to=['reportes-astro@inaoep.mx','astrofi@inaoep.mx'],
+            )
+
         mensajeCordinacion.content_subtype = 'html'
         mensajeCordinacion.attach(adjunto)
         #Enviamos email
         mensajeCordinacion.send()
-
-    
+        
         #creamos o actualizamos reporte en BD
         obj,creado = ReporteEnviado.objects.get_or_create(periodo_id = periodo_id, usuario_id = request.user.id)
         
