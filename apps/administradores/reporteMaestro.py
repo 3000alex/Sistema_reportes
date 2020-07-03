@@ -122,14 +122,13 @@ def tablaInvestigadores(document,usuario,periodo):
     hdr_cells[4].text = 'Reporte enviado'
             
     for investigador in usuario:
-        print(investigador.id)
+
         try:
             
             reporte = ReporteEnviado.objects.get(usuario_id = investigador.id, periodo = periodo)
-            print(reporte)
+
         except:
             reporte= None
-            print(reporte)
 
         row_cells = table.add_row().cells
         row_cells[0].text = investigador.apellido
@@ -408,9 +407,8 @@ def tablaResumenNumerales(document,yearPeriodo):
     row_cells[2].text = Modelo10.objects.entradasContador(yearPeriodo,55) 
 
 def nombreCorto(cadenaAutores,nombreC):
-    nombre = nombreC.split(",")
-    autores = cadenaAutores.replace(nombre[0],'<strong>{nombre}</strong>')
-    return str(autores.format(nombre=nombre[0]))
+    autores = cadenaAutores.split(";")
+    return autores
 
 def nombreFile(nombreFile):
     nombre = nombreFile.replace("anexos/","")
@@ -446,7 +444,6 @@ def add_hyperlink(paragraph, text, url):
     return hyperlink
 
 def Reporte(request,periodo_id):
-    print("El periodo es : " + periodo_id)
     document = Document()
     style = document.styles['Normal']
     font = style.font
@@ -592,7 +589,13 @@ def Reporte(request,periodo_id):
                     paragraph = document.add_paragraph(style='List Bullet')
                     paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
                     
-                    paragraph.add_run(item.autores)
+                    autores = nombreCorto(item.autores,inv.nombreCorto)
+                    for a in autores:
+                        if a.strip() == inv.nombreCorto:
+                            paragraph.add_run(a).font.bold = True
+                        else:
+                            paragraph.add_run(a).font.bold = False
+
                     paragraph.add_run(",")
                     
                     paragraph.add_run(item.titulo).font.italic = True
