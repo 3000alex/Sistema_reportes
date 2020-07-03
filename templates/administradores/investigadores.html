@@ -272,10 +272,10 @@
         $("#usuarios > tbody:last-child").append(`
             <tr id="user-${user.id}">
                 <td class="userEmail userData" name="email">${user.email}</td>
-                <td class="userNombreCorto" name="nombreCorto" >${user.nombreCorto}</td>
-                '<td class="userLastName userData" name="apellido">${user.apellido}</td>
-                '<td class="userName userData" name="name">${user.nombre}</td>
-                '<td>
+                <td class="userLastName userData" name="apellido">${user.apellido}</td>
+                <td class="userName userData" name="name">${user.nombre}</td>
+                <td class="userNombreCorto userData" name="nombreCorto" >${user.nombreCorto}</td>
+                <td>
                     <button class="btn btn-success" onClick="editUser(${user.id})" data-toggle="modal"
                         data-target="#myModal"><i class="fas fa-user-edit"></i></button>
 

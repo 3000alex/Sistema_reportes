@@ -50,6 +50,8 @@
         var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
         var periodo_id = $('select[name="periodo_id"] option:selected').val();
         var periodoActual = $('select[name="periodo_id"] option:selected').text();
+        alert(periodo_id)
+        alert(periodoActual)
 
         Swal.fire({
             title: 'Reporte Maestro',

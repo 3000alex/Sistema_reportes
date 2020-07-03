@@ -446,6 +446,7 @@ def add_hyperlink(paragraph, text, url):
     return hyperlink
 
 def Reporte(request,periodo_id):
+    print("El periodo es : " + periodo_id)
     document = Document()
     style = document.styles['Normal']
     font = style.font
