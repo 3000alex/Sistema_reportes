@@ -4,7 +4,7 @@
 
 {% block contenido %}
 
-<div class="container-fluid" style="margin-top: 100px;">  
+<div class="container-fluid" style="margin-top: 100px;">
     <div class="row">
         <div class="col-12 col-lg-4">
             <div class="d-flex justify-content-center justify-content-md-start mt-2">
@@ -12,11 +12,11 @@
                     class="text-white btn btn-success btn-sm mr-2">
                     <i class="far fa-eye"></i> Vista Previa</button>
 
-                <a class="text-white btn btn-info btn-sm mr-2"
-                    href="{% url 'reportes:reportesEnviados' %}"><i class="fas fa-history"></i> Historico</a>
+                <a class="text-white btn btn-info btn-sm mr-2" href="{% url 'reportes:reportesEnviados' %}"><i
+                        class="fas fa-history"></i> Historico</a>
 
-                <button class="text-white btn btn-danger btn-sm"
-                    onclick="finalizarReporte()"><i class="fas fa-check"></i>
+                <button class="text-white btn btn-danger btn-sm" onclick="finalizarReporte()"><i
+                        class="fas fa-check"></i>
                     Finalizar Reporte
                 </button>
             </div>
@@ -31,7 +31,7 @@
 
         <div class="col-12 col-lg-4">
             <div class="d-flex justify-content-end mt-2">
-                
+
                 <form method="POST">
                     <label for="periodo" class=""><strong>Periodo: </strong></label>
                     <select class="form-control" name="periodoActual" id="periodoActual">
@@ -40,7 +40,7 @@
                         {% endfor %}
                     </select>
                 </form>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -53,14 +53,14 @@
             onclick="investigacionCientifica()" style="cursor: pointer;">I. Investigación<br>
             Cientifica.</a>
 
-        <a id="formacionRH" class="nav-item nav-link" onclick="formacion_RH()"
-            style="cursor: pointer;">II. Formación de<br> RRHH.</a>
+        <a id="formacionRH" class="nav-item nav-link" onclick="formacion_RH()" style="cursor: pointer;">II. Formación
+            de<br> RRHH.</a>
 
-        <a id="desarrolloTec" class="nav-item nav-link" onclick="desarrollo_tec_innov()"
-            style="cursor: pointer;">III. Desarrollo<br> Tec. e Innov.</a>
+        <a id="desarrolloTec" class="nav-item nav-link" onclick="desarrollo_tec_innov()" style="cursor: pointer;">III.
+            Desarrollo<br> Tec. e Innov.</a>
 
-        <a id="apoyoInstitucional" class="nav-item nav-link" onclick="apoyoInstitucional()"
-            style="cursor: pointer;">IV. Apoyo<br> Institucional</a>
+        <a id="apoyoInstitucional" class="nav-item nav-link" onclick="apoyoInstitucional()" style="cursor: pointer;">IV.
+            Apoyo<br> Institucional</a>
 
         <a id="informacionAdicional" class="nav-item nav-link" onclick="informacionAdicional()"
             style="cursor: pointer;">V. Información <br>Adicional.</a>
@@ -73,14 +73,11 @@
     <ul class="pagination justify-content-center">
         <li id="investigacionCientificaPag" class="page-item active"><a class="page-link"
                 onclick="investigacionCientifica()">1</a></li>
-        <li id="formacionRHPag" class="page-item"><a class="page-link"
-                onclick="formacion_RH()">2</a></li>
-        <li id="desarrolloTecPag" class="page-item"><a class="page-link"
-                onclick="desarrollo_tec_innov()">3</a></li>
-        <li id="apoyoInstitucionalPag" class="page-item"><a class="page-link"
-                onclick="apoyoInstitucional()">4</a></li>
-        <li id="informacionAdicionalPag" class="page-item"><a class="page-link"
-                onclick="informacionAdicional()">5</a></li>
+        <li id="formacionRHPag" class="page-item"><a class="page-link" onclick="formacion_RH()">2</a></li>
+        <li id="desarrolloTecPag" class="page-item"><a class="page-link" onclick="desarrollo_tec_innov()">3</a></li>
+        <li id="apoyoInstitucionalPag" class="page-item"><a class="page-link" onclick="apoyoInstitucional()">4</a></li>
+        <li id="informacionAdicionalPag" class="page-item"><a class="page-link" onclick="informacionAdicional()">5</a>
+        </li>
     </ul>
 </div>
 
@@ -102,7 +99,6 @@
             dataType: "html",
         })
             .done(function (response) {
-                $("#numeral").remove()
                 $("#contenido").html(response);
                 //Navbar
                 $("#investigacionCientifica").addClass('disabled active text-primary')
@@ -141,7 +137,6 @@
             dataType: "html",
         })
             .done(function (response) {
-                $("#numerales").remove()
                 $("#contenido").html(response);
                 //Navbar
                 $("#investigacionCientifica").removeClass('disabled active text-primary')
@@ -177,7 +172,6 @@
             dataType: "html",
         })
             .done(function (response) {
-                $("#numerales").remove()
                 $("#contenido").html(response);
                 //Navbar
                 $("#investigacionCientifica").removeClass('disabled active text-primary')
@@ -213,7 +207,6 @@
             dataType: "html",
         })
             .done(function (response) {
-                $("#numerales").remove()
                 $("#contenido").html(response);
                 //Navbar
                 $("#investigacionCientifica").removeClass('disabled active text-primary')
@@ -249,7 +242,6 @@
             dataType: "html",
         })
             .done(function (response) {
-                $("#numerales").remove()
                 $("#contenido").html(response);
 
                 //Navbar
@@ -302,14 +294,30 @@
         else {
             informacionAdicional(this.options['selectedIndex'])
         }
-        
+
         //Notificar del cambio de periodo
         var index = this.options['selectedIndex']
         var nombreP = this.options[index].text;
-        notificacion.periodo(nombreP) 
+        notificacion.periodo(nombreP)
         $("#nombre_periodo").html(nombreP) //Cambiar etiqueta central
     })
 
+    function token(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
     var notificacion = {
         eliminar: function (eliminar) {
             Swal.fire({
@@ -320,7 +328,7 @@
                 cancelButtonColor: '#d33',
                 confirmButtonText: '<i class="fas fa-check"></i> Aceptar',
                 cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
-                
+
             }).then((result) => {
                 if (result.value) {
                     eliminar();
@@ -349,7 +357,9 @@
         },
         fecha: function (id) {
             var formData = new FormData(document.getElementById("biblioteca" + id))
+            var csrfmiddlewaretoken = token('csrftoken');
             formData.append("id", id);
+            formData.append("csrfmiddlewaretoken", csrfmiddlewaretoken);
             expresion = /[1-2][0][1-9][0-9][/][0-1][0-9]/;
             fecha = $("#fecha" + id).val().trim()
             mes = fecha[5] + fecha[6]
@@ -459,9 +469,9 @@
         vistaPrevia: function () {
             var periodoActual = $('select[name="periodoActual"] option:selected').text() //ID
             var periodo_id = $('select[name="periodoActual"] option:selected').val() //ID
-            var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+            var csrfmiddlewaretoken = token('csrftoken');
             Swal.fire({
-                title: 'Generando vista previa <br>'+`[${periodoActual}]`,
+                title: 'Generando vista previa <br>' + `[${periodoActual}]`,
                 html: 'espere unos segundos...',
                 icon: 'info',
                 allowOutsideClick: false,
@@ -470,36 +480,36 @@
                     Swal.showLoading()
                 },
             })
-            var req = new XMLHttpRequest(); 
-            req.open("POST", "{% url 'reportes:generarReporte' %}", true); 
-            
-            req.responseType = "blob"; 
+            var req = new XMLHttpRequest();
+            req.open("POST", "{% url 'reportes:generarReporte' %}", true);
+
+            req.responseType = "blob";
             var formData = new FormData();
-            formData.append('periodo',periodo_id)
-            formData.append('csrfmiddlewaretoken',csrfmiddlewaretoken)
-            req.onload = function (event) { 
-                var blob = req.response;                                 
-                var link=document.createElement('a'); 
-                link.href=window.URL.createObjectURL(blob); 
-                link.download="Periodo-" + periodoActual + ".pdf"; 
-                link.click(); 
+            formData.append('periodo', periodo_id)
+            formData.append('csrfmiddlewaretoken', csrfmiddlewaretoken)
+            req.onload = function (event) {
+                var blob = req.response;
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "Periodo-" + periodoActual + ".pdf";
+                link.click();
                 Swal.fire({
-                    title:'Reporte generado',
+                    title: 'Reporte generado',
                     text: 'Se genero el reporte exitosamente',
-                    icon:'success'
+                    icon: 'success'
                 })
-            }; 
-            req.send(formData); 
-            
+            };
+            req.send(formData);
+
         },
-        errorImportarPeriodo: function(){
+        errorImportarPeriodo: function () {
             Swal.fire({
                 title: 'Sin datos',
                 icon: 'error',
                 text: 'No existen datos en el periodo anterior',
             })
         },
-        importarPeriodo: function(){
+        importarPeriodo: function () {
             Swal.fire({
                 title: 'Operacion exitosa',
                 icon: 'success',

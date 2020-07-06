@@ -1730,7 +1730,7 @@ class actualizarModelo14(View):
 class eliminarModelo14(View):
     def post(self, request):
         id1 = request.POST.get('id')
-        Modelo14.objects.get(id=id1).delete()
+        obj = Modelo14.objects.get(id=id1)
         if obj.anexos:
             os.remove(os.path.join(BASE_DIR + '/media/'+obj.anexos.name))
         obj.delete()

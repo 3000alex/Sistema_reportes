@@ -16,7 +16,7 @@
                 {% for modelo4 in numeral_31 %}
 
                 <form class="pt-4 pr-4 pl-4" id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Nombre completo:</label>
                         <div class="col-sm-10">
@@ -101,7 +101,7 @@
                 {% for modelo4 in numeral_32 %}
 
                 <form class="pt-4 pr-4 pl-4" id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Nombre completo:</label>
                         <div class="col-sm-10">
@@ -187,7 +187,7 @@
                 {% for modelo4 in numeral_33 %}
 
                 <form class="pt-4 pr-4 pl-4" id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Nombre completo:</label>
                         <div class="col-sm-10">
@@ -274,7 +274,7 @@
                 {% for modelo4 in numeral_34 %}
 
                 <form class="pt-4 pr-4 pl-4" id="modelo4{{modelo4.id}}" enctype="multipart/form-data">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Nombre completo:</label>
                         <div class="col-sm-10">
@@ -363,7 +363,7 @@
                 {% for modelo5 in numeral_35 %}
 
                 <form class="pt-4 pr-4 pl-4" id="modelo5{{modelo5.id}}" enctype="multipart/form-data">
-                    {% csrf_token %}
+                    
 
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Nombre del curso: </label>
@@ -444,7 +444,7 @@
                 {% for modelo5 in numeral_36 %}
 
                 <form class="pt-4 pr-4 pl-4" id="modelo5{{modelo5.id}}" enctype="multipart/form-data">
-                    {% csrf_token %}
+                    
 
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Nombre del curso: </label>
@@ -525,7 +525,7 @@
                 {% for modelo6 in numeral_37 %}
 
                 <form class="pt-4 pr-4 pl-4" id="modelo6{{modelo6.id}}" enctype="multipart/form-data">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Nombre: </label>
                         <div class="col-sm-10">
@@ -630,7 +630,7 @@
                 {% for modelo16 in numeral_38 %}
 
                 <form class="pt-4 pr-4 pl-4" id="modelo16{{modelo16.id}}" enctype="multipart/form-data">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label class="col-sm-2" for="">Nombre estudiante:</label>
                         <input type="text" disabled class="form-control mb-1 col-sm-10"
@@ -704,13 +704,13 @@
             {% endif %}
             <!--Fin Numeral 38-->
 
-            <!--Numeral 39 modelo6-->
+            <!--Numeral 39 modelo6 -->
             {% if numeral.orden == 39 %}
             <div>
                 {% for modelo6 in numeral_39 %}
 
                 <form class="pt-4 pr-4 pl-4" id="modelo6{{modelo6.id}}" enctype="multipart/form-data">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Nombre: </label>
                         <div class="col-sm-10">
@@ -866,7 +866,9 @@
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo4" + id))
+            var csrfmiddlewaretoken = token('csrftoken');
             formData.append("id", id);
+            formData.append("csrfmiddlewaretoken", csrfmiddlewaretoken)
 
             $.ajax({
                 url: '{% url "reportes:actualizar-modelo4" %}',
@@ -913,7 +915,7 @@
             $("#modelo4Crear" + `${response.numeral}`).before(
                 `<form id="modelo4${response.id}" enctype="multipart/form-data">
                     <div class="pt-4 pr-4 pl-4">
-                        {% csrf_token %}
+                        
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Nombre completo:</label>
                             <div class="col-sm-10">
@@ -969,7 +971,7 @@
         },
         eliminar: function (id) {
             notificacion.eliminar(function () {
-                var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+                var csrfmiddlewaretoken = token('csrftoken');
                 $.ajax({
                     url: '{% url "reportes:eliminar-modelo4" %}',
                     type: "POST",
@@ -1046,7 +1048,9 @@
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo5" + id))
+            var csrfmiddlewaretoken = token('csrftoken');
             formData.append("id", id);
+            formData.append("csrfmiddlewaretoken", csrfmiddlewaretoken)
 
             $.ajax({
                 url: '{% url "reportes:actualizar-modelo5" %}',
@@ -1093,7 +1097,7 @@
             $("#modelo5Crear" + `${response.numeral}`).before(
                 `<form id="modelo5${response.id}" enctype="multipart/form-data">
                     <div class="pt-4 pr-4 pl-4">
-                        {% csrf_token %}
+                        
 
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Nombre del curso: </label>
@@ -1139,7 +1143,7 @@
         },
         eliminar: function (id) {
             notificacion.eliminar(function () {
-                var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+                var csrfmiddlewaretoken = token('csrftoken');
                 $.ajax({
                     url: '{% url "reportes:eliminar-modelo5" %}',
                     type: "POST",
@@ -1224,7 +1228,9 @@
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo6" + id))
+            var csrfmiddlewaretoken = token('csrftoken');
             formData.append("id", id);
+            formData.append("csrfmiddlewaretoken", csrfmiddlewaretoken)
 
             $.ajax({
                 url: '{% url "reportes:actualizar-modelo6" %}',
@@ -1273,7 +1279,7 @@
                 case 39: $("#modelo6Crear" + `${response.numeral}`).before(
                     `<form id="modelo6${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
-                            {% csrf_token %}
+                            
                             <div class="form-group row">
                                 <label for="" class="col-sm-2">Nombre: </label>
                                 <div class="col-sm-10">
@@ -1348,7 +1354,7 @@
                 default: $("#modelo6Crear" + `${response.numeral}`).before(
                     `<form id="modelo6${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
-                            {% csrf_token %}
+                            
                             <div class="form-group row">
                                 <label for="" class="col-sm-2">Nombre: </label>
                                 <div class="col-sm-10">
@@ -1417,7 +1423,7 @@
         },
         eliminar: function (id) {
             notificacion.eliminar(function () {
-                var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+                var csrfmiddlewaretoken = token('csrftoken');
                 $.ajax({
                     url: '{% url "reportes:eliminar-modelo6" %}',
                     type: "POST",
@@ -1500,7 +1506,9 @@
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo16" + id))
+            var csrfmiddlewaretoken = token('csrftoken');
             formData.append("id", id);
+            formData.append("csrfmiddlewaretoken", csrfmiddlewaretoken)
 
             $.ajax({
                 url: '{% url "reportes:actualizar-modelo16" %}',
@@ -1547,7 +1555,7 @@
             $("#modelo16Crear" + `${response.numeral}`).before(
                 `<form id="modelo16${response.id}" enctype="multipart/form-data">
                     <div class="pt-4 pr-4 pl-4">
-                        {% csrf_token %}
+                        
 
                         <div class="form-group row">
                             <label class="col-sm-2" for="">Nombre estudiante:</label>
@@ -1597,7 +1605,7 @@
         },
         eliminar: function (id) {
             notificacion.eliminar(function () {
-                var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+                var csrfmiddlewaretoken = token('csrftoken');
                 $.ajax({
                     url: '{% url "reportes:eliminar-modelo16" %}',
                     type: "POST",

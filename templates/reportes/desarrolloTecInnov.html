@@ -16,7 +16,7 @@
             <div>
                 {% for modelo7 in numeral_40 %}
                 <form id="modelo7{{modelo7.id}}">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Autor(es): </label>
                         <div class="col-sm-10">
@@ -92,7 +92,7 @@
                 {% for modelo7 in numeral_41 %}
 
                 <form id="modelo7{{modelo7.id}}">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Autor(es): </label>
                         <div class="col-sm-10">
@@ -169,7 +169,7 @@
                 {% for modelo7 in numeral_42 %}
 
                 <form id="modelo7{{modelo7.id}}">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Autor(es): </label>
                         <div class="col-sm-10">
@@ -246,7 +246,7 @@
                 {% for modelo7 in numeral_43 %}
 
                 <form id="modelo7{{modelo7.id}}">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Autor(es): </label>
                         <div class="col-sm-10">
@@ -325,7 +325,7 @@
                 {% for modelo7 in numeral_44 %}
 
                 <form id="modelo7{{modelo7.id}}">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Autor(es): </label>
                         <div class="col-sm-10">
@@ -403,7 +403,7 @@
                 {% for modelo8 in numeral_45 %}
 
                 <form id="modelo8{{modelo8.id}}">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Nombre: </label>
                         <div class="col-sm-10">
@@ -489,7 +489,7 @@
                 {% for modelo9 in numeral_46 %}
 
                 <form id="modelo9{{modelo9.id}}">
-                    {% csrf_token %}
+                    
                     <div class="form-group row">
                         <label for="" class="col-sm-2">Título: </label>
                         <div class="col-sm-10">
@@ -630,7 +630,9 @@
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo7" + id))
+            var csrfmiddlewaretoken = token('csrftoken');
             formData.append("id", id);
+            formData.append("csrfmiddlewaretoken", csrfmiddlewaretoken)
 
             $.ajax({
                 url: '{% url "reportes:actualizar-modelo7" %}',
@@ -677,7 +679,7 @@
             $("#modelo7Crear" + `${response.numeral}`).before(
                 `<form id="modelo7${response.id}" enctype="multipart/form-data">
                     <div class="pt-4 pr-4 pl-4">
-                        {% csrf_token %}
+                        
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Autor(es): </label>
                             <div class="col-sm-10">
@@ -723,7 +725,7 @@
         },
         eliminar: function (id) {
             notificacion.eliminar(function () {
-                var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+                var csrfmiddlewaretoken = token('csrftoken');
                 $.ajax({
                     url: '{% url "reportes:eliminar-modelo7" %}',
                     type: "POST",
@@ -804,7 +806,9 @@
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo8" + id))
+            var csrfmiddlewaretoken = token('csrftoken');
             formData.append("id", id);
+            formData.append("csrfmiddlewaretoken", csrfmiddlewaretoken)
 
             $.ajax({
                 url: '{% url "reportes:actualizar-modelo8" %}',
@@ -852,7 +856,7 @@
                 `<form id="modelo8${response.id}" enctype="multipart/form-data">
                     <div class="pt-4 pr-4 pl-4">
 
-                        {% csrf_token %}
+                        
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Nombre: </label>
                             <div class="col-sm-10">
@@ -906,7 +910,7 @@
         },
         eliminar: function (id) {
             notificacion.eliminar(function () {
-                var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+                var csrfmiddlewaretoken = token('csrftoken');
                 $.ajax({
                     url: '{% url "reportes:eliminar-modelo8" %}',
                     type: "POST",
@@ -993,7 +997,9 @@
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo9" + id))
+            var csrfmiddlewaretoken = token('csrftoken');
             formData.append("id", id);
+            formData.append("csrfmiddlewaretoken", csrfmiddlewaretoken)
 
             $.ajax({
                 url: '{% url "reportes:actualizar-modelo9" %}',
@@ -1041,7 +1047,7 @@
                 `<form id="modelo9${response.id}" enctype="multipart/form-data">
                     <div class="pt-4 pr-4 pl-4">
 
-                        {% csrf_token %}
+                        
                         <div class="form-group row">
                             <label for="" class="col-sm-2">Título: </label>
                             <div class="col-sm-10">
@@ -1101,7 +1107,7 @@
         },
         eliminar: function (id) {
             notificacion.eliminar(function () {
-                var csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]').val().trim();
+                var csrfmiddlewaretoken = token('csrftoken');
                 $.ajax({
                     url: '{% url "reportes:eliminar-modelo9" %}',
                     type: "POST",
