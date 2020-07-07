@@ -21,7 +21,7 @@
         <div class="datosInvestigador">
             <p> <strong> <u> PERIODO DEL REPORTE: ENERO - {{mesFin}} DE {{fecha_inicioP|date:"Y"}} </u> </strong> </P>
             <p><strong>Nombre Completo: </strong>{{datosInvestigador.nombre}} {{datosInvestigador.apellido}}</p>
-            <p><strong>Coordinación: </strong>Astrofisica</p>
+            <p><strong>Coordinación: </strong>Astrofísica</p>
             <p><strong>Nombramiento: </strong>{{datosInvestigador.categoria}}</p>
             <p><strong>Nivel del SNI: </strong>{{datosInvestigador.nivelSni}}</p>
         </div>
@@ -305,7 +305,7 @@
                 {% for citas in citas %}
                     {% if numeral.id == citas.numeral_id %}
                         <p>Citas Totales: <strong>{{citas.citas}}</strong></p>
-                        <p>Citas obtenidas durante el periodo del reporte: <strong>{{citas.citas_en_periodo}}</strong></p>
+                        <p>Citas obtenidas durante el periodo del reporte: <strong>&nbsp; {{citas.citas_en_periodo}}</strong></p>
                         <p>30a. Índice H: <strong>{{citas.indiceH}}</strong></p>
                         {% if citas.anexos %}Anexo: {{citas.anexos.name|nombreFile}}{% endif %}
                     {% endif %}
