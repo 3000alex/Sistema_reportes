@@ -31,7 +31,7 @@ def login_view(request):
                    else:
                        return render(request,"reportes/home.html",context) #HttpResponseRedirect(reverse('reportes:home'))
                 else:
-                    context["error"] = '<div class="alert alert-danger" role="alert"><ul><li>Por favor, introduzca un nombre de usuario y clave correctos. Observe que ambos campos pueden ser sensibles a mayúsculas.</li></ul></div>'
+                    context["error"] = '<div class="alert alert-danger col-12" role="alert"><ul><li>Sus credenciales son incorrectas, intentelo de nuevo.<br> Observe que ambos campos pueden ser sensibles a mayúsculas.</li></ul></div>'
                     return render(request,"registration/login.html",context)
         else:
             return render(request,"registration/login.html",context)

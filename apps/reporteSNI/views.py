@@ -28,7 +28,6 @@ class reporteSNI(View):
     
         return render(request, 'reporteSNI/reporteSNI.html',{'biblioteca':biblioteca})
 
-
 class metodo1ReporteSNI(View):
     def post(self,request):
         

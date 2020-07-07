@@ -1741,12 +1741,13 @@ class eliminarModelo14(View):
 
 @method_decorator(login_required, name='dispatch')
 class crearModelo14(View):
-    def get(self, request):
+    def post(self, request):
 
         #Create
-        numeral = request.GET.get('numeral')
-        periodo_id = request.GET.get('periodo')     
+        numeral = request.POST.get('numeral')
+        periodo_id = request.POST.get('periodo')     
         #Validate update or create
+       
         
         obj = Modelo14.objects.create(
             usuario_id=request.user.id,
@@ -1767,10 +1768,10 @@ class crearModelo14(View):
 @method_decorator(login_required, name='dispatch')
 class infoAnteriorModelo14(View):
     
-    def get(self,request):
-        periodo = request.GET.get('periodo')
+    def post(self,request):
+        periodo = request.POST.get('periodo')
         periodo_id = int(periodo) - 1
-        numeral_id = request.GET.get('numeral')
+        numeral_id = request.POST.get('numeral')
         datos = Modelo14.objects.filter(periodo_id = periodo_id, usuario_id = request.user.id,numeral_id=numeral_id)
         telescopio = []
         descripcion = []
@@ -1810,6 +1811,7 @@ class infoAnteriorModelo14(View):
             'fecha':fecha,
             'ids':ids
         }
+        print("llegue aqui")
         
         return  JsonResponse(data)
 

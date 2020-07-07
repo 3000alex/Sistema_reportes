@@ -31,8 +31,10 @@ class editar_biblioteca(View):
     def post(self, request):      
         id1 = request.POST.get('id')
         obj = Biblioteca.objects.get(id=id1)
+
         estudiantes_en_articulo1 = request.POST.get('estudiantes_en_articulo', obj.estudiantes_en_articulo)  # Contador (Front - end)
         numeral1 = request.POST.get('numeral',obj.numeral_id) #Numeral relacionado con articulo    
+        
         if numeral1 == "":
             obj.estudiantes_en_articulo = estudiantes_en_articulo1
             numeral = ""
