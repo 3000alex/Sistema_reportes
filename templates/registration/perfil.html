@@ -4,11 +4,11 @@
 {%block contenido%}
 <div class="container" style="margin-top: 150px;">
 
-  <form action="" id="infoPersonal">
+  <form action="" id="perfil">
     {% csrf_token %}
     <fieldset>
       <legend>Información Personal:
-        <button type="button" class="btn btn-primary float-right" id="informacionPersonal-btn"><i
+        <button type="button" class="btn btn-primary float-right" id="editarInfoPersonal"><i
             class="fas fa-edit">&nbsp;Editar</i></button>
       </legend>
 
@@ -33,7 +33,7 @@
             <button id="cancelarInfoPersonal" class="btn btn-warning mr-2 text-white" type="reset">
               <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i>
             </button>
-            <button disabled id="infoPersonal-btn" onclick="actualizarInfoPersonal()" type="button"
+            <button disabled id="guardarInfoPersonal" onclick="actualizarPerfil()" type="button"
               class="btn btn-success float-right"><i class="fas fa-save">&nbsp; Guardar</i>
             </button>
 
@@ -44,14 +44,11 @@
 
 
     </fieldset>
-  </form>
 
   <hr>
-  <form action="" id="infoAcademica">
-    {% csrf_token %}
     <fieldset>
       <legend>Información Académica:
-        <button type="button" class="btn btn-primary float-right " id="informacionAcademica-btn"><i
+        <button type="button" class="btn btn-primary float-right " id="editarInfoAcademica"><i
             class="fas fa-edit">&nbsp;Editar</i></button>
       </legend>
       <div class="form-group">
@@ -82,7 +79,8 @@
         </select>
 
         <label for="ORCID">ORCID</label>
-        <input disabled type="text" class="form-control mb-2" placeholder="Ingrese su ORCID en formato 0000-1111-2222-3333"
+        <input disabled type="text" class="form-control mb-2"
+          placeholder="Ingrese su ORCID en formato 0000-1111-2222-3333"
           value="{% if perfil.orcId %}{{perfil.orcId}}{% endif %}" name="orc_id" id="orc_id">
 
         <label for="">ArXiv ID</label>
@@ -95,7 +93,7 @@
             <i class="fas fa-ban text-white"></i>&nbsp;Cancelar</i>
           </button>
 
-          <button disabled id="infoAcademica-btn" onclick="actualizarInfoAcademica()" type="button"
+          <button disabled id="infoAcademica-btn" onclick="actualizarPerfil()" type="button"
             class="btn btn-success"><i class="fas fa-save">
               &nbsp; Guardar</i></button>
         </div>
@@ -111,111 +109,74 @@
 
 {% block JSCode %}
 <script>
+  //Informacion personal
+    document.getElementById("editarInfoPersonal").addEventListener('click', function () {
+    document.getElementById("nombreP").disabled = false;
+    document.getElementById("apellidosP").disabled = false;
+    document.getElementById("guardarInfoPersonal").disabled = false;
+    this.disabled = true;
+  });
 
-  $(document).ready(function () {
+  document.getElementById("cancelarInfoPersonal").addEventListener('click', function () {
+    document.getElementById("nombreP").disabled = true;
+    document.getElementById("apellidosP").disabled = true;
+    document.getElementById("guardarInfoPersonal").disabled = true;
+    document.getElementById("editarInfoPersonal").disabled = false;
+    document.getElementById("guardarInfoPersonal").disabled = true;
+  });
 
-    $("#cancelarInfoPersonal").click(function () {
-      $("#nombreP").prop("disabled", true);
-      $("#apellidosP").prop("disabled", true);
-      $("#infoPersonal-btn").prop("disabled", true);
-    });
+  document.getElementById("guardarInfoPersonal").addEventListener('click', function () {
+    document.getElementById("nombreP").disabled = true;
+    document.getElementById("apellidosP").disabled = true;
+    document.getElementById("guardarInfoPersonal").disabled = true;
+    document.getElementById("editarInfoPersonal").disabled = false;
+    this.disabled = true;
+  });
 
-    $("#cancelarInfoAcademica").click(function () {
-      $("#categoria").prop("disabled", true);
-      $("#nivel_sni").prop("disabled", true);
-      $("#orc_id").prop("disabled", true);
-      $("#arxiv_id").prop("disabled", true);
-      $("#infoAcademica-btn").prop("disabled", true);
-    })
+//Informacion academica
+  document.getElementById("cancelarInfoAcademica").addEventListener('click', function () {
+    document.getElementById("categoria").disabled = true;
+    document.getElementById("nivel_sni").disabled = true;
+    document.getElementById("orc_id").disabled = true;
+    document.getElementById("arxiv_id").disabled = true;
+    document.getElementById("infoAcademica-btn").disabled = true;
+    document.getElementById("editarInfoAcademica").disabled = false;
+  })
 
-    $("#informacionPersonal-btn").click(function () {
-      $("#nombreP").prop("disabled", false);
-      $("#apellidosP").prop("disabled", false);
-      $("#infoPersonal-btn").prop("disabled", false);
-      $(this).prop("disabled", true);
-    });
+  document.getElementById("editarInfoAcademica").addEventListener('click', function () {
+    document.getElementById("categoria").disabled = false;
+    document.getElementById("nivel_sni").disabled = false;
+    document.getElementById("orc_id").disabled = false;
+    document.getElementById("arxiv_id").disabled = false;
+    document.getElementById("infoAcademica-btn").disabled = false;
+    this.disabled = true;
+  });
 
-    $("#infoPersonal-btn").click(function () {
-      $("#nombreP").prop("disabled", true);
-      $("#apellidosP").prop("disabled", true);
-      $("#infoPersonal-btn").prop("disabled", true);
-      $(this).prop("disabled", true);
-    });
-
-    $("#informacionAcademica-btn").click(function () {
-      $("#categoria").prop("disabled", false);
-      $("#nivel_sni").prop("disabled", false);
-      $("#orc_id").prop("disabled", false);
-      $("#arxiv_id").prop("disabled", false);
-      $("#infoAcademica-btn").prop("disabled", false);
-      $(this).prop("disabled", true);
-    });
-
-    $("#infoAcademica-btn").click(function () {
-      $("#categoria").prop("disabled", true);
-      $("#nivel_sni").prop("disabled", true);
-      $("#orc_id").prop("disabled", true);
-      $("#arxiv_id").prop("disabled", true);
-      $("#informacionAcademica-btn").prop("disabled",false)
-      $(this).prop("disabled", true);
-    });
-
-    $("#editarPerfilAdm").click(function () {
-      $('#correoAlternativo').prop('disabled', false);
-      $('#guardar').prop('disabled', false);
-      $(this).prop("disabled", true);
-    });
-
-    $("#guardar").click(function () {
-      $('#correoAlternativo').prop('disabled', true);
-      $('#editarPerfilAdm').prop('disabled', false);
-      $(this).prop("disabled", true);
-    });
+  document.getElementById("infoAcademica-btn").addEventListener('click', function () {
+    document.getElementById("categoria").disabled = true;
+    document.getElementById("nivel_sni").disabled = true;
+    document.getElementById("orc_id").disabled = true;
+    document.getElementById("arxiv_id").disabled = true;
+    document.getElementById("editarInfoAcademica").disabled = false;
+    this.disabled = true;
   });
 
 
-  function actualizarInfoPersonal() {
-    var formData = new FormData(document.getElementById("infoPersonal"));
-
-    $.ajax({
-      type: 'POST',
-      url: "{% url 'registration:actualizar-perfil' %}",
-      data: formData,
-      enctype: "multipart/form-data",
-      cache: false,
-      contentType: false,
-      processData: false,
-      dataType: "html",
+  function actualizarPerfil() {
+    var data = new FormData(document.getElementById("perfil"));
+    console.log(data);
+    
+    fetch("{% url 'registration:actualizar-perfil' %}",{
+      method:"POST",
+      body: data,
     })
-      .done(function () {
-        perfil.actualizado("informacion personal actualizada.");
-      })
-      .fail(function (message) {
-        perfil.fallido(message);
-      });
-    return false;
-  }
-
-  function actualizarInfoAcademica() {
-    var formData = new FormData(document.getElementById("infoAcademica"));
-
-    $.ajax({
-      type: 'POST',
-      url: "{% url 'registration:actualizar-perfil' %}",
-      data: formData,
-      enctype: "multipart/form-data",
-      cache: false,
-      contentType: false,
-      processData: false,
-      dataType: "html",
+    .then(response =>{
+      perfil.actualizado("informacion personal actualizada.");
     })
-      .done(function () {
-        perfil.actualizado("Informacion academica actualizada.")
-      })
-      .fail(function (message) {
-        perfil.fallido(message)
-      });
-    return false;
+    .catch(err=>{
+      perfil.fallido(message);
+    });
+
   }
 
   var perfil = {

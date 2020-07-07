@@ -12,14 +12,6 @@
         top: 100px;
         z-index: 999;
     }
-    .autor {
-        transition: all .5s;
-        max-width: 120px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        word-break: break-all;
-        overflow: hidden;
-    }
 </style>
 {% endblock %}
 
@@ -29,7 +21,8 @@
     <form id="formid">
         {% csrf_token %}
 
-        <button type="button" id="enviar" class="btn btn-success"><i class="fas fa-book"></i>&nbsp;&nbsp;Agregar a biblioteca</button>
+        <button type="button" id="enviar" class="btn btn-success"><i class="fas fa-book"></i>&nbsp;&nbsp;Agregar a
+            biblioteca</button>
 
         <table id="publicaciones" class="table table-bordered table-striped text-center dt-responsive" width=100%>
             <thead>
@@ -55,10 +48,11 @@
 
                     <td>
                         <input {%for article in articulos%}
-                        {% if  article.bibcode == datos.bibcode %}disabled{%endif%}{% endfor %}
-                         style="transform: scale(1.5);" class="center sesion" type="checkbox"
-                            name="seleccion[]" id="{{forloop.counter}}" value="">
-                    </td> <!--Checkbox-->
+                            {% if  article.bibcode == datos.bibcode %}disabled{%endif%}{% endfor %}
+                            style="transform: scale(1.5);" class="center sesion" type="checkbox" name="seleccion[]"
+                            id="{{forloop.counter}}" value="">
+                    </td>
+                    <!--Checkbox-->
 
                     <td>
                         {%for article in articulos%}
@@ -66,16 +60,23 @@
                         <i style="color:green;" class="fas fa-check-circle">
                             {%endif%}
                             {% endfor %}
-                    </td> <!--Ok-->
+                    </td>
+                    <!--Ok-->
 
                     <td id="fecha{{forloop.counter}}">{{datos.pubdate|slice:":7"}}</td>
 
-                    <td id="bibcode{{forloop.counter}}"><a target="blank" href="https://ui.adsabs.harvard.edu/abs/{{datos.bibcode}}/abstract">{{datos.bibcode}}</a></td>
+                    <td id="bibcode{{forloop.counter}}"><a target="blank"
+                            href="https://ui.adsabs.harvard.edu/abs/{{datos.bibcode}}/abstract">{{datos.bibcode}}</a>
+                    </td>
 
-                    <td id="titulo{{forloop.counter}}"><div style="width:400px;">{% for title in datos.title %}{{title}}{% endfor %}</div></td>
+                    <td id="titulo{{forloop.counter}}">
+                        <div style="width:400px;">{% for title in datos.title %}{{title}}{% endfor %}</div>
+                    </td>
 
                     <td id="autor{{forloop.counter}}">
-                        <div style="height:70px; overflow: hidden;">{% for author in datos.author %}{% if forloop.last %} {{author}} {% else %} {{author}}; {% endif %} {% endfor %}</div>
+                        <div style="height:70px; overflow: hidden;">
+                            {% for author in datos.author %}{% if forloop.last %} {{author}} {% else %} {{author}};
+                            {% endif %} {% endfor %}</div>
                     </td>
 
                     <td>
@@ -98,10 +99,14 @@
                                     PDF</a>
                             </div>
                         </div>
-                    </td><!--Enlaces-->
-                    <td class="d-none" id="doi{{forloop.counter}}">{%for d in datos.doi %}{% if d %}{{d}}{% endif %}{% endfor %}</td>
-                    <td class="d-none" id="page{{forloop.counter}}">{% for d in datos.page %}{% if d %}{{d}}{% endif %}{% endfor %}</td>
-                    <td class="d-none" id="volume{{forloop.counter}}">{% if datos.volume %} {{datos.volume}}{% endif %}</td>
+                    </td>
+                    <!--Enlaces-->
+                    <td class="d-none" id="doi{{forloop.counter}}">
+                        {%for d in datos.doi %}{% if d %}{{d}}{% endif %}{% endfor %}</td>
+                    <td class="d-none" id="page{{forloop.counter}}">
+                        {% for d in datos.page %}{% if d %}{{d}}{% endif %}{% endfor %}</td>
+                    <td class="d-none" id="volume{{forloop.counter}}">{% if datos.volume %} {{datos.volume}}{% endif %}
+                    </td>
                     <td class="d-none" id="pub{{forloop.counter}}"> {% if datos.pub %}{{datos.pub}}{% endif %}</td>
                 </tr>
                 {% endfor %}
@@ -146,25 +151,24 @@
         timer.reset(540000);
     });
 
-    $('#enviar').click(function(){
-        
-        var articulos = []
-        $("input:checkbox:checked").each(function() {
-            id = $(this)[0].id;
-            autores = $("#autor"+id).text().trim()
-            console.log(this);
-            
-            articulos.push({
-                "fecha":$("#fecha"+id).text().replace('-','/').trim(),
-                "bibcode":$("#bibcode"+id).text().trim(),
-                "titulo": $("#titulo"+id).text().trim(),
-                "autores":autores,
-                "doi":$("#doi"+id).text().trim(),
-                "page":$("#page"+id).text().trim(),
-                "volume":$("#volume"+id).text().trim(),
-                "pub":$("#pub"+id).text().trim(),
-            }); 
+    document.getElementById('enviar').addEventListener('click', function () {
+
+        var articulosObj = []
+        $("input:checkbox:checked").each(function () {
+            id = this.id;
+
+            articulosObj.push({
+                "fecha": document.getElementById("fecha" + id).innerText.replace('-', '/').trim(),
+                "bibcode": document.getElementById("bibcode" + id).innerText.trim(),
+                "titulo": document.getElementById("titulo" + id).innerText.trim(),
+                "autores": document.getElementById("autor" + id).innerText.trim(),
+                "doi": document.getElementById("doi" + id).innerText.trim(),
+                "page": document.getElementById("page" + id).innerText.trim(),
+                "volume": document.getElementById("volume" + id).innerText.trim(),
+                "pub": document.getElementById("pub" + id).innerText.trim(),
+            });
         });
+
         Swal.fire({
             title: 'Obteniendo Metadatos ADS',
             allowOutsideClick: false,
@@ -174,16 +178,46 @@
                 Swal.showLoading()
             },
         });
-        $.ajax({
-            type: "POST",
-            url: "{% url 'biblioteca:agregar-biblioteca' %}",
-            data: {"articulos[]":JSON.stringify(articulos),csrfmiddlewaretoken: '{{ csrf_token }}'},
-            dataType: "json",
+
+        articulosObj = JSON.stringify(articulosObj);
+        var data = new FormData()
+        data.append('csrfmiddlewaretoken',token('csrftoken'))
+        data.append('articulos',articulosObj)
+
+        fetch("{% url 'biblioteca:agregar-biblioteca' %}", {
+            method: "POST",
+            body: data,
         })
-        .done(function(){
-            $(location).attr('href',"{% url 'biblioteca:biblioteca_personal' %}");
-        });
+            .then(response => {
+                $(location).attr('href',"{% url 'biblioteca:biblioteca_personal' %}");
+                console.log(response);
+
+                return false;
+            })
+            .catch(err => {
+                console.log(err);
+                return false;
+
+            });
+
     });
+
+    function token(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
 </script>
 
 {% endblock %}

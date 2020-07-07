@@ -1,5 +1,6 @@
 {% extends 'core/base.html' %}
 {% block contenido %}
+{% load static %}
 
 <div class="container pb-4" style="margin-top: 150px;">
 
@@ -120,76 +121,5 @@
 {% endblock %}
 
 {% block JSCode %}
-<script>
-
-    $("#formBusquedaGeneral").submit(function () {
-        Swal.fire({
-            title: 'Búsqueda General',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            text: 'espere un momento, por favor',
-            onBeforeOpen: () => {
-                Swal.showLoading()
-            },
-        });
-    });
-
-    $('#formBusquedaBibcode').submit(function () {
-        Swal.fire({
-            title: 'Búsqueda por bibcode',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            text: 'espere un momento, por favor',
-            onBeforeOpen: () => {
-                Swal.showLoading()
-            },
-        });
-    });
-
-    $('#formBusquedaOrcid').submit(function () {
-        Swal.fire({
-            title: 'Búsqueda por ORCID',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            text: 'espere un momento, por favor',
-            onBeforeOpen: () => {
-                Swal.showLoading()
-            },
-        });
-    });
-    $(".sesion").click(function () {
-        timer.reset(540000);
-    });
-
-    $("#autor").click(function () {
-        $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'author:"" ')
-        timer.reset(540000);
-
-    });
-
-    $("#primer_autor").click(function () {
-        $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'author:"^" ')
-        timer.reset(540000);
-    });
-
-    $("#año").click(function () {
-        $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'year:')
-        timer.reset(540000);
-    });
-
-    $("#abstract").click(function () {
-        $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'abs:"" ')
-        timer.reset(540000);
-    });
-
-    $("#title").click(function () {
-        $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'title:"" ')
-        timer.reset(540000);
-    });
-
-    $("#database").click(function () {
-        $('#busquedaGeneral').val($('#busquedaGeneral').val() + 'database:"astronomy" ')
-        timer.reset(540000);
-    });
-</script>
+<script src="{% static 'js/busqueda_ads.js' %}"></script>
 {% endblock %}

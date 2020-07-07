@@ -47,7 +47,6 @@ class ProfileUpdate(View):
         obj = User.objects.get(id=request.user.id)
         nombre = request.POST.get('nombres',obj.nombre)
         apellidos = request.POST.get('apellidos',obj.apellido)
-        correo = request.POST.get('correo',obj.email)
         categoria = request.POST.get('categoria',obj.categoria)
         nivel_sni = request.POST.get('nivel_sni',obj.nivelSni)
         orcid = request.POST.get('orc_id',obj.orcId)
@@ -56,7 +55,6 @@ class ProfileUpdate(View):
         
         obj.nombre = nombre
         obj.apellido = apellidos
-        obj.email = correo
         obj.categoria = categoria
         obj.nivelSni = nivel_sni
         obj.orcId = orcid

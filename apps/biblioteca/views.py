@@ -94,7 +94,7 @@ class agregar_biblioteca(View):
     def post(self,request):
         #Obtenemos valores de bidcodes a buscar
         
-        datos = request.POST.getlist('articulos[]')  
+        datos = request.POST.getlist('articulos')  
         articulosDB = [] 
         lista = json.loads(datos[0])
         for l in lista:

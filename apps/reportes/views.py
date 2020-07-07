@@ -1811,7 +1811,6 @@ class infoAnteriorModelo14(View):
             'fecha':fecha,
             'ids':ids
         }
-        print("llegue aqui")
         
         return  JsonResponse(data)
 
