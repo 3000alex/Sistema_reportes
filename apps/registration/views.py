@@ -11,9 +11,10 @@ from django.http import HttpResponseRedirect
 def login_view(request):
     if request.user.is_authenticated:
             if request.user.email == 'astrofi@inaoep.mx':#if para redirigir a perfil administrador
-                return HttpResponseRedirect(reverse('administradores:home-adm'))
+                return  HttpResponseRedirect(reverse('administradores:home-adm'))
             else:#else para redirigir a perfil investigador
                 return  HttpResponseRedirect(reverse('reportes:home'))
+
     else:#else para redirigir a loguearse
         context = {}
         if request.method == "POST":
@@ -29,7 +30,7 @@ def login_view(request):
                    if user.email == 'astrofi@inaoep.mx':
                         return HttpResponseRedirect(reverse('administradores:home-adm'))
                    else:
-                       return render(request,"reportes/home.html",context) #HttpResponseRedirect(reverse('reportes:home'))
+                       return HttpResponseRedirect(reverse('reportes:home'))
                 else:
                     context["error"] = '<div class="alert alert-danger col-12" role="alert"><ul><li>Sus credenciales son incorrectas, intentelo de nuevo.<br> Observe que ambos campos pueden ser sensibles a mayúsculas.</li></ul></div>'
                     return render(request,"registration/login.html",context)

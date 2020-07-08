@@ -3337,6 +3337,7 @@
             <div>
                 {% for campo in citas %}
                 <strong class="mb-4 pl-4">NOTA: para actualizar, favor de dar click en el botón azul Editar.</strong>
+                <p class="pl-4">Acceso <a target="_blank" href="https://ui.adsabs.harvard.edu/">ADS</a></p>
                 <form id="campo{{campo.id}}" enctype="multipart/form-data">
                     <div class="pt-4 pl-4">
                         <div class="form-group">
@@ -3441,7 +3442,7 @@
                 $("#anexo" + id).prop("disabled", true);
             }
 
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var resultado = notificacion.fecha(id)
@@ -3669,7 +3670,7 @@
                     .done(function (response) {
                         $("#biblioteca" + id).remove();
                         $("#bibliotecaCrear" + id).remove();
-                        timer.reset(540000);
+                        
                     })
                     .fail(function (response) {
                         notificacion.error(response)
@@ -3704,7 +3705,7 @@
                 $("#anexoModelo1" + id).prop("disabled", true);
             }
 
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo1" + id))
@@ -3725,7 +3726,7 @@
                 .done(function () {
                     Modelo1.editar(id, false);
                     notificacion.actualizado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -3746,7 +3747,7 @@
                 .done(function (response) {
                     $("#sinEntradas" + numeral).remove()
                     $("#infoAnteriorModelo1" + numeral).remove()
-                    timer.reset(540000);
+                    
                     Modelo1.dibujar(response);
                     notificacion.creado();
                 })
@@ -4225,7 +4226,7 @@
                         }
                         $("#infoAnteriorModelo1" + numeral).remove();
                         notificacion.importarPeriodo();
-                        timer.reset(540000);
+                        
                     }
                     else {
                         notificacion.errorImportarPeriodo();
@@ -4255,7 +4256,7 @@
                 $("#anexoModelo2" + id).prop("disabled", true)
             }
 
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo2" + id))
@@ -4298,7 +4299,7 @@
                     
                     Modelo2.dibujar(response)
                     notificacion.creado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -4385,7 +4386,7 @@
                     .done(function () {
                         $("#modelo2" + id).remove();
                         $("#modelo2Crear" + id).remove();
-                        timer.reset(540000);
+                        
                     })
                     .fail(function (response) {
                         notificacion.error(response);
@@ -4420,7 +4421,7 @@
                         }
                         $("#infoAnteriorModelo2" + numeral).remove();
                         notificacion.importarPeriodo();
-                        timer.reset(540000);
+                        
                     }
                     else {
                         notificacion.errorImportarPeriodo();
@@ -4460,7 +4461,7 @@
                 $("#anexoModelo3" + id).prop("disabled", true);
             }
 
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo3" + id))
@@ -4499,7 +4500,7 @@
                     $("#infoAnteriorModelo3" + numeral).remove()
                     notificacion.creado();
                     Modelo3.dibujar(response)
-                    timer.reset(540000);
+                    
                 });
         },
         dibujar: function (response) {
@@ -4776,7 +4777,7 @@
                         }
                         $("#infoAnteriorModelo3" + numeral).remove();
                         notificacion.importarPeriodo();
-                        timer.reset(540000);
+                        
                     }
                     else {
                         notificacion.errorImportarPeriodo();
@@ -4846,7 +4847,7 @@
                     $("#infoAnteriorModelo14" + numeral).remove()
                     Modelo14.dibujar(response)
                     notificacion.creado();
-                    timer.reset(540000);
+                    
                 });
 
         },
@@ -4951,7 +4952,7 @@
                         }
                         notificacion.importarPeriodo();
                         $("#infoAnteriorModelo14" + numeral).remove();
-                        timer.reset(540000);
+                        
                     } else {
                         notificacion.errorImportarPeriodo();
                     }
@@ -4976,7 +4977,7 @@
                 $("#indiceH" + id).prop("disabled", true);
                 $("#anexoCitas" + id).prop("disabled", true);
             }
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("campo" + id))

@@ -862,7 +862,7 @@
                 $("#anexoModelo4" + id).prop("disabled", true);
             }
 
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo4" + id))
@@ -883,7 +883,7 @@
                 .done(function () {
                     Modelo4.editar(id, false);
                     notificacion.actualizado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -905,7 +905,7 @@
                     $("#infoAnteriorModelo4" + numeral).remove()
                     Modelo4.dibujar(response);
                     notificacion.creado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -1016,7 +1016,7 @@
                         }
                         $("#infoAnteriorModelo4" + numeral).remove();
                         notificacion.importarPeriodo();
-                        timer.reset(540000);
+                        
                     }else{
                         notificacion.errorImportarPeriodo();
                     }
@@ -1044,7 +1044,7 @@
                 $("#notasModelo5" + id).prop("disabled", true);
                 $("#anexoModelo5" + id).prop("disabled", true);
             }
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo5" + id))
@@ -1065,7 +1065,7 @@
                 .done(function () {
                     Modelo5.editar(id, false)
                     notificacion.actualizado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -1087,7 +1087,7 @@
                     $("#infoAnteriorModelo5" + numeral).remove()
                     Modelo5.dibujar(response)
                     notificacion.creado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -1187,7 +1187,7 @@
                             $("#notasModelo5" + response.ids[i]).val(response.notas[i]);
                             $("#infoAnteriorModelo5" + numeral).remove();
                             notificacion.importarPeriodo();
-                            timer.reset(540000);
+                            
                         }
                     }
                     else{
@@ -1223,7 +1223,7 @@
                 $("#notasModelo6" + id).prop("disabled", true);
                 $("#anexoModelo6" + id).prop("disabled", true);
             }
-            timer.reset(540000);
+            
 
         },
         actualizar: function (id) {
@@ -1245,7 +1245,7 @@
                 .done(function () {
                     Modelo6.editar(id, false)
                     notificacion.actualizado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -1267,7 +1267,7 @@
                     $("#infoAnteriorModelo6" + numeral).remove()
                     Modelo6.dibujar(response)
                     notificacion.creado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -1436,7 +1436,7 @@
                     .done(function (response) {
                         $("#modelo6" + id).remove();
                         $("#modelo6Crear" + id).remove();
-                        timer.reset(540000);
+                        
                     })
                     .fail(function (response) {
                         notificacion.error(response);
@@ -1473,7 +1473,7 @@
                         }
                         $("#infoAnteriorModelo6" + numeral).remove()
                         notificacion.importarPeriodo();
-                        timer.reset(540000);
+                        
                     }
                     else{
                         notificacion.errorImportarPeriodo();
@@ -1502,7 +1502,7 @@
                 $("#gradoModelo16" + id).prop("disabled", true);
                 $("#anexoModelo16" + id).prop("disabled", true);
             }
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo16" + id))
@@ -1523,7 +1523,7 @@
                 .done(function () {
                     Modelo16.editar(id, false)
                     notificacion.actualizado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response)
@@ -1545,7 +1545,7 @@
                     $("#infoAnteriorModelo16" + numeral).remove()
                     Modelo16.dibujar(response);
                     notificacion.creado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error();
@@ -1618,7 +1618,7 @@
                     .done(function (response) {
                         $("#modelo16" + id).remove();
                         $("#modelo16Crear" + id).remove();
-                        timer.reset(540000);
+                        
                     })
                     .fail(function (response) {
                         notificacion.error(response)
@@ -1652,7 +1652,7 @@
                         }
                         $("#infoAnteriorModelo16" + numeral).remove()
                         notificacion.importarPeriodo();
-                        timer.reset(540000);
+                        
                     }
                     else{
                         notificacion.errorImportarPeriodo();

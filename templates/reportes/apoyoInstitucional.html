@@ -1275,7 +1275,7 @@
                 $("#anexoModelo9" + id).prop("disabled", true);
             }
 
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo9" + id))
@@ -1296,7 +1296,7 @@
                 .done(function (resonse) {
                     Modelo9.editar(id, false);
                     notificacion.actualizado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -1318,7 +1318,7 @@
                     $("#infoAnteriorModelo9" + numeral).remove();
                     Modelo9.dibujar(response)
                     notificacion.creado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -1411,7 +1411,7 @@
                         if (data.deleted) {
                             $("#modelo9" + id).remove();
                             $("#modelo9Crear" + id).remove();
-                            timer.reset(540000);
+                            
                         }
                     })
                     .fail(function (response) {
@@ -1450,7 +1450,7 @@
                         }
                         $("#infoAnteriorModelo9" + numeral).remove()
                         notificacion.importarPeriodo();
-                        timer.reset(540000);
+                        
                     }
                     else{
                         notificacion.errorImportarPeriodo();
@@ -1482,7 +1482,7 @@
                 $("#anexoModelo10" + id).prop("disabled", true);
             }
 
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo10" + id))
@@ -1503,7 +1503,7 @@
                 .done(function () {
                     Modelo10.editar(id, false);
                     notificacion.actualizado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -1525,14 +1525,15 @@
                     $("#infoAnteriorModelo10" + numeral).remove()
                     Modelo10.dibujar(response)
                     notificacion.creado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
                 });
         },
         dibujar: function (response) {
-            var orden = response.numeral;
+            var orden = response.orden;
+            
             switch (orden) {
                 case 49:
                 case 49.1:
@@ -1642,7 +1643,7 @@
                     .done(function () {
                         $("#modelo10" + id).remove();
                         $("#modelo10Crear" + id).remove();
-                        timer.reset(540000);
+                        
                     })
                     .fail(function (response) {
                         notificacion.error(response)
@@ -1677,7 +1678,7 @@
 
                         $("#infoAnteriorModelo10" + numeral).remove()
                         notificacion.importarPeriodo();
-                        timer.reset(540000);
+                        
                     }
                     else{
                         notificacion.errorImportarPeriodo();
@@ -1706,7 +1707,7 @@
                 $("#fechaPeriodoModelo11" + id).prop("disabled", true);
             }
 
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo11" + id))
@@ -1727,7 +1728,7 @@
                 .done(function () {
                     Modelo11.editar(id, false)
                     notificacion.actualizado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -1749,15 +1750,15 @@
                     $("#infoAnteriorModelo11" + numeral).remove()
                     Modelo11.dibujar(response)
                     notificacion.creado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
                 });
         },
         dibujar: function (response) {
-            var numeral = parseInt(response.numeral);
-            switch (numeral) {
+            var orden = parseInt(response.orden);
+            switch (orden) {
                 case 53: $("#modelo11Crear" + `${response.numeral}`).before(
                     `<form id="modelo11${response.id}" enctype="multipart/form-data">
                         <div class="pt-4 pr-4 pl-4">
@@ -1898,7 +1899,7 @@
                     .done(function (response) {
                         $("#modelo11" + id).remove();
                         $("#modelo11Crear" + id).remove();
-                        timer.reset(540000);
+                        
                     })
                     .fail(function (response) {
                         notificacion.error(response);
@@ -1932,7 +1933,7 @@
 
                         $("#infoAnteriorModelo11" + numeral).remove();
                         notificacion.importarPeriodo();
-                        timer.reset(540000);
+                        
                     }
                     else{
                         notificacion.errorImportarPeriodo();
@@ -1958,7 +1959,7 @@
                 $("#anexoModelo12" + id).prop("disabled", true);
             }
 
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo12" + id))
@@ -1979,7 +1980,7 @@
                 .done(function (response) {
                     Modelo12.editar(id, false);
                     notificacion.actualizado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -2001,7 +2002,7 @@
                     $("#infoAnteriorModelo12" + numeral).remove()
                     Modelo12.dibujar(response)
                     notificacion.creado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -2056,7 +2057,7 @@
                     .done(function () {
                         $("#modelo12" + id).remove();
                         $("#modelo12Crear" + id).remove();
-                        timer.reset(540000);
+                        
                     })
                     .fail(function (response) {
                         notificacion.error(response);
@@ -2087,7 +2088,7 @@
                         }
                         $("#infoAnteriorModelo12" + numeral).remove()
                         notificacion.importarPeriodo();
-                        timer.reset(540000);
+                        
                     }
                     else{
                         notificacion.errorImportarPeriodo();
@@ -2114,7 +2115,7 @@
                 $("#agenciaFinanciadoraModelo13" + id).prop("disabled", true);
                 $("#anexoModelo13" + id).prop("disabled", true);
             }
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo13" + id))
@@ -2135,7 +2136,7 @@
                 .done(function (response) {
                     Modelo13.editar(id, false);
                     notificacion.actualizado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -2157,7 +2158,7 @@
                     $("#infoAnteriorModelo13" + numeral).remove()
                     Modelo13.dibujar(response);
                     notificacion.creado();
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -2217,7 +2218,7 @@
                     .done(function (response) {
                         $("#modelo13" + id).remove();
                         $("#modelo13Crear" + id).remove();
-                        timer.reset(540000);
+                        
                     })
                     .fail(function (response) {
                         notificacion.error(response);
@@ -2249,7 +2250,7 @@
                         }
                         $("#infoAnteriorModelo13" + numeral).remove()
                         notificacion.importarPeriodo();
-                        timer.reset(540000);
+                        
                     }
                     else{
                         notificacion.errorImportarPeriodo();
@@ -2275,7 +2276,7 @@
                 $("#anexoModelo15" + id).prop("disabled", true);
             }
 
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             var formData = new FormData(document.getElementById("modelo15" + id))
@@ -2295,7 +2296,7 @@
             })
                 .done(function (response) {
                     Modelo15.editar(id, false);
-                    timer.reset(540000);
+                    
                     notificacion.actualizado();
                 })
                 .fail(function (response) {
@@ -2318,7 +2319,7 @@
                     $("#infoAnteriorModelo15" + numeral).remove()
                     Modelo15.dibujar(response)
                     notificacion.creado()
-                    timer.reset(540000);
+                    
                 })
                 .fail(function (response) {
                     notificacion.error(response);
@@ -2371,7 +2372,7 @@
                     .done(function (response) {
                         $("#modelo15" + id).remove();
                         $("#modelo15Crear" + id).remove();
-                        timer.reset(540000);
+                        
                     })
                     .fail(function (response) {
                         notificacion.error(response);
@@ -2402,7 +2403,7 @@
                         }
                         $("#infoAnteriorModelo15" + numeral).remove()
                         notificacion.importarPeriodo();
-                        timer.reset(540000);
+                        
                     }
                     else{
                         notificacion.errorImportarPeriodo();

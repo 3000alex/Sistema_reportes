@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-    
+
 <head>
     {% load static %} {# Archivos #}
     <meta charset="UTF-8">
@@ -172,17 +172,15 @@
         });
     </script>
     <script>
-        let timer;
-
         //Control de sesion
         $(document).ready(function () {
-            timer = new Timer(function () {
+            setInterval(function () {
                 let timerInterval
                 Swal.fire({
                     title: 'Sesión por caducar',
                     html: 'Su sesión expira en <b></b> seg. <br> ¿Desea ampliarla? <br> <br> <i style="font-size:100px" class="far fa-clock text-danger"></i>',
                     allowOutsideClick: false,
-                    showCancelButton:true,
+                    showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: '<i class="fas fa-check"> Aceptar</i>',
@@ -202,7 +200,7 @@
                         }, 100)
                     },
                     onClose: () => {
-                        
+
                         Swal.fire({
                             title: 'Sesión terminada',
                             icon: 'error',
@@ -241,33 +239,6 @@
             }, 540000);
 
         });
-
-        function Timer(fn, t) {
-            var timerObj = setInterval(fn, t);
-
-            this.stop = function () {
-                if (timerObj) {
-                    clearInterval(timerObj);
-                    timerObj = null;
-                }
-                return this;
-            }
-
-            // start timer using current settings (if it's not already running)
-            this.start = function () {
-                if (!timerObj) {
-                    this.stop();
-                    timerObj = setInterval(fn, t);
-                }
-                return this;
-            }
-
-            // start with new or original interval, stop current interval
-            this.reset = function (newT = t) {
-                t = newT;
-                return this.stop().start();
-            }
-        }
 
         function cerrarSesion() {
             Swal.fire({

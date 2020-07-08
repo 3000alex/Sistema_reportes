@@ -153,7 +153,7 @@
                 $("#urlModelo14" + id).prop("disabled", true);
                 $("#anexoModelo14" + id).prop("disabled", true);
             }
-            timer.reset(540000);
+            
         },
         actualizar: function (id) {
             const csrfmiddlewaretoken = token('csrftoken');
@@ -168,7 +168,7 @@
                 .then((response) => {
                     Modelo14.editar(id, false);
                     notificacion.actualizado();
-                    timer.reset(540000);
+                    
 
                 }).catch((err) => {
                     notificacion.error(err);
@@ -196,7 +196,7 @@
                     
                     Modelo14.dibujar(response);
                     notificacion.creado()
-                    timer.reset(540000);
+                    
                 })
                 .catch((err) => {
                     notificacion.error(err);
@@ -267,7 +267,7 @@
                 .then((response) => {
                     $("#modelo14" + id).remove();
                     $("#modelo14Crear" + id).remove();
-                    timer.reset(540000);
+                    
 
                 }).catch((err) => {
                     notificacion.error(err);
@@ -302,7 +302,7 @@
                         }
                         notificacion.importarPeriodo();
                         $("#infoAnteriorModelo14" + numeral).remove();
-                        timer.reset(540000);
+                        
                     }
                     else {
                         notificacion.errorImportarPeriodo();
@@ -337,7 +337,7 @@
                         }
                         notificacion.importarPeriodo();
                         $("#infoAnteriorModelo14" + numeral).remove();
-                        timer.reset(540000);
+                        
                     }
                     else {
                         notificacion.errorImportarPeriodo();

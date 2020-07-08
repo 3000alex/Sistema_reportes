@@ -340,7 +340,7 @@
                         timerProgressBar: true,
                         timer: 2000
                     });
-                    timer.reset(540000);
+                    
                 }
             });
         },
@@ -353,7 +353,7 @@
                 timerProgressBar: true,
                 timer: 2000
             });
-            timer.reset(540000);
+            
         },
         fecha: function (id) {
             var formData = new FormData(document.getElementById("biblioteca" + id))
@@ -394,7 +394,7 @@
                 timerProgressBar: true,
                 timer: 2000
             });
-            timer.reset(540000);
+            
         },
         periodo: function (periodo) {
             Swal.fire({
@@ -405,7 +405,7 @@
                 timerProgressBar: true,
                 timer: 2000
             });
-            timer.reset(540000);
+            
         },
         finalizarR: function (periodo) {
             Swal.fire({
@@ -519,5 +519,46 @@
         }
     }
 
+    $(document).on('change','input[type="file"]',function(){
+	// this.files[0].size recupera el tamaño del archivo
+	// alert(this.files[0].size);
+	
+	var fileName = this.files[0].name;
+	var fileSize = this.files[0].size;
+
+	if(fileSize > 20000000){
+        Swal.fire({
+                title: 'Tamaño de archivo',
+                icon: 'error',
+                text: 'El archivo no debe superar los 20MB',
+            })
+		
+		this.value = '';
+		//this.files[0].name = '';
+	}else{
+		// recuperamos la extensión del archivo
+		var ext = fileName.split('.').pop();
+		
+		// Convertimos en minúscula porque 
+		// la extensión del archivo puede estar en mayúscula
+		ext = ext.toLowerCase();
+    
+		// console.log(ext);
+		switch (ext) {
+			case 'jpg':
+			case 'jpeg':
+			case 'png':
+			case 'pdf': break;
+			default:
+            Swal.fire({
+                title: 'Tipo de archivo incorrecto',
+                icon: 'error',
+                text: 'EL archivo debe ser un pdf o imagen',
+            })
+				this.value = ''; // reset del valor
+				//this.files[0].name = '';
+		}
+	}
+});
 </script>
 {% endblock %}
