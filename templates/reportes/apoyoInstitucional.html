@@ -1292,6 +1292,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function (resonse) {
                     Modelo9.editar(id, false);
@@ -1499,6 +1502,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     Modelo10.editar(id, false);
@@ -1724,6 +1730,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     Modelo11.editar(id, false)
@@ -1976,6 +1985,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function (response) {
                     Modelo12.editar(id, false);
@@ -2132,6 +2144,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function (response) {
                     Modelo13.editar(id, false);
@@ -2293,6 +2308,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function (response) {
                     Modelo15.editar(id, false);

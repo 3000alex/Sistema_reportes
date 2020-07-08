@@ -879,6 +879,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     Modelo4.editar(id, false);
@@ -1061,6 +1064,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     Modelo5.editar(id, false)
@@ -1241,6 +1247,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     Modelo6.editar(id, false)
@@ -1519,6 +1528,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     Modelo16.editar(id, false)

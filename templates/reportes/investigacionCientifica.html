@@ -3456,6 +3456,9 @@
                     contentType: false,
                     processData: false,
                     dataType: 'html',
+                    beforeSend: function(){
+                    notificacion.actualizando();
+                },
                 })
                     .done(function (response) {
                         Biblioteca.editar(id, false);
@@ -3722,6 +3725,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     Modelo1.editar(id, false);
@@ -4273,6 +4279,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     notificacion.actualizado();
@@ -4478,6 +4487,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     notificacion.actualizado();
@@ -4824,6 +4836,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     notificacion.actualizado();
@@ -4994,6 +5009,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     notificacion.actualizado();

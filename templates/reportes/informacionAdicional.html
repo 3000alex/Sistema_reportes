@@ -161,17 +161,26 @@
             data.append("id", id);
             data.append("csrfmiddlewaretoken", csrfmiddlewaretoken)
 
-            fetch("{% url 'reportes:actualizar-modelo14'  %}",{
-                    method: 'POST',
-                    body: data,
-                })
-                .then((response) => {
-                    Modelo14.editar(id, false);
+            $.ajax({
+                url: "{% url 'reportes:actualizar-modelo14'  %}",
+                type: 'POST',
+                data: data,
+                enctype: "multipart/form-data",
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
+            })
+                .done(function () {
+                    Modelo1.editar(id, false);
                     notificacion.actualizado();
                     
-
-                }).catch((err) => {
-                    notificacion.error(err);
+                })
+                .fail(function (response) {
+                    notificacion.error(response);
                 });
         },
         crear: function (numeral) {

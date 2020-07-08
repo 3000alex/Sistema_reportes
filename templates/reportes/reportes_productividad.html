@@ -516,7 +516,20 @@
                 icon: 'success',
                 text: 'No olvide guardar los datos importados',
             })
+        },
+        actualizando: function() {
+            Swal.fire({
+                title: 'Actualizando entrada',
+                html: 'No salga del sitio, espere unos segundos...',
+                icon: 'info',
+                allowOutsideClick: false,
+                timerProgressBar: true,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                },
+            })
         }
+
     }
 
     $(document).on('change','input[type="file"]',function(){
@@ -560,5 +573,6 @@
 		}
 	}
 });
+
 </script>
 {% endblock %}

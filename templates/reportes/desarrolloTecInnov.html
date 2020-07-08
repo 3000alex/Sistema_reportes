@@ -643,6 +643,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     Modelo7.editar(id, false);
@@ -819,6 +822,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     Modelo8.editar(id, false);
@@ -1010,6 +1016,9 @@
                 contentType: false,
                 processData: false,
                 dataType: 'html',
+                beforeSend: function(){
+                    notificacion.actualizando();
+                },
             })
                 .done(function () {
                     Modelo9.editar(id, false);
