@@ -2062,14 +2062,14 @@ class enviarReporte(View):
 
         email_message.content_subtype = 'html'
         #Convertimos la instancia PDF en un tipo MIME para enviarlo
-        adjunto = MIMEBase('application', 'octet-stream')
+        adjunto = MIMEBase('application', 'application/pdf')
         adjunto.set_payload(pdf)
         encoders.encode_base64(adjunto)
         adjunto.add_header('Content-Disposition', "attachment; filename= Reporte "+periodo.nombre_periodo+'.pdf')
         email_message.attach(adjunto)
         #Enviamos email
         email_message.send()
-
+        
         #Email para la coordinacionP
         bodyAdmin = render_to_string(
          'reportes/templateReporteFinalizado.html',{
