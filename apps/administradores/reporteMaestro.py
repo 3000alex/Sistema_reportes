@@ -591,7 +591,7 @@ def Reporte(request,periodo_id):
                     
                     autores = nombreCorto(item.autores,inv.nombreCorto)
                     for a in autores:
-                        if a.strip() == inv.nombreCorto:
+                        if a.strip().split(",")[0] == inv.nombreCorto.split(",")[0]:
                             paragraph.add_run(a).font.bold = True
                         else:
                             paragraph.add_run(a).font.bold = False
