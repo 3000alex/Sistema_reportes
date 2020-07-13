@@ -124,7 +124,8 @@ def tablaInvestigadores(document,usuario,reportes):
     
     for investigador in usuario:
         for r in reportes:
-               
+        
+                  
             if r.usuario.nombreCorto == investigador.nombreCorto:
                 reporte = True
             else: 
