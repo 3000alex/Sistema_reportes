@@ -122,18 +122,19 @@ def tablaInvestigadores(document,usuario,reportes):
     hdr_cells[3].text = 'SNI'
     hdr_cells[4].text = 'Reporte enviado'
     
-    for r in reportes:
-        for investigador in usuario:       
+    for investigador in usuario:
+        for r in reportes:
+               
             if r.usuario.nombreCorto == investigador.nombreCorto:
                 reporte = True
             else: 
                 reporte = False
 
         row_cells = table.add_row().cells
-        row_cells[0].text = r.usuario.apellido
-        row_cells[1].text = r.usuario.nombre
-        row_cells[2].text = r.usuario.categoria
-        row_cells[3].text = r.usuario.nivelSni
+        row_cells[0].text = investigador.apellido
+        row_cells[1].text = investigador.nombre
+        row_cells[2].text = investigador.categoria
+        row_cells[3].text = investigador.nivelSni
 
         if reporte:
             row_cells[4].text = 'ok'
