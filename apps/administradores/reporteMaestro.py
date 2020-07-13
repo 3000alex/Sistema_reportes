@@ -113,7 +113,6 @@ def tablaNivelSNI(document):
     document.add_paragraph()
 
 def tablaInvestigadores(document,usuario,reportes):
-    
     table = document.add_table(rows=1, cols=5, style='Medium Shading 1 Accent 1')
     hdr_cells = table.rows[0].cells
     hdr_cells[0].text = 'Apellido'
@@ -122,25 +121,25 @@ def tablaInvestigadores(document,usuario,reportes):
     hdr_cells[3].text = 'SNI'
     hdr_cells[4].text = 'Reporte enviado'
     
-    for investigador in usuario:
-        for r in reportes:
-        
-                  
-            if r.usuario.nombreCorto == investigador.nombreCorto:
-                reporte = True
-            else: 
-                reporte = False
-
+    for r in reportes:
         row_cells = table.add_row().cells
-        row_cells[0].text = investigador.apellido
-        row_cells[1].text = investigador.nombre
-        row_cells[2].text = investigador.categoria
-        row_cells[3].text = investigador.nivelSni
-
-        if reporte:
-            row_cells[4].text = 'ok'
-        else:
-            row_cells[4].text = ''
+        
+            #print(str(r.usuario_id) + ' - ' +  str(investigador.id))
+            #print(r.usuario.nombre + '-' + investigador.nombre)
+            #if r.usuario_id == investigador.id:
+        row_cells[0].text = r.usuario.apellido
+        row_cells[1].text = r.usuario.nombre
+        row_cells[2].text = r.usuario.categoria
+        row_cells[3].text = r.usuario.nivelSni  
+        row_cells[4].text = 'ok'
+            #print("SI")
+            #else:
+            #    row_cells[0].text = investigador.apellido
+            #    row_cells[1].text = investigador.nombre
+            #    row_cells[2].text = investigador.categoria
+            #    row_cells[3].text = investigador.nivelSni   
+            #    row_cells[4].text = ''
+            #    print("NO")        
 
     document.add_page_break()
 
