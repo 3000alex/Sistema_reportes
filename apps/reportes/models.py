@@ -452,7 +452,7 @@ class Citas(models.Model):
     class Meta:
         verbose_name ="cita del periodo"
         verbose_name_plural = "Citas del periodo"
-        ordering = ['fecha_de_creacion']
+        ordering = ['usuario']
 
     def __str__(self):
         return self.numeral.nombre

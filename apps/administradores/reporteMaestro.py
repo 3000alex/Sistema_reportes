@@ -14,7 +14,7 @@ from docx.enum.dml import MSO_THEME_COLOR_INDEX
 from docx.shared import Inches
 #Modelos 
 from apps.reportes.models import Numeral, Citas, ReporteEnviado, Modelo1, Modelo2, Modelo3, Modelo4, Modelo5, Modelo6, Modelo7, Modelo8, Modelo9, Modelo10
-from apps.reportes.models import Modelo11, Modelo12, Modelo13, Modelo14, Modelo15, Modelo16, Periodo
+from apps.reportes.models import Modelo11, Modelo12, Modelo13, Modelo14, Modelo15, Modelo16, Periodo, ReporteEnviado
 from apps.registration.models import User
 from apps.biblioteca.models import Biblioteca
 from docx.shared import RGBColor
@@ -112,7 +112,8 @@ def tablaNivelSNI(document):
 
     document.add_paragraph()
 
-def tablaInvestigadores(document,usuario,periodo):
+def tablaInvestigadores(document,usuario,reportes):
+    
     table = document.add_table(rows=1, cols=5, style='Medium Shading 1 Accent 1')
     hdr_cells = table.rows[0].cells
     hdr_cells[0].text = 'Apellido'
@@ -122,23 +123,22 @@ def tablaInvestigadores(document,usuario,periodo):
     hdr_cells[4].text = 'Reporte enviado'
             
     for investigador in usuario:
+        for r in reportes:
+            if r.usuario.nombreCorto == investigador.nombreCorto:
+                reporte = True
+            else: 
+                reporte = False
 
-        try:
-            
-            reporte = ReporteEnviado.objects.get(usuario_id = investigador.id, periodo = periodo)
+            row_cells = table.add_row().cells
+            row_cells[0].text = investigador.apellido
+            row_cells[1].text = investigador.nombre
+            row_cells[2].text = investigador.categoria
+            row_cells[3].text = investigador.nivelSni
 
-        except:
-            reporte= None
-
-        row_cells = table.add_row().cells
-        row_cells[0].text = investigador.apellido
-        row_cells[1].text = investigador.nombre
-        row_cells[2].text = investigador.categoria
-        row_cells[3].text = investigador.nivelSni
-        if reporte:
-            row_cells[4].text = 'ok'
-        else:
-            row_cells[4].text = ''
+            if reporte:
+                row_cells[4].text = 'ok'
+            else:
+                row_cells[4].text = ''
 
     document.add_page_break()
 
@@ -406,13 +406,39 @@ def tablaResumenNumerales(document,yearPeriodo):
     row_cells[1].text = "Organización de eventos académicos vinculados al quehacer institucional"
     row_cells[2].text = Modelo10.objects.entradasContador(yearPeriodo,55) 
 
-def nombreCorto(cadenaAutores,nombreC):
+def filtroAutores(cadenaAutores,nombreC,paragraph):
     autores = cadenaAutores.split(";")
-    return autores
+
+    for a in autores:
+        if a.strip().split(",")[0] == nombreC.split(",")[0]:
+            paragraph.add_run(a).font.bold = True
+        else:
+            paragraph.add_run(a).font.bold = False
 
 def nombreFile(nombreFile):
     nombre = nombreFile.replace("anexos/","")
     return nombre
+
+def citas(document,reportes):
+    citasObj = Citas.objects.all()
+    #Tabla Distincion SNI
+    table = document.add_table(rows=1, cols=4, style='Medium Shading 1 Accent 1')
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER #ALINEACION CENTRAL
+    table.allow_autofit = True
+    hdr_cells = table.rows[0].cells
+    hdr_cells[0].text = 'Investigador'
+    hdr_cells[1].text = 'Citas totales'
+    hdr_cells[2].text = 'Citas en el periodo'
+    hdr_cells[3].text = 'Índice-h'
+    for r in reportes:
+        for item in citasObj:
+            if r.usuario_id == item.usuario_id:
+                row_cells = table.add_row().cells
+                row_cells[0].text = str(item.usuario.nombreCorto)
+                row_cells[1].text = str(item.citas)
+                row_cells[2].text = str(item.citas_en_periodo)
+                row_cells[3].text = str(item.indiceH)
+    document.add_paragraph()
 
 def add_hyperlink(paragraph, text, url):
     # This gets access to the document.xml.rels file and gets a new relation id value
@@ -448,12 +474,14 @@ def Reporte(request,periodo_id):
     style = document.styles['Normal']
     font = style.font
     font.name = 'Calibri'
+    nombreAux = True
     #Objetos
     periodo = Periodo.objects.get(id=periodo_id) #Para obtener valores del 2019
     yearPeriodo = periodo.fecha_inicio.year
     fecha_inicioPeriodo = periodo.fecha_inicio
     biblioteca = Biblioteca.objects.filter(fecha_ano=yearPeriodo)
-    usuario = User.objects.filter(is_staff = 0) #exclude(email = 'astrofi@inaoep.mx')
+    reportes = ReporteEnviado.objects.filter(periodo=periodo)
+    usuario = User.objects.filter(is_staff = 0).order_by('apellido') #exclude(email = 'astrofi@inaoep.mx')
     modelo1 = Modelo1.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
     modelo2 = Modelo2.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
     modelo3 = Modelo3.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
@@ -470,7 +498,6 @@ def Reporte(request,periodo_id):
     modelo14 = Modelo14.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
     modelo15 = Modelo15.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
     modelo16 = Modelo16.objects.filter(periodo__fecha_inicio__year = yearPeriodo)
-    citas = Citas.objects.all()
     numeral = Numeral.objects.all()
     #Fin objetos
 
@@ -534,7 +561,7 @@ def Reporte(request,periodo_id):
     tablaNivelSNI(document)
 
     #Tabla 3 Datos reportes
-    tablaInvestigadores(document,usuario,periodo)
+    tablaInvestigadores(document,usuario,reportes)
 
     #Tabla 4 resumen Numerales
     tablaResumenNumerales(document,yearPeriodo)
@@ -543,63 +570,51 @@ def Reporte(request,periodo_id):
 
     paragraph = document.add_paragraph()
     paragraph.add_run("I. INVESTIGACIÓN CIENTÍFICA").bold = True
+    
     for n in numeral:
-        
+        #Secciones
         if n.orden == 31:
             paragraph = document.add_paragraph()
             paragraph.add_run("II. FORMACIÓN DE RECURSOS HUMANOS").bold = True
 
+            
         if n.orden == 40:
+            document.add_paragraph()
             paragraph = document.add_paragraph()
             paragraph.add_run("III. DESARROLLO TECNOLÓGICO E INNOVACIÓN").bold = True
-
+   
         if n.orden == 47:
+            document.add_paragraph()
             paragraph = document.add_paragraph()
             paragraph.add_run("IV. APOYO INSTITUCIONAL").bold = True
 
         if n.orden == 61:
+            document.add_paragraph()
             paragraph = document.add_paragraph()
             paragraph.add_run("V. INFORMACIÓN ADICIONAL").bold = True
         
         document.add_paragraph(n.nombre) #Nombre - Numerales
         if n.orden == 30:
-            #Tabla Distincion SNI
-            table = document.add_table(rows=1, cols=4, style='Medium Shading 1 Accent 1')
-            table.alignment = WD_TABLE_ALIGNMENT.CENTER #ALINEACION CENTRAL
-            table.allow_autofit = True
-            hdr_cells = table.rows[0].cells
-            hdr_cells[0].text = 'Investigador'
-            hdr_cells[1].text = 'Citas totales'
-            hdr_cells[2].text = 'Citas en el periodo'
-            hdr_cells[3].text = 'Índice-h'
-            for item in citas: 
-                for inv in usuario:
-                    if n.id == item.numeral_id and inv.id == item.usuario_id:   
-                        row_cells = table.add_row().cells
-                        row_cells[0].text = inv.nombreCorto
-                        row_cells[1].text = str(item.citas)
-                        row_cells[2].text = str(item.citas_en_periodo)
-                        row_cells[3].text = str(item.indiceH)
+            citas(document,reportes)
         
-        for inv in usuario:
-            for item in biblioteca:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    
-                    document.add_paragraph(inv.nombreCorto)
-                    paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                    
-                    autores = nombreCorto(item.autores,inv.nombreCorto)
-                    for a in autores:
-                        if a.strip().split(",")[0] == inv.nombreCorto.split(",")[0]:
-                            paragraph.add_run(a).font.bold = True
-                        else:
-                            paragraph.add_run(a).font.bold = False
+        for r in reportes:
+            nombreAux = True
 
-                    paragraph.add_run(",")
+            for item in biblioteca:
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
+                    paragraph = document.add_paragraph(style='List Bullet')
+                    #paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+                    
+                    filtroAutores(item.autores,r.usuario.nombreCorto,paragraph)
+                    
+                    paragraph.add_run(", ")
                     
                     paragraph.add_run(item.titulo).font.italic = True
-                    paragraph.add_run(",")
+                    paragraph.add_run(", ")
                     
                     paragraph.add_run(item.revista_publicacion)
                     paragraph.add_run(" ")
@@ -637,16 +652,19 @@ def Reporte(request,periodo_id):
                         p.add_run("Anexo: " + nombreFile(item.anexos.name))
             
             for item in modelo1:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
-                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+                    #paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
                     
-                    paragraph.add_run(item.autores)
-                    paragraph.add_run(" ")
+                    filtroAutores(item.autores,r.usuario.nombreCorto,paragraph)
+                    paragraph.add_run(", ")
 
                     paragraph.add_run(item.titulo).font.italic = True
-                    paragraph.add_run(",")
+                    paragraph.add_run(", ")
 
                     if item.revista_publicacion:
                         paragraph.add_run(item.revista_publicacion)
@@ -677,8 +695,11 @@ def Reporte(request,periodo_id):
                         p.add_run("Anexo: " + nombreFile(item.anexos.name))
             
             for item in modelo2:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.nombre_del_proyecto:
@@ -701,8 +722,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
             
             for item in modelo3:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
 
                     if item.titulo:
@@ -736,8 +760,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
             
             for item in modelo4:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.nombre_completo:
@@ -758,8 +785,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
             for item in modelo5:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.nombre_del_curso:
@@ -775,8 +805,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
             for item in modelo6:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.nombre:
@@ -801,8 +834,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
             for item in modelo7:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
 
                     if item.autores:
@@ -820,8 +856,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
             for item in modelo8:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.nombre:
@@ -840,8 +879,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
             for item in modelo9:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.titulo:
@@ -871,8 +913,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
                     
             for item in modelo10:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     
@@ -894,8 +939,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
                    
             for item in modelo11:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
 
                     if item.nombre_del_estudiante:
@@ -911,8 +959,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
             for item in modelo12:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.laboratorio_taller:
@@ -922,8 +973,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
                    
             for item in modelo13:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.agencias_financieras:
@@ -936,8 +990,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
                    
             for item in modelo14:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.telescopio_instrumento_infra:
@@ -964,8 +1021,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
 
             for item in modelo15:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.descripcion:
@@ -975,8 +1035,11 @@ def Reporte(request,periodo_id):
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
             
             for item in modelo16:
-                if n.id == item.numeral_id  and inv.id == item.usuario_id:
-                    document.add_paragraph(inv.nombreCorto)
+                if n.id == item.numeral_id  and r.usuario_id == item.usuario_id:
+                    if(nombreAux):
+                        paragraph = document.add_paragraph()
+                        paragraph.add_run(r.usuario.nombreCorto).font.bold = True
+                    nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
                     
                     if item.nombre_del_estudiante:
@@ -990,6 +1053,6 @@ def Reporte(request,periodo_id):
                     
                     if item.anexos:
                         paragraph.add_run("Anexo: " + nombreFile(item.anexos.name))
-
+            
             
     return document

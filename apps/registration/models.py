@@ -33,6 +33,11 @@ class User(AbstractBaseUser,PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
+    class Meta:
+        verbose_name ="Investigador"
+        verbose_name_plural = "Investigadores"
+        ordering = ['apellido']
+
     USERNAME_FIELD = 'email'
     objects = UserManager()
 
