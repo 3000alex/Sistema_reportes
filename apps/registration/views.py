@@ -51,7 +51,7 @@ class ProfileUpdate(View):
         categoria = request.POST.get('categoria',obj.categoria)
         nivel_sni = request.POST.get('nivel_sni',obj.nivelSni)
         orcid = request.POST.get('orc_id',obj.orcId)
-        arxiv_id = request.POST.get('arxiv_id',obj.arxivId)
+        #arxiv_id = request.POST.get('arxiv_id',obj.arxivId)
         
         
         obj.nombre = nombre
@@ -59,7 +59,7 @@ class ProfileUpdate(View):
         obj.categoria = categoria
         obj.nivelSni = nivel_sni
         obj.orcId = orcid
-        obj.arxivId = arxiv_id
+        #obj.arxivId = arxiv_id
         obj.save()
 
         data= {

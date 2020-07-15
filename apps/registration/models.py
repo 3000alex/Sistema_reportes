@@ -27,7 +27,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     nombreCorto = models.CharField(max_length=50, verbose_name="Nombre corto", blank=True)
     correoAlternativo = models.EmailField(max_length=50, verbose_name="Correo alternativo", blank=True)
     categoria = models.CharField(max_length=50, blank=True, verbose_name="Categoria", default="Sin especificar", choices= categoria_select)
-    nivelSni = models.CharField(max_length=50, blank=True, verbose_name="Nivel de SNI", default="Sin nombreamiento", choices= nivelSni_select)
+    nivelSni = models.CharField(max_length=50, blank=True, verbose_name="Nivel de SNI", default="Sin especificar", choices= nivelSni_select)
     orcId = models.CharField(max_length=50, blank=True, verbose_name="Orc ID")
     arxivId = models.CharField(max_length=50, blank=True, verbose_name="Arxiv ID")
     is_staff = models.BooleanField(default=False)

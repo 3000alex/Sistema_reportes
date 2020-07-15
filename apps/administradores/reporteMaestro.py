@@ -123,24 +123,12 @@ def tablaInvestigadores(document,usuario,reportes):
     
     for r in reportes:
         row_cells = table.add_row().cells
-        
-            #print(str(r.usuario_id) + ' - ' +  str(investigador.id))
-            #print(r.usuario.nombre + '-' + investigador.nombre)
-            #if r.usuario_id == investigador.id:
         row_cells[0].text = r.usuario.apellido
         row_cells[1].text = r.usuario.nombre
         row_cells[2].text = r.usuario.categoria
         row_cells[3].text = r.usuario.nivelSni  
         row_cells[4].text = 'ok'
-            #print("SI")
-            #else:
-            #    row_cells[0].text = investigador.apellido
-            #    row_cells[1].text = investigador.nombre
-            #    row_cells[2].text = investigador.categoria
-            #    row_cells[3].text = investigador.nivelSni   
-            #    row_cells[4].text = ''
-            #    print("NO")        
-
+        
     document.add_page_break()
 
 def tablaResumenNumerales(document,yearPeriodo):
@@ -659,7 +647,6 @@ def Reporte(request,periodo_id):
                         paragraph.add_run(r.usuario.nombreCorto).font.bold = True
                     nombreAux = False
                     paragraph = document.add_paragraph(style='List Bullet')
-                    #paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
                     
                     filtroAutores(item.autores,r.usuario.nombreCorto,paragraph)
                     paragraph.add_run(", ")

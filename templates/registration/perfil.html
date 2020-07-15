@@ -53,10 +53,9 @@
       </legend>
       <div class="form-group">
 
-        <label for="">Categoría:</label>
+        <label for="">Categoría*:</label>
         <select disabled class="form-control mb-2" name="categoria" id="categoria">
-          <option selected value="{{ perfil.categoria }}">
-            {% if perfil.categoria %}{{perfil.categoria}}{% else %}Sin especificar{%endif%}
+          <option selected value="{{ perfil.categoria }}">{{perfil.categoria}}
           </option>
           <option value="Investigador posdoctoral">Investigador posdoctoral</option>
           <option value="Cátedra CONACyT">Cátedra CONACyT</option>
@@ -67,10 +66,10 @@
           <option value="Investigador Titular D">Investigador Titular D</option>
         </select>
 
-        <label for="">Nivel SNI:</label>
+        <label for="">Nivel SNI*:</label>
         <select disabled class="form-control mb-2" name="nivel_sni" id="nivel_sni">
-          <option selected value="{{perfil.nivelSni}}">{% if perfil.nivelSni %}{{perfil.nivelSni}}{% else %}Sin
-            Nombramiento{% endif %}</option>
+          <option selected value="{{perfil.nivelSni}}">{{perfil.nivelSni}}</option>
+          <option value="No aplica">No aplica</option>
           <option value="Candidato">Candidato</option>
           <option value="Nivel 1">Nivel 1</option>
           <option value="Nivel 2">Nivel 2</option>
@@ -83,9 +82,11 @@
           placeholder="Ingrese su ORCID en formato 0000-1111-2222-3333"
           value="{% if perfil.orcId %}{{perfil.orcId}}{% endif %}" name="orc_id" id="orc_id">
 
+        <!--
         <label for="">ArXiv ID</label>
         <input disabled type="text" class="form-control mb-2" placeholder="Escriba su ArXiv ID"
           value="{% if perfil.arxivId %}{{perfil.arxivId}}{% endif %}" name="arxiv_id" id="arxiv_id">
+        -->
 
         <div class="input-group justify-content-end mt-3">
 
@@ -138,7 +139,7 @@
     document.getElementById("categoria").disabled = true;
     document.getElementById("nivel_sni").disabled = true;
     document.getElementById("orc_id").disabled = true;
-    document.getElementById("arxiv_id").disabled = true;
+    //document.getElementById("arxiv_id").disabled = true;
     document.getElementById("infoAcademica-btn").disabled = true;
     document.getElementById("editarInfoAcademica").disabled = false;
   })
@@ -147,7 +148,7 @@
     document.getElementById("categoria").disabled = false;
     document.getElementById("nivel_sni").disabled = false;
     document.getElementById("orc_id").disabled = false;
-    document.getElementById("arxiv_id").disabled = false;
+    //document.getElementById("arxiv_id").disabled = false;
     document.getElementById("infoAcademica-btn").disabled = false;
     this.disabled = true;
   });
@@ -156,7 +157,7 @@
     document.getElementById("categoria").disabled = true;
     document.getElementById("nivel_sni").disabled = true;
     document.getElementById("orc_id").disabled = true;
-    document.getElementById("arxiv_id").disabled = true;
+    //document.getElementById("arxiv_id").disabled = true;
     document.getElementById("editarInfoAcademica").disabled = false;
     this.disabled = true;
   });

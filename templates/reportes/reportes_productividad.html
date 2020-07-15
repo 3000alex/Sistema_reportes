@@ -317,7 +317,7 @@
         }
         return cookieValue;
     }
-    
+
     var notificacion = {
         eliminar: function (eliminar) {
             Swal.fire({
@@ -340,7 +340,7 @@
                         timerProgressBar: true,
                         timer: 2000
                     });
-                    
+
                 }
             });
         },
@@ -353,7 +353,7 @@
                 timerProgressBar: true,
                 timer: 2000
             });
-            
+
         },
         fecha: function (id) {
             var formData = new FormData(document.getElementById("biblioteca" + id))
@@ -394,7 +394,7 @@
                 timerProgressBar: true,
                 timer: 2000
             });
-            
+
         },
         periodo: function (periodo) {
             Swal.fire({
@@ -405,13 +405,13 @@
                 timerProgressBar: true,
                 timer: 2000
             });
-            
+
         },
         finalizarR: function (periodo) {
             Swal.fire({
                 title: 'Finalizar Reporte',
                 html: '¿Está seguro(a) de finalizar su reporte correspondiente al periodo ' + periodo + ' ?' + '<br> Verificar todos los numerales con Vista Previa y actualizar sus citas.'
-                + '<br><i style="font-size:100px" class="fas fa-envelope text-muted"></i>',
+                    + '<br><i style="font-size:100px" class="fas fa-envelope text-muted"></i>',
                 showCancelButton: true,
                 allowOutsideClick: false,
                 cancelButtonColor: '#d33',
@@ -440,23 +440,33 @@
 
                     })
                         .done(function (response) {
-                            if (response.actualizado) {
+                            if (!response.perfil) {
                                 Swal.fire({
-                                    title: 'Reporte Finalizado',
-                                    html: `<small><p>El reporte <strong>${response.periodo}</strong></p> <p>fue actualizado y enviado a la Coordinación.</p>
+                                    title: 'Perfil incompleto',
+                                    icon: 'error',
+                                    html: `Faltan datos en su perfil, por favor editalo y vuelva a intentarlo`,
+                                    allowOutsideClick: false,
+                                });
+                            } else {
+                                if (response.actualizado) {
+                                    Swal.fire({
+                                        title: 'Reporte Finalizado',
+                                        html: `<small><p>El reporte <strong>${response.periodo}</strong></p> <p>fue actualizado y enviado a la Coordinación.</p>
                                             <p>En breve recibirá un correo de confirmación.</p></small><i style="font-size:100px" class="fas fa-check-circle text-info"></i>`,
 
-                                    allowOutsideClick: false,
-                                });
-                            }
-                            else {
-                                Swal.fire({
-                                    title: 'Reporte Finalizado',
-                                    html: `<small><p>El reporte <strong>${response.periodo}</strong></p> <p>fue enviado a la Coordinación.</p>
+                                        allowOutsideClick: false,
+                                    });
+                                }
+                                else {
+                                    Swal.fire({
+                                        title: 'Reporte Finalizado',
+                                        html: `<small><p>El reporte <strong>${response.periodo}</strong></p> <p>fue enviado a la Coordinación.</p>
                                     <p>En breve recibirá un correo de confirmación</p></small> <i style="font-size:100px" class="fas fa-check-circle text-success"></i>`,
-                                    allowOutsideClick: false,
-                                });
+                                        allowOutsideClick: false,
+                                    });
+                                }
                             }
+
                         })
                         .fail(function (response) {
                             notificacion.error(response);
@@ -517,7 +527,7 @@
                 text: 'No olvide guardar los datos importados',
             })
         },
-        actualizando: function() {
+        actualizando: function () {
             Swal.fire({
                 title: 'Actualizando entrada',
                 html: 'No salga del sitio, espere unos segundos...',
@@ -532,47 +542,47 @@
 
     }
 
-    $(document).on('change','input[type="file"]',function(){
-	// this.files[0].size recupera el tamaño del archivo
-	// alert(this.files[0].size);
-	
-	var fileName = this.files[0].name;
-	var fileSize = this.files[0].size;
+    $(document).on('change', 'input[type="file"]', function () {
+        // this.files[0].size recupera el tamaño del archivo
+        // alert(this.files[0].size);
 
-	if(fileSize > 20000000){
-        Swal.fire({
+        var fileName = this.files[0].name;
+        var fileSize = this.files[0].size;
+
+        if (fileSize > 20000000) {
+            Swal.fire({
                 title: 'Tamaño de archivo',
                 icon: 'error',
                 text: 'El archivo no debe superar los 20MB',
             })
-		
-		this.value = '';
-		//this.files[0].name = '';
-	}else{
-		// recuperamos la extensión del archivo
-		var ext = fileName.split('.').pop();
-		
-		// Convertimos en minúscula porque 
-		// la extensión del archivo puede estar en mayúscula
-		ext = ext.toLowerCase();
-    
-		// console.log(ext);
-		switch (ext) {
-			case 'jpg':
-			case 'jpeg':
-			case 'png':
-			case 'pdf': break;
-			default:
-            Swal.fire({
-                title: 'Tipo de archivo incorrecto',
-                icon: 'error',
-                text: 'EL archivo debe ser un pdf o imagen',
-            })
-				this.value = ''; // reset del valor
-				//this.files[0].name = '';
-		}
-	}
-});
+
+            this.value = '';
+            //this.files[0].name = '';
+        } else {
+            // recuperamos la extensión del archivo
+            var ext = fileName.split('.').pop();
+
+            // Convertimos en minúscula porque 
+            // la extensión del archivo puede estar en mayúscula
+            ext = ext.toLowerCase();
+
+            // console.log(ext);
+            switch (ext) {
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                case 'pdf': break;
+                default:
+                    Swal.fire({
+                        title: 'Tipo de archivo incorrecto',
+                        icon: 'error',
+                        text: 'EL archivo debe ser un pdf o imagen',
+                    })
+                    this.value = ''; // reset del valor
+                //this.files[0].name = '';
+            }
+        }
+    });
 
 </script>
 {% endblock %}
